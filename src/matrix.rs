@@ -1,7 +1,7 @@
 use std::vec;
 use std::fmt;
 use std::io::Writer;
-use vector::{VectorGet, VectorLen, write_vec};
+use vector::{VectorGet, write_vec};
 
 pub trait MatrixGet
 {
@@ -176,21 +176,21 @@ Transposer<T>
 pub struct RowAccessor<T>
 {
 	base: T,
-	r: uint
+	row: uint
 }
 
 impl<T: MatrixShape>
 RowAccessor<T>
 {
-	pub unsafe fn unsafe_new(base: T, r: uint) -> RowAccessor<T>
+	pub unsafe fn unsafe_new(base: T, row: uint) -> RowAccessor<T>
 	{
-		RowAccessor{ base: base, r: r }
+		RowAccessor{ base: base, row: row }
 	}
 	
-	pub fn new(base: T, r: uint) -> RowAccessor<T>
+	pub fn new(base: T, row: uint) -> RowAccessor<T>
 	{
-		assert!(r < base.nrow());
-		RowAccessor{ base: base, r: r }
+		assert!(row < base.nrow());
+		RowAccessor{ base: base, row: row }
 	}
 }
 
@@ -201,7 +201,7 @@ RowAccessor<T>
 {
 	unsafe fn unsafe_get(&self, idx: uint) -> f32
 	{
-		self.base.unsafe_get(self.r, idx)
+		self.base.unsafe_get(self.row, idx)
 	}
 
 	fn get(&self, idx: uint) -> f32
@@ -209,14 +209,13 @@ RowAccessor<T>
 		assert!(idx < self.base.ncol());
 		unsafe
 		{
-			self.base.unsafe_get(self.r, idx)
+			self.base.unsafe_get(self.row, idx)
 		}
 	}
 }
 
-impl<'l,
-     T: MatrixShape>
-VectorLen for
+impl<T: MatrixShape>
+Container for
 RowAccessor<T>
 {
 	fn len(&self) -> uint
@@ -232,6 +231,16 @@ RowAccessor<T>
 	fn fmt(v: &RowAccessor<T>, buf: &mut fmt::Formatter)
 	{
 		write_vec(buf.buf, v);
+	}
+}
+
+impl<T: Clone>
+Clone for
+RowAccessor<T>
+{
+	fn clone(&self) -> RowAccessor<T>
+	{
+		RowAccessor{ base: self.base.clone(), row: self.row }
 	}
 }
 
@@ -280,3 +289,13 @@ Transposer<T>
 		write_mat(buf.buf, v);
 	}
 } 
+
+impl<T: Clone>
+Clone for
+Transposer<T>
+{
+	fn clone(&self) -> Transposer<T>
+	{
+		Transposer{ base: self.base.clone() }
+	}
+}

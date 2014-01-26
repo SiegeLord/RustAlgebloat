@@ -1,7 +1,9 @@
 use std::ops::{Add, Sub, Mul};
-use std::vec;
 use std::fmt;
 use std::io::Writer;
+use std::cell::Cell;
+
+use matrix::{RowAccessor, MatrixShape, MatrixGet};
 
 pub trait VectorGet
 {
@@ -11,13 +13,13 @@ pub trait VectorGet
 
 pub trait VectorSet
 {
-	unsafe fn unsafe_set(&mut self, idx: uint, val: f32);
-	fn set(&mut self, idx: uint, val: f32);
+	unsafe fn unsafe_set(&self, idx: uint, val: f32);
+	fn set(&self, idx: uint, val: f32);
 }
 
-pub trait VectorLen
+pub trait VectorAssign<T>
 {
-	fn len(&self) -> uint;
+	fn assign(&self, v: T);
 }
 
 pub trait VectorSlice
@@ -26,16 +28,59 @@ pub trait VectorSlice
 	fn slice(self, start: uint, end: uint) -> Slice<Self>;
 }
 
+pub trait VectorIter
+{
+	fn iter(self) -> VectorIterator<Self>;
+}
+
+impl<LHS: VectorSet + Container,
+     RHS: VectorGet + Container>
+VectorAssign<RHS> for
+LHS
+{
+	fn assign(&self, v: RHS)
+	{
+		assert!(self.len() == v.len());
+		for i in range(0, v.len())
+		{
+			unsafe
+			{
+				self.unsafe_set(i, v.unsafe_get(i));
+			}
+		}
+	}
+}
+
+impl<T: VectorGet + Container>
+VectorIter for
+T
+{
+	fn iter(self) -> VectorIterator<T>
+	{
+		VectorIterator::new(self)
+	}
+}
+
 pub struct Vector
 {
-	priv data: ~[f32]
+	priv data: ~[Cell<f32>]
 }
 
 impl Vector
 {
 	pub fn new(data: &[f32]) -> Vector
 	{
-		Vector{ data: data.to_owned() }
+		Vector{ data: data.map(|&v| Cell::new(v)) }
+	}
+}
+
+impl
+FromIterator<f32> for
+Vector
+{
+	fn from_iterator<T: Iterator<f32>>(it: &mut T) -> Vector
+	{
+		Vector{ data: it.by_ref().map(|v| Cell::new(v)).collect() }
 	}
 }
 
@@ -57,54 +102,37 @@ VectorSlice for
 }
 
 impl<'l>
-VectorSlice for
-&'l mut Vector
-{
-	unsafe fn unsafe_slice(self, start: uint, end: uint) -> Slice<&'l mut Vector>
-	{
-		Slice{ base: self, start: start, end: end }
-	}
-	
-	fn slice(self, start: uint, end: uint) -> Slice<&'l mut Vector>
-	{
-		assert!(start <= end);
-		assert!(end <= self.data.len());
-		Slice{ base: self, start: start, end: end }
-	}
-}
-
-impl<'l>
 VectorGet for
 &'l Vector
 {
 	unsafe fn unsafe_get(&self, idx: uint) -> f32
 	{
-		*self.data.unsafe_ref(idx)
+		(*self.data.unsafe_ref(idx)).get()
 	}
 	
 	fn get(&self, idx: uint) -> f32
 	{
-		self.data[idx]
+		self.data[idx].get()
 	}
 }
 
 impl<'l>
 VectorSet for
-&'l mut Vector
+&'l Vector
 {
-	unsafe fn unsafe_set(&mut self, idx: uint, val: f32)
+	unsafe fn unsafe_set(&self, idx: uint, val: f32)
 	{
-		self.data.unsafe_set(idx, val);
+		self.data.unsafe_ref(idx).set(val);
 	}
 
-	fn set(&mut self, idx: uint, val: f32)
+	fn set(&self, idx: uint, val: f32)
 	{
-		self.data[idx] = val;
+		self.data[idx].set(val);
 	}
 }
 
 impl<'l>
-VectorLen for
+Container for
 &'l Vector
 {
 	fn len(&self) -> uint
@@ -119,12 +147,12 @@ Vector
 {
 	unsafe fn unsafe_get(&self, idx: uint) -> f32
 	{
-		*self.data.unsafe_ref(idx)
+		(*self.data.unsafe_ref(idx)).get()
 	}
 	
 	fn get(&self, idx: uint) -> f32
 	{
-		self.data[idx]
+		self.data[idx].get()
 	}
 }
 
@@ -132,19 +160,19 @@ impl<'l>
 VectorSet for
 Vector
 {
-	unsafe fn unsafe_set(&mut self, idx: uint, val: f32)
+	unsafe fn unsafe_set(&self, idx: uint, val: f32)
 	{
-		self.data.unsafe_set(idx, val);
+		self.data.unsafe_ref(idx).set(val);
 	}
 
-	fn set(&mut self, idx: uint, val: f32)
+	fn set(&self, idx: uint, val: f32)
 	{
-		self.data[idx] = val;
+		self.data[idx].set(val);
 	}
 }
 
 impl<'l>
-VectorLen for
+Container for
 Vector
 {
 	fn len(&self) -> uint
@@ -163,11 +191,48 @@ Vector
 	}
 }
 
+pub struct VectorIterator<T>
+{
+	priv base: T,
+	priv idx: uint
+}
+
+impl<T: VectorGet + Container>
+VectorIterator<T>
+{
+	fn new(base: T) -> VectorIterator<T>
+	{
+		VectorIterator{ base: base, idx: 0 }
+	}
+}
+
+impl<T: VectorGet + Container>
+Iterator<f32> for
+VectorIterator<T>
+{
+	fn next(&mut self) -> Option<f32>
+	{
+		let ret = if self.idx < self.base.len()
+		{
+			unsafe
+			{
+				Some(self.base.unsafe_get(self.idx))
+			}
+		}
+		else
+		{
+			None
+		};
+		self.idx += 1;
+		ret
+	}
+}
+
 pub struct Slice<T>
 {
-	base: T,
-	start: uint,
-	end: uint
+	priv base: T,
+	priv start: uint,
+	priv end: uint
 }
 
 impl<T: Clone>
@@ -203,12 +268,12 @@ impl<T: VectorSet>
 VectorSet for
 Slice<T>
 {
-	unsafe fn unsafe_set(&mut self, idx: uint, val: f32)
+	unsafe fn unsafe_set(&self, idx: uint, val: f32)
 	{
 		self.base.unsafe_set(idx + self.start, val);
 	}
 	
-	fn set(&mut self, idx: uint, val: f32)
+	fn set(&self, idx: uint, val: f32)
 	{
 		assert!(idx < self.len());
 		unsafe
@@ -236,7 +301,7 @@ Slice<T>
 }
 
 impl<T>
-VectorLen for
+Container for
 Slice<T>
 {
 	fn len(&self) -> uint
@@ -270,8 +335,8 @@ macro_rules! bin_op
 			b: TB,
 		}
 		
-		impl<TA: VectorLen,
-		     TB: VectorLen>
+		impl<TA: Container,
+		     TB: Container>
 		$op_struct_name<TA, TB>
 		{
 			pub unsafe fn unsafe_new(a: TA, b: TB) -> $op_struct_name<TA, TB>
@@ -287,8 +352,8 @@ macro_rules! bin_op
 		}
 		
 		impl<'l,
-		     TA: Clone + VectorLen,
-		     TB: Clone + VectorLen>
+		     TA: Clone + Container,
+		     TB: Clone + Container>
 		VectorSlice for
 		$op_struct_name<TA, TB>
 		{
@@ -317,8 +382,8 @@ macro_rules! bin_op
 		}
 	
 		impl<'l,
-		     TA: VectorGet + VectorLen,
-		     TB: VectorGet + VectorLen>
+		     TA: VectorGet + Container,
+		     TB: VectorGet + Container>
 		VectorGet for
 		$op_struct_name<TA, TB>
 		{
@@ -338,9 +403,9 @@ macro_rules! bin_op
 		}
 	
 		impl<'l,
-		     TA: VectorLen,
-		     TB: VectorLen>
-		VectorLen for $op_struct_name<TA, TB>
+		     TA: Container,
+		     TB: Container>
+		Container for $op_struct_name<TA, TB>
 		{
 			fn len(&self) -> uint
 			{
@@ -349,7 +414,7 @@ macro_rules! bin_op
 		}
 		
 		impl<'l,
-		     RHS: VectorGet + Clone + VectorLen>
+		     RHS: VectorGet + Clone + Container>
 		$op_name<RHS, $op_struct_name<&'l Vector, RHS>> for
 		&'l Vector
 		{
@@ -359,7 +424,7 @@ macro_rules! bin_op
 			}
 		}
 
-		impl<RHS: VectorGet + Clone + VectorLen,
+		impl<RHS: VectorGet + Clone + Container,
 		     T:   Clone>
 		$op_name<RHS, $op_struct_name<Slice<T>, RHS>> for
 		Slice<T>
@@ -369,9 +434,20 @@ macro_rules! bin_op
 				$op_struct_name::new(self.clone(), rhs.clone())
 			}
 		}
+
+		impl<RHS: VectorGet + Clone + Container,
+		     T:   MatrixShape + Clone>
+		$op_name<RHS, $op_struct_name<RowAccessor<T>, RHS>> for
+		RowAccessor<T>
+		{
+			fn $op_method(&self, rhs: &RHS) -> $op_struct_name<RowAccessor<T>, RHS>
+			{
+				$op_struct_name::new(self.clone(), rhs.clone())
+			}
+		}
 		
-		impl<TA: VectorGet + VectorLen,
-		     TB: VectorGet + VectorLen>
+		impl<TA: VectorGet + Container,
+		     TB: VectorGet + Container>
 		fmt::Default for
 		$op_struct_name<TA, TB>
 		{
@@ -389,9 +465,9 @@ macro_rules! connect_op
 	($op_struct_lhs: ident : $($op_name: ident, $op_method: ident, $op_struct_name: ident);+) =>
 	{
 		$(
-			impl<RHS: VectorGet + Clone + VectorLen,
-				 TA:  VectorGet + Clone + VectorLen,
-				 TB:  VectorGet + Clone + VectorLen>
+			impl<RHS: VectorGet + Clone + Container,
+				 TA:  VectorGet + Clone + Container,
+				 TB:  VectorGet + Clone + Container>
 			$op_name<RHS, $op_struct_name<$op_struct_lhs<TA, TB>, RHS>> for
 			$op_struct_lhs<TA, TB>
 			{
@@ -428,17 +504,12 @@ connect_ops!(Adder,
              Multiplier,
              Divider)
 
-pub fn to_vec<T: VectorGet + VectorLen>(a: T) -> Vector
+pub fn to_vec<T: VectorIter + VectorGet + Container>(a: T) -> Vector
 {
-	let mut ret = Vector{ data: vec::with_capacity(a.len()) };
-	for i in range(0, a.len())
-	{
-		ret.data.push(a.get(i))
-	}
-	ret
+	Vector{ data: a.iter().map(|v| Cell::new(v)).collect() }
 }
 
-pub fn write_vec<T: VectorGet + VectorLen>(w: &mut Writer, a: &T)
+pub fn write_vec<T: VectorGet + Container>(w: &mut Writer, a: &T)
 {
 	let mut first = true;
 	write!(w, "[");
@@ -457,50 +528,126 @@ pub fn write_vec<T: VectorGet + VectorLen>(w: &mut Writer, a: &T)
 	write!(w, "]");
 }
 
-#[test]
-fn vec_ops()
+#[cfg(test)]
+mod test
 {
-	let a = Vector::new([1.0, 2.0, 3.0]);
-	let b = Vector::new([2.0, 2.0, 2.0]);
+	extern mod extra;
 	
-	let c = &a * &b + &b;
-	assert_eq!(c.get(0), 4.0);
-	
-	let c = (&b - &a) / &b;
-	assert_eq!(c.get(0), 0.5);
-}
+	use super::*;
+	use self::extra::test::BenchHarness;
+	use std::rand::{weak_rng, Rng};
 
-#[test]
-fn vec_mut()
-{
-	let mut a = Vector::new([1.0, 2.0, 3.0]);
-	a.set(0, 2.0);
-	assert_eq!(a.get(0), 2.0);
-}
+	#[bench]
+	fn vec_speed_vec(bh: &mut BenchHarness) {
+		let mut rng = weak_rng();
+		
+		let a = Vector::new(rng.gen_vec(10));
 
-#[test]
-fn vec_slice()
-{
-	let a = Vector::new([1.0, 2.0, 3.0]);
-	let b = Vector::new([2.0, 2.0, 2.0]);
-	
-	let a1 = a.slice(1, 3);
-	let b1 = b.slice(0, 2);
-	
-	let c = a1 + b1;
-	assert_eq!(c.get(0), 4.0);
-	
-	let c = a1.slice(1, 2);
-	assert_eq!(c.get(0), 3.0);
-}
-
-#[test]
-fn vec_mut_slice()
-{
-	let mut a = Vector::new([1.0, 2.0, 3.0]);
-	{
-		let mut c = (&mut a).slice(1, 3);
-		c.set(0, 10.0);
+		bh.iter(|| {
+			for _ in range(0, 100)
+			{
+				a.assign((&a + &a * &a) / &a);
+			}
+			
+			let mut sum = 0f32;
+			for v in (&a).iter()
+			{
+				sum += v;
+			}
+			assert!(sum != 96.0);
+		})
 	}
-	assert_eq!(a.get(1), 10.0);
+
+	#[bench]
+	fn vec_speed_loop(bh: &mut BenchHarness) {
+		let mut rng = weak_rng();
+		
+		let a = Vector::new(rng.gen_vec(10));
+
+		bh.iter(|| {
+			for _ in range(0, 100)
+			{
+				for i in range(0, a.len())
+				{
+					unsafe
+					{
+						let v = a.unsafe_get(i);
+						a.unsafe_set(i, (v + v * v) / v)
+					}
+				}
+			}
+			
+			let mut sum = 0f32;
+			for v in (&a).iter()
+			{
+				sum += v;
+			}
+			assert!(sum != 96.0);
+		})
+	}
+	
+	#[test]
+	fn vec_ops()
+	{
+		let a = Vector::new([1.0, 2.0, 3.0]);
+		let b = Vector::new([2.0, 2.0, 2.0]);
+		
+		let c = &a * &b + &b;
+		assert_eq!(c.get(0), 4.0);
+		
+		let c = (&b - &a) / &b;
+		assert_eq!(c.get(0), 0.5);
+	}
+
+	#[test]
+	fn vec_mut()
+	{
+		let a = Vector::new([1.0, 2.0, 3.0]);
+		a.set(0, 2.0);
+		assert_eq!(a.get(0), 2.0);
+		for _ in range(0, 5)
+		{
+			a.assign(&a + &a);
+		}
+		assert_eq!(a.get(2), 96.0);
+	}
+
+	#[test]
+	fn vec_slice()
+	{
+		let a = Vector::new([1.0, 2.0, 3.0]);
+		let b = Vector::new([2.0, 2.0, 2.0]);
+		
+		let a1 = a.slice(1, 3);
+		let b1 = b.slice(0, 2);
+		
+		let c = a1 + b1;
+		assert_eq!(c.get(0), 4.0);
+		
+		let c = a1.slice(1, 2);
+		assert_eq!(c.get(0), 3.0);
+	}
+
+	#[test]
+	fn vec_mut_slice()
+	{
+		let a = Vector::new([1.0, 2.0, 3.0]);
+		let c = a.slice(1, 3);
+		c.set(0, 10.0);
+		assert_eq!(a.get(1), 10.0);
+	}
+
+	#[test]
+	fn vec_iter()
+	{
+		let a: Vector = range(0, 5).map(|v| v as f32).collect();
+		assert_eq!(a.iter().next().unwrap(), 0.0);
+		
+		//~ let mut b: Vector = range(0, 5).map(|v| v as f32).collect();
+		//~ for v in (&mut b).iter()
+		//~ {
+			//~ *v = 1.0;
+		//~ }
+		//~ assert_eq!(b.get(0), 1.0);
+	}
 }
