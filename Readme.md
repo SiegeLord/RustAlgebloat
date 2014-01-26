@@ -6,6 +6,10 @@ Do you love template bloat? Do you think waiting for your program to compile is
 awesome? Do you think complicated error messages are the best thing since 
 sliced bread? If so, this linear algebra library is just for you!
 
+## Documentation
+
+http://www.rust-ci.org/SiegeLord/RustAlgebloat/doc/algebloat/
+
 ## Example
 
 Some basic operations and row access (no allocations except in `Matrix::new`!):
