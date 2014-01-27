@@ -26,8 +26,14 @@ pub trait MatrixTranspose
 
 pub trait MatrixRowAccess
 {
-	unsafe fn unsafe_row(self, r: uint) -> RowAccessor<Self>;
-	fn row(self, r: uint) -> RowAccessor<Self>;
+	unsafe fn unsafe_row(self, row: uint) -> RowAccessor<Self>;
+	fn row(self, row: uint) -> RowAccessor<Self>;
+}
+
+pub trait MatrixColumnAccess
+{
+	unsafe fn unsafe_col(self, col: uint) -> ColumnAccessor<Self>;
+	fn col(self, col: uint) -> ColumnAccessor<Self>;
 }
 
 pub struct Matrix
@@ -102,14 +108,29 @@ impl<'l>
 MatrixRowAccess for
 &'l Matrix
 {
-	unsafe fn unsafe_row(self, r: uint) -> RowAccessor<&'l Matrix>
+	unsafe fn unsafe_row(self, row: uint) -> RowAccessor<&'l Matrix>
 	{
-		RowAccessor::unsafe_new(self, r)
+		RowAccessor::unsafe_new(self, row)
 	}
 	
-	fn row(self, r: uint) -> RowAccessor<&'l Matrix>
+	fn row(self, row: uint) -> RowAccessor<&'l Matrix>
 	{
-		RowAccessor::new(self, r)
+		RowAccessor::new(self, row)
+	}
+}
+
+impl<'l>
+MatrixColumnAccess for
+&'l Matrix
+{
+	unsafe fn unsafe_col(self, col: uint) -> ColumnAccessor<&'l Matrix>
+	{
+		ColumnAccessor::unsafe_new(self, col)
+	}
+	
+	fn col(self, col: uint) -> ColumnAccessor<&'l Matrix>
+	{
+		ColumnAccessor::new(self, col)
 	}
 }
 
@@ -248,6 +269,77 @@ RowAccessor<T>
 	}
 }
 
+pub struct ColumnAccessor<T>
+{
+	base: T,
+	col: uint
+}
+
+impl<T: MatrixShape>
+ColumnAccessor<T>
+{
+	pub unsafe fn unsafe_new(base: T, col: uint) -> ColumnAccessor<T>
+	{
+		ColumnAccessor{ base: base, col: col }
+	}
+	
+	pub fn new(base: T, col: uint) -> ColumnAccessor<T>
+	{
+		assert!(col < base.ncol());
+		ColumnAccessor{ base: base, col: col }
+	}
+}
+
+impl<'l,
+     T: MatrixGet + MatrixShape>
+VectorGet for
+ColumnAccessor<T>
+{
+	unsafe fn unsafe_get(&self, idx: uint) -> f32
+	{
+		self.base.unsafe_get(idx, self.col)
+	}
+
+	fn get(&self, idx: uint) -> f32
+	{
+		assert!(idx < self.base.ncol());
+		unsafe
+		{
+			self.base.unsafe_get(idx, self.col)
+		}
+	}
+}
+
+impl<T: MatrixShape>
+Container for
+ColumnAccessor<T>
+{
+	fn len(&self) -> uint
+	{
+		self.base.nrow()
+	}
+}
+
+impl<T: MatrixShape + MatrixGet>
+fmt::Default for
+ColumnAccessor<T>
+{
+	fn fmt(v: &ColumnAccessor<T>, buf: &mut fmt::Formatter)
+	{
+		write_vec(buf.buf, v);
+	}
+}
+
+impl<T: Clone>
+Clone for
+ColumnAccessor<T>
+{
+	fn clone(&self) -> ColumnAccessor<T>
+	{
+		ColumnAccessor{ base: self.base.clone(), col: self.col }
+	}
+}
+
 pub fn write_mat<T: MatrixGet + MatrixShape>(w: &mut Writer, a: &T)
 {
 	for r in range(0, a.nrow())
@@ -301,5 +393,27 @@ Transposer<T>
 	fn clone(&self) -> Transposer<T>
 	{
 		Transposer{ base: self.base.clone() }
+	}
+}
+
+#[cfg(test)]
+mod test
+{
+	extern mod extra;
+	
+	use vector::{VectorGet};
+	
+	use super::*;
+	//~ use self::extra::test::BenchHarness;
+	//~ use std::rand::{weak_rng, Rng};
+
+	#[test]
+	fn rows_and_cols()
+	{
+		let m = Matrix::new([&[1.0, 2.0, 3.0],
+						     &[4.0, 5.0, 6.0],
+	                         &[7.0, 8.0, 9.0]]);
+		let v = m.row(0) + m.col(0);
+		assert_eq!(v.get(1), 6.0);
 	}
 }

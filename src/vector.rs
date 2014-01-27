@@ -7,7 +7,7 @@ use std::fmt;
 use std::io::Writer;
 use std::cell::Cell;
 
-use matrix::{RowAccessor, MatrixShape, MatrixGet};
+use matrix::{RowAccessor, ColumnAccessor, MatrixShape, MatrixGet};
 
 pub trait VectorGet
 {
@@ -445,6 +445,17 @@ macro_rules! bin_op
 		RowAccessor<T>
 		{
 			fn $op_method(&self, rhs: &RHS) -> $op_struct_name<RowAccessor<T>, RHS>
+			{
+				$op_struct_name::new(self.clone(), rhs.clone())
+			}
+		}
+
+		impl<RHS: VectorGet + Clone + Container,
+		     T:   MatrixShape + Clone>
+		$op_name<RHS, $op_struct_name<ColumnAccessor<T>, RHS>> for
+		ColumnAccessor<T>
+		{
+			fn $op_method(&self, rhs: &RHS) -> $op_struct_name<ColumnAccessor<T>, RHS>
 			{
 				$op_struct_name::new(self.clone(), rhs.clone())
 			}
