@@ -32,9 +32,9 @@ pub trait VectorSlice
 	fn slice(self, start: uint, end: uint) -> Slice<Self>;
 }
 
-pub trait VectorIter
+pub trait VectorElems
 {
-	fn iter(self) -> VectorIterator<Self>;
+	fn elems(self) -> VectorElements<Self>;
 }
 
 impl<LHS: VectorSet + Container,
@@ -56,12 +56,12 @@ LHS
 }
 
 impl<T: VectorGet + Container>
-VectorIter for
+VectorElems for
 T
 {
-	fn iter(self) -> VectorIterator<T>
+	fn elems(self) -> VectorElements<T>
 	{
-		VectorIterator::new(self)
+		VectorElements::new(self)
 	}
 }
 
@@ -195,24 +195,24 @@ Vector
 	}
 }
 
-pub struct VectorIterator<T>
+pub struct VectorElements<T>
 {
 	priv base: T,
 	priv idx: uint
 }
 
 impl<T: VectorGet + Container>
-VectorIterator<T>
+VectorElements<T>
 {
-	fn new(base: T) -> VectorIterator<T>
+	fn new(base: T) -> VectorElements<T>
 	{
-		VectorIterator{ base: base, idx: 0 }
+		VectorElements{ base: base, idx: 0 }
 	}
 }
 
 impl<T: VectorGet + Container>
 Iterator<f32> for
-VectorIterator<T>
+VectorElements<T>
 {
 	fn next(&mut self) -> Option<f32>
 	{
@@ -519,9 +519,9 @@ connect_ops!(Adder,
              Multiplier,
              Divider)
 
-pub fn to_vec<T: VectorIter + VectorGet + Container>(a: T) -> Vector
+pub fn to_vec<T: VectorElems + VectorGet + Container>(a: T) -> Vector
 {
-	Vector{ data: a.iter().map(|v| Cell::new(v)).collect() }
+	Vector{ data: a.elems().map(|v| Cell::new(v)).collect() }
 }
 
 pub fn write_vec<T: VectorGet + Container>(w: &mut Writer, a: &T)
@@ -565,7 +565,7 @@ mod test
 			}
 			
 			let mut sum = 0f32;
-			for v in (&a).iter()
+			for v in (&a).elems()
 			{
 				sum += v;
 			}
@@ -593,7 +593,7 @@ mod test
 			}
 			
 			let mut sum = 0f32;
-			for v in (&a).iter()
+			for v in (&a).elems()
 			{
 				sum += v;
 			}
@@ -656,7 +656,7 @@ mod test
 	fn vec_iter()
 	{
 		let a: Vector = range(0, 5).map(|v| v as f32).collect();
-		assert_eq!(a.iter().next().unwrap(), 0.0);
+		assert_eq!(a.elems().next().unwrap(), 0.0);
 		
 		//~ let mut b: Vector = range(0, 5).map(|v| v as f32).collect();
 		//~ for v in (&mut b).iter()
