@@ -109,14 +109,12 @@ VectorSlice for
 {
 	unsafe fn unsafe_slice(self, start: uint, end: uint) -> Slice<&'l Vector>
 	{
-		Slice{ base: self, start: start, end: end }
+		Slice::unsafe_new(self, start, end)
 	}
 	
 	fn slice(self, start: uint, end: uint) -> Slice<&'l Vector>
 	{
-		assert!(start < end);
-		assert!(end <= self.data.len());
-		Slice{ base: self, start: start, end: end }
+		Slice::new(self, start, end)
 	}
 }
 
@@ -254,6 +252,22 @@ pub struct Slice<T>
 	priv end: uint
 }
 
+impl<T: Container>
+Slice<T>
+{
+	unsafe fn unsafe_new(base: T, start: uint, end: uint) -> Slice<T>
+	{
+		Slice{ base: base, start: start, end: end }
+	}
+
+	fn new(base: T, start: uint, end: uint) -> Slice<T>
+	{
+		assert!(start <= end);
+		assert!(end <= base.len());
+		Slice{ base: base, start: start, end: end }
+	}
+}
+
 impl<T: Clone>
 Clone for
 Slice<T>
@@ -378,14 +392,12 @@ macro_rules! bin_op
 		{
 			unsafe fn unsafe_slice(self, start: uint, end: uint) -> Slice<$op_struct_name<TA, TB>>
 			{
-				Slice{ base: self, start: start, end: end }
+				Slice::unsafe_new(self, start, end)
 			}
 	
 			fn slice(self, start: uint, end: uint) -> Slice<$op_struct_name<TA, TB>>
 			{
-				assert!(start <= end);
-				assert!(end <= self.len());
-				Slice{ base: self, start: start, end: end }
+				Slice::new(self, start, end)
 			}
 		}
 	
