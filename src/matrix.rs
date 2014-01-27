@@ -89,12 +89,12 @@ impl<'l>
 MatrixShape for
 &'l Matrix
 {
-	fn ncol(&self) -> uint
+	fn nrow(&self) -> uint
 	{
 		self.nrow
 	}
 
-	fn nrow(&self) -> uint
+	fn ncol(&self) -> uint
 	{
 		self.ncol
 	}
@@ -106,11 +106,13 @@ Matrix
 {
 	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f32
 	{
-		self.unsafe_get(r, c)
+		*self.data.unsafe_ref(c + r * self.ncol)
 	}
 
 	fn get(&self, r: uint, c: uint) -> f32
 	{
+		assert!(r < self.nrow());
+		assert!(c < self.ncol());
 		unsafe
 		{
 			self.unsafe_get(r, c)
@@ -122,12 +124,12 @@ impl
 MatrixShape for
 Matrix
 {
-	fn ncol(&self) -> uint
+	fn nrow(&self) -> uint
 	{
 		self.nrow
 	}
 
-	fn nrow(&self) -> uint
+	fn ncol(&self) -> uint
 	{
 		self.ncol
 	}
@@ -609,6 +611,19 @@ mod test
 	use super::*;
 	//~ use self::extra::test::BenchHarness;
 	//~ use std::rand::{weak_rng, Rng};
+
+	#[test]
+	fn trans()
+	{
+		let m = Matrix::new([&[1.0, 2.0, 3.0],
+						     &[4.0, 5.0, 6.0]]);
+		assert_eq!(m.nrow(), 2);
+		assert_eq!(m.ncol(), 3);
+		let t = m.t();
+		assert_eq!(t.nrow(), 3);
+		assert_eq!(t.ncol(), 2);
+		assert_eq!(m.get(1, 2), t.get(2, 1));
+	}
 
 	#[test]
 	fn rows_and_cols()
