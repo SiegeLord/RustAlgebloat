@@ -9,13 +9,13 @@ fn main()
 	a.set(0, 10.0);
 	let b = Vector::new([1.0, 2.0, 3.0]);
 	
-	let d = to_vec((&a + &b - &b).slice(1, 3).slice(0, 1));
+	let d = (&a + &b - &b).slice(1, 3).slice(0, 1).to_vec();
 	let sa = a.slice(1, 3);
 	sa.set(0, 10.0);
 	let sb1 = b.slice(1, 3);
 	let sb2 = b.slice(2, 3);
 	
-	let e = to_vec((&a).slice(1, 3) + (&b).slice(1, 3));
+	let e = ((&a).slice(1, 3) + (&b).slice(1, 3)).to_vec();
 	println!("Vectors");
 	println!("{}", a);
 	println!("{}", sb1);

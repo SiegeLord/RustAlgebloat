@@ -37,6 +37,11 @@ pub trait VectorElems
 	fn elems(self) -> VectorElements<Self>;
 }
 
+pub trait ToVector
+{
+	fn to_vec(self) -> Vector;
+}
+
 impl<LHS: VectorSet + Container,
      RHS: VectorGet + Container>
 VectorAssign<RHS> for
@@ -62,6 +67,16 @@ T
 	fn elems(self) -> VectorElements<T>
 	{
 		VectorElements::new(self)
+	}
+}
+
+impl<T: VectorElems + VectorGet + Container>
+ToVector for
+T
+{
+	fn to_vec(self) -> Vector
+	{
+		Vector{ data: self.elems().map(|v| Cell::new(v)).collect() }
 	}
 }
 
@@ -519,11 +534,6 @@ connect_ops!(Adder,
              Multiplier,
              Divider)
 
-pub fn to_vec<T: VectorElems + VectorGet + Container>(a: T) -> Vector
-{
-	Vector{ data: a.elems().map(|v| Cell::new(v)).collect() }
-}
-
 pub fn write_vec<T: VectorGet + Container>(w: &mut Writer, a: &T)
 {
 	let mut first = true;
@@ -664,5 +674,15 @@ mod test
 			//~ *v = 1.0;
 		//~ }
 		//~ assert_eq!(b.get(0), 1.0);
+	}
+
+	#[test]
+	fn to_vec()
+	{
+		let a = Vector::new([1.0, 2.0, 3.0]);
+		let b = a.slice(1, a.len()).to_vec();
+		b.set(0, 2.0);
+		assert_eq!(a.get(0), 1.0);
+		assert_eq!(b.get(0), 2.0);
 	}
 }
