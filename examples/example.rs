@@ -1,13 +1,35 @@
 // This file is released into Public Domain.
-#[feature(globs)];
+#[feature(globs, macro_rules)];
 extern mod algebloat;
 use algebloat::*;
 
+macro_rules! vec
+{
+	( $($e: expr),+) =>
+	{
+		Vector::new([$(
+				($e) as f32,
+		)+])
+	}
+}
+
+macro_rules! mat
+{
+	( $($($e: expr),+);+ ) =>
+	{
+		Matrix::new([$(
+			&[$(
+				($e) as f32,
+			)+],
+		)+])
+	}
+}
+
 fn main()
 {
-	let a = Vector::new([1.0, 2.0, 3.0]);
+	let a = vec!(1.0, 2.0, 3.0);
 	a.set(0, 10.0);
-	let b = Vector::new([1.0, 2.0, 3.0]);
+	let b = vec!(1.0, 2.0, 3.0);
 	
 	let d = (&a + &b - &b).slice(1, 3).slice(0, 1).to_vec();
 	let sa = a.slice(1, 3);
@@ -23,9 +45,9 @@ fn main()
 	println!("{}", d);
 	println!("{}", e);
 	
-	let m = Matrix::new([&[1.0, 2.0, 3.0],
-	                     &[4.0, 5.0, 6.0],
-	                     &[7.0, 8.0, 9.0]]);
+	let m = mat!(1.0, 2.0, 3.0;
+	             4.0, 5.0, 6.0;
+	             7.0, 8.0, 9.0);
 	let t1 = m.t();
 	let t2 = t1.t();
 	println!("Matrix");
@@ -36,9 +58,9 @@ fn main()
 	println!("{}", t2);
 	println!("r {}", t2.row(0));
 
-	let m = Matrix::new([&[1.0, 2.0, 3.0],
-	                     &[4.0, 5.0, 6.0],
-	                     &[7.0, 8.0, 9.0]]);
+	let m = mat!(1.0, 2.0, 3.0;
+				 4.0, 5.0, 6.0;
+				 7.0, 8.0, 9.0);
 	println!("m =\n{}", m);
 	let t1 = m.t();
 	println!("t1 =\n{}", t1);
