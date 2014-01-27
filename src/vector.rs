@@ -364,8 +364,8 @@ macro_rules! bin_op
 	{
 		pub struct $op_struct_name<TA, TB>
 		{
-			a: TA,
-			b: TB,
+			priv a: TA,
+			priv b: TB,
 		}
 		
 		impl<TA: Container,
