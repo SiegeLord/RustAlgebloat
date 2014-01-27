@@ -36,6 +36,12 @@ pub trait MatrixColumnAccess
 	fn col(self, col: uint) -> ColumnAccessor<Self>;
 }
 
+pub trait MatrixView
+{
+	unsafe fn unsafe_view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<Self>;
+	fn view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<Self>;
+}
+
 pub struct Matrix
 {
 	priv data: ~[f32],
@@ -94,6 +100,39 @@ MatrixShape for
 	}
 }
 
+impl
+MatrixGet for
+Matrix
+{
+	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f32
+	{
+		self.unsafe_get(r, c)
+	}
+
+	fn get(&self, r: uint, c: uint) -> f32
+	{
+		unsafe
+		{
+			self.unsafe_get(r, c)
+		}
+	}
+}
+
+impl
+MatrixShape for
+Matrix
+{
+	fn ncol(&self) -> uint
+	{
+		self.nrow
+	}
+
+	fn nrow(&self) -> uint
+	{
+		self.ncol
+	}
+}
+
 impl<'l>
 MatrixTranspose for
 &'l Matrix
@@ -134,13 +173,27 @@ MatrixColumnAccess for
 	}
 }
 
+impl<'l>
+MatrixView for
+&'l Matrix
+{
+	unsafe fn unsafe_view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<&'l Matrix>
+	{
+		View::unsafe_new(self, row_start, col_start, row_end, col_end)
+	}
+
+	fn view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<&'l Matrix>
+	{
+		View::new(self, row_start, col_start, row_end, col_end)
+	}
+}
+
 pub struct Transposer<T>
 {
 	base: T
 }
 
-impl<'l,
-     T: MatrixGet>
+impl<T: MatrixGet>
 MatrixGet for
 Transposer<T>
 {
@@ -155,8 +208,7 @@ Transposer<T>
 	}
 }
 
-impl<'l,
-     T: MatrixShape>
+impl<T: MatrixShape>
 MatrixShape for
 Transposer<T>
 {
@@ -171,8 +223,7 @@ Transposer<T>
 	}
 }
 
-impl<'l,
-     T>
+impl<T>
 MatrixTranspose for
 Transposer<T>
 {
@@ -182,8 +233,22 @@ Transposer<T>
 	}
 }
 
-impl<'l,
-     T: MatrixShape>
+impl<T: MatrixShape>
+MatrixColumnAccess for
+Transposer<T>
+{
+	unsafe fn unsafe_col(self, c: uint) -> ColumnAccessor<Transposer<T>>
+	{
+		ColumnAccessor::unsafe_new(self, c)
+	}
+	
+	fn col(self, c: uint) -> ColumnAccessor<Transposer<T>>
+	{
+		ColumnAccessor::new(self, c)
+	}
+}
+
+impl<T: MatrixShape>
 MatrixRowAccess for
 Transposer<T>
 {
@@ -195,6 +260,144 @@ Transposer<T>
 	fn row(self, r: uint) -> RowAccessor<Transposer<T>>
 	{
 		RowAccessor::new(self, r)
+	}
+}
+
+impl<T: MatrixShape>
+MatrixView for
+Transposer<T>
+{
+	unsafe fn unsafe_view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<Transposer<T>>
+	{
+		View::unsafe_new(self, row_start, col_start, row_end, col_end)
+	}
+
+	fn view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<Transposer<T>>
+	{
+		View::new(self, row_start, col_start, row_end, col_end)
+	}
+}
+
+pub struct View<T>
+{
+	priv base: T,
+	priv row_start: uint,
+	priv col_start: uint,
+	priv row_end: uint,
+	priv col_end: uint,
+}
+
+impl<T: MatrixGet>
+MatrixGet for
+View<T>
+{
+	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f32
+	{
+		self.base.unsafe_get(r + self.row_start, c + self.col_start)
+	}
+
+	fn get(&self, r: uint, c: uint) -> f32
+	{
+		assert!(r < self.nrow());
+		assert!(c < self.ncol());
+		self.base.get(r + self.row_start, c + self.col_start)
+	}
+}
+
+impl<T: MatrixShape>
+View<T>
+{
+	unsafe fn unsafe_new(base: T, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<T>
+	{
+		View{ base: base, row_start: row_start, col_start: col_start, row_end: row_end, col_end: col_end }
+	}
+
+	fn new(base: T, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<T>
+	{
+		assert!(row_start <= row_end);
+		assert!(col_start <= col_end);
+		assert!(row_end <= base.nrow());
+		assert!(col_end <= base.ncol());
+		View{ base: base, row_start: row_start, col_start: col_start, row_end: row_end, col_end: col_end }
+	}
+}
+
+impl<T: MatrixShape>
+MatrixView for
+View<T>
+{
+	unsafe fn unsafe_view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<View<T>>
+	{
+		View::unsafe_new(self, row_start, col_start, row_end, col_end)
+	}
+
+	fn view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<View<T>>
+	{
+		View::new(self, row_start, col_start, row_end, col_end)
+	}
+}
+
+impl<T>
+MatrixShape for
+View<T>
+{
+	fn nrow(&self) -> uint
+	{
+		self.row_end - self.row_start
+	}
+	fn ncol(&self) -> uint
+	{
+		self.col_end - self.col_start
+	}
+}
+
+impl<T: Clone>
+Clone for
+View<T>
+{
+	fn clone(&self) -> View<T>
+	{
+		View{ base: self.base.clone(), row_start: self.row_start, col_start: self.col_start, row_end: self.row_end, col_end: self.col_end }
+	}
+}
+
+impl<T: MatrixShape>
+MatrixColumnAccess for
+View<T>
+{
+	unsafe fn unsafe_col(self, c: uint) -> ColumnAccessor<View<T>>
+	{
+		ColumnAccessor::unsafe_new(self, c)
+	}
+	
+	fn col(self, c: uint) -> ColumnAccessor<View<T>>
+	{
+		ColumnAccessor::new(self, c)
+	}
+}
+
+impl<T: MatrixShape>
+MatrixRowAccess for
+View<T>
+{
+	unsafe fn unsafe_row(self, r: uint) -> RowAccessor<View<T>>
+	{
+		RowAccessor::unsafe_new(self, r)
+	}
+	
+	fn row(self, r: uint) -> RowAccessor<View<T>>
+	{
+		RowAccessor::new(self, r)
+	}
+}
+
+impl<T>
+MatrixTranspose for
+View<T>
+{
+	fn t(self) -> Transposer<View<T>>
+	{
+		Transposer{ base: self }
 	}
 }
 
@@ -415,5 +618,19 @@ mod test
 	                         &[7.0, 8.0, 9.0]]);
 		let v = m.row(0) + m.col(0);
 		assert_eq!(v.get(1), 6.0);
+	}
+	
+	#[test]
+	fn views()
+	{
+		let m = Matrix::new([&[1.0, 2.0, 3.0],
+						     &[4.0, 5.0, 6.0],
+	                         &[7.0, 8.0, 9.0]]);
+		let m1 = m.view(0, 0, m.nrow() - 1, m.ncol() - 1);
+		let m2 = m.view(1, 1, m.nrow(), m.ncol());
+		let v1 = m1.row(0) + m2.row(0);
+		let v2 = m1.t().row(0) + m2.t().row(0);
+		assert_eq!(v1.get(1), 8.0);
+		assert_eq!(v2.get(1), 12.0);
 	}
 }
