@@ -15,7 +15,7 @@ fn main()
 	let sb1 = b.slice(1, 3);
 	let sb2 = b.slice(2, 3);
 	
-	let e = ((&a).slice(1, 3) + (&b).slice(1, 3)).to_vec();
+	let e = (a.slice(1, 3) + b.slice(1, 3)).to_vec();
 	println!("Vectors");
 	println!("{}", a);
 	println!("{}", sb1);
