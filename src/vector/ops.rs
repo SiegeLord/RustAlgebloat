@@ -13,195 +13,209 @@ use vector::write_vec;
 use vector::traits::*;
 use vector::slice::Slice;
 
+pub trait Op
+{
+	fn op(&self, a: f32, b: f32) -> f32;
+}
+
+macro_rules! op
+{
+	($name: ident, $op: tt) =>
+	{
+		#[deriving(Clone)]
+		pub struct $name;
+		impl $name
+		{
+			pub fn new() -> $name
+			{
+				$name
+			}
+		}
+		impl Op for $name
+		{
+			fn op(&self, a: f32, b: f32) -> f32
+			{
+				expr!(a $op b)
+			}
+		}
+	}
+}
+
 macro_rules! expr
 {
 	($e: expr) => { $e }
 }
 
+op!(OpAdd, +)
+op!(OpSub, -)
+op!(OpDiv, /)
+op!(OpMul, *)
+
+pub struct VectorVectorBinOp<TA, TB, TO>
+{
+	priv a: TA,
+	priv b: TB,
+	priv o: TO
+}
+
+impl<TA: Container,
+     TB: Container,
+     TO: Op>
+VectorVectorBinOp<TA, TB, TO>
+{
+	pub unsafe fn unsafe_new(a: TA, b: TB, o: TO) -> VectorVectorBinOp<TA, TB, TO>
+	{
+		VectorVectorBinOp{ a: a, b: b, o: o}
+	}
+
+	pub fn new(a: TA, b: TB, o: TO) -> VectorVectorBinOp<TA, TB, TO>
+	{
+		assert!(a.len() == b.len());
+		VectorVectorBinOp{ a: a, b: b, o: o }
+	}
+}
+
+impl<'l,
+     TA: Clone + Container,
+     TB: Clone + Container,
+     TO: Op>
+VectorSlice for
+VectorVectorBinOp<TA, TB, TO>
+{
+	unsafe fn unsafe_slice(self, start: uint, end: uint) -> Slice<VectorVectorBinOp<TA, TB, TO>>
+	{
+		Slice::unsafe_new(self, start, end)
+	}
+
+	fn slice(self, start: uint, end: uint) -> Slice<VectorVectorBinOp<TA, TB, TO>>
+	{
+		Slice::new(self, start, end)
+	}
+}
+
+impl<TA: Clone,
+     TB: Clone,
+     TO: Clone>
+Clone for
+VectorVectorBinOp<TA, TB, TO>
+{
+	fn clone(&self) -> VectorVectorBinOp<TA, TB, TO>
+	{
+		VectorVectorBinOp{ a: self.a.clone(), b: self.b.clone(), o: self.o.clone() }
+	}
+}
+
+impl<'l,
+     TA: VectorGet + Container,
+     TB: VectorGet + Container,
+     TO: Op>
+VectorGet for
+VectorVectorBinOp<TA, TB, TO>
+{
+	unsafe fn unsafe_get(&self, idx: uint) -> f32
+	{
+		self.o.op(self.a.unsafe_get(idx), self.b.unsafe_get(idx))
+	}
+	
+	fn get(&self, idx: uint) -> f32
+	{
+		assert!(idx < self.len());
+		unsafe
+		{
+			self.o.op(self.a.unsafe_get(idx), self.b.unsafe_get(idx))
+		}
+	}
+}
+
+impl<'l,
+	 TA: Container,
+	 TB: Container,
+     TO: Op>
+Container for
+VectorVectorBinOp<TA, TB, TO>
+{
+	fn len(&self) -> uint
+	{
+		self.a.len()
+	}
+}
+
+impl<TA: VectorGet + Container,
+     TB: VectorGet + Container,
+     TO: Op>
+fmt::Default for
+VectorVectorBinOp<TA, TB, TO>
+{
+	fn fmt(v: &VectorVectorBinOp<TA, TB, TO>, buf: &mut fmt::Formatter)
+	{
+		write_vec(buf.buf, v);
+	}
+}
+
 macro_rules! bin_op
 {
-	($op_name: ident, $op_method: ident, $op_struct_name: ident, $op: tt) =>
+	($op_name: ident, $op_method: ident, $op: ident) =>
 	{
-		pub struct $op_struct_name<TA, TB>
+		impl<RHS: VectorGet + Clone + Container,
+             TA: VectorGet + Clone + Container,
+             TB: VectorGet + Clone + Container,
+             TO: Op + Clone>
+		$op_name<RHS, VectorVectorBinOp<VectorVectorBinOp<TA, TB, TO>, RHS, $op>> for
+		VectorVectorBinOp<TA, TB, TO>
 		{
-			priv a: TA,
-			priv b: TB,
-		}
-		
-		impl<TA: Container,
-		     TB: Container>
-		$op_struct_name<TA, TB>
-		{
-			pub unsafe fn unsafe_new(a: TA, b: TB) -> $op_struct_name<TA, TB>
+			fn $op_method(&self, rhs: &RHS) -> VectorVectorBinOp<VectorVectorBinOp<TA, TB, TO>, RHS, $op>
 			{
-				$op_struct_name{ a: a, b: b }
-			}
-	
-			pub fn new(a: TA, b: TB) -> $op_struct_name<TA, TB>
-			{
-				assert!(a.len() == b.len());
-				$op_struct_name{ a: a, b: b }
-			}
-		}
-		
-		impl<'l,
-		     TA: Clone + Container,
-		     TB: Clone + Container>
-		VectorSlice for
-		$op_struct_name<TA, TB>
-		{
-			unsafe fn unsafe_slice(self, start: uint, end: uint) -> Slice<$op_struct_name<TA, TB>>
-			{
-				Slice::unsafe_new(self, start, end)
-			}
-	
-			fn slice(self, start: uint, end: uint) -> Slice<$op_struct_name<TA, TB>>
-			{
-				Slice::new(self, start, end)
-			}
-		}
-	
-		impl<TA: Clone,
-		     TB: Clone>
-		Clone for
-		$op_struct_name<TA, TB>
-		{
-			fn clone(&self) -> $op_struct_name<TA, TB>
-			{
-				$op_struct_name{ a: self.a.clone(), b: self.b.clone() }
-			}
-		}
-	
-		impl<'l,
-		     TA: VectorGet + Container,
-		     TB: VectorGet + Container>
-		VectorGet for
-		$op_struct_name<TA, TB>
-		{
-			unsafe fn unsafe_get(&self, idx: uint) -> f32
-			{
-				expr!(self.a.unsafe_get(idx) $op self.b.unsafe_get(idx))
-			}
-			
-			fn get(&self, idx: uint) -> f32
-			{
-				assert!(idx < self.len());
-				unsafe
-				{
-					expr!(self.a.unsafe_get(idx) $op self.b.unsafe_get(idx))
-				}
-			}
-		}
-	
-		impl<'l,
-		     TA: Container,
-		     TB: Container>
-		Container for $op_struct_name<TA, TB>
-		{
-			fn len(&self) -> uint
-			{
-				self.a.len()
+				VectorVectorBinOp::new(self.clone(), rhs.clone(), $op::new())
 			}
 		}
 		
 		impl<'l,
 		     RHS: VectorGet + Clone + Container>
-		$op_name<RHS, $op_struct_name<&'l Vector, RHS>> for
+		$op_name<RHS, VectorVectorBinOp<&'l Vector, RHS, $op>> for
 		&'l Vector
 		{
-			fn $op_method(&self, rhs: &RHS) -> $op_struct_name<&'l Vector, RHS>
+			fn $op_method(&self, rhs: &RHS) -> VectorVectorBinOp<&'l Vector, RHS, $op>
 			{
-				$op_struct_name::new(self.clone(), rhs.clone())
+				VectorVectorBinOp::new(self.clone(), rhs.clone(), $op::new())
 			}
 		}
 
 		impl<RHS: VectorGet + Clone + Container,
 		     T:   Clone>
-		$op_name<RHS, $op_struct_name<Slice<T>, RHS>> for
+		$op_name<RHS, VectorVectorBinOp<Slice<T>, RHS, $op>> for
 		Slice<T>
 		{
-			fn $op_method(&self, rhs: &RHS) -> $op_struct_name<Slice<T>, RHS>
+			fn $op_method(&self, rhs: &RHS) -> VectorVectorBinOp<Slice<T>, RHS, $op>
 			{
-				$op_struct_name::new(self.clone(), rhs.clone())
+				VectorVectorBinOp::new(self.clone(), rhs.clone(), $op::new())
 			}
 		}
 
 		impl<RHS: VectorGet + Clone + Container,
 		     T:   MatrixShape + Clone>
-		$op_name<RHS, $op_struct_name<RowAccessor<T>, RHS>> for
+		$op_name<RHS, VectorVectorBinOp<RowAccessor<T>, RHS, $op>> for
 		RowAccessor<T>
 		{
-			fn $op_method(&self, rhs: &RHS) -> $op_struct_name<RowAccessor<T>, RHS>
+			fn $op_method(&self, rhs: &RHS) -> VectorVectorBinOp<RowAccessor<T>, RHS, $op>
 			{
-				$op_struct_name::new(self.clone(), rhs.clone())
+				VectorVectorBinOp::new(self.clone(), rhs.clone(), $op::new())
 			}
 		}
 
 		impl<RHS: VectorGet + Clone + Container,
 		     T:   MatrixShape + Clone>
-		$op_name<RHS, $op_struct_name<ColumnAccessor<T>, RHS>> for
+		$op_name<RHS, VectorVectorBinOp<ColumnAccessor<T>, RHS, $op>> for
 		ColumnAccessor<T>
 		{
-			fn $op_method(&self, rhs: &RHS) -> $op_struct_name<ColumnAccessor<T>, RHS>
+			fn $op_method(&self, rhs: &RHS) -> VectorVectorBinOp<ColumnAccessor<T>, RHS, $op>
 			{
-				$op_struct_name::new(self.clone(), rhs.clone())
+				VectorVectorBinOp::new(self.clone(), rhs.clone(), $op::new())
 			}
 		}
-		
-		impl<TA: VectorGet + Container,
-		     TB: VectorGet + Container>
-		fmt::Default for
-		$op_struct_name<TA, TB>
-		{
-			fn fmt(v: &$op_struct_name<TA, TB>, buf: &mut fmt::Formatter)
-			{
-				write_vec(buf.buf, v);
-			}
-		}
-
 	}
 }
 
-macro_rules! connect_op
-{
-	($op_struct_lhs: ident : $($op_name: ident, $op_method: ident, $op_struct_name: ident);+) =>
-	{
-		$(
-			impl<RHS: VectorGet + Clone + Container,
-				 TA:  VectorGet + Clone + Container,
-				 TB:  VectorGet + Clone + Container>
-			$op_name<RHS, $op_struct_name<$op_struct_lhs<TA, TB>, RHS>> for
-			$op_struct_lhs<TA, TB>
-			{
-				fn $op_method(&self, rhs: &RHS) -> $op_struct_name<$op_struct_lhs<TA, TB>, RHS>
-				{
-					$op_struct_name::new(self.clone(), rhs.clone())
-				}
-			}
-		)+
-	}
-}
-
-macro_rules! connect_ops
-{
-	($($op_struct: ident),+) =>
-	{
-		$(
-			connect_op!($op_struct:
-			          Add, add, Adder;
-			          Sub, sub, Subtracter;
-			          Mul, mul, Multiplier;
-			          Div, div, Divider)
-		)+
-	}
-}
-
-bin_op!(Add, add, Adder, +)
-bin_op!(Sub, sub, Subtracter, -)
-bin_op!(Mul, mul, Multiplier, *)
-bin_op!(Div, div, Divider, /)
-
-connect_ops!(Adder,
-             Subtracter,
-             Multiplier,
-             Divider)
+bin_op!(Add, add, OpAdd)
+bin_op!(Sub, sub, OpSub)
+bin_op!(Mul, mul, OpMul)
+bin_op!(Div, div, OpDiv)

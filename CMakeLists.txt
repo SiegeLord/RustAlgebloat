@@ -11,7 +11,7 @@ set(EXAMPLE_ROOT examples/example.rs)
 set(CUSTOM_CSS_SRC "${CMAKE_SOURCE_DIR}/doc/main.css")
 set(CUSTOM_CSS_DEST "${CMAKE_BINARY_DIR}/doc/algebloat/main.css")
 
-set(RUSTC_FLAGS "-L${CMAKE_BINARY_DIR}/lib")
+set(RUSTC_FLAGS "-L${CMAKE_BINARY_DIR}/lib;-O")
 set(RUSTDOC_FLAGS "-L${CMAKE_BINARY_DIR}/lib")
 
 # Get the dependencies of all the crates
