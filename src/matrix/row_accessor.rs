@@ -1,0 +1,76 @@
+use std::fmt;
+
+use matrix::traits::{MatrixGet, MatrixShape, MatrixRowAccess};
+use vector::traits::VectorGet;
+use vector::write_vec;
+
+pub struct RowAccessor<T>
+{
+	priv base: T,
+	priv row: uint
+}
+
+impl<T: MatrixShape>
+RowAccessor<T>
+{
+	pub unsafe fn unsafe_new(base: T, row: uint) -> RowAccessor<T>
+	{
+		RowAccessor{ base: base, row: row }
+	}
+	
+	pub fn new(base: T, row: uint) -> RowAccessor<T>
+	{
+		assert!(row < base.nrow());
+		RowAccessor{ base: base, row: row }
+	}
+}
+
+impl<'l,
+     T: MatrixGet + MatrixShape>
+VectorGet for
+RowAccessor<T>
+{
+	unsafe fn unsafe_get(&self, idx: uint) -> f32
+	{
+		self.base.unsafe_get(self.row, idx)
+	}
+
+	fn get(&self, idx: uint) -> f32
+	{
+		assert!(idx < self.base.ncol());
+		unsafe
+		{
+			self.base.unsafe_get(self.row, idx)
+		}
+	}
+}
+
+impl<T: MatrixShape>
+Container for
+RowAccessor<T>
+{
+	fn len(&self) -> uint
+	{
+		self.base.ncol()
+	}
+}
+
+impl<T: MatrixShape + MatrixGet>
+fmt::Default for
+RowAccessor<T>
+{
+	fn fmt(v: &RowAccessor<T>, buf: &mut fmt::Formatter)
+	{
+		write_vec(buf.buf, v);
+	}
+}
+
+impl<T: Clone>
+Clone for
+RowAccessor<T>
+{
+	fn clone(&self) -> RowAccessor<T>
+	{
+		RowAccessor{ base: self.base.clone(), row: self.row }
+	}
+}

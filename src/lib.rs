@@ -8,7 +8,10 @@
 #[crate_id="algebloat"];
 
 pub use matrix::*;
+pub use matrix::traits::*;
 pub use vector::*;
+pub use vector::ops::*;
+pub use vector::traits::*;
 
 pub mod matrix;
 pub mod vector;
