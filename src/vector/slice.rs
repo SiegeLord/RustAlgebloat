@@ -5,7 +5,7 @@
 use std::fmt;
 
 use vector::write_vec;
-use vector::traits::{VectorGet, VectorSet, VectorSlice};
+use vector::traits::{VectorGet, VectorSet, VectorSlice, LengthEq};
 
 pub struct Slice<T>
 {
@@ -27,6 +27,16 @@ Slice<T>
 		assert!(start <= end);
 		assert!(end <= base.len());
 		Slice{ base: base, start: start, end: end }
+	}
+}
+
+impl<T>
+LengthEq for
+Slice<T>
+{
+	fn len_eq(&self, other_len: uint) -> bool
+	{
+		other_len == self.len()
 	}
 }
 

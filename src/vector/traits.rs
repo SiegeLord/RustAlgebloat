@@ -41,6 +41,12 @@ pub trait ToVector
 	fn to_vec(self) -> Vector;
 }
 
+/* Hack necessary for operator overloading */
+pub trait LengthEq
+{
+	fn len_eq(&self, other_len: uint) -> bool;
+}
+
 impl<LHS: VectorSet + Container,
      RHS: VectorGet + Container>
 VectorAssign<RHS> for

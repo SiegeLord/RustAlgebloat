@@ -1,7 +1,7 @@
 use std::fmt;
 
 use matrix::traits::{MatrixGet, MatrixShape, MatrixColumnAccess};
-use vector::traits::VectorGet;
+use vector::traits::{VectorGet, LengthEq};
 use vector::write_vec;
 
 pub struct ColumnAccessor<T>
@@ -22,6 +22,16 @@ ColumnAccessor<T>
 	{
 		assert!(col < base.ncol());
 		ColumnAccessor{ base: base, col: col }
+	}
+}
+
+impl<T: MatrixShape>
+LengthEq for
+ColumnAccessor<T>
+{
+	fn len_eq(&self, other_len: uint) -> bool
+	{
+		other_len == self.len()
 	}
 }
 

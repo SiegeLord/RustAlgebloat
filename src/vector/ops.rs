@@ -59,7 +59,7 @@ pub struct VectorVectorBinOp<TA, TB, TO>
 }
 
 impl<TA: Container,
-     TB: Container,
+     TB: LengthEq,
      TO: Op>
 VectorVectorBinOp<TA, TB, TO>
 {
@@ -70,14 +70,13 @@ VectorVectorBinOp<TA, TB, TO>
 
 	pub fn new(a: TA, b: TB, o: TO) -> VectorVectorBinOp<TA, TB, TO>
 	{
-		assert!(a.len() == b.len());
+		assert!(b.len_eq(a.len()));
 		VectorVectorBinOp{ a: a, b: b, o: o }
 	}
 }
 
-impl<'l,
-     TA: Clone + Container,
-     TB: Clone + Container,
+impl<TA: Clone + Container,
+     TB: Clone + LengthEq,
      TO: Op>
 VectorSlice for
 VectorVectorBinOp<TA, TB, TO>
@@ -105,9 +104,8 @@ VectorVectorBinOp<TA, TB, TO>
 	}
 }
 
-impl<'l,
-     TA: VectorGet + Container,
-     TB: VectorGet + Container,
+impl<TA: VectorGet + Container,
+     TB: VectorGet + LengthEq,
      TO: Op>
 VectorGet for
 VectorVectorBinOp<TA, TB, TO>
@@ -127,9 +125,8 @@ VectorVectorBinOp<TA, TB, TO>
 	}
 }
 
-impl<'l,
-	 TA: Container,
-	 TB: Container,
+impl<TA: Container,
+	 TB,
      TO: Op>
 Container for
 VectorVectorBinOp<TA, TB, TO>
@@ -140,8 +137,20 @@ VectorVectorBinOp<TA, TB, TO>
 	}
 }
 
+impl<TA: Container,
+	 TB,
+     TO: Op>
+LengthEq for
+VectorVectorBinOp<TA, TB, TO>
+{
+	fn len_eq(&self, other_len: uint) -> bool
+	{
+		other_len == self.len()
+	}
+}
+
 impl<TA: VectorGet + Container,
-     TB: VectorGet + Container,
+     TB: VectorGet + LengthEq,
      TO: Op>
 fmt::Default for
 VectorVectorBinOp<TA, TB, TO>
@@ -156,9 +165,9 @@ macro_rules! bin_op
 {
 	($op_name: ident, $op_method: ident, $op: ident) =>
 	{
-		impl<RHS: VectorGet + Clone + Container,
+		impl<RHS: VectorGet + Clone + LengthEq,
              TA: VectorGet + Clone + Container,
-             TB: VectorGet + Clone + Container,
+             TB: VectorGet + Clone + LengthEq,
              TO: Op + Clone>
 		$op_name<RHS, VectorVectorBinOp<VectorVectorBinOp<TA, TB, TO>, RHS, $op>> for
 		VectorVectorBinOp<TA, TB, TO>
@@ -170,7 +179,7 @@ macro_rules! bin_op
 		}
 		
 		impl<'l,
-		     RHS: VectorGet + Clone + Container>
+		     RHS: VectorGet + Clone + LengthEq>
 		$op_name<RHS, VectorVectorBinOp<&'l Vector, RHS, $op>> for
 		&'l Vector
 		{
@@ -180,7 +189,7 @@ macro_rules! bin_op
 			}
 		}
 
-		impl<RHS: VectorGet + Clone + Container,
+		impl<RHS: VectorGet + Clone + LengthEq,
 		     T:   Clone>
 		$op_name<RHS, VectorVectorBinOp<Slice<T>, RHS, $op>> for
 		Slice<T>
@@ -191,7 +200,7 @@ macro_rules! bin_op
 			}
 		}
 
-		impl<RHS: VectorGet + Clone + Container,
+		impl<RHS: VectorGet + Clone + LengthEq,
 		     T:   MatrixShape + Clone>
 		$op_name<RHS, VectorVectorBinOp<RowAccessor<T>, RHS, $op>> for
 		RowAccessor<T>
@@ -202,7 +211,7 @@ macro_rules! bin_op
 			}
 		}
 
-		impl<RHS: VectorGet + Clone + Container,
+		impl<RHS: VectorGet + Clone + LengthEq,
 		     T:   MatrixShape + Clone>
 		$op_name<RHS, VectorVectorBinOp<ColumnAccessor<T>, RHS, $op>> for
 		ColumnAccessor<T>

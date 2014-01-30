@@ -6,7 +6,7 @@ use std::fmt;
 use std::io::Writer;
 use std::cell::Cell;
 
-use vector::traits::{VectorGet, VectorSet, VectorSlice};
+use vector::traits::{VectorGet, VectorSet, VectorSlice, LengthEq};
 //~ use vector::ops::;
 use vector::slice::Slice;
 
@@ -14,6 +14,7 @@ pub mod traits;
 pub mod ops;
 pub mod slice;
 pub mod elements;
+pub mod scalar;
 #[cfg(test)]
 mod test;
 
@@ -92,6 +93,16 @@ Container for
 	fn len(&self) -> uint
 	{
 		self.data.len()
+	}
+}
+
+impl<'l>
+LengthEq for
+&'l Vector
+{
+	fn len_eq(&self, other_len: uint) -> bool
+	{
+		other_len == self.len()
 	}
 }
 
