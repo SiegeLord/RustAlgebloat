@@ -13,6 +13,7 @@ pub use vector::*;
 pub use vector::bin_ops::*;
 pub use vector::un_ops::*;
 pub use vector::traits::*;
+pub use vector::maps::*;
 
 pub mod matrix;
 pub mod vector;

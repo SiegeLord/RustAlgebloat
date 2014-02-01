@@ -6,6 +6,7 @@ extern mod extra;
 
 use vector::*;
 use vector::traits::*;
+use vector::maps::*;
 use self::extra::test::BenchHarness;
 use std::rand::{weak_rng, Rng};
 
@@ -151,4 +152,16 @@ fn neg()
 	let c = -(b.slice(1, 3) * 3.0f32);
 	assert_eq!(b.get(0), 2.0);
 	assert_eq!(c.get(0), -12.0);
+}
+
+#[test]
+fn maps()
+{
+	use std::f32::consts::PI;
+	let a = Vector::new([0.0, PI / 2.0, -PI / 2.0]);
+	let s1 = (&a).sin();
+	let b = a.slice(1, a.len());
+	let s2 = b.sin() + 1.0f32;
+	assert_eq!(s1.get(1), 1.0);
+	assert_eq!(s2.get(0), 2.0);
 }
