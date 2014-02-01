@@ -11,7 +11,7 @@ use super::*;
 fn trans()
 {
 	let m = Matrix::new([&[1.0, 2.0, 3.0],
-						 &[4.0, 5.0, 6.0]]);
+	                     &[4.0, 5.0, 6.0]]);
 	assert_eq!(m.nrow(), 2);
 	assert_eq!(m.ncol(), 3);
 	let t = m.t();
@@ -24,8 +24,8 @@ fn trans()
 fn rows_and_cols()
 {
 	let m = Matrix::new([&[1.0, 2.0, 3.0],
-						 &[4.0, 5.0, 6.0],
-						 &[7.0, 8.0, 9.0]]);
+	                     &[4.0, 5.0, 6.0],
+	                     &[7.0, 8.0, 9.0]]);
 	let v = m.row(0) + m.col(0);
 	assert_eq!(v.get(1), 6.0);
 }
@@ -34,8 +34,8 @@ fn rows_and_cols()
 fn views()
 {
 	let m = Matrix::new([&[1.0, 2.0, 3.0],
-						 &[4.0, 5.0, 6.0],
-						 &[7.0, 8.0, 9.0]]);
+	                     &[4.0, 5.0, 6.0],
+	                     &[7.0, 8.0, 9.0]]);
 	let m1 = m.view(0, 0, m.nrow() - 1, m.ncol() - 1);
 	let m2 = m.view(1, 1, m.nrow(), m.ncol());
 	let v1 = m1.row(0) + m2.row(0);
