@@ -12,7 +12,7 @@ use vector::Vector;
 use vector::write_vec;
 use vector::traits::*;
 use vector::slice::Slice;
-use vector::bin_ops::{VectorVectorBinOp, BinOp};
+use vector::bin_ops::{VectorBinOp, BinOp};
 
 pub trait UnOp
 {
@@ -142,10 +142,10 @@ VectorUnOp<TA, TO>
 impl<TA: VectorGet + Clone + Container,
      TB: Clone,
      TO: BinOp + Clone>
-Neg<VectorUnOp<VectorVectorBinOp<TA, TB, TO>, OpNeg>> for
-VectorVectorBinOp<TA, TB, TO>
+Neg<VectorUnOp<VectorBinOp<TA, TB, TO>, OpNeg>> for
+VectorBinOp<TA, TB, TO>
 {
-	fn neg(&self) -> VectorUnOp<VectorVectorBinOp<TA, TB, TO>, OpNeg>
+	fn neg(&self) -> VectorUnOp<VectorBinOp<TA, TB, TO>, OpNeg>
 	{
 		VectorUnOp::new(self.clone(), OpNeg::new())
 	}
