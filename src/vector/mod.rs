@@ -11,7 +11,8 @@ use vector::traits::{VectorGet, VectorSet, VectorSlice, LengthEq};
 use vector::slice::Slice;
 
 pub mod traits;
-pub mod ops;
+pub mod bin_ops;
+pub mod un_ops;
 pub mod slice;
 pub mod elements;
 pub mod scalar;

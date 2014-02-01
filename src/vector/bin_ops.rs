@@ -12,8 +12,9 @@ use vector::Vector;
 use vector::write_vec;
 use vector::traits::*;
 use vector::slice::Slice;
+use vector::un_ops::{VectorUnOp, UnOp};
 
-pub trait Op
+pub trait BinOp
 {
 	fn op(&self, a: f32, b: f32) -> f32;
 }
@@ -31,7 +32,7 @@ macro_rules! op
 				$name
 			}
 		}
-		impl Op for $name
+		impl BinOp for $name
 		{
 			fn op(&self, a: f32, b: f32) -> f32
 			{
@@ -60,7 +61,7 @@ pub struct VectorVectorBinOp<TA, TB, TO>
 
 impl<TA: Container,
      TB: LengthEq,
-     TO: Op>
+     TO: BinOp>
 VectorVectorBinOp<TA, TB, TO>
 {
 	pub unsafe fn unsafe_new(a: TA, b: TB, o: TO) -> VectorVectorBinOp<TA, TB, TO>
@@ -77,7 +78,7 @@ VectorVectorBinOp<TA, TB, TO>
 
 impl<TA: Clone + Container,
      TB: Clone + LengthEq,
-     TO: Op>
+     TO: BinOp>
 VectorSlice for
 VectorVectorBinOp<TA, TB, TO>
 {
@@ -106,7 +107,7 @@ VectorVectorBinOp<TA, TB, TO>
 
 impl<TA: VectorGet + Container,
      TB: VectorGet + LengthEq,
-     TO: Op>
+     TO: BinOp>
 VectorGet for
 VectorVectorBinOp<TA, TB, TO>
 {
@@ -127,7 +128,7 @@ VectorVectorBinOp<TA, TB, TO>
 
 impl<TA: Container,
 	 TB,
-     TO: Op>
+     TO: BinOp>
 Container for
 VectorVectorBinOp<TA, TB, TO>
 {
@@ -139,7 +140,7 @@ VectorVectorBinOp<TA, TB, TO>
 
 impl<TA: Container,
 	 TB,
-     TO: Op>
+     TO: BinOp>
 LengthEq for
 VectorVectorBinOp<TA, TB, TO>
 {
@@ -151,7 +152,7 @@ VectorVectorBinOp<TA, TB, TO>
 
 impl<TA: VectorGet + Container,
      TB: VectorGet + LengthEq,
-     TO: Op>
+     TO: BinOp>
 fmt::Default for
 VectorVectorBinOp<TA, TB, TO>
 {
@@ -168,11 +169,23 @@ macro_rules! bin_op
 		impl<RHS: VectorGet + Clone + LengthEq,
              TA: VectorGet + Clone + Container,
              TB: VectorGet + Clone + LengthEq,
-             TO: Op + Clone>
+             TO: BinOp + Clone>
 		$op_name<RHS, VectorVectorBinOp<VectorVectorBinOp<TA, TB, TO>, RHS, $op>> for
 		VectorVectorBinOp<TA, TB, TO>
 		{
 			fn $op_method(&self, rhs: &RHS) -> VectorVectorBinOp<VectorVectorBinOp<TA, TB, TO>, RHS, $op>
+			{
+				VectorVectorBinOp::new(self.clone(), rhs.clone(), $op::new())
+			}
+		}
+		
+		impl<RHS: VectorGet + Clone + LengthEq,
+             TA: VectorGet + Clone + Container,
+             TO: UnOp + Clone>
+		$op_name<RHS, VectorVectorBinOp<VectorUnOp<TA, TO>, RHS, $op>> for
+		VectorUnOp<TA, TO>
+		{
+			fn $op_method(&self, rhs: &RHS) -> VectorVectorBinOp<VectorUnOp<TA, TO>, RHS, $op>
 			{
 				VectorVectorBinOp::new(self.clone(), rhs.clone(), $op::new())
 			}

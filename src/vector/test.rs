@@ -142,3 +142,13 @@ fn scalars()
 	assert_eq!(b.get(0), 2.0);
 	assert_eq!(c.get(0), 12.0);
 }
+
+#[test]
+fn neg()
+{
+	let a = Vector::new([1.0, 2.0, 3.0]);
+	let b = -(-&a * 2.0f32);
+	let c = -(b.slice(1, 3) * 3.0f32);
+	assert_eq!(b.get(0), 2.0);
+	assert_eq!(c.get(0), -12.0);
+}
