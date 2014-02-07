@@ -66,12 +66,12 @@ ColumnAccessor<T>
 }
 
 impl<T: MatrixShape + MatrixGet>
-fmt::Default for
+fmt::Show for
 ColumnAccessor<T>
 {
-	fn fmt(v: &ColumnAccessor<T>, buf: &mut fmt::Formatter)
+	fn fmt(v: &ColumnAccessor<T>, buf: &mut fmt::Formatter) -> fmt::Result
 	{
-		write_vec(buf.buf, v);
+		write_vec(buf.buf, v)
 	}
 }
 

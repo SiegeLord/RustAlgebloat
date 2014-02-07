@@ -106,12 +106,12 @@ Transposer<T>
 }
 
 impl<T: MatrixGet + MatrixShape>
-fmt::Default for
+fmt::Show for
 Transposer<T>
 {
-	fn fmt(v: &Transposer<T>, buf: &mut fmt::Formatter)
+	fn fmt(v: &Transposer<T>, buf: &mut fmt::Formatter) -> fmt::Result
 	{
-		write_mat(buf.buf, v);
+		write_mat(buf.buf, v)
 	}
 } 
 

@@ -119,12 +119,12 @@ VectorUnOp<TA, TO>
 
 impl<TA: VectorGet + Container,
      TO: UnOp>
-fmt::Default for
+fmt::Show for
 VectorUnOp<TA, TO>
 {
-	fn fmt(v: &VectorUnOp<TA, TO>, buf: &mut fmt::Formatter)
+	fn fmt(v: &VectorUnOp<TA, TO>, buf: &mut fmt::Formatter) -> fmt::Result
 	{
-		write_vec(buf.buf, v);
+		write_vec(buf.buf, v)
 	}
 }
 

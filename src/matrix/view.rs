@@ -130,11 +130,11 @@ View<T>
 }
 
 impl<T: MatrixGet + MatrixShape>
-fmt::Default for
+fmt::Show for
 View<T>
 {
-	fn fmt(v: &View<T>, buf: &mut fmt::Formatter)
+	fn fmt(v: &View<T>, buf: &mut fmt::Formatter) -> fmt::Result
 	{
-		write_mat(buf.buf, v);
+		write_mat(buf.buf, v)
 	}
 }

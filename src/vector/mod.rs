@@ -149,30 +149,30 @@ Vector
 }
 
 impl
-fmt::Default for
+fmt::Show for
 Vector
 {
-	fn fmt(v: &Vector, buf: &mut fmt::Formatter)
+	fn fmt(v: &Vector, buf: &mut fmt::Formatter) -> fmt::Result
 	{
-		write_vec(buf.buf, &v);
+		write_vec(buf.buf, &v)
 	}
 }
 
-pub fn write_vec<T: VectorGet + Container>(w: &mut Writer, a: &T)
+pub fn write_vec<T: VectorGet + Container>(w: &mut Writer, a: &T) -> fmt::Result
 {
 	let mut first = true;
-	write!(w, "[");
+	if_ok!(write!(w, "["))
 	for i in range(0, a.len())
 	{
 		if !first
 		{
-			write!(w, " ");
+			if_ok!(write!(w, " "))
 		}
 		first = false;
 		unsafe
 		{
-			write!(w, "{}", a.unsafe_get(i));
+			if_ok!(write!(w, "{}", a.unsafe_get(i)))
 		}
 	}
-	write!(w, "]");
+	write!(w, "]")
 }

@@ -168,38 +168,39 @@ MatrixView for
 	}
 }
 
-pub fn write_mat<T: MatrixGet + MatrixShape>(w: &mut Writer, a: &T)
+pub fn write_mat<T: MatrixGet + MatrixShape>(w: &mut Writer, a: &T) -> fmt::Result
 {
 	for r in range(0, a.nrow())
 	{
 		let mut first = true;
-		write!(w, "│");
+		if_ok!(write!(w, "│"))
 		for c in range(0, a.ncol())
 		{
 			if !first
 			{
-				write!(w, " ");
+				if_ok!(write!(w, " "))
 			}
 			first = false;
 			unsafe
 			{
-				write!(w, "{}", a.unsafe_get(r, c));
+				if_ok!(write!(w, "{}", a.unsafe_get(r, c)))
 			}
 		}
-		write!(w, "│");
+		if_ok!(write!(w, "│"))
 		if r + 1 < a.nrow()
 		{
-			writeln!(w, "");
+			if_ok!(writeln!(w, ""))
 		}
 	}
+	Ok(())
 }
 
 impl
-fmt::Default for
+fmt::Show for
 Matrix
 {
-	fn fmt(v: &Matrix, buf: &mut fmt::Formatter)
+	fn fmt(v: &Matrix, buf: &mut fmt::Formatter) -> fmt::Result
 	{
-		write_mat(buf.buf, &v);
+		write_mat(buf.buf, &v)
 	}
 }

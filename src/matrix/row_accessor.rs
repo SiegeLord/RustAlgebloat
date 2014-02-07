@@ -66,12 +66,12 @@ RowAccessor<T>
 }
 
 impl<T: MatrixShape + MatrixGet>
-fmt::Default for
+fmt::Show for
 RowAccessor<T>
 {
-	fn fmt(v: &RowAccessor<T>, buf: &mut fmt::Formatter)
+	fn fmt(v: &RowAccessor<T>, buf: &mut fmt::Formatter) -> fmt::Result
 	{
-		write_vec(buf.buf, v);
+		write_vec(buf.buf, v)
 	}
 }
 

@@ -116,11 +116,11 @@ Slice<T>
 }
 
 impl<T: VectorGet>
-fmt::Default for
+fmt::Show for
 Slice<T>
 {
-	fn fmt(v: &Slice<T>, buf: &mut fmt::Formatter)
+	fn fmt(v: &Slice<T>, buf: &mut fmt::Formatter) -> fmt::Result
 	{
-		write_vec(buf.buf, v);
+		write_vec(buf.buf, v)
 	}
 }

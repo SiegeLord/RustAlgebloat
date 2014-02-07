@@ -153,12 +153,12 @@ VectorBinOp<TA, TB, TO>
 impl<TA: VectorGet + Container,
      TB: VectorGet + LengthEq,
      TO: BinOp>
-fmt::Default for
+fmt::Show for
 VectorBinOp<TA, TB, TO>
 {
-	fn fmt(v: &VectorBinOp<TA, TB, TO>, buf: &mut fmt::Formatter)
+	fn fmt(v: &VectorBinOp<TA, TB, TO>, buf: &mut fmt::Formatter) -> fmt::Result
 	{
-		write_vec(buf.buf, v);
+		write_vec(buf.buf, v)
 	}
 }
 
