@@ -1,29 +1,9 @@
 // This file is released into Public Domain.
-#[feature(globs, macro_rules)];
+#[feature(globs, macro_rules, phase)];
+
+#[phase(syntax, link)]
 extern mod algebloat;
 use algebloat::*;
-
-macro_rules! vec
-{
-	( $($e: expr),+) =>
-	{
-		Vector::new([$(
-				($e) as f32,
-		)+])
-	}
-}
-
-macro_rules! mat
-{
-	( $($($e: expr),+);+ ) =>
-	{
-		Matrix::new([$(
-			&[$(
-				($e) as f32,
-			)+],
-		)+])
-	}
-}
 
 fn main()
 {

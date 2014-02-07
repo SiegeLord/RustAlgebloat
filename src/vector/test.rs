@@ -63,8 +63,8 @@ fn vec_speed_loop(bh: &mut BenchHarness) {
 #[test]
 fn vec_ops()
 {
-	let a = Vector::new([1.0, 2.0, 3.0]);
-	let b = Vector::new([2.0, 2.0, 2.0]);
+	let a = vec!(1.0, 2.0, 3.0);
+	let b = vec!(2.0, 2.0, 2.0);
 	
 	let c = &a * &b + &b;
 	assert_eq!(c.get(0), 4.0);
@@ -76,7 +76,7 @@ fn vec_ops()
 #[test]
 fn vec_mut()
 {
-	let a = Vector::new([1.0, 2.0, 3.0]);
+	let a = vec!(1.0, 2.0, 3.0);
 	a.set(0, 2.0);
 	assert_eq!(a.get(0), 2.0);
 	for _ in range(0, 5)
@@ -89,8 +89,8 @@ fn vec_mut()
 #[test]
 fn vec_slice()
 {
-	let a = Vector::new([1.0, 2.0, 3.0]);
-	let b = Vector::new([2.0, 2.0, 2.0]);
+	let a = vec!(1.0, 2.0, 3.0);
+	let b = vec!(2.0, 2.0, 2.0);
 	
 	let a1 = a.slice(1, 3);
 	let b1 = b.slice(0, 2);
@@ -105,7 +105,7 @@ fn vec_slice()
 #[test]
 fn vec_mut_slice()
 {
-	let a = Vector::new([1.0, 2.0, 3.0]);
+	let a = vec!(1.0, 2.0, 3.0);
 	let c = a.slice(1, 3);
 	c.set(0, 10.0);
 	assert_eq!(a.get(1), 10.0);
@@ -128,7 +128,7 @@ fn vec_iter()
 #[test]
 fn to_vec()
 {
-	let a = Vector::new([1.0, 2.0, 3.0]);
+	let a = vec!(1.0, 2.0, 3.0);
 	let b = a.slice(1, a.len()).to_vec();
 	b.set(0, 2.0);
 	assert_eq!(a.get(0), 1.0);
@@ -138,7 +138,7 @@ fn to_vec()
 #[test]
 fn scalars()
 {
-	let a = Vector::new([1.0, 2.0, 3.0]);
+	let a = vec!(1.0, 2.0, 3.0);
 	let b = &a * 2.0f32;
 	let c = b.slice(1, 3) * 3.0f32;
 	assert_eq!(b.get(0), 2.0);
@@ -148,7 +148,7 @@ fn scalars()
 #[test]
 fn neg()
 {
-	let a = Vector::new([1.0, 2.0, 3.0]);
+	let a = vec!(1.0, 2.0, 3.0);
 	let b = -(-&a * 2.0f32);
 	let c = -(b.slice(1, 3) * 3.0f32);
 	assert_eq!(b.get(0), 2.0);
@@ -159,7 +159,7 @@ fn neg()
 fn un_funs()
 {
 	use std::f32::consts::PI;
-	let a = Vector::new([0.0, PI / 2.0, -PI / 2.0]);
+	let a = vec!(0.0, PI / 2.0, -PI / 2.0);
 	let s1 = (&a).sin();
 	let b = a.slice(1, a.len());
 	let s2 = b.sin() + 1.0f32;
@@ -170,7 +170,7 @@ fn un_funs()
 #[test]
 fn bin_funs()
 {
-	let a = Vector::new([1.0, 2.0, 3.0]);
+	let a = vec!(1.0, 2.0, 3.0);
 	let s = a.slice(0, a.len());
 	let b1 = s.pow(2.0f32);
 	let b2 = s.pow(s);

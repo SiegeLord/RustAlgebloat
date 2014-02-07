@@ -16,5 +16,7 @@ pub use vector::un_ops::*;
 pub use vector::un_funs::*;
 pub use vector::traits::*;
 
+#[macro_escape]
+mod macros;
 pub mod matrix;
 pub mod vector;

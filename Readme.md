@@ -15,9 +15,9 @@ http://www.rust-ci.org/SiegeLord/RustAlgebloat/doc/algebloat/
 Some basic operations and row access (no allocations except in `Matrix::new`!):
 
 ~~~rust
-let m = Matrix::new([&[1.0, 2.0, 3.0],
-                     &[4.0, 5.0, 6.0],
-                     &[7.0, 8.0, 9.0]]);
+let m = mat!(1.0, 2.0, 3.0;
+             4.0, 5.0, 6.0;
+             7.0, 8.0, 9.0);
 println!("m =\n{}", m);
 let t1 = m.t();
 println!("t1 =\n{}", t1);
