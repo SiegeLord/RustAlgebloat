@@ -18,6 +18,7 @@ pub mod un_funs;
 pub mod slice;
 pub mod elements;
 pub mod scalar;
+pub mod reductions;
 #[cfg(test)]
 mod test;
 

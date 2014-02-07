@@ -8,6 +8,7 @@ use vector::*;
 use vector::traits::*;
 use vector::un_funs::*;
 use vector::bin_funs::*;
+use vector::reductions::*;
 use self::extra::test::BenchHarness;
 use std::rand::{weak_rng, Rng};
 
@@ -178,4 +179,18 @@ fn bin_funs()
 	assert_eq!(b1.get(2), 9.0);
 	assert_eq!(b2.get(2), 27.0);
 	assert_eq!(b3.get(2), -9.0);
+}
+
+#[test]
+fn reduce()
+{
+	let a = vec!(1.0, 4.0, 3.0);
+	let s = a.slice(0, a.len());
+	let (min_idx, min) = s.min().unwrap();
+	let (max_idx, max) = s.max().unwrap();
+	
+	assert_eq!(min_idx, 0);
+	assert_eq!(max_idx, 1);
+	assert_eq!(min, 1.0);
+	assert_eq!(max, 4.0);
 }
