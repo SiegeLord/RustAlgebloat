@@ -46,8 +46,36 @@ r =
 * Expression templates (well, more like expression traits since this is Rust) 
 assure all the caveats above while in principle providing allocation-free speed 
 (only available with optimizations turned on)!
-* Slices and views, no linear algebra library should come without them.
-* And more... (in the future).
+* Vectors
+	* Slicing
+	* Elementwise operations (right-hand side can be a scalar)
+		* Binary operators (`*/-+`)
+		* Unary negation
+		* Binary functions
+			* `pow`
+			* `atan2`
+			* `hypot`
+		* Unary functions
+			* `abs`
+			* `acos`
+			* `asin`
+			* `atan`
+			* `ceil`
+			* `cos`
+			* `cosh`
+			* `exp`
+			* `floor`
+			* `ln`
+			* `log10`
+			* `round`
+			* `sin`
+			* `sinh`
+			* `sqrt`
+			* `tan`
+			* `tanh`
+* Matrices
+	* Row and column access
+	* Views
 
 ## Building
 
