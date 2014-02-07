@@ -12,8 +12,9 @@ use vector::slice::Slice;
 
 pub mod traits;
 pub mod bin_ops;
+pub mod bin_funs;
 pub mod un_ops;
-pub mod maps;
+pub mod un_funs;
 pub mod slice;
 pub mod elements;
 pub mod scalar;

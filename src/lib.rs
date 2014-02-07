@@ -11,9 +11,10 @@ pub use matrix::*;
 pub use matrix::traits::*;
 pub use vector::*;
 pub use vector::bin_ops::*;
+pub use vector::bin_funs::*;
 pub use vector::un_ops::*;
+pub use vector::un_funs::*;
 pub use vector::traits::*;
-pub use vector::maps::*;
 
 pub mod matrix;
 pub mod vector;

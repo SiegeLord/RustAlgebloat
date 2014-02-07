@@ -5,7 +5,7 @@
 use vector::un_ops::{UnOp, VectorUnOp};
 use std::f32;
 
-macro_rules! map1
+macro_rules! un_fun
 {
 	($struct_name: ident, $trait_name: ident, $func_name: ident) =>
 	{
@@ -45,20 +45,20 @@ macro_rules! map1
 	}
 }
 
-map1!(AbsOp, VectorAbsOp, abs)
-map1!(AcosOp, VectorAcosOp, acos)
-map1!(AsinOp, VectorAsinOp, asin)
-map1!(AtanOp, VectorAtanOp, atan)
-map1!(CeilOp, VectorCeilOp, ceil)
-map1!(CosOp, VectorCosOp, cos)
-map1!(CoshOp, VectorCoshOp, cosh)
-map1!(ExpOp, VectorExpOp, exp)
-map1!(FloorOp, VectorFloorOp, floor)
-map1!(LnOp, VectorLnOp, ln)
-map1!(Log10Op, VectorLog10Op, log10)
-map1!(RoundOp, VectorRoundOp, round)
-map1!(SinOp, VectorSinOp, sin)
-map1!(SinhOp, VectorSinhOp, sinh)
-map1!(SqrtOp, VectorSqrtOp, sqrt)
-map1!(TanOp, VectorTanOp, tan)
-map1!(TanhOp, VectorTanhOp, tanh)
+un_fun!(AbsOp, VectorAbsOp, abs)
+un_fun!(AcosOp, VectorAcosOp, acos)
+un_fun!(AsinOp, VectorAsinOp, asin)
+un_fun!(AtanOp, VectorAtanOp, atan)
+un_fun!(CeilOp, VectorCeilOp, ceil)
+un_fun!(CosOp, VectorCosOp, cos)
+un_fun!(CoshOp, VectorCoshOp, cosh)
+un_fun!(ExpOp, VectorExpOp, exp)
+un_fun!(FloorOp, VectorFloorOp, floor)
+un_fun!(LnOp, VectorLnOp, ln)
+un_fun!(Log10Op, VectorLog10Op, log10)
+un_fun!(RoundOp, VectorRoundOp, round)
+un_fun!(SinOp, VectorSinOp, sin)
+un_fun!(SinhOp, VectorSinhOp, sinh)
+un_fun!(SqrtOp, VectorSqrtOp, sqrt)
+un_fun!(TanOp, VectorTanOp, tan)
+un_fun!(TanhOp, VectorTanhOp, tanh)
