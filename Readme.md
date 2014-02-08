@@ -12,7 +12,8 @@ http://www.rust-ci.org/SiegeLord/RustAlgebloat/doc/algebloat/
 
 ## Example
 
-Some basic operations and row access (no allocations except in `Matrix::new`!):
+Some basic operations and row access (no allocations except during the initial
+matrix creation!):
 
 ~~~rust
 let m = mat!(1.0, 2.0, 3.0;
