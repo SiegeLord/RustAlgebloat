@@ -1,7 +1,8 @@
 // This file is released into Public Domain.
 #[feature(globs, macro_rules, phase)];
 
-#[phase(syntax, link)]
+#[phase(syntax)]
+extern mod algebloat_macros;
 extern mod algebloat;
 use algebloat::*;
 

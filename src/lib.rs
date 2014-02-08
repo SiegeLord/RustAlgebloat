@@ -2,10 +2,13 @@
 //
 // All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.
 
-#[feature(globs, macro_rules)];
+#[feature(globs, macro_rules, phase)];
 
 #[crate_type="lib"];
 #[crate_id="algebloat"];
+
+#[phase(syntax)]
+extern mod algebloat_macros;
 
 pub use matrix::*;
 pub use matrix::traits::*;
@@ -18,7 +21,5 @@ pub use vector::un_funs::*;
 pub use vector::reductions::*;
 pub use vector::traits::*;
 
-#[macro_escape]
-mod macros;
 pub mod matrix;
 pub mod vector;

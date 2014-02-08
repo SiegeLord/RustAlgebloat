@@ -7,6 +7,7 @@ find_package(rustdoc)
 include(Rust)
 
 set(ALGEBLOAT_ROOT src/lib.rs)
+set(ALGEBLOAT_MACROS_ROOT src/macros.rs)
 set(EXAMPLE_ROOT examples/example.rs)
 set(CUSTOM_CSS_SRC "${CMAKE_SOURCE_DIR}/doc/main.css")
 set(CUSTOM_CSS_DEST "${CMAKE_BINARY_DIR}/doc/algebloat/main.css")
@@ -14,10 +15,11 @@ set(CUSTOM_CSS_DEST "${CMAKE_BINARY_DIR}/doc/algebloat/main.css")
 set(RUSTC_FLAGS "-L${CMAKE_BINARY_DIR}/lib;-O")
 set(RUSTDOC_FLAGS "-L${CMAKE_BINARY_DIR}/lib")
 
-# Need to compile the root for exported macros to work
-get_rust_deps(${ALGEBLOAT_ROOT} ALGEBLOAT_DEPS
+# Compile the macros as part of the config process
+get_rust_deps(${ALGEBLOAT_MACROS_ROOT} ALGEBLOAT_MACROS_DEPS
               COMPILE
               DESTINATION lib)
+get_rust_deps(${ALGEBLOAT_ROOT} ALGEBLOAT_DEPS)
 
 # Build the library
 rust_crate(${ALGEBLOAT_ROOT}
