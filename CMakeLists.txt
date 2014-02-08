@@ -14,8 +14,10 @@ set(CUSTOM_CSS_DEST "${CMAKE_BINARY_DIR}/doc/algebloat/main.css")
 set(RUSTC_FLAGS "-L${CMAKE_BINARY_DIR}/lib;-O")
 set(RUSTDOC_FLAGS "-L${CMAKE_BINARY_DIR}/lib")
 
-# Get the dependencies of all the crates
-get_rust_deps(${ALGEBLOAT_ROOT} ALGEBLOAT_DEPS)
+# Need to compile the root for exported macros to work
+get_rust_deps(${ALGEBLOAT_ROOT} ALGEBLOAT_DEPS
+              COMPILE
+              DESTINATION lib)
 
 # Build the library
 rust_crate(${ALGEBLOAT_ROOT}
