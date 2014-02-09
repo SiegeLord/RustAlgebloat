@@ -154,9 +154,9 @@ impl
 fmt::Show for
 Vector
 {
-	fn fmt(v: &Vector, buf: &mut fmt::Formatter) -> fmt::Result
+	fn fmt(&self, buf: &mut fmt::Formatter) -> fmt::Result
 	{
-		write_vec(buf.buf, &v)
+		write_vec(buf.buf, self)
 	}
 }
 

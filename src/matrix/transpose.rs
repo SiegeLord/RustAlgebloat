@@ -109,9 +109,9 @@ impl<T: MatrixGet + MatrixShape>
 fmt::Show for
 Transposer<T>
 {
-	fn fmt(v: &Transposer<T>, buf: &mut fmt::Formatter) -> fmt::Result
+	fn fmt(&self, buf: &mut fmt::Formatter) -> fmt::Result
 	{
-		write_mat(buf.buf, v)
+		write_mat(buf.buf, self)
 	}
 } 
 

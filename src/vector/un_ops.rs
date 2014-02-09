@@ -122,9 +122,9 @@ impl<TA: VectorGet + Container,
 fmt::Show for
 VectorUnOp<TA, TO>
 {
-	fn fmt(v: &VectorUnOp<TA, TO>, buf: &mut fmt::Formatter) -> fmt::Result
+	fn fmt(&self, buf: &mut fmt::Formatter) -> fmt::Result
 	{
-		write_vec(buf.buf, v)
+		write_vec(buf.buf, self)
 	}
 }
 

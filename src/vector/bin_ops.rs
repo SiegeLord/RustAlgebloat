@@ -156,9 +156,9 @@ impl<TA: VectorGet + Container,
 fmt::Show for
 VectorBinOp<TA, TB, TO>
 {
-	fn fmt(v: &VectorBinOp<TA, TB, TO>, buf: &mut fmt::Formatter) -> fmt::Result
+	fn fmt(&self, buf: &mut fmt::Formatter) -> fmt::Result
 	{
-		write_vec(buf.buf, v)
+		write_vec(buf.buf, self)
 	}
 }
 

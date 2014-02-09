@@ -199,8 +199,8 @@ impl
 fmt::Show for
 Matrix
 {
-	fn fmt(v: &Matrix, buf: &mut fmt::Formatter) -> fmt::Result
+	fn fmt(&self, buf: &mut fmt::Formatter) -> fmt::Result
 	{
-		write_mat(buf.buf, &v)
+		write_mat(buf.buf, self)
 	}
 }
