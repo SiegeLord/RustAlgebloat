@@ -8,7 +8,7 @@
 #[crate_id="algebloat"];
 
 #[phase(syntax)]
-extern mod algebloat_macros;
+extern crate algebloat_macros;
 
 pub use matrix::*;
 pub use matrix::traits::*;

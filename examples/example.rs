@@ -2,8 +2,8 @@
 #[feature(globs, macro_rules, phase)];
 
 #[phase(syntax)]
-extern mod algebloat_macros;
-extern mod algebloat;
+extern crate algebloat_macros;
+extern crate algebloat;
 use algebloat::*;
 
 fn main()

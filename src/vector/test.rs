@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.
 
-extern mod extra;
+extern crate extra;
 
 use vector::*;
 use vector::traits::*;
