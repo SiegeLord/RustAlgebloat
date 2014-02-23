@@ -2,14 +2,14 @@
 //
 // All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.
 
-extern crate extra;
+extern crate test;
 
 use vector::*;
 use vector::traits::*;
 use vector::un_funs::*;
 use vector::bin_funs::*;
 use vector::reductions::*;
-use self::extra::test::BenchHarness;
+use self::test::BenchHarness;
 use std::rand::{weak_rng, Rng};
 
 #[bench]

@@ -163,17 +163,17 @@ Vector
 pub fn write_vec<T: VectorGet + Container>(w: &mut Writer, a: &T) -> fmt::Result
 {
 	let mut first = true;
-	if_ok!(write!(w, "["))
+	try!(write!(w, "["))
 	for i in range(0, a.len())
 	{
 		if !first
 		{
-			if_ok!(write!(w, " "))
+			try!(write!(w, " "))
 		}
 		first = false;
 		unsafe
 		{
-			if_ok!(write!(w, "{}", a.unsafe_get(i)))
+			try!(write!(w, "{}", a.unsafe_get(i)))
 		}
 	}
 	write!(w, "]")
