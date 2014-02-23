@@ -186,11 +186,17 @@ fn reduce()
 {
 	let a = vec!(1.0, 4.0, 3.0);
 	let s = a.slice(0, a.len());
-	let (min_idx, min) = s.min().unwrap();
-	let (max_idx, max) = s.max().unwrap();
+	let (min_idx, min) = s.min_idx().unwrap();
+	let (max_idx, max) = s.max_idx().unwrap();
 	
 	assert_eq!(min_idx, 0);
 	assert_eq!(max_idx, 1);
+	assert_eq!(min, 1.0);
+	assert_eq!(max, 4.0);
+	
+	let min = s.min().unwrap();
+	let max = s.max().unwrap();
+	
 	assert_eq!(min, 1.0);
 	assert_eq!(max, 4.0);
 }

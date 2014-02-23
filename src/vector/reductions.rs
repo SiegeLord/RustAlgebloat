@@ -7,15 +7,17 @@ use vector::traits::VectorGet;
 
 pub trait VectorReduce
 {
-	fn min(self) -> Option<(uint, f32)>;
-	fn max(self) -> Option<(uint, f32)>;
+	fn min(&self) -> Option<f32>;
+	fn min_idx(&self) -> Option<(uint, f32)>;
+	fn max(&self) -> Option<f32>;
+	fn max_idx(&self) -> Option<(uint, f32)>;
 }
 
 impl<T: VectorGet + Container>
 VectorReduce for
 T
 {
-	fn min(self) -> Option<(uint, f32)>
+	fn min_idx(&self) -> Option<(uint, f32)>
 	{
 		let l = self.len();
 		if l == 0
@@ -42,7 +44,16 @@ T
 		}
 	}
 
-	fn max(self) -> Option<(uint, f32)>
+	fn min(&self) -> Option<f32>
+	{
+		match self.min_idx()
+		{
+			Some((_, ret)) => Some(ret),
+			None => None
+		}
+	}
+
+	fn max_idx(&self) -> Option<(uint, f32)>
 	{
 		let l = self.len();
 		if l == 0
@@ -66,6 +77,15 @@ T
 				}
 			}
 			Some((ret_i, ret))
+		}
+	}
+
+	fn max(&self) -> Option<f32>
+	{
+		match self.max_idx()
+		{
+			Some((_, ret)) => Some(ret),
+			None => None
 		}
 	}
 }
