@@ -22,10 +22,16 @@ get_rust_deps(${ALGEBLOAT_MACROS_ROOT} ALGEBLOAT_MACROS_DEPS
 get_rust_deps(${ALGEBLOAT_ROOT} ALGEBLOAT_DEPS)
 
 # Build the library
+rust_crate(${ALGEBLOAT_MACROS_ROOT}
+           TARGET_NAME ALGEBLOAT_MACROS
+           DESTINATION lib
+           DEPENDS "${ALGEBLOAT_MACROS_DEPS}"
+           OTHER_RUSTC_FLAGS --crate-type rlib)
+
 rust_crate(${ALGEBLOAT_ROOT}
            TARGET_NAME ALGEBLOAT
            DESTINATION lib
-           DEPENDS "${ALGEBLOAT_DEPS}"
+           DEPENDS "${ALGEBLOAT_DEPS}" "${ALGEBLOAT_MACROS_FULL_TARGET}"
            OTHER_RUSTC_FLAGS --crate-type rlib)
 
 add_custom_target(library_target
