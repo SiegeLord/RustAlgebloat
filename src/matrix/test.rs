@@ -2,14 +2,10 @@
 //
 // All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.
 
-extern crate extra;
-
 use matrix::traits::{MatrixGet, MatrixShape, MatrixRowAccess, MatrixColumnAccess, MatrixView, MatrixTranspose};
 use vector::traits::{VectorGet};
 
 use super::*;
-//~ use self::extra::test::BenchHarness;
-//~ use std::rand::{weak_rng, Rng};
 
 #[test]
 fn trans()
