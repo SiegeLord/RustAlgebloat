@@ -42,7 +42,7 @@ add_custom_target(library_target
 rust_crate(${ALGEBLOAT_ROOT}
            TARGET_NAME ALGEBLOAT_TEST
            DESTINATION test
-           DEPENDS "${ALGEBLOAT_DEPS}"
+           DEPENDS "${ALGEBLOAT_DEPS}" "${ALGEBLOAT_MACROS_FULL_TARGET}"
            OTHER_RUSTC_FLAGS --test)
 
 add_custom_target(test
