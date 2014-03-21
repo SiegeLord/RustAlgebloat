@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.
 
-use std::vec;
+use std::vec::Vec;
 use std::fmt;
 use std::io::Writer;
 
@@ -22,7 +22,7 @@ mod test;
 
 pub struct Matrix
 {
-	priv data: ~[f32],
+	priv data: Vec<f32>,
 	priv nrow: uint,
 	priv ncol: uint
 }
@@ -33,11 +33,11 @@ impl Matrix
 	{
 		let nrow = data.len();
 		let ncol = data[0].len();
-		let mut mat_data = vec::with_capacity(nrow * ncol);
+		let mut mat_data = Vec::with_capacity(nrow * ncol);
 		for &row in data.iter()
 		{
 			assert!(row.len() == ncol);
-			mat_data = vec::append(mat_data, row);
+			mat_data.push_all(row);
 		}
 		Matrix{ data: mat_data, nrow: nrow, ncol: ncol }
 	}
@@ -49,7 +49,7 @@ MatrixGet for
 {
 	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f32
 	{
-		*self.data.unsafe_ref(c + r * self.ncol)
+		*self.data.as_slice().unsafe_ref(c + r * self.ncol)
 	}
 
 	fn get(&self, r: uint, c: uint) -> f32
@@ -84,7 +84,7 @@ Matrix
 {
 	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f32
 	{
-		*self.data.unsafe_ref(c + r * self.ncol)
+		*self.data.as_slice().unsafe_ref(c + r * self.ncol)
 	}
 
 	fn get(&self, r: uint, c: uint) -> f32
