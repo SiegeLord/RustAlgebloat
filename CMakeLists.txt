@@ -10,7 +10,7 @@ set(ALGEBLOAT_ROOT src/lib.rs)
 set(ALGEBLOAT_MACROS_ROOT src/macros.rs)
 set(EXAMPLE_ROOT examples/example.rs)
 set(CUSTOM_CSS_SRC "${CMAKE_SOURCE_DIR}/doc/main.css")
-set(CUSTOM_CSS_DEST "${CMAKE_BINARY_DIR}/doc/algebloat/main.css")
+set(CUSTOM_CSS_DEST "${CMAKE_BINARY_DIR}/doc/main.css")
 
 set(RUSTC_FLAGS "-L${CMAKE_BINARY_DIR}/lib;-O")
 set(RUSTDOC_FLAGS "-L${CMAKE_BINARY_DIR}/lib")
@@ -68,20 +68,16 @@ rust_doc(${ALGEBLOAT_ROOT}
          DEPENDS "${ALGEBLOAT_DEPS}")
 
 # Copy the custom CSS
-set(counter 0)
-foreach(dest IN ITEMS ${CUSTOM_CSS_DEST})
-   file(RELATIVE_PATH rel_dest "${CMAKE_BINARY_DIR}" "${dest}")
-   add_custom_target("DELETE_STOCK_CSS_${counter}"
-                     DEPENDS ${ALGEBLOAT_DOC_FULL_TARGET}
-                     COMMAND "${CMAKE_COMMAND}" -E remove "${dest}"
-                     COMMENT "Deleting stock ${rel_dest}")
+file(RELATIVE_PATH rel_dest "${CMAKE_BINARY_DIR}" "${CUSTOM_CSS_DEST}")
+add_custom_target("DELETE_STOCK_CSS"
+                  DEPENDS ${ALGEBLOAT_DOC_FULL_TARGET}
+                  COMMAND "${CMAKE_COMMAND}" -E remove "${CUSTOM_CSS_DEST}"
+                  COMMENT "Deleting stock ${rel_dest}")
 
-   add_custom_command(OUTPUT "${dest}"
-                      DEPENDS "DELETE_STOCK_CSS_${counter}"
-                      DEPENDS "${CUSTOM_CSS_SRC}"
-                      COMMAND "${CMAKE_COMMAND}" -E copy "${CUSTOM_CSS_SRC}" "${dest}")
-   math(EXPR counter "${counter} + 1")
-endforeach()
+add_custom_command(OUTPUT "${CUSTOM_CSS_DEST}"
+                   DEPENDS "DELETE_STOCK_CSS"
+                   DEPENDS "${CUSTOM_CSS_SRC}"
+                   COMMAND "${CMAKE_COMMAND}" -E copy "${CUSTOM_CSS_SRC}" "${CUSTOM_CSS_DEST}")
 
 add_custom_target(doc
                   DEPENDS ${ALGEBLOAT_DOC_FULL_TARGET} ${CUSTOM_CSS_DEST})
