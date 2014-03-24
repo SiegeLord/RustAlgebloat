@@ -5,12 +5,15 @@
 use std::vec::Vec;
 use std::fmt;
 use std::io::Writer;
+use std::cell::Cell;
 
-use matrix::traits::{MatrixGet, MatrixShape, MatrixRowAccess, MatrixColumnAccess, MatrixView, MatrixTranspose};
+use matrix::traits::{MatrixGet, MatrixSet, MatrixShape, MatrixRowAccess, MatrixColumnAccess, MatrixView, MatrixTranspose};
 use matrix::transpose::Transposer;
 use matrix::row_accessor::RowAccessor;
 use matrix::column_accessor::ColumnAccessor;
 use matrix::view::View;
+
+use safe_alias::SafeAlias;
 
 pub mod traits;
 pub mod transpose;
@@ -22,7 +25,7 @@ mod test;
 
 pub struct Matrix
 {
-	priv data: Vec<f32>,
+	priv data: Vec<Cell<f32>>,
 	priv nrow: uint,
 	priv ncol: uint
 }
@@ -37,7 +40,10 @@ impl Matrix
 		for &row in data.iter()
 		{
 			assert!(row.len() == ncol);
-			mat_data.push_all(row);
+			for &val in row.iter()
+			{
+				mat_data.push(Cell::new(val));
+			}
 		}
 		Matrix{ data: mat_data, nrow: nrow, ncol: ncol }
 	}
@@ -49,7 +55,7 @@ MatrixGet for
 {
 	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f32
 	{
-		*self.data.as_slice().unsafe_ref(c + r * self.ncol)
+		self.data.as_slice().unsafe_ref(c + r * self.ncol).get()
 	}
 
 	fn get(&self, r: uint, c: uint) -> f32
@@ -59,6 +65,26 @@ MatrixGet for
 		unsafe
 		{
 			self.unsafe_get(r, c)
+		}
+	}
+}
+
+impl<'l>
+MatrixSet for
+&'l Matrix
+{
+	unsafe fn unsafe_set(&self, r: uint, c: uint, val: f32)
+	{
+		self.data.as_slice().unsafe_ref(c + r * self.ncol).set(val);
+	}
+
+	fn set(&self, r: uint, c: uint, val: f32)
+	{
+		assert!(r < self.nrow());
+		assert!(c < self.ncol());
+		unsafe
+		{
+			self.unsafe_set(r, c, val);
 		}
 	}
 }
@@ -84,7 +110,7 @@ Matrix
 {
 	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f32
 	{
-		*self.data.as_slice().unsafe_ref(c + r * self.ncol)
+		self.data.as_slice().unsafe_ref(c + r * self.ncol).get()
 	}
 
 	fn get(&self, r: uint, c: uint) -> f32
@@ -94,6 +120,26 @@ Matrix
 		unsafe
 		{
 			self.unsafe_get(r, c)
+		}
+	}
+}
+
+impl
+MatrixSet for
+Matrix
+{
+	unsafe fn unsafe_set(&self, r: uint, c: uint, val: f32)
+	{
+		self.data.as_slice().unsafe_ref(c + r * self.ncol).set(val);
+	}
+
+	fn set(&self, r: uint, c: uint, val: f32)
+	{
+		assert!(r < self.nrow());
+		assert!(c < self.ncol());
+		unsafe
+		{
+			self.unsafe_set(r, c, val);
 		}
 	}
 }
@@ -204,3 +250,11 @@ Matrix
 		write_mat(buf.buf, self)
 	}
 }
+
+impl
+SafeAlias for
+Matrix {}
+
+impl<'l>
+SafeAlias for
+&'l Matrix {}

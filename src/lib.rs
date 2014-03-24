@@ -22,5 +22,6 @@ pub use vector::un_funs::*;
 pub use vector::reductions::*;
 pub use vector::traits::*;
 
-pub mod vector;
 pub mod matrix;
+pub mod safe_alias;
+pub mod vector;

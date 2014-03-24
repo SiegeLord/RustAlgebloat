@@ -6,11 +6,18 @@ use matrix::transpose::Transposer;
 use matrix::row_accessor::RowAccessor;
 use matrix::column_accessor::ColumnAccessor;
 use matrix::view::View;
+use safe_alias::SafeAlias;
 
 pub trait MatrixGet
 {
 	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f32;
 	fn get(&self, r: uint, c: uint) -> f32;
+}
+
+pub trait MatrixSet
+{
+	unsafe fn unsafe_set(&self, r: uint, c: uint, val: f32);
+	fn set(&self, r: uint, c: uint, val: f32);
 }
 
 pub trait MatrixShape
@@ -40,4 +47,54 @@ pub trait MatrixView
 {
 	unsafe fn unsafe_view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<Self>;
 	fn view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<Self>;
+}
+
+pub trait MatrixSafeAssign<RHS>
+{
+	fn assign(&self, m: RHS);
+}
+
+pub trait MatrixAliasAssign<RHS>
+{
+	fn alias_assign(&mut self, m: RHS);
+	unsafe fn unsafe_assign(&self, m: RHS);
+}
+
+impl<LHS: MatrixShape + MatrixSet + SafeAlias,
+     RHS: MatrixShape + MatrixGet + SafeAlias>
+MatrixSafeAssign<RHS> for LHS
+{
+	fn assign(&self, m: RHS)
+	{
+		unsafe
+		{
+			self.unsafe_assign(m);
+		}
+	}
+}
+
+impl<LHS: MatrixShape + MatrixSet,
+     RHS: MatrixShape + MatrixGet>
+MatrixAliasAssign<RHS> for LHS
+{
+	unsafe fn unsafe_assign(&self, m: RHS)
+	{
+		assert_eq!(self.nrow(), m.nrow());
+		assert_eq!(self.ncol(), m.ncol());
+		for r in range(0, self.nrow())
+		{
+			for c in range(0, self.ncol())
+			{
+				self.unsafe_set(r, c, m.unsafe_get(r, c));
+			}
+		}
+	}
+
+	fn alias_assign(&mut self, m: RHS)
+	{
+		unsafe
+		{
+			(&*self).unsafe_assign(m);
+		}
+	}
 }

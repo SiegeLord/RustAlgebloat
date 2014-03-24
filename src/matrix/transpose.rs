@@ -1,6 +1,6 @@
 use std::fmt;
 
-use matrix::traits::{MatrixGet, MatrixShape, MatrixRowAccess, MatrixColumnAccess, MatrixView, MatrixTranspose};
+use matrix::traits::{MatrixGet, MatrixSet, MatrixShape, MatrixRowAccess, MatrixColumnAccess, MatrixView, MatrixTranspose};
 use matrix::write_mat;
 use matrix::row_accessor::RowAccessor;
 use matrix::column_accessor::ColumnAccessor;
@@ -32,6 +32,21 @@ Transposer<T>
 	fn get(&self, r: uint, c: uint) -> f32
 	{
 		self.base.get(c, r)
+	}
+}
+
+impl<T: MatrixSet>
+MatrixSet for
+Transposer<T>
+{
+	unsafe fn unsafe_set(&self, r: uint, c: uint, val: f32)
+	{
+		self.base.unsafe_set(c, r, val)
+	}
+
+	fn set(&self, r: uint, c: uint, val: f32)
+	{
+		self.base.set(c, r, val)
 	}
 }
 
