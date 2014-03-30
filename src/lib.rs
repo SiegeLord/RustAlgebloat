@@ -2,11 +2,11 @@
 //
 // All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.
 
-#[feature(globs, macro_rules, phase)];
+#![feature(globs, macro_rules, phase)]
 
-#[crate_type="lib"];
-#[crate_id="algebloat"];
-#[license = "LGPL3"];
+#![crate_type="lib"]
+#![crate_id="algebloat"]
+#![license = "LGPL3"]
 
 #[phase(syntax)]
 extern crate algebloat_macros;
