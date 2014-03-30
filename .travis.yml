@@ -1,3 +1,6 @@
+notifications:
+  email:
+    on_success: never
 env:
   global:
     - secure: KSPgLE9IBYnO0nny3aS9v0aryYd9LHLFnX+EvOlkykByzwrbSV761XjNQIAn7rRyHi0q5RKGuMs091yHMqzPwmXKJthkdsKs+tke9XSQS38lbLSk4eCc06dKlXkIIt9/1Xvk664d4og9cmNFYQxVywRWq7IJB/pJfKOFVPSbHm0=
