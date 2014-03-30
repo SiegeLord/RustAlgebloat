@@ -31,7 +31,7 @@ impl Vector
 {
 	pub fn new(data: &[f32]) -> Vector
 	{
-		Vector{ data: data.map(|&v| Cell::new(v)) }
+		Vector{ data: data.iter().map(|&v| Cell::new(v)).collect() }
 	}
 }
 
