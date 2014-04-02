@@ -39,7 +39,7 @@ impl
 FromIterator<f32> for
 Vector
 {
-	fn from_iterator<T: Iterator<f32>>(mut it: T) -> Vector
+	fn from_iter<T: Iterator<f32>>(mut it: T) -> Vector
 	{
 		Vector{ data: it.by_ref().map(|v| Cell::new(v)).collect() }
 	}
