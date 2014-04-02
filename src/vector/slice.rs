@@ -9,9 +9,9 @@ use vector::traits::{VectorGet, VectorSet, VectorSlice, LengthEq};
 
 pub struct Slice<T>
 {
-	priv base: T,
-	priv start: uint,
-	priv end: uint
+	base: T,
+	start: uint,
+	end: uint
 }
 
 impl<T: Container>

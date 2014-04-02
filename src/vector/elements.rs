@@ -6,8 +6,8 @@ use vector::traits::VectorGet;
 
 pub struct VectorElements<T>
 {
-	priv base: T,
-	priv idx: uint
+	base: T,
+	idx: uint
 }
 
 impl<T: VectorGet + Container>

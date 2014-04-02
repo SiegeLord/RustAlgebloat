@@ -6,8 +6,8 @@ use vector::write_vec;
 
 pub struct RowAccessor<T>
 {
-	priv base: T,
-	priv row: uint
+	base: T,
+	row: uint
 }
 
 impl<T: MatrixShape>

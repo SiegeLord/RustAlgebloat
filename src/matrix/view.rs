@@ -9,11 +9,11 @@ use safe_alias::SafeAlias;
 
 pub struct View<T>
 {
-	priv base: T,
-	priv row_start: uint,
-	priv col_start: uint,
-	priv row_end: uint,
-	priv col_end: uint,
+	base: T,
+	row_start: uint,
+	col_start: uint,
+	row_end: uint,
+	col_end: uint,
 }
 
 impl<T: MatrixGet>

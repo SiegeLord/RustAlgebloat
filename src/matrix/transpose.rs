@@ -8,7 +8,7 @@ use matrix::view::View;
 
 pub struct Transposer<T>
 {
-	priv base: T
+	base: T
 }
 
 impl<T>

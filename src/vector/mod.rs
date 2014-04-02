@@ -24,7 +24,7 @@ mod test;
 
 pub struct Vector
 {
-	priv data: ~[Cell<f32>]
+	data: ~[Cell<f32>]
 }
 
 impl Vector

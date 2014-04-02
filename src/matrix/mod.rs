@@ -25,9 +25,9 @@ mod test;
 
 pub struct Matrix
 {
-	priv data: Vec<Cell<f32>>,
-	priv nrow: uint,
-	priv ncol: uint
+	data: Vec<Cell<f32>>,
+	nrow: uint,
+	ncol: uint
 }
 
 impl Matrix

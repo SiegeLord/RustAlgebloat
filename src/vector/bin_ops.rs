@@ -54,9 +54,9 @@ op!(OpMul, *)
 
 pub struct VectorBinOp<TA, TB, TO>
 {
-	priv a: TA,
-	priv b: TB,
-	priv o: TO
+	a: TA,
+	b: TB,
+	o: TO
 }
 
 impl<TA: Container,

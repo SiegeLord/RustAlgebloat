@@ -38,8 +38,8 @@ impl UnOp for OpNeg
 
 pub struct VectorUnOp<TA, TO>
 {
-	priv a: TA,
-	priv o: TO
+	a: TA,
+	o: TO
 }
 
 impl<TA,
