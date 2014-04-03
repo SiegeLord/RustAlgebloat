@@ -17,7 +17,7 @@ use self::rand::{weak_rng, Rng};
 fn vec_speed_vec(bh: &mut BenchHarness) {
 	let mut rng = weak_rng();
 	
-	let a = Vector::new(rng.gen_vec(10));
+	let a = Vector::new(rng.gen_vec(10).slice(0, 10));
 
 	bh.iter(|| {
 		for _ in range(0, 100)
@@ -38,7 +38,7 @@ fn vec_speed_vec(bh: &mut BenchHarness) {
 fn vec_speed_loop(bh: &mut BenchHarness) {
 	let mut rng = weak_rng();
 	
-	let a = Vector::new(rng.gen_vec(10));
+	let a = Vector::new(rng.gen_vec(10).slice(0, 10));
 
 	bh.iter(|| {
 		for _ in range(0, 100)
