@@ -8,7 +8,7 @@ sliced bread? If so, this linear algebra library is just for you!
 
 ## Documentation
 
-http://www.rust-ci.org/SiegeLord/RustAlgebloat/doc/algebloat/
+See [here](http://siegelord.github.io/RustAlgebloat/doc/algebloat/index.html)
 
 ## Example
 
