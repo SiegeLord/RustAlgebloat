@@ -174,9 +174,9 @@ fn bin_funs()
 {
 	let a = vec!(1.0, 2.0, 3.0);
 	let s = a.slice(0, a.len());
-	let b1 = s.pow(2.0f32);
-	let b2 = s.pow(s);
-	let b3 = -s.pow(2.0f32);
+	let b1 = s.powf(2.0f32);
+	let b2 = s.powf(s);
+	let b3 = -s.powf(2.0f32);
 	assert_eq!(b1.get(2), 9.0);
 	assert_eq!(b2.get(2), 27.0);
 	assert_eq!(b3.get(2), -9.0);

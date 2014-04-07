@@ -4,7 +4,6 @@
 
 use vector::bin_ops::{BinOp, VectorBinOp};
 use vector::traits::LengthEq;
-use std::f32;
 
 macro_rules! bin_fun
 {
@@ -21,11 +20,19 @@ macro_rules! bin_fun
 			}
 		}
 
+		mod $func_name
+		{
+			pub fn $func_name(a: f32, b: f32) -> f32
+			{
+				a.$func_name(&b)
+			}
+		}
+
 		impl BinOp for $struct_name
 		{
 			fn op(&self, a: f32, b: f32) -> f32
 			{
-				f32::$func_name(a, b)
+				$func_name::$func_name(a, b)
 			}
 		}
 
@@ -47,6 +54,6 @@ macro_rules! bin_fun
 	}
 }
 
-bin_fun!(PowOp, VectorPowOp, pow)
+bin_fun!(PowOp, VectorPowOp, powf)
 bin_fun!(HypotOp, VectorHypotOp, hypot)
 bin_fun!(Atan2Op, VectorAtan2Op, atan2)

@@ -3,7 +3,6 @@
 // All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.
 
 use vector::un_ops::{UnOp, VectorUnOp};
-use std::f32;
 
 macro_rules! un_fun
 {
@@ -20,11 +19,21 @@ macro_rules! un_fun
 			}
 		}
 
+		mod $func_name
+		{
+			pub fn $func_name(a: f32) -> f32
+			{
+				a.$func_name()
+			}
+		}
+
 		impl UnOp for $struct_name
 		{
 			fn op(&self, a: f32) -> f32
 			{
-				f32::$func_name(a)
+				//~ f32::$func_name(a)
+				//~ concat_idents!(dummy_, $func_name)::$func_name(a)
+				$func_name::$func_name(a)
 			}
 		}
 
