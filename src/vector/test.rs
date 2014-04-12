@@ -10,11 +10,11 @@ use vector::traits::*;
 use vector::un_funs::*;
 use vector::bin_funs::*;
 use vector::reductions::*;
-use self::test::BenchHarness;
+use self::test::Bencher;
 use self::rand::{weak_rng, Rng};
 
 #[bench]
-fn vec_speed_vec(bh: &mut BenchHarness) {
+fn vec_speed_vec(bh: &mut Bencher) {
 	let mut rng = weak_rng();
 	
 	let a = Vector::new(rng.gen_vec(10).slice(0, 10));
@@ -35,7 +35,7 @@ fn vec_speed_vec(bh: &mut BenchHarness) {
 }
 
 #[bench]
-fn vec_speed_loop(bh: &mut BenchHarness) {
+fn vec_speed_loop(bh: &mut Bencher) {
 	let mut rng = weak_rng();
 	
 	let a = Vector::new(rng.gen_vec(10).slice(0, 10));
