@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="The algebloat library documentation.">
+
     <title>algebloat::vector::un_ops::VectorUnOp - Rust</title>
 
-    <link href='http://fonts.googleapis.com/css?family=Oswald:700|Inconsolata:400,700'
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700'
           rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="../../../main.css">
 
@@ -26,7 +29,6 @@
 
     <nav class="sub">
         <form class="search-form js-only">
-            <button class="do-search">Search</button>
             <div class="search-container">
                 <input class="search-input" name="search"
                        autocomplete="off"
@@ -36,8 +38,9 @@
         </form>
     </nav>
 
-    <section id='main' class="content struct"><a class='source'
-                              href='../../../src/algebloat/home/travis/build/SiegeLord/RustAlgebloat/src/vector/un_ops.rs.html#39-43'>[src]</a><h1 class='fqn'>Struct <a href='../../index.html'>algebloat</a>::<a href='../index.html'>vector</a>::<a href='index.html'>un_ops</a>::<a class='struct' href=''>VectorUnOp</a></h1><pre class='rust struct'>pub struct VectorUnOp&lt;TA, TO&gt; {
+    <section id='main' class="content struct">
+<h1 class='fqn'>Struct <a href='../../index.html'>algebloat</a>::<a href='../index.html'>vector</a>::<a href='index.html'>un_ops</a>::<a class='struct' href=''>VectorUnOp</a><a class='source'href='../../../src/algebloat/home/travis/build/SiegeLord/RustAlgebloat/src/vector/un_ops.rs.html#39-43'>[src]</a></h1>
+<pre class='rust struct'>pub struct VectorUnOp&lt;TA, TO&gt; {
     // some fields omitted
 }</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;TA, TO: <a class='trait' href='../../../algebloat/vector/un_ops/trait.UnOp.html' title='algebloat::vector::un_ops::UnOp'>UnOp</a>&gt; <a class='struct' href='../../../algebloat/vector/un_ops/struct.VectorUnOp.html' title='algebloat::vector::un_ops::VectorUnOp'>VectorUnOp</a>&lt;TA, TO&gt;</code></h3><div class='methods'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(a: TA, o: TO) -&gt; <a class='struct' href='../../../algebloat/vector/un_ops/struct.VectorUnOp.html' title='algebloat::vector::un_ops::VectorUnOp'>VectorUnOp</a>&lt;TA, TO&gt;</code></h4>
 </div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl&lt;RHS: <a class='trait' href='../../../algebloat/vector/traits/trait.VectorGet.html' title='algebloat::vector::traits::VectorGet'>VectorGet</a> + <a class='trait' href='http://static.rust-lang.org/doc/master/std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a> + <a class='trait' href='../../../algebloat/vector/traits/trait.LengthEq.html' title='algebloat::vector::traits::LengthEq'>LengthEq</a>, TA: <a class='trait' href='../../../algebloat/vector/traits/trait.VectorGet.html' title='algebloat::vector::traits::VectorGet'>VectorGet</a> + <a class='trait' href='http://static.rust-lang.org/doc/master/std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a> + <a class='trait' href='http://static.rust-lang.org/doc/master/std/container/trait.Container.html' title='std::container::Container'>Container</a>, TO: <a class='trait' href='../../../algebloat/vector/un_ops/trait.UnOp.html' title='algebloat::vector::un_ops::UnOp'>UnOp</a> + <a class='trait' href='http://static.rust-lang.org/doc/master/std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a>&gt; <a class='trait' href='http://static.rust-lang.org/doc/master/std/ops/trait.Add.html' title='std::ops::Add'>Add</a>&lt;RHS, <a class='struct' href='../../../algebloat/vector/bin_ops/struct.VectorBinOp.html' title='algebloat::vector::bin_ops::VectorBinOp'>VectorBinOp</a>&lt;<a class='struct' href='../../../algebloat/vector/un_ops/struct.VectorUnOp.html' title='algebloat::vector::un_ops::VectorUnOp'>VectorUnOp</a>&lt;TA, TO&gt;, RHS, <a class='struct' href='../../../algebloat/vector/bin_ops/struct.OpAdd.html' title='algebloat::vector::bin_ops::OpAdd'>OpAdd</a>&gt;&gt; for <a class='struct' href='../../../algebloat/vector/un_ops/struct.VectorUnOp.html' title='algebloat::vector::un_ops::VectorUnOp'>VectorUnOp</a>&lt;TA, TO&gt;</code></h3><div class='methods'><h4 id='method.add' class='method'><code>fn <a href='#method.add' class='fnname'>add</a>(&amp;self, rhs: &amp;RHS) -&gt; <a class='struct' href='../../../algebloat/vector/bin_ops/struct.VectorBinOp.html' title='algebloat::vector::bin_ops::VectorBinOp'>VectorBinOp</a>&lt;<a class='struct' href='../../../algebloat/vector/un_ops/struct.VectorUnOp.html' title='algebloat::vector::un_ops::VectorUnOp'>VectorUnOp</a>&lt;TA, TO&gt;, RHS, <a class='struct' href='../../../algebloat/vector/bin_ops/struct.OpAdd.html' title='algebloat::vector::bin_ops::OpAdd'>OpAdd</a>&gt;</code></h4>

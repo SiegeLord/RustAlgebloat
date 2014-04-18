@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="The algebloat library documentation.">
+
     <title>algebloat::matrix::Matrix - Rust</title>
 
-    <link href='http://fonts.googleapis.com/css?family=Oswald:700|Inconsolata:400,700'
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700'
           rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="../../main.css">
 
@@ -26,7 +29,6 @@
 
     <nav class="sub">
         <form class="search-form js-only">
-            <button class="do-search">Search</button>
             <div class="search-container">
                 <input class="search-input" name="search"
                        autocomplete="off"
@@ -36,8 +38,9 @@
         </form>
     </nav>
 
-    <section id='main' class="content struct"><a class='source'
-                              href='../../src/algebloat/home/travis/build/SiegeLord/RustAlgebloat/src/matrix/mod.rs.html#26-31'>[src]</a><h1 class='fqn'>Struct <a href='../index.html'>algebloat</a>::<a href='index.html'>matrix</a>::<a class='struct' href=''>Matrix</a></h1><pre class='rust struct'>pub struct Matrix {
+    <section id='main' class="content struct">
+<h1 class='fqn'>Struct <a href='../index.html'>algebloat</a>::<a href='index.html'>matrix</a>::<a class='struct' href=''>Matrix</a><a class='source'href='../../src/algebloat/home/travis/build/SiegeLord/RustAlgebloat/src/matrix/mod.rs.html#26-31'>[src]</a></h1>
+<pre class='rust struct'>pub struct Matrix {
     // some fields omitted
 }</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../algebloat/matrix/struct.Matrix.html' title='algebloat::matrix::Matrix'>Matrix</a></code></h3><div class='methods'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(data: &amp;[&amp;[f32]]) -&gt; <a class='struct' href='../../algebloat/matrix/struct.Matrix.html' title='algebloat::matrix::Matrix'>Matrix</a></code></h4>
 </div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='../../algebloat/matrix/traits/trait.MatrixGet.html' title='algebloat::matrix::traits::MatrixGet'>MatrixGet</a> for <a class='struct' href='../../algebloat/matrix/struct.Matrix.html' title='algebloat::matrix::Matrix'>Matrix</a></code></h3><div class='methods'><h4 id='method.unsafe_get' class='method'><code>unsafe fn <a href='#method.unsafe_get' class='fnname'>unsafe_get</a>(&amp;self, r: uint, c: uint) -&gt; f32</code></h4>
@@ -47,7 +50,7 @@
 </div><h3 class='impl'><code>impl <a class='trait' href='../../algebloat/matrix/traits/trait.MatrixShape.html' title='algebloat::matrix::traits::MatrixShape'>MatrixShape</a> for <a class='struct' href='../../algebloat/matrix/struct.Matrix.html' title='algebloat::matrix::Matrix'>Matrix</a></code></h3><div class='methods'><h4 id='method.nrow' class='method'><code>fn <a href='#method.nrow' class='fnname'>nrow</a>(&amp;self) -&gt; uint</code></h4>
 <h4 id='method.ncol' class='method'><code>fn <a href='#method.ncol' class='fnname'>ncol</a>(&amp;self) -&gt; uint</code></h4>
 </div><h3 class='impl'><code>impl <a class='trait' href='http://static.rust-lang.org/doc/master/std/fmt/trait.Show.html' title='std::fmt::Show'>Show</a> for <a class='struct' href='../../algebloat/matrix/struct.Matrix.html' title='algebloat::matrix::Matrix'>Matrix</a></code></h3><div class='methods'><h4 id='method.fmt' class='method'><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, buf: &amp;mut <a class='struct' href='http://static.rust-lang.org/doc/master/std/fmt/struct.Formatter.html' title='std::fmt::Formatter'>Formatter</a>) -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/fmt/enum.Result.html' title='std::fmt::Result'>Result</a></code></h4>
-</div><h3 class='impl'><code>impl SafeAlias for <a class='struct' href='../../algebloat/matrix/struct.Matrix.html' title='algebloat::matrix::Matrix'>Matrix</a></code></h3><div class='methods'></div></section>
+</div><h3 class='impl'><code>impl <a class='trait' href='../../algebloat/safe_alias/trait.SafeAlias.html' title='algebloat::safe_alias::SafeAlias'>SafeAlias</a> for <a class='struct' href='../../algebloat/matrix/struct.Matrix.html' title='algebloat::matrix::Matrix'>Matrix</a></code></h3><div class='methods'></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>

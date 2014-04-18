@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="The algebloat library documentation.">
+
     <title>algebloat::matrix::traits::MatrixColumnAccess - Rust</title>
 
-    <link href='http://fonts.googleapis.com/css?family=Oswald:700|Inconsolata:400,700'
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700'
           rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="../../../main.css">
 
@@ -26,7 +29,6 @@
 
     <nav class="sub">
         <form class="search-form js-only">
-            <button class="do-search">Search</button>
             <div class="search-container">
                 <input class="search-input" name="search"
                        autocomplete="off"
@@ -36,8 +38,9 @@
         </form>
     </nav>
 
-    <section id='main' class="content trait"><a class='source'
-                              href='../../../src/algebloat/home/travis/build/SiegeLord/RustAlgebloat/src/matrix/traits.rs.html#40-44'>[src]</a><h1 class='fqn'>Trait <a href='../../index.html'>algebloat</a>::<a href='../index.html'>matrix</a>::<a href='index.html'>traits</a>::<a class='trait' href=''>MatrixColumnAccess</a></h1><pre class='rust trait'>pub trait MatrixColumnAccess {
+    <section id='main' class="content trait">
+<h1 class='fqn'>Trait <a href='../../index.html'>algebloat</a>::<a href='../index.html'>matrix</a>::<a href='index.html'>traits</a>::<a class='trait' href=''>MatrixColumnAccess</a><a class='source'href='../../../src/algebloat/home/travis/build/SiegeLord/RustAlgebloat/src/matrix/traits.rs.html#40-44'>[src]</a></h1>
+<pre class='rust trait'>pub trait MatrixColumnAccess {
     unsafe fn <a href='#tymethod.unsafe_col' class='fnname'>unsafe_col</a>(self, col: uint) -&gt; <a class='struct' href='../../../algebloat/matrix/column_accessor/struct.ColumnAccessor.html' title='algebloat::matrix::column_accessor::ColumnAccessor'>ColumnAccessor</a>&lt;Self&gt;;
     fn <a href='#tymethod.col' class='fnname'>col</a>(self, col: uint) -&gt; <a class='struct' href='../../../algebloat/matrix/column_accessor/struct.ColumnAccessor.html' title='algebloat::matrix::column_accessor::ColumnAccessor'>ColumnAccessor</a>&lt;Self&gt;;
 }</pre>

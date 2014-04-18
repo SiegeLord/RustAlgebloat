@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="The algebloat library documentation.">
+
     <title>algebloat::vector::reductions::VectorReduce - Rust</title>
 
-    <link href='http://fonts.googleapis.com/css?family=Oswald:700|Inconsolata:400,700'
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700'
           rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="../../../main.css">
 
@@ -26,7 +29,6 @@
 
     <nav class="sub">
         <form class="search-form js-only">
-            <button class="do-search">Search</button>
             <div class="search-container">
                 <input class="search-input" name="search"
                        autocomplete="off"
@@ -36,8 +38,9 @@
         </form>
     </nav>
 
-    <section id='main' class="content trait"><a class='source'
-                              href='../../../src/algebloat/home/travis/build/SiegeLord/RustAlgebloat/src/vector/reductions.rs.html#8-14'>[src]</a><h1 class='fqn'>Trait <a href='../../index.html'>algebloat</a>::<a href='../index.html'>vector</a>::<a href='index.html'>reductions</a>::<a class='trait' href=''>VectorReduce</a></h1><pre class='rust trait'>pub trait VectorReduce {
+    <section id='main' class="content trait">
+<h1 class='fqn'>Trait <a href='../../index.html'>algebloat</a>::<a href='../index.html'>vector</a>::<a href='index.html'>reductions</a>::<a class='trait' href=''>VectorReduce</a><a class='source'href='../../../src/algebloat/home/travis/build/SiegeLord/RustAlgebloat/src/vector/reductions.rs.html#8-14'>[src]</a></h1>
+<pre class='rust trait'>pub trait VectorReduce {
     fn <a href='#tymethod.min' class='fnname'>min</a>(&amp;self) -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;f32&gt;;
     fn <a href='#tymethod.min_idx' class='fnname'>min_idx</a>(&amp;self) -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;(uint, f32)&gt;;
     fn <a href='#tymethod.max' class='fnname'>max</a>(&amp;self) -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;f32&gt;;

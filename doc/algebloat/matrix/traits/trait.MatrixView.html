@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="The algebloat library documentation.">
+
     <title>algebloat::matrix::traits::MatrixView - Rust</title>
 
-    <link href='http://fonts.googleapis.com/css?family=Oswald:700|Inconsolata:400,700'
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700'
           rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="../../../main.css">
 
@@ -26,7 +29,6 @@
 
     <nav class="sub">
         <form class="search-form js-only">
-            <button class="do-search">Search</button>
             <div class="search-container">
                 <input class="search-input" name="search"
                        autocomplete="off"
@@ -36,8 +38,9 @@
         </form>
     </nav>
 
-    <section id='main' class="content trait"><a class='source'
-                              href='../../../src/algebloat/home/travis/build/SiegeLord/RustAlgebloat/src/matrix/traits.rs.html#46-50'>[src]</a><h1 class='fqn'>Trait <a href='../../index.html'>algebloat</a>::<a href='../index.html'>matrix</a>::<a href='index.html'>traits</a>::<a class='trait' href=''>MatrixView</a></h1><pre class='rust trait'>pub trait MatrixView {
+    <section id='main' class="content trait">
+<h1 class='fqn'>Trait <a href='../../index.html'>algebloat</a>::<a href='../index.html'>matrix</a>::<a href='index.html'>traits</a>::<a class='trait' href=''>MatrixView</a><a class='source'href='../../../src/algebloat/home/travis/build/SiegeLord/RustAlgebloat/src/matrix/traits.rs.html#46-50'>[src]</a></h1>
+<pre class='rust trait'>pub trait MatrixView {
     unsafe fn <a href='#tymethod.unsafe_view' class='fnname'>unsafe_view</a>(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -&gt; <a class='struct' href='../../../algebloat/matrix/view/struct.View.html' title='algebloat::matrix::view::View'>View</a>&lt;Self&gt;;
     fn <a href='#tymethod.view' class='fnname'>view</a>(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -&gt; <a class='struct' href='../../../algebloat/matrix/view/struct.View.html' title='algebloat::matrix::view::View'>View</a>&lt;Self&gt;;
 }</pre>
