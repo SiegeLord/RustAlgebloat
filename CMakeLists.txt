@@ -83,5 +83,5 @@ add_custom_target(doc
                   DEPENDS ${ALGEBLOAT_DOC_FULL_TARGET} ${CUSTOM_CSS_DEST})
 
 # Install library
-install(FILES ${ALGEBLOAT_ARTIFACTS}
+install(FILES ${ALGEBLOAT_ARTIFACTS} ${ALGEBLOAT_MACROS_ARTIFACTS}
         DESTINATION lib)
