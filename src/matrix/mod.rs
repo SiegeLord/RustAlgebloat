@@ -47,6 +47,11 @@ impl Matrix
 		}
 		Matrix{ data: mat_data, nrow: nrow, ncol: ncol }
 	}
+
+	pub fn from_elem(nrow: uint, ncol: uint, elem: f32) -> Matrix
+	{
+		Matrix{ data: Vec::from_elem(nrow * ncol, Cell::new(elem)), nrow: nrow, ncol: ncol }
+	}
 }
 
 impl<'l>

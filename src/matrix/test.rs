@@ -8,6 +8,15 @@ use vector::traits::{VectorGet};
 use super::*;
 
 #[test]
+fn from_elem()
+{
+	let m = Matrix::from_elem(5, 5, 1.0);
+	assert_eq!(m.nrow(), 5);
+	assert_eq!(m.ncol(), 5);
+	assert_eq!(m.get(0, 0), 1.0);
+}
+
+#[test]
 fn trans()
 {
 	let m = mat!(1.0, 2.0, 3.0;

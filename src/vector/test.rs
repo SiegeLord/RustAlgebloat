@@ -63,6 +63,14 @@ fn vec_speed_loop(bh: &mut Bencher) {
 }
 
 #[test]
+fn from_elem()
+{
+	let a = Vector::from_elem(10, 1.0);
+	assert_eq!(a.len(), 10);
+	assert_eq!(a.get(0), 1.0);
+}
+
+#[test]
 fn vec_ops()
 {
 	let a = vec!(1.0, 2.0, 3.0);

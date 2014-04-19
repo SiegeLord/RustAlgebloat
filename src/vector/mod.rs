@@ -33,6 +33,12 @@ impl Vector
 	{
 		Vector{ data: data.iter().map(|&v| Cell::new(v)).collect() }
 	}
+
+	pub fn from_elem(size: uint, elem: f32) -> Vector
+	{
+		use std::slice::from_elem;
+		Vector{ data: from_elem(size, Cell::new(elem)) }
+	}
 }
 
 impl
