@@ -331,14 +331,14 @@
 
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Matrix</span>
 {
-	<span class='ident'>data</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Cell</span><span class='op'>&lt;</span><span class='ident'>f32</span><span class='op'>&gt;&gt;</span>,
+	<span class='ident'>data</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Cell</span><span class='op'>&lt;</span><span class='ident'>f64</span><span class='op'>&gt;&gt;</span>,
 	<span class='ident'>nrow</span>: <span class='ident'>uint</span>,
 	<span class='ident'>ncol</span>: <span class='ident'>uint</span>
 }
 
 <span class='kw'>impl</span> <span class='ident'>Matrix</span>
 {
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>data</span>: <span class='kw-2'>&amp;</span>[<span class='kw-2'>&amp;</span>[<span class='ident'>f32</span>]]) <span class='op'>-&gt;</span> <span class='ident'>Matrix</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>data</span>: <span class='kw-2'>&amp;</span>[<span class='kw-2'>&amp;</span>[<span class='ident'>f64</span>]]) <span class='op'>-&gt;</span> <span class='ident'>Matrix</span>
 	{
 		<span class='kw'>let</span> <span class='ident'>nrow</span> <span class='op'>=</span> <span class='ident'>data</span>.<span class='ident'>len</span>();
 		<span class='kw'>let</span> <span class='ident'>ncol</span> <span class='op'>=</span> <span class='ident'>data</span>[<span class='number'>0</span>].<span class='ident'>len</span>();
@@ -354,7 +354,7 @@
 		<span class='ident'>Matrix</span>{ <span class='ident'>data</span>: <span class='ident'>mat_data</span>, <span class='ident'>nrow</span>: <span class='ident'>nrow</span>, <span class='ident'>ncol</span>: <span class='ident'>ncol</span> }
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>from_elem</span>(<span class='ident'>nrow</span>: <span class='ident'>uint</span>, <span class='ident'>ncol</span>: <span class='ident'>uint</span>, <span class='ident'>elem</span>: <span class='ident'>f32</span>) <span class='op'>-&gt;</span> <span class='ident'>Matrix</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>from_elem</span>(<span class='ident'>nrow</span>: <span class='ident'>uint</span>, <span class='ident'>ncol</span>: <span class='ident'>uint</span>, <span class='ident'>elem</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>Matrix</span>
 	{
 		<span class='ident'>Matrix</span>{ <span class='ident'>data</span>: <span class='ident'>Vec</span>::<span class='ident'>from_elem</span>(<span class='ident'>nrow</span> <span class='op'>*</span> <span class='ident'>ncol</span>, <span class='ident'>Cell</span>::<span class='ident'>new</span>(<span class='ident'>elem</span>)), <span class='ident'>nrow</span>: <span class='ident'>nrow</span>, <span class='ident'>ncol</span>: <span class='ident'>ncol</span> }
 	}
@@ -364,12 +364,12 @@
 <span class='ident'>MatrixGet</span> <span class='kw'>for</span>
 <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;l</span> <span class='ident'>Matrix</span>
 {
-	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>f32</span>
+	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>
 	{
 		<span class='self'>self</span>.<span class='ident'>data</span>.<span class='ident'>as_slice</span>().<span class='ident'>unsafe_ref</span>(<span class='ident'>c</span> <span class='op'>+</span> <span class='ident'>r</span> <span class='op'>*</span> <span class='self'>self</span>.<span class='ident'>ncol</span>).<span class='ident'>get</span>()
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>f32</span>
+	<span class='kw'>fn</span> <span class='ident'>get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>
 	{
 		<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>r</span> <span class='op'>&lt;</span> <span class='self'>self</span>.<span class='ident'>nrow</span>());
 		<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>c</span> <span class='op'>&lt;</span> <span class='self'>self</span>.<span class='ident'>ncol</span>());
@@ -384,12 +384,12 @@
 <span class='ident'>MatrixSet</span> <span class='kw'>for</span>
 <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;l</span> <span class='ident'>Matrix</span>
 {
-	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_set</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>, <span class='ident'>val</span>: <span class='ident'>f32</span>)
+	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_set</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>, <span class='ident'>val</span>: <span class='ident'>f64</span>)
 	{
 		<span class='self'>self</span>.<span class='ident'>data</span>.<span class='ident'>as_slice</span>().<span class='ident'>unsafe_ref</span>(<span class='ident'>c</span> <span class='op'>+</span> <span class='ident'>r</span> <span class='op'>*</span> <span class='self'>self</span>.<span class='ident'>ncol</span>).<span class='ident'>set</span>(<span class='ident'>val</span>);
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>set</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>, <span class='ident'>val</span>: <span class='ident'>f32</span>)
+	<span class='kw'>fn</span> <span class='ident'>set</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>, <span class='ident'>val</span>: <span class='ident'>f64</span>)
 	{
 		<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>r</span> <span class='op'>&lt;</span> <span class='self'>self</span>.<span class='ident'>nrow</span>());
 		<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>c</span> <span class='op'>&lt;</span> <span class='self'>self</span>.<span class='ident'>ncol</span>());
@@ -419,12 +419,12 @@
 <span class='ident'>MatrixGet</span> <span class='kw'>for</span>
 <span class='ident'>Matrix</span>
 {
-	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>f32</span>
+	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>
 	{
 		<span class='self'>self</span>.<span class='ident'>data</span>.<span class='ident'>as_slice</span>().<span class='ident'>unsafe_ref</span>(<span class='ident'>c</span> <span class='op'>+</span> <span class='ident'>r</span> <span class='op'>*</span> <span class='self'>self</span>.<span class='ident'>ncol</span>).<span class='ident'>get</span>()
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>f32</span>
+	<span class='kw'>fn</span> <span class='ident'>get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>
 	{
 		<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>r</span> <span class='op'>&lt;</span> <span class='self'>self</span>.<span class='ident'>nrow</span>());
 		<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>c</span> <span class='op'>&lt;</span> <span class='self'>self</span>.<span class='ident'>ncol</span>());
@@ -439,12 +439,12 @@
 <span class='ident'>MatrixSet</span> <span class='kw'>for</span>
 <span class='ident'>Matrix</span>
 {
-	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_set</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>, <span class='ident'>val</span>: <span class='ident'>f32</span>)
+	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_set</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>, <span class='ident'>val</span>: <span class='ident'>f64</span>)
 	{
 		<span class='self'>self</span>.<span class='ident'>data</span>.<span class='ident'>as_slice</span>().<span class='ident'>unsafe_ref</span>(<span class='ident'>c</span> <span class='op'>+</span> <span class='ident'>r</span> <span class='op'>*</span> <span class='self'>self</span>.<span class='ident'>ncol</span>).<span class='ident'>set</span>(<span class='ident'>val</span>);
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>set</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>, <span class='ident'>val</span>: <span class='ident'>f32</span>)
+	<span class='kw'>fn</span> <span class='ident'>set</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>, <span class='ident'>val</span>: <span class='ident'>f64</span>)
 	{
 		<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>r</span> <span class='op'>&lt;</span> <span class='self'>self</span>.<span class='ident'>nrow</span>());
 		<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>c</span> <span class='op'>&lt;</span> <span class='self'>self</span>.<span class='ident'>ncol</span>());

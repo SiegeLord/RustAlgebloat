@@ -249,7 +249,7 @@
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>UnOp</span>
 {
-	<span class='kw'>fn</span> <span class='ident'>op</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>a</span>: <span class='ident'>f32</span>) <span class='op'>-&gt;</span> <span class='ident'>f32</span>;
+	<span class='kw'>fn</span> <span class='ident'>op</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>a</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>;
 }
 
 <span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Clone</span>)]</span>
@@ -263,7 +263,7 @@
 }
 <span class='kw'>impl</span> <span class='ident'>UnOp</span> <span class='kw'>for</span> <span class='ident'>OpNeg</span>
 {
-	<span class='kw'>fn</span> <span class='ident'>op</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>a</span>: <span class='ident'>f32</span>) <span class='op'>-&gt;</span> <span class='ident'>f32</span>
+	<span class='kw'>fn</span> <span class='ident'>op</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>a</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>
 	{
 		<span class='op'>-</span><span class='ident'>a</span>
 	}
@@ -317,12 +317,12 @@
 <span class='ident'>VectorGet</span> <span class='kw'>for</span>
 <span class='ident'>VectorUnOp</span><span class='op'>&lt;</span><span class='ident'>TA</span>, <span class='ident'>TO</span><span class='op'>&gt;</span>
 {
-	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>idx</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>f32</span>
+	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>idx</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>
 	{
 		<span class='self'>self</span>.<span class='ident'>o</span>.<span class='ident'>op</span>(<span class='self'>self</span>.<span class='ident'>a</span>.<span class='ident'>unsafe_get</span>(<span class='ident'>idx</span>))
 	}
 	
-	<span class='kw'>fn</span> <span class='ident'>get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>idx</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>f32</span>
+	<span class='kw'>fn</span> <span class='ident'>get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>idx</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>
 	{
 		<span class='self'>self</span>.<span class='ident'>o</span>.<span class='ident'>op</span>(<span class='self'>self</span>.<span class='ident'>a</span>.<span class='ident'>get</span>(<span class='ident'>idx</span>))
 	}

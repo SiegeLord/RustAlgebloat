@@ -206,12 +206,12 @@
 <span class='ident'>MatrixGet</span> <span class='kw'>for</span>
 <span class='ident'>Transposer</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
 {
-	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>f32</span>
+	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>
 	{
 		<span class='self'>self</span>.<span class='ident'>base</span>.<span class='ident'>unsafe_get</span>(<span class='ident'>c</span>, <span class='ident'>r</span>)
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>f32</span>
+	<span class='kw'>fn</span> <span class='ident'>get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>
 	{
 		<span class='self'>self</span>.<span class='ident'>base</span>.<span class='ident'>get</span>(<span class='ident'>c</span>, <span class='ident'>r</span>)
 	}
@@ -221,12 +221,12 @@
 <span class='ident'>MatrixSet</span> <span class='kw'>for</span>
 <span class='ident'>Transposer</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
 {
-	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_set</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>, <span class='ident'>val</span>: <span class='ident'>f32</span>)
+	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_set</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>, <span class='ident'>val</span>: <span class='ident'>f64</span>)
 	{
 		<span class='self'>self</span>.<span class='ident'>base</span>.<span class='ident'>unsafe_set</span>(<span class='ident'>c</span>, <span class='ident'>r</span>, <span class='ident'>val</span>)
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>set</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>, <span class='ident'>val</span>: <span class='ident'>f32</span>)
+	<span class='kw'>fn</span> <span class='ident'>set</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>, <span class='ident'>val</span>: <span class='ident'>f64</span>)
 	{
 		<span class='self'>self</span>.<span class='ident'>base</span>.<span class='ident'>set</span>(<span class='ident'>c</span>, <span class='ident'>r</span>, <span class='ident'>val</span>)
 	}

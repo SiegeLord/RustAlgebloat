@@ -135,7 +135,7 @@
 
 		<span class='kw'>mod</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>func_name</span>
 		{
-			<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>func_name</span>(<span class='ident'>a</span>: <span class='ident'>f32</span>) <span class='op'>-&gt;</span> <span class='ident'>f32</span>
+			<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>func_name</span>(<span class='ident'>a</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>
 			{
 				<span class='ident'>a</span>.<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>func_name</span>()
 			}
@@ -143,9 +143,9 @@
 
 		<span class='kw'>impl</span> <span class='ident'>UnOp</span> <span class='kw'>for</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span>
 		{
-			<span class='kw'>fn</span> <span class='ident'>op</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>a</span>: <span class='ident'>f32</span>) <span class='op'>-&gt;</span> <span class='ident'>f32</span>
+			<span class='kw'>fn</span> <span class='ident'>op</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>a</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>
 			{<span class='comment'>
-				//~ f32::$func_name(a)
+				//~ f64::$func_name(a)
 				//~ concat_idents!(dummy_, $func_name)::$func_name(a)
 				</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>func_name</span>::<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>func_name</span>(<span class='ident'>a</span>)
 			}
