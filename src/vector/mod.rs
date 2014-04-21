@@ -36,8 +36,8 @@ impl Vector
 
 	pub fn from_elem(size: uint, elem: f32) -> Vector
 	{
-		use std::slice::from_elem;
-		Vector{ data: from_elem(size, Cell::new(elem)) }
+		use std::iter::Repeat;
+		Vector{ data: Repeat::new(Cell::new(elem)).take(size).collect() }
 	}
 }
 
