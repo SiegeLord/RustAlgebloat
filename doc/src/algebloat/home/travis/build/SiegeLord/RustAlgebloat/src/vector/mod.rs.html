@@ -263,8 +263,8 @@
 
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>from_elem</span>(<span class='ident'>size</span>: <span class='ident'>uint</span>, <span class='ident'>elem</span>: <span class='ident'>f32</span>) <span class='op'>-&gt;</span> <span class='ident'>Vector</span>
 	{
-		<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>slice</span>::<span class='ident'>from_elem</span>;
-		<span class='ident'>Vector</span>{ <span class='ident'>data</span>: <span class='ident'>from_elem</span>(<span class='ident'>size</span>, <span class='ident'>Cell</span>::<span class='ident'>new</span>(<span class='ident'>elem</span>)) }
+		<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>iter</span>::<span class='ident'>Repeat</span>;
+		<span class='ident'>Vector</span>{ <span class='ident'>data</span>: <span class='ident'>Repeat</span>::<span class='ident'>new</span>(<span class='ident'>Cell</span>::<span class='ident'>new</span>(<span class='ident'>elem</span>)).<span class='ident'>take</span>(<span class='ident'>size</span>).<span class='ident'>collect</span>() }
 	}
 }
 
