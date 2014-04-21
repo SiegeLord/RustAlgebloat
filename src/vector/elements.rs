@@ -20,10 +20,10 @@ VectorElements<T>
 }
 
 impl<T: VectorGet + Container>
-Iterator<f32> for
+Iterator<f64> for
 VectorElements<T>
 {
-	fn next(&mut self) -> Option<f32>
+	fn next(&mut self) -> Option<f64>
 	{
 		let ret = if self.idx < self.base.len()
 		{

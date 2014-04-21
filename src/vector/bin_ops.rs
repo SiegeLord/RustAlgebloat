@@ -16,7 +16,7 @@ use vector::un_ops::{VectorUnOp, UnOp};
 
 pub trait BinOp
 {
-	fn op(&self, a: f32, b: f32) -> f32;
+	fn op(&self, a: f64, b: f64) -> f64;
 }
 
 macro_rules! op
@@ -34,7 +34,7 @@ macro_rules! op
 		}
 		impl BinOp for $name
 		{
-			fn op(&self, a: f32, b: f32) -> f32
+			fn op(&self, a: f64, b: f64) -> f64
 			{
 				expr!(a $op b)
 			}
@@ -111,12 +111,12 @@ impl<TA: VectorGet + Container,
 VectorGet for
 VectorBinOp<TA, TB, TO>
 {
-	unsafe fn unsafe_get(&self, idx: uint) -> f32
+	unsafe fn unsafe_get(&self, idx: uint) -> f64
 	{
 		self.o.op(self.a.unsafe_get(idx), self.b.unsafe_get(idx))
 	}
 	
-	fn get(&self, idx: uint) -> f32
+	fn get(&self, idx: uint) -> f64
 	{
 		assert!(idx < self.len());
 		unsafe

@@ -24,17 +24,17 @@ mod test;
 
 pub struct Vector
 {
-	data: ~[Cell<f32>]
+	data: ~[Cell<f64>]
 }
 
 impl Vector
 {
-	pub fn new(data: &[f32]) -> Vector
+	pub fn new(data: &[f64]) -> Vector
 	{
 		Vector{ data: data.iter().map(|&v| Cell::new(v)).collect() }
 	}
 
-	pub fn from_elem(size: uint, elem: f32) -> Vector
+	pub fn from_elem(size: uint, elem: f64) -> Vector
 	{
 		use std::iter::Repeat;
 		Vector{ data: Repeat::new(Cell::new(elem)).take(size).collect() }
@@ -42,10 +42,10 @@ impl Vector
 }
 
 impl
-FromIterator<f32> for
+FromIterator<f64> for
 Vector
 {
-	fn from_iter<T: Iterator<f32>>(mut it: T) -> Vector
+	fn from_iter<T: Iterator<f64>>(mut it: T) -> Vector
 	{
 		Vector{ data: it.by_ref().map(|v| Cell::new(v)).collect() }
 	}
@@ -70,12 +70,12 @@ impl<'l>
 VectorGet for
 &'l Vector
 {
-	unsafe fn unsafe_get(&self, idx: uint) -> f32
+	unsafe fn unsafe_get(&self, idx: uint) -> f64
 	{
 		(*self.data.unsafe_ref(idx)).get()
 	}
 	
-	fn get(&self, idx: uint) -> f32
+	fn get(&self, idx: uint) -> f64
 	{
 		self.data[idx].get()
 	}
@@ -85,12 +85,12 @@ impl<'l>
 VectorSet for
 &'l Vector
 {
-	unsafe fn unsafe_set(&self, idx: uint, val: f32)
+	unsafe fn unsafe_set(&self, idx: uint, val: f64)
 	{
 		self.data.unsafe_ref(idx).set(val);
 	}
 
-	fn set(&self, idx: uint, val: f32)
+	fn set(&self, idx: uint, val: f64)
 	{
 		self.data[idx].set(val);
 	}
@@ -120,12 +120,12 @@ impl<'l>
 VectorGet for
 Vector
 {
-	unsafe fn unsafe_get(&self, idx: uint) -> f32
+	unsafe fn unsafe_get(&self, idx: uint) -> f64
 	{
 		(*self.data.unsafe_ref(idx)).get()
 	}
 	
-	fn get(&self, idx: uint) -> f32
+	fn get(&self, idx: uint) -> f64
 	{
 		self.data[idx].get()
 	}
@@ -135,12 +135,12 @@ impl<'l>
 VectorSet for
 Vector
 {
-	unsafe fn unsafe_set(&self, idx: uint, val: f32)
+	unsafe fn unsafe_set(&self, idx: uint, val: f64)
 	{
 		self.data.unsafe_ref(idx).set(val);
 	}
 
-	fn set(&self, idx: uint, val: f32)
+	fn set(&self, idx: uint, val: f64)
 	{
 		self.data[idx].set(val);
 	}

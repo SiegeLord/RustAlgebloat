@@ -16,7 +16,7 @@ use vector::bin_ops::{VectorBinOp, BinOp};
 
 pub trait UnOp
 {
-	fn op(&self, a: f32) -> f32;
+	fn op(&self, a: f64) -> f64;
 }
 
 #[deriving(Clone)]
@@ -30,7 +30,7 @@ impl OpNeg
 }
 impl UnOp for OpNeg
 {
-	fn op(&self, a: f32) -> f32
+	fn op(&self, a: f64) -> f64
 	{
 		-a
 	}
@@ -84,12 +84,12 @@ impl<TA: VectorGet + Container,
 VectorGet for
 VectorUnOp<TA, TO>
 {
-	unsafe fn unsafe_get(&self, idx: uint) -> f32
+	unsafe fn unsafe_get(&self, idx: uint) -> f64
 	{
 		self.o.op(self.a.unsafe_get(idx))
 	}
 	
-	fn get(&self, idx: uint) -> f32
+	fn get(&self, idx: uint) -> f64
 	{
 		self.o.op(self.a.get(idx))
 	}

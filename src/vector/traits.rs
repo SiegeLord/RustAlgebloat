@@ -10,14 +10,14 @@ use vector::Vector;
 
 pub trait VectorGet
 {
-	unsafe fn unsafe_get(&self, idx: uint) -> f32;
-	fn get(&self, idx: uint) -> f32;
+	unsafe fn unsafe_get(&self, idx: uint) -> f64;
+	fn get(&self, idx: uint) -> f64;
 }
 
 pub trait VectorSet
 {
-	unsafe fn unsafe_set(&self, idx: uint, val: f32);
-	fn set(&self, idx: uint, val: f32);
+	unsafe fn unsafe_set(&self, idx: uint, val: f64);
+	fn set(&self, idx: uint, val: f64);
 }
 
 pub trait VectorAssign<T>

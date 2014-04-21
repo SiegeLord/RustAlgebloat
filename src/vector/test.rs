@@ -25,7 +25,7 @@ fn vec_speed_vec(bh: &mut Bencher) {
 			a.assign((&a + &a * &a) / &a);
 		}
 		
-		let mut sum = 0f32;
+		let mut sum = 0f64;
 		for v in (&a).elems()
 		{
 			sum += v;
@@ -53,7 +53,7 @@ fn vec_speed_loop(bh: &mut Bencher) {
 			}
 		}
 		
-		let mut sum = 0f32;
+		let mut sum = 0f64;
 		for v in (&a).elems()
 		{
 			sum += v;
@@ -124,10 +124,10 @@ fn vec_mut_slice()
 #[test]
 fn vec_iter()
 {
-	let a: Vector = range(0, 5).map(|v| v as f32).collect();
+	let a: Vector = range(0, 5).map(|v| v as f64).collect();
 	assert_eq!(a.elems().next().unwrap(), 0.0);
 	
-	//~ let mut b: Vector = range(0, 5).map(|v| v as f32).collect();
+	//~ let mut b: Vector = range(0, 5).map(|v| v as f64).collect();
 	//~ for v in (&mut b).iter()
 	//~ {
 		//~ *v = 1.0;
@@ -149,8 +149,8 @@ fn to_vec()
 fn scalars()
 {
 	let a = vec!(1.0, 2.0, 3.0);
-	let b = &a * 2.0f32;
-	let c = b.slice(1, 3) * 3.0f32;
+	let b = &a * 2.0f64;
+	let c = b.slice(1, 3) * 3.0f64;
 	assert_eq!(b.get(0), 2.0);
 	assert_eq!(c.get(0), 12.0);
 }
@@ -159,8 +159,8 @@ fn scalars()
 fn neg()
 {
 	let a = vec!(1.0, 2.0, 3.0);
-	let b = -(-&a * 2.0f32);
-	let c = -(b.slice(1, 3) * 3.0f32);
+	let b = -(-&a * 2.0f64);
+	let c = -(b.slice(1, 3) * 3.0f64);
 	assert_eq!(b.get(0), 2.0);
 	assert_eq!(c.get(0), -12.0);
 }
@@ -168,11 +168,11 @@ fn neg()
 #[test]
 fn un_funs()
 {
-	use std::f32::consts::PI;
+	use std::f64::consts::PI;
 	let a = vec!(0.0, PI / 2.0, -PI / 2.0);
 	let s1 = (&a).sin();
 	let b = a.slice(1, a.len());
-	let s2 = b.sin() + 1.0f32;
+	let s2 = b.sin() + 1.0f64;
 	assert_eq!(s1.get(1), 1.0);
 	assert_eq!(s2.get(0), 2.0);
 }
@@ -182,9 +182,9 @@ fn bin_funs()
 {
 	let a = vec!(1.0, 2.0, 3.0);
 	let s = a.slice(0, a.len());
-	let b1 = s.powf(2.0f32);
+	let b1 = s.powf(2.0f64);
 	let b2 = s.powf(s);
-	let b3 = -s.powf(2.0f32);
+	let b3 = -s.powf(2.0f64);
 	assert_eq!(b1.get(2), 9.0);
 	assert_eq!(b2.get(2), 27.0);
 	assert_eq!(b3.get(2), -9.0);

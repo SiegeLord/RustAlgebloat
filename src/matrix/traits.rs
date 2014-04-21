@@ -10,14 +10,14 @@ use safe_alias::SafeAlias;
 
 pub trait MatrixGet
 {
-	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f32;
-	fn get(&self, r: uint, c: uint) -> f32;
+	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f64;
+	fn get(&self, r: uint, c: uint) -> f64;
 }
 
 pub trait MatrixSet
 {
-	unsafe fn unsafe_set(&self, r: uint, c: uint, val: f32);
-	fn set(&self, r: uint, c: uint, val: f32);
+	unsafe fn unsafe_set(&self, r: uint, c: uint, val: f64);
+	fn set(&self, r: uint, c: uint, val: f64);
 }
 
 pub trait MatrixShape

@@ -20,12 +20,12 @@ impl<T: MatrixGet>
 MatrixGet for
 View<T>
 {
-	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f32
+	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f64
 	{
 		self.base.unsafe_get(r + self.row_start, c + self.col_start)
 	}
 
-	fn get(&self, r: uint, c: uint) -> f32
+	fn get(&self, r: uint, c: uint) -> f64
 	{
 		assert!(r < self.nrow());
 		assert!(c < self.ncol());
@@ -37,12 +37,12 @@ impl<T: MatrixSet>
 MatrixSet for
 View<T>
 {
-	unsafe fn unsafe_set(&self, r: uint, c: uint, val: f32)
+	unsafe fn unsafe_set(&self, r: uint, c: uint, val: f64)
 	{
 		self.base.unsafe_set(r + self.row_start, c + self.col_start, val)
 	}
 
-	fn set(&self, r: uint, c: uint, val: f32)
+	fn set(&self, r: uint, c: uint, val: f64)
 	{
 		assert!(r < self.nrow());
 		assert!(c < self.ncol());

@@ -6,7 +6,7 @@ use vector::traits::{VectorGet, LengthEq};
 
 impl
 LengthEq for
-f32
+f64
 {
 	fn len_eq(&self, _: uint) -> bool
 	{
@@ -16,14 +16,14 @@ f32
 
 impl
 VectorGet for
-f32
+f64
 {
-	unsafe fn unsafe_get(&self, _: uint) -> f32
+	unsafe fn unsafe_get(&self, _: uint) -> f64
 	{
 		*self
 	}
 	
-	fn get(&self, _: uint) -> f32
+	fn get(&self, _: uint) -> f64
 	{
 		*self
 	}

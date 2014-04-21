@@ -21,7 +21,7 @@ macro_rules! un_fun
 
 		mod $func_name
 		{
-			pub fn $func_name(a: f32) -> f32
+			pub fn $func_name(a: f64) -> f64
 			{
 				a.$func_name()
 			}
@@ -29,9 +29,9 @@ macro_rules! un_fun
 
 		impl UnOp for $struct_name
 		{
-			fn op(&self, a: f32) -> f32
+			fn op(&self, a: f64) -> f64
 			{
-				//~ f32::$func_name(a)
+				//~ f64::$func_name(a)
 				//~ concat_idents!(dummy_, $func_name)::$func_name(a)
 				$func_name::$func_name(a)
 			}

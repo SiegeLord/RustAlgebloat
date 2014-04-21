@@ -54,12 +54,12 @@ impl<T: VectorGet>
 VectorGet for
 Slice<T>
 {
-	unsafe fn unsafe_get(&self, idx: uint) -> f32
+	unsafe fn unsafe_get(&self, idx: uint) -> f64
 	{
 		self.base.unsafe_get(idx + self.start)
 	}
 
-	fn get(&self, idx: uint) -> f32
+	fn get(&self, idx: uint) -> f64
 	{
 		assert!(idx < self.len());
 		unsafe
@@ -73,12 +73,12 @@ impl<T: VectorSet>
 VectorSet for
 Slice<T>
 {
-	unsafe fn unsafe_set(&self, idx: uint, val: f32)
+	unsafe fn unsafe_set(&self, idx: uint, val: f64)
 	{
 		self.base.unsafe_set(idx + self.start, val);
 	}
 	
-	fn set(&self, idx: uint, val: f32)
+	fn set(&self, idx: uint, val: f64)
 	{
 		assert!(idx < self.len());
 		unsafe

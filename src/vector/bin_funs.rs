@@ -22,7 +22,7 @@ macro_rules! bin_fun
 
 		mod $func_name
 		{
-			pub fn $func_name(a: f32, b: f32) -> f32
+			pub fn $func_name(a: f64, b: f64) -> f64
 			{
 				a.$func_name(&b)
 			}
@@ -30,7 +30,7 @@ macro_rules! bin_fun
 
 		impl BinOp for $struct_name
 		{
-			fn op(&self, a: f32, b: f32) -> f32
+			fn op(&self, a: f64, b: f64) -> f64
 			{
 				$func_name::$func_name(a, b)
 			}

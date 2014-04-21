@@ -24,12 +24,12 @@ impl<T: MatrixGet>
 MatrixGet for
 Transposer<T>
 {
-	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f32
+	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f64
 	{
 		self.base.unsafe_get(c, r)
 	}
 
-	fn get(&self, r: uint, c: uint) -> f32
+	fn get(&self, r: uint, c: uint) -> f64
 	{
 		self.base.get(c, r)
 	}
@@ -39,12 +39,12 @@ impl<T: MatrixSet>
 MatrixSet for
 Transposer<T>
 {
-	unsafe fn unsafe_set(&self, r: uint, c: uint, val: f32)
+	unsafe fn unsafe_set(&self, r: uint, c: uint, val: f64)
 	{
 		self.base.unsafe_set(c, r, val)
 	}
 
-	fn set(&self, r: uint, c: uint, val: f32)
+	fn set(&self, r: uint, c: uint, val: f64)
 	{
 		self.base.set(c, r, val)
 	}

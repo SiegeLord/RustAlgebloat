@@ -13,7 +13,7 @@ macro_rules! vec
 	( $($e: expr),+) =>
 	{
 		Vector::new([$(
-				($e) as f32,
+				($e) as f64,
 		)+])
 	}
 }
@@ -25,7 +25,7 @@ macro_rules! mat
 	{
 		Matrix::new([$(
 			&[$(
-				($e) as f32,
+				($e) as f64,
 			)+],
 		)+])
 	}

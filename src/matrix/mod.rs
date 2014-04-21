@@ -25,14 +25,14 @@ mod test;
 
 pub struct Matrix
 {
-	data: Vec<Cell<f32>>,
+	data: Vec<Cell<f64>>,
 	nrow: uint,
 	ncol: uint
 }
 
 impl Matrix
 {
-	pub fn new(data: &[&[f32]]) -> Matrix
+	pub fn new(data: &[&[f64]]) -> Matrix
 	{
 		let nrow = data.len();
 		let ncol = data[0].len();
@@ -48,7 +48,7 @@ impl Matrix
 		Matrix{ data: mat_data, nrow: nrow, ncol: ncol }
 	}
 
-	pub fn from_elem(nrow: uint, ncol: uint, elem: f32) -> Matrix
+	pub fn from_elem(nrow: uint, ncol: uint, elem: f64) -> Matrix
 	{
 		Matrix{ data: Vec::from_elem(nrow * ncol, Cell::new(elem)), nrow: nrow, ncol: ncol }
 	}
@@ -58,12 +58,12 @@ impl<'l>
 MatrixGet for
 &'l Matrix
 {
-	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f32
+	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f64
 	{
 		self.data.as_slice().unsafe_ref(c + r * self.ncol).get()
 	}
 
-	fn get(&self, r: uint, c: uint) -> f32
+	fn get(&self, r: uint, c: uint) -> f64
 	{
 		assert!(r < self.nrow());
 		assert!(c < self.ncol());
@@ -78,12 +78,12 @@ impl<'l>
 MatrixSet for
 &'l Matrix
 {
-	unsafe fn unsafe_set(&self, r: uint, c: uint, val: f32)
+	unsafe fn unsafe_set(&self, r: uint, c: uint, val: f64)
 	{
 		self.data.as_slice().unsafe_ref(c + r * self.ncol).set(val);
 	}
 
-	fn set(&self, r: uint, c: uint, val: f32)
+	fn set(&self, r: uint, c: uint, val: f64)
 	{
 		assert!(r < self.nrow());
 		assert!(c < self.ncol());
@@ -113,12 +113,12 @@ impl
 MatrixGet for
 Matrix
 {
-	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f32
+	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f64
 	{
 		self.data.as_slice().unsafe_ref(c + r * self.ncol).get()
 	}
 
-	fn get(&self, r: uint, c: uint) -> f32
+	fn get(&self, r: uint, c: uint) -> f64
 	{
 		assert!(r < self.nrow());
 		assert!(c < self.ncol());
@@ -133,12 +133,12 @@ impl
 MatrixSet for
 Matrix
 {
-	unsafe fn unsafe_set(&self, r: uint, c: uint, val: f32)
+	unsafe fn unsafe_set(&self, r: uint, c: uint, val: f64)
 	{
 		self.data.as_slice().unsafe_ref(c + r * self.ncol).set(val);
 	}
 
-	fn set(&self, r: uint, c: uint, val: f32)
+	fn set(&self, r: uint, c: uint, val: f64)
 	{
 		assert!(r < self.nrow());
 		assert!(c < self.ncol());

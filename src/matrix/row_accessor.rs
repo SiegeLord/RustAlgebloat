@@ -40,12 +40,12 @@ impl<'l,
 VectorGet for
 RowAccessor<T>
 {
-	unsafe fn unsafe_get(&self, idx: uint) -> f32
+	unsafe fn unsafe_get(&self, idx: uint) -> f64
 	{
 		self.base.unsafe_get(self.row, idx)
 	}
 
-	fn get(&self, idx: uint) -> f32
+	fn get(&self, idx: uint) -> f64
 	{
 		assert!(idx < self.base.ncol());
 		unsafe
