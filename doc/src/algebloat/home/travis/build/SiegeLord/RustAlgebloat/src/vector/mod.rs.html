@@ -224,6 +224,11 @@
 <span id='184'>184</span>
 <span id='185'>185</span>
 <span id='186'>186</span>
+<span id='187'>187</span>
+<span id='188'>188</span>
+<span id='189'>189</span>
+<span id='190'>190</span>
+<span id='191'>191</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord
 //
@@ -265,6 +270,11 @@
 	{
 		<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>iter</span>::<span class='ident'>Repeat</span>;
 		<span class='ident'>Vector</span>{ <span class='ident'>data</span>: <span class='ident'>Repeat</span>::<span class='ident'>new</span>(<span class='ident'>Cell</span>::<span class='ident'>new</span>(<span class='ident'>elem</span>)).<span class='ident'>take</span>(<span class='ident'>size</span>).<span class='ident'>collect</span>() }
+	}
+
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>from_fn</span>(<span class='ident'>size</span>: <span class='ident'>uint</span>, <span class='ident'>cb</span>: <span class='op'>|</span><span class='ident'>uint</span><span class='op'>|</span> <span class='op'>-&gt;</span> <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>Vector</span>
+	{
+		<span class='ident'>Vector</span>{ <span class='ident'>data</span>: <span class='ident'>range</span>(<span class='number'>0</span>, <span class='ident'>size</span>).<span class='ident'>map</span>(<span class='op'>|</span><span class='ident'>i</span><span class='op'>|</span> <span class='ident'>Cell</span>::<span class='ident'>new</span>(<span class='ident'>cb</span>(<span class='ident'>i</span>))).<span class='ident'>collect</span>() }
 	}
 }
 

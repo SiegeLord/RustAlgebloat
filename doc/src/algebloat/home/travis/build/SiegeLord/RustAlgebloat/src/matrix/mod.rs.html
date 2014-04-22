@@ -303,6 +303,19 @@
 <span id='263'>263</span>
 <span id='264'>264</span>
 <span id='265'>265</span>
+<span id='266'>266</span>
+<span id='267'>267</span>
+<span id='268'>268</span>
+<span id='269'>269</span>
+<span id='270'>270</span>
+<span id='271'>271</span>
+<span id='272'>272</span>
+<span id='273'>273</span>
+<span id='274'>274</span>
+<span id='275'>275</span>
+<span id='276'>276</span>
+<span id='277'>277</span>
+<span id='278'>278</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord
 //
@@ -357,6 +370,19 @@
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>from_elem</span>(<span class='ident'>nrow</span>: <span class='ident'>uint</span>, <span class='ident'>ncol</span>: <span class='ident'>uint</span>, <span class='ident'>elem</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>Matrix</span>
 	{
 		<span class='ident'>Matrix</span>{ <span class='ident'>data</span>: <span class='ident'>Vec</span>::<span class='ident'>from_elem</span>(<span class='ident'>nrow</span> <span class='op'>*</span> <span class='ident'>ncol</span>, <span class='ident'>Cell</span>::<span class='ident'>new</span>(<span class='ident'>elem</span>)), <span class='ident'>nrow</span>: <span class='ident'>nrow</span>, <span class='ident'>ncol</span>: <span class='ident'>ncol</span> }
+	}
+
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>from_fn</span>(<span class='ident'>nrow</span>: <span class='ident'>uint</span>, <span class='ident'>ncol</span>: <span class='ident'>uint</span>, <span class='ident'>cb</span>: <span class='op'>|</span><span class='ident'>uint</span>, <span class='ident'>uint</span><span class='op'>|</span> <span class='op'>-&gt;</span> <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>Matrix</span>
+	{
+		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>mat_data</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>with_capacity</span>(<span class='ident'>nrow</span> <span class='op'>*</span> <span class='ident'>ncol</span>);
+		<span class='kw'>for</span> <span class='ident'>r</span> <span class='kw'>in</span> <span class='ident'>range</span>(<span class='number'>0</span>, <span class='ident'>nrow</span>)
+		{
+			<span class='kw'>for</span> <span class='ident'>c</span> <span class='kw'>in</span> <span class='ident'>range</span>(<span class='number'>0</span>, <span class='ident'>ncol</span>)
+			{
+				<span class='ident'>mat_data</span>.<span class='ident'>push</span>(<span class='ident'>Cell</span>::<span class='ident'>new</span>(<span class='ident'>cb</span>(<span class='ident'>r</span>, <span class='ident'>c</span>)));
+			}
+		}
+		<span class='ident'>Matrix</span>{ <span class='ident'>data</span>: <span class='ident'>mat_data</span>, <span class='ident'>nrow</span>: <span class='ident'>nrow</span>, <span class='ident'>ncol</span>: <span class='ident'>ncol</span> }
 	}
 }
 
