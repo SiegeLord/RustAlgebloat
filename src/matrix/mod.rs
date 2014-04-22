@@ -52,6 +52,19 @@ impl Matrix
 	{
 		Matrix{ data: Vec::from_elem(nrow * ncol, Cell::new(elem)), nrow: nrow, ncol: ncol }
 	}
+
+	pub fn from_fn(nrow: uint, ncol: uint, cb: |uint, uint| -> f64) -> Matrix
+	{
+		let mut mat_data = Vec::with_capacity(nrow * ncol);
+		for r in range(0, nrow)
+		{
+			for c in range(0, ncol)
+			{
+				mat_data.push(Cell::new(cb(r, c)));
+			}
+		}
+		Matrix{ data: mat_data, nrow: nrow, ncol: ncol }
+	}
 }
 
 impl<'l>

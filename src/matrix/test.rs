@@ -8,6 +8,15 @@ use vector::traits::{VectorGet};
 use super::*;
 
 #[test]
+fn from_fn()
+{
+	let m = Matrix::from_fn(5, 5, |r, c| (r + c) as f64);
+	assert_eq!(m.nrow(), 5);
+	assert_eq!(m.ncol(), 5);
+	assert_eq!(m.get(4, 4), 8.0);
+}
+
+#[test]
 fn from_elem()
 {
 	let m = Matrix::from_elem(5, 5, 1.0);

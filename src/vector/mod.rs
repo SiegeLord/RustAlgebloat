@@ -39,6 +39,11 @@ impl Vector
 		use std::iter::Repeat;
 		Vector{ data: Repeat::new(Cell::new(elem)).take(size).collect() }
 	}
+
+	pub fn from_fn(size: uint, cb: |uint| -> f64) -> Vector
+	{
+		Vector{ data: range(0, size).map(|i| Cell::new(cb(i))).collect() }
+	}
 }
 
 impl
