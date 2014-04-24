@@ -24,7 +24,7 @@ macro_rules! bin_fun
 		{
 			pub fn $func_name(a: f64, b: f64) -> f64
 			{
-				a.$func_name(&b)
+				a.$func_name(b)
 			}
 		}
 
