@@ -7,10 +7,11 @@ use std::fmt;
 use std::io::Writer;
 use std::cell::Cell;
 
-use matrix::traits::{MatrixGet, MatrixSet, MatrixShape, MatrixRowAccess, MatrixColumnAccess, MatrixView, MatrixTranspose};
+use matrix::traits::{MatrixGet, MatrixSet, MatrixShape, MatrixRowAccess, MatrixColumnAccess, MatrixView, MatrixTranspose, MatrixFlat};
 use matrix::transpose::Transposer;
 use matrix::row_accessor::RowAccessor;
 use matrix::column_accessor::ColumnAccessor;
+use matrix::flat_view::FlatView;
 use matrix::view::View;
 
 use safe_alias::SafeAlias;
@@ -20,6 +21,7 @@ pub mod transpose;
 pub mod view;
 pub mod row_accessor;
 pub mod column_accessor;
+pub mod flat_view;
 #[cfg(test)]
 mod test;
 
@@ -214,6 +216,16 @@ MatrixColumnAccess for
 	fn col(self, col: uint) -> ColumnAccessor<&'l Matrix>
 	{
 		ColumnAccessor::new(self, col)
+	}
+}
+
+impl<'l>
+MatrixFlat for
+&'l Matrix
+{
+	fn flat(self) -> FlatView<&'l Matrix>
+	{
+		FlatView::new(self)
 	}
 }
 

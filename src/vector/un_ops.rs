@@ -8,6 +8,7 @@ use std::ops::{Neg};
 use matrix::traits::{MatrixShape, MatrixGet};
 use matrix::row_accessor::RowAccessor;
 use matrix::column_accessor::ColumnAccessor;
+use matrix::flat_view::FlatView;
 use vector::Vector;
 use vector::write_vec;
 use vector::traits::*;
@@ -186,6 +187,16 @@ Neg<VectorUnOp<ColumnAccessor<T>, OpNeg>> for
 ColumnAccessor<T>
 {
 	fn neg(&self) -> VectorUnOp<ColumnAccessor<T>, OpNeg>
+	{
+		VectorUnOp::new(self.clone(), OpNeg::new())
+	}
+}
+
+impl<T: MatrixShape + Clone>
+Neg<VectorUnOp<FlatView<T>, OpNeg>> for
+FlatView<T>
+{
+	fn neg(&self) -> VectorUnOp<FlatView<T>, OpNeg>
 	{
 		VectorUnOp::new(self.clone(), OpNeg::new())
 	}

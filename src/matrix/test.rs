@@ -2,10 +2,21 @@
 //
 // All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.
 
-use matrix::traits::{MatrixGet, MatrixSet, MatrixShape, MatrixRowAccess, MatrixColumnAccess, MatrixView, MatrixTranspose, MatrixSafeAssign, MatrixAliasAssign};
+use matrix::traits::{MatrixGet, MatrixSet, MatrixShape, MatrixRowAccess, MatrixColumnAccess,
+                     MatrixView, MatrixTranspose, MatrixSafeAssign, MatrixAliasAssign, MatrixFlat};
 use vector::traits::{VectorGet};
 
 use super::*;
+
+#[test]
+fn flat_view()
+{
+	let m = mat!(1.0, 2.0, 3.0;
+	             4.0, 5.0, 6.0);
+	let v = (&m).flat();
+	assert_eq!(v.get(0), 1.0);
+	assert_eq!(v.get(1), 2.0);
+}
 
 #[test]
 fn from_fn()

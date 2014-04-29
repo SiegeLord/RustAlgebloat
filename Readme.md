@@ -80,6 +80,7 @@ assure all the caveats above while in principle providing allocation-free speed
 * Matrices
 	* Row and column access
 	* Views
+	* Flat views
 
 ## Building
 

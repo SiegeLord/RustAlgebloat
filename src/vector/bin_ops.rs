@@ -8,6 +8,7 @@ use std::ops::{Add, Sub, Mul};
 use matrix::traits::{MatrixShape, MatrixGet};
 use matrix::row_accessor::RowAccessor;
 use matrix::column_accessor::ColumnAccessor;
+use matrix::flat_view::FlatView;
 use vector::Vector;
 use vector::write_vec;
 use vector::traits::*;
@@ -230,6 +231,17 @@ macro_rules! bin_op
 		ColumnAccessor<T>
 		{
 			fn $op_method(&self, rhs: &RHS) -> VectorBinOp<ColumnAccessor<T>, RHS, $op>
+			{
+				VectorBinOp::new(self.clone(), rhs.clone(), $op::new())
+			}
+		}
+		
+		impl<RHS: VectorGet + Clone + LengthEq,
+		     T:   MatrixShape + Clone>
+		$op_name<RHS, VectorBinOp<FlatView<T>, RHS, $op>> for
+		FlatView<T>
+		{
+			fn $op_method(&self, rhs: &RHS) -> VectorBinOp<FlatView<T>, RHS, $op>
 			{
 				VectorBinOp::new(self.clone(), rhs.clone(), $op::new())
 			}

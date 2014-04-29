@@ -1,9 +1,10 @@
 use std::fmt;
 
-use matrix::traits::{MatrixGet, MatrixSet, MatrixShape, MatrixRowAccess, MatrixColumnAccess, MatrixView, MatrixTranspose};
+use matrix::traits::{MatrixGet, MatrixSet, MatrixShape, MatrixRowAccess, MatrixColumnAccess, MatrixView, MatrixTranspose, MatrixFlat};
 use matrix::transpose::Transposer;
 use matrix::row_accessor::RowAccessor;
 use matrix::column_accessor::ColumnAccessor;
+use matrix::flat_view::FlatView;
 use matrix::write_mat;
 use safe_alias::SafeAlias;
 
@@ -104,6 +105,16 @@ View<T>
 	fn clone(&self) -> View<T>
 	{
 		View{ base: self.base.clone(), row_start: self.row_start, col_start: self.col_start, row_end: self.row_end, col_end: self.col_end }
+	}
+}
+
+impl<T: MatrixShape>
+MatrixFlat for
+View<T>
+{
+	fn flat(self) -> FlatView<View<T>>
+	{
+		FlatView::new(self)
 	}
 }
 

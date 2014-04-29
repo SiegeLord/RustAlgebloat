@@ -5,6 +5,7 @@
 use matrix::transpose::Transposer;
 use matrix::row_accessor::RowAccessor;
 use matrix::column_accessor::ColumnAccessor;
+use matrix::flat_view::FlatView;
 use matrix::view::View;
 use safe_alias::SafeAlias;
 
@@ -41,6 +42,11 @@ pub trait MatrixColumnAccess
 {
 	unsafe fn unsafe_col(self, col: uint) -> ColumnAccessor<Self>;
 	fn col(self, col: uint) -> ColumnAccessor<Self>;
+}
+
+pub trait MatrixFlat
+{
+	fn flat(self) -> FlatView<Self>;
 }
 
 pub trait MatrixView
