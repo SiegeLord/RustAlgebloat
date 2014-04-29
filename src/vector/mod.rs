@@ -29,17 +29,20 @@ pub struct Vector
 
 impl Vector
 {
+	#[inline]
 	pub fn new(data: &[f64]) -> Vector
 	{
 		Vector{ data: data.iter().map(|&v| Cell::new(v)).collect() }
 	}
 
+	#[inline]
 	pub fn from_elem(size: uint, elem: f64) -> Vector
 	{
 		use std::iter::Repeat;
 		Vector{ data: Repeat::new(Cell::new(elem)).take(size).collect() }
 	}
 
+	#[inline]
 	pub fn from_fn(size: uint, cb: |uint| -> f64) -> Vector
 	{
 		Vector{ data: range(0, size).map(|i| Cell::new(cb(i))).collect() }
@@ -50,6 +53,7 @@ impl
 FromIterator<f64> for
 Vector
 {
+	#[inline]
 	fn from_iter<T: Iterator<f64>>(mut it: T) -> Vector
 	{
 		Vector{ data: it.by_ref().map(|v| Cell::new(v)).collect() }
@@ -60,11 +64,13 @@ impl<'l>
 VectorSlice for
 &'l Vector
 {
+	#[inline]
 	unsafe fn unsafe_slice(self, start: uint, end: uint) -> Slice<&'l Vector>
 	{
 		Slice::unsafe_new(self, start, end)
 	}
-	
+
+	#[inline]
 	fn slice(self, start: uint, end: uint) -> Slice<&'l Vector>
 	{
 		Slice::new(self, start, end)
@@ -75,11 +81,13 @@ impl<'l>
 VectorGet for
 &'l Vector
 {
+	#[inline]
 	unsafe fn unsafe_get(&self, idx: uint) -> f64
 	{
 		(*self.data.unsafe_ref(idx)).get()
 	}
-	
+
+	#[inline]
 	fn get(&self, idx: uint) -> f64
 	{
 		self.data[idx].get()
@@ -90,11 +98,13 @@ impl<'l>
 VectorSet for
 &'l Vector
 {
+	#[inline]
 	unsafe fn unsafe_set(&self, idx: uint, val: f64)
 	{
 		self.data.unsafe_ref(idx).set(val);
 	}
 
+	#[inline]
 	fn set(&self, idx: uint, val: f64)
 	{
 		self.data[idx].set(val);
@@ -105,6 +115,7 @@ impl<'l>
 Container for
 &'l Vector
 {
+	#[inline]
 	fn len(&self) -> uint
 	{
 		self.data.len()
@@ -115,6 +126,7 @@ impl<'l>
 LengthEq for
 &'l Vector
 {
+	#[inline]
 	fn len_eq(&self, other_len: uint) -> bool
 	{
 		other_len == self.len()
@@ -125,11 +137,13 @@ impl<'l>
 VectorGet for
 Vector
 {
+	#[inline]
 	unsafe fn unsafe_get(&self, idx: uint) -> f64
 	{
 		(*self.data.unsafe_ref(idx)).get()
 	}
 	
+	#[inline]
 	fn get(&self, idx: uint) -> f64
 	{
 		self.data[idx].get()
@@ -140,11 +154,13 @@ impl<'l>
 VectorSet for
 Vector
 {
+	#[inline]
 	unsafe fn unsafe_set(&self, idx: uint, val: f64)
 	{
 		self.data.unsafe_ref(idx).set(val);
 	}
 
+	#[inline]
 	fn set(&self, idx: uint, val: f64)
 	{
 		self.data[idx].set(val);
@@ -155,6 +171,7 @@ impl<'l>
 Container for
 Vector
 {
+	#[inline]
 	fn len(&self) -> uint
 	{
 		self.data.len()

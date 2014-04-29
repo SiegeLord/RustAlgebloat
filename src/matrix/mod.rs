@@ -73,11 +73,13 @@ impl<'l>
 MatrixGet for
 &'l Matrix
 {
+	#[inline]
 	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f64
 	{
 		self.data.as_slice().unsafe_ref(c + r * self.ncol).get()
 	}
 
+	#[inline]
 	fn get(&self, r: uint, c: uint) -> f64
 	{
 		assert!(r < self.nrow());
@@ -93,11 +95,13 @@ impl<'l>
 MatrixSet for
 &'l Matrix
 {
+	#[inline]
 	unsafe fn unsafe_set(&self, r: uint, c: uint, val: f64)
 	{
 		self.data.as_slice().unsafe_ref(c + r * self.ncol).set(val);
 	}
 
+	#[inline]
 	fn set(&self, r: uint, c: uint, val: f64)
 	{
 		assert!(r < self.nrow());
@@ -113,11 +117,13 @@ impl<'l>
 MatrixShape for
 &'l Matrix
 {
+	#[inline]
 	fn nrow(&self) -> uint
 	{
 		self.nrow
 	}
 
+	#[inline]
 	fn ncol(&self) -> uint
 	{
 		self.ncol
@@ -128,11 +134,13 @@ impl
 MatrixGet for
 Matrix
 {
+	#[inline]
 	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f64
 	{
 		self.data.as_slice().unsafe_ref(c + r * self.ncol).get()
 	}
 
+	#[inline]
 	fn get(&self, r: uint, c: uint) -> f64
 	{
 		assert!(r < self.nrow());
@@ -148,11 +156,13 @@ impl
 MatrixSet for
 Matrix
 {
+	#[inline]
 	unsafe fn unsafe_set(&self, r: uint, c: uint, val: f64)
 	{
 		self.data.as_slice().unsafe_ref(c + r * self.ncol).set(val);
 	}
 
+	#[inline]
 	fn set(&self, r: uint, c: uint, val: f64)
 	{
 		assert!(r < self.nrow());
@@ -168,11 +178,13 @@ impl
 MatrixShape for
 Matrix
 {
+	#[inline]
 	fn nrow(&self) -> uint
 	{
 		self.nrow
 	}
 
+	#[inline]
 	fn ncol(&self) -> uint
 	{
 		self.ncol
@@ -183,6 +195,7 @@ impl<'l>
 MatrixTranspose for
 &'l Matrix
 {
+	#[inline]
 	fn t(self) -> Transposer<&'l Matrix>
 	{
 		Transposer::new(self)
@@ -193,11 +206,13 @@ impl<'l>
 MatrixRowAccess for
 &'l Matrix
 {
+	#[inline]
 	unsafe fn unsafe_row(self, row: uint) -> RowAccessor<&'l Matrix>
 	{
 		RowAccessor::unsafe_new(self, row)
 	}
-	
+
+	#[inline]
 	fn row(self, row: uint) -> RowAccessor<&'l Matrix>
 	{
 		RowAccessor::new(self, row)
@@ -208,11 +223,13 @@ impl<'l>
 MatrixColumnAccess for
 &'l Matrix
 {
+	#[inline]
 	unsafe fn unsafe_col(self, col: uint) -> ColumnAccessor<&'l Matrix>
 	{
 		ColumnAccessor::unsafe_new(self, col)
 	}
-	
+
+	#[inline]
 	fn col(self, col: uint) -> ColumnAccessor<&'l Matrix>
 	{
 		ColumnAccessor::new(self, col)
@@ -223,6 +240,7 @@ impl<'l>
 MatrixFlat for
 &'l Matrix
 {
+	#[inline]
 	fn flat(self) -> FlatView<&'l Matrix>
 	{
 		FlatView::new(self)
@@ -233,11 +251,13 @@ impl<'l>
 MatrixView for
 &'l Matrix
 {
+	#[inline]
 	unsafe fn unsafe_view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<&'l Matrix>
 	{
 		View::unsafe_new(self, row_start, col_start, row_end, col_end)
 	}
 
+	#[inline]
 	fn view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<&'l Matrix>
 	{
 		View::new(self, row_start, col_start, row_end, col_end)
