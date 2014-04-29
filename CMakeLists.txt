@@ -12,8 +12,8 @@ set(EXAMPLE_ROOT examples/example.rs)
 set(CUSTOM_CSS_SRC "${CMAKE_SOURCE_DIR}/doc/main.css")
 set(CUSTOM_CSS_DEST "${CMAKE_BINARY_DIR}/doc/main.css")
 
-set(RUSTC_FLAGS "-L${CMAKE_BINARY_DIR}/lib;-O")
-set(RUSTDOC_FLAGS "-L${CMAKE_BINARY_DIR}/lib")
+set(RUSTC_FLAGS -L ${CMAKE_BINARY_DIR}/lib --opt-level 3)
+set(RUSTDOC_FLAGS -L ${CMAKE_BINARY_DIR}/lib)
 
 # Compile the macros as part of the config process
 get_rust_deps(${ALGEBLOAT_MACROS_ROOT} ALGEBLOAT_MACROS_DEPS
