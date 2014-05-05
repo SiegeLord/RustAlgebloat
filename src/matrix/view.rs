@@ -6,7 +6,6 @@ use matrix::row_accessor::RowAccessor;
 use matrix::column_accessor::ColumnAccessor;
 use matrix::flat_view::FlatView;
 use matrix::write_mat;
-use safe_alias::SafeAlias;
 
 pub struct View<T>
 {
@@ -167,7 +166,3 @@ View<T>
 		write_mat(buf.buf, self)
 	}
 }
-
-impl<T: SafeAlias>
-SafeAlias for
-View<T> {}

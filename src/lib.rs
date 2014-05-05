@@ -23,5 +23,4 @@ pub use vector::reductions::*;
 pub use vector::traits::*;
 
 pub mod matrix;
-pub mod safe_alias;
 pub mod vector;

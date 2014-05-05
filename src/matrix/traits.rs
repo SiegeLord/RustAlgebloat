@@ -7,7 +7,6 @@ use matrix::row_accessor::RowAccessor;
 use matrix::column_accessor::ColumnAccessor;
 use matrix::flat_view::FlatView;
 use matrix::view::View;
-use safe_alias::SafeAlias;
 
 pub trait MatrixGet
 {
@@ -55,33 +54,15 @@ pub trait MatrixView
 	fn view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<Self>;
 }
 
-pub trait MatrixSafeAssign<RHS>
+pub trait MatrixAssign<RHS>
 {
-	fn assign(&self, m: RHS);
-}
-
-pub trait MatrixAliasAssign<RHS>
-{
-	fn alias_assign(&mut self, m: RHS);
 	unsafe fn unsafe_assign(&self, m: RHS);
-}
-
-impl<LHS: MatrixShape + MatrixSet + SafeAlias,
-     RHS: MatrixShape + MatrixGet + SafeAlias>
-MatrixSafeAssign<RHS> for LHS
-{
-	fn assign(&self, m: RHS)
-	{
-		unsafe
-		{
-			self.unsafe_assign(m);
-		}
-	}
+	fn assign(&self, m: RHS);
 }
 
 impl<LHS: MatrixShape + MatrixSet,
      RHS: MatrixShape + MatrixGet>
-MatrixAliasAssign<RHS> for LHS
+MatrixAssign<RHS> for LHS
 {
 	unsafe fn unsafe_assign(&self, m: RHS)
 	{
@@ -95,12 +76,12 @@ MatrixAliasAssign<RHS> for LHS
 			}
 		}
 	}
-
-	fn alias_assign(&mut self, m: RHS)
+	
+	fn assign(&self, m: RHS)
 	{
 		unsafe
 		{
-			(&*self).unsafe_assign(m);
+			self.unsafe_assign(m);
 		}
 	}
 }

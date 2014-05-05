@@ -14,8 +14,6 @@ use matrix::column_accessor::ColumnAccessor;
 use matrix::flat_view::FlatView;
 use matrix::view::View;
 
-use safe_alias::SafeAlias;
-
 pub mod traits;
 pub mod transpose;
 pub mod view;
@@ -300,11 +298,3 @@ Matrix
 		write_mat(buf.buf, self)
 	}
 }
-
-impl
-SafeAlias for
-Matrix {}
-
-impl<'l>
-SafeAlias for
-&'l Matrix {}
