@@ -206,11 +206,6 @@
 <span id='166'>166</span>
 <span id='167'>167</span>
 <span id='168'>168</span>
-<span id='169'>169</span>
-<span id='170'>170</span>
-<span id='171'>171</span>
-<span id='172'>172</span>
-<span id='173'>173</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fmt</span>;
 
@@ -220,7 +215,6 @@
 <span class='kw'>use</span> <span class='ident'>matrix</span>::<span class='ident'>column_accessor</span>::<span class='ident'>ColumnAccessor</span>;
 <span class='kw'>use</span> <span class='ident'>matrix</span>::<span class='ident'>flat_view</span>::<span class='ident'>FlatView</span>;
 <span class='kw'>use</span> <span class='ident'>matrix</span>::<span class='ident'>write_mat</span>;
-<span class='kw'>use</span> <span class='ident'>safe_alias</span>::<span class='ident'>SafeAlias</span>;
 
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>View</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
 {
@@ -381,10 +375,6 @@
 		<span class='ident'>write_mat</span>(<span class='ident'>buf</span>.<span class='ident'>buf</span>, <span class='self'>self</span>)
 	}
 }
-
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>SafeAlias</span><span class='op'>&gt;</span>
-<span class='ident'>SafeAlias</span> <span class='kw'>for</span>
-<span class='ident'>View</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {}
 </pre>
 </section>
     <section id='search' class="content hidden"></section>
