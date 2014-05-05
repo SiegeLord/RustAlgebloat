@@ -19,7 +19,7 @@ fn flat_view()
 }
 
 #[test]
-fn aliasing()
+fn assignment()
 {
 	let m1 = mat!(1.0, 2.0;
 	              3.0, 4.0);
