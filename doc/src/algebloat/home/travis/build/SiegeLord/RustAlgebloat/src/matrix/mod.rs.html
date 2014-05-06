@@ -338,6 +338,14 @@
 <span id='298'>298</span>
 <span id='299'>299</span>
 <span id='300'>300</span>
+<span id='301'>301</span>
+<span id='302'>302</span>
+<span id='303'>303</span>
+<span id='304'>304</span>
+<span id='305'>305</span>
+<span id='306'>306</span>
+<span id='307'>307</span>
+<span id='308'>308</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord
 //
@@ -361,6 +369,7 @@
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>row_accessor</span>;
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>column_accessor</span>;
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>flat_view</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>matrix_mul</span>;
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>test</span>;
 
@@ -404,6 +413,13 @@
 				<span class='ident'>mat_data</span>.<span class='ident'>push</span>(<span class='ident'>Cell</span>::<span class='ident'>new</span>(<span class='ident'>cb</span>(<span class='ident'>r</span>, <span class='ident'>c</span>)));
 			}
 		}
+		<span class='ident'>Matrix</span>{ <span class='ident'>data</span>: <span class='ident'>mat_data</span>, <span class='ident'>nrow</span>: <span class='ident'>nrow</span>, <span class='ident'>ncol</span>: <span class='ident'>ncol</span> }
+	}
+
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>from_iter</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>Iterator</span><span class='op'>&lt;</span><span class='ident'>f64</span><span class='op'>&gt;&gt;</span>(<span class='ident'>nrow</span>: <span class='ident'>uint</span>, <span class='ident'>ncol</span>: <span class='ident'>uint</span>, <span class='ident'>t</span>: <span class='ident'>T</span>) <span class='op'>-&gt;</span> <span class='ident'>Matrix</span>
+	{
+		<span class='kw'>let</span> <span class='ident'>mat_data</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Cell</span><span class='op'>&lt;</span><span class='ident'>f64</span><span class='op'>&gt;&gt;</span> <span class='op'>=</span> <span class='ident'>t</span>.<span class='ident'>map</span>(<span class='op'>|</span><span class='ident'>v</span><span class='op'>|</span> <span class='ident'>Cell</span>::<span class='ident'>new</span>(<span class='ident'>v</span>)).<span class='ident'>collect</span>();
+		<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>mat_data</span>.<span class='ident'>len</span>(), <span class='ident'>nrow</span> <span class='op'>*</span> <span class='ident'>ncol</span>);
 		<span class='ident'>Matrix</span>{ <span class='ident'>data</span>: <span class='ident'>mat_data</span>, <span class='ident'>nrow</span>: <span class='ident'>nrow</span>, <span class='ident'>ncol</span>: <span class='ident'>ncol</span> }
 	}
 }

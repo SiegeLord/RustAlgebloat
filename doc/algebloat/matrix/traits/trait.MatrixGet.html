@@ -24,7 +24,7 @@
     <section class="sidebar">
         
 
-        <p class='location'><a href='../../index.html'>algebloat</a>&#8203;::<a href='../index.html'>matrix</a>&#8203;::<a href='index.html'>traits</a></p><div class='block trait'><h2>Traits</h2><a class='trait ' href='trait.MatrixAssign.html'>MatrixAssign</a><br/><a class='trait ' href='trait.MatrixColumnAccess.html'>MatrixColumnAccess</a><br/><a class='trait ' href='trait.MatrixFlat.html'>MatrixFlat</a><br/><a class='trait current' href='trait.MatrixGet.html'>MatrixGet</a><br/><a class='trait ' href='trait.MatrixRowAccess.html'>MatrixRowAccess</a><br/><a class='trait ' href='trait.MatrixSet.html'>MatrixSet</a><br/><a class='trait ' href='trait.MatrixShape.html'>MatrixShape</a><br/><a class='trait ' href='trait.MatrixTranspose.html'>MatrixTranspose</a><br/><a class='trait ' href='trait.MatrixView.html'>MatrixView</a><br/></div>
+        <p class='location'><a href='../../index.html'>algebloat</a>&#8203;::<a href='../index.html'>matrix</a>&#8203;::<a href='index.html'>traits</a></p><div class='block trait'><h2>Traits</h2><a class='trait ' href='trait.MatrixAssign.html'>MatrixAssign</a><br/><a class='trait ' href='trait.MatrixColumnAccess.html'>MatrixColumnAccess</a><br/><a class='trait ' href='trait.MatrixFlat.html'>MatrixFlat</a><br/><a class='trait current' href='trait.MatrixGet.html'>MatrixGet</a><br/><a class='trait ' href='trait.MatrixMultiply.html'>MatrixMultiply</a><br/><a class='trait ' href='trait.MatrixRowAccess.html'>MatrixRowAccess</a><br/><a class='trait ' href='trait.MatrixSet.html'>MatrixSet</a><br/><a class='trait ' href='trait.MatrixShape.html'>MatrixShape</a><br/><a class='trait ' href='trait.MatrixTranspose.html'>MatrixTranspose</a><br/><a class='trait ' href='trait.MatrixView.html'>MatrixView</a><br/><a class='trait ' href='trait.ToMatrix.html'>ToMatrix</a><br/></div>
     </section>
 
     <nav class="sub">
@@ -39,7 +39,7 @@
     </nav>
 
     <section id='main' class="content trait">
-<h1 class='fqn'>Trait <a href='../../index.html'>algebloat</a>::<a href='../index.html'>matrix</a>::<a href='index.html'>traits</a>::<a class='trait' href=''>MatrixGet</a><a class='source' href='../../../src/algebloat/home/travis/build/SiegeLord/RustAlgebloat/src/matrix/traits.rs.html#11-15'>[src]</a></h1>
+<h1 class='fqn'>Trait <a href='../../index.html'>algebloat</a>::<a href='../index.html'>matrix</a>::<a href='index.html'>traits</a>::<a class='trait' href=''>MatrixGet</a><a class='source' href='../../../src/algebloat/home/travis/build/SiegeLord/RustAlgebloat/src/matrix/traits.rs.html#14-18'>[src]</a></h1>
 <pre class='rust trait'>pub trait MatrixGet {
     unsafe fn <a href='#tymethod.unsafe_get' class='fnname'>unsafe_get</a>(&amp;self, r: uint, c: uint) -&gt; f64;
     fn <a href='#tymethod.get' class='fnname'>get</a>(&amp;self, r: uint, c: uint) -&gt; f64;
@@ -49,7 +49,7 @@
         <h3 id='tymethod.unsafe_get' class='method'><code>unsafe fn <a href='#tymethod.unsafe_get' class='fnname'>unsafe_get</a>(&amp;self, r: uint, c: uint) -&gt; f64</code></h3><h3 id='tymethod.get' class='method'><code>fn <a href='#tymethod.get' class='fnname'>get</a>(&amp;self, r: uint, c: uint) -&gt; f64</code></h3></div>
                     <h2 id='implementors'>Implementors</h2>
                     <ul class='item-list'>
-                <li><code><a class='struct' href='../../../algebloat/matrix/struct.Matrix.html' title='algebloat::matrix::Matrix'>Matrix</a></code></li><li><code><a class='struct' href='../../../algebloat/matrix/view/struct.View.html' title='algebloat::matrix::view::View'>View</a>&lt;T&gt;</code></li><li><code><a class='struct' href='../../../algebloat/matrix/transpose/struct.Transposer.html' title='algebloat::matrix::transpose::Transposer'>Transposer</a>&lt;T&gt;</code></li><li><code>impl&lt;'l&gt; <a class='trait' href='../../../algebloat/matrix/traits/trait.MatrixGet.html' title='algebloat::matrix::traits::MatrixGet'>MatrixGet</a> for &amp;'l <a class='struct' href='../../../algebloat/matrix/struct.Matrix.html' title='algebloat::matrix::Matrix'>Matrix</a></code></li></ul></section>
+                <li><code><a class='struct' href='../../../algebloat/matrix/struct.Matrix.html' title='algebloat::matrix::Matrix'>Matrix</a></code></li><li><code><a class='struct' href='../../../algebloat/matrix/matrix_mul/struct.MatrixMul.html' title='algebloat::matrix::matrix_mul::MatrixMul'>MatrixMul</a>&lt;LHS, RHS&gt;</code></li><li><code><a class='struct' href='../../../algebloat/matrix/view/struct.View.html' title='algebloat::matrix::view::View'>View</a>&lt;T&gt;</code></li><li><code><a class='struct' href='../../../algebloat/matrix/transpose/struct.Transposer.html' title='algebloat::matrix::transpose::Transposer'>Transposer</a>&lt;T&gt;</code></li><li><code>impl&lt;'l&gt; <a class='trait' href='../../../algebloat/matrix/traits/trait.MatrixGet.html' title='algebloat::matrix::traits::MatrixGet'>MatrixGet</a> for &amp;'l <a class='struct' href='../../../algebloat/matrix/struct.Matrix.html' title='algebloat::matrix::Matrix'>Matrix</a></code></li></ul></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
