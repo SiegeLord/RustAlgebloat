@@ -117,8 +117,6 @@
 <span id='77'>77</span>
 <span id='78'>78</span>
 <span id='79'>79</span>
-<span id='80'>80</span>
-<span id='81'>81</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fmt</span>;
 
@@ -129,7 +127,6 @@
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>FlatView</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
 {
 	<span class='ident'>base</span>: <span class='ident'>T</span>,
-	<span class='ident'>base_cols</span>: <span class='ident'>uint</span>
 }
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>MatrixShape</span><span class='op'>&gt;</span>
@@ -137,8 +134,7 @@
 {
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>base</span>: <span class='ident'>T</span>) <span class='op'>-&gt;</span> <span class='ident'>FlatView</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
 	{
-		<span class='kw'>let</span> <span class='ident'>ncol</span> <span class='op'>=</span> <span class='ident'>base</span>.<span class='ident'>ncol</span>();
-		<span class='ident'>FlatView</span>{ <span class='ident'>base</span>: <span class='ident'>base</span>, <span class='ident'>base_cols</span>: <span class='ident'>ncol</span> }
+		<span class='ident'>FlatView</span>{ <span class='ident'>base</span>: <span class='ident'>base</span> }
 	}
 }
 
@@ -159,7 +155,7 @@
 {
 	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>idx</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>
 	{
-		<span class='self'>self</span>.<span class='ident'>base</span>.<span class='ident'>unsafe_get</span>(<span class='ident'>idx</span> <span class='op'>/</span> <span class='self'>self</span>.<span class='ident'>base_cols</span>, <span class='ident'>idx</span> <span class='op'>%</span> <span class='self'>self</span>.<span class='ident'>base_cols</span>)
+		<span class='self'>self</span>.<span class='ident'>base</span>.<span class='ident'>unsafe_get</span>(<span class='ident'>idx</span> <span class='op'>/</span> <span class='self'>self</span>.<span class='ident'>base</span>.<span class='ident'>ncol</span>(), <span class='ident'>idx</span> <span class='op'>%</span> <span class='self'>self</span>.<span class='ident'>base</span>.<span class='ident'>ncol</span>())
 	}
 
 	<span class='kw'>fn</span> <span class='ident'>get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>idx</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>
@@ -167,7 +163,7 @@
 		<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>idx</span> <span class='op'>&lt;</span> <span class='self'>self</span>.<span class='ident'>len</span>());
 		<span class='kw'>unsafe</span>
 		{
-			<span class='self'>self</span>.<span class='ident'>base</span>.<span class='ident'>unsafe_get</span>(<span class='ident'>idx</span> <span class='op'>/</span> <span class='self'>self</span>.<span class='ident'>base_cols</span>, <span class='ident'>idx</span> <span class='op'>%</span> <span class='self'>self</span>.<span class='ident'>base_cols</span>)
+			<span class='self'>self</span>.<span class='ident'>base</span>.<span class='ident'>unsafe_get</span>(<span class='ident'>idx</span> <span class='op'>/</span> <span class='self'>self</span>.<span class='ident'>base</span>.<span class='ident'>ncol</span>(), <span class='ident'>idx</span> <span class='op'>%</span> <span class='self'>self</span>.<span class='ident'>base</span>.<span class='ident'>ncol</span>())
 		}
 	}
 }
@@ -198,7 +194,7 @@
 {
 	<span class='kw'>fn</span> <span class='ident'>clone</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>FlatView</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
 	{
-		<span class='ident'>FlatView</span>{ <span class='ident'>base</span>: <span class='self'>self</span>.<span class='ident'>base</span>.<span class='ident'>clone</span>(), <span class='ident'>base_cols</span>: <span class='self'>self</span>.<span class='ident'>base_cols</span> }
+		<span class='ident'>FlatView</span>{ <span class='ident'>base</span>: <span class='self'>self</span>.<span class='ident'>base</span>.<span class='ident'>clone</span>() }
 	}
 }
 </pre>
