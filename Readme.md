@@ -81,6 +81,7 @@ assure all the caveats above while in principle providing allocation-free speed
 	* Row and column access
 	* Views
 	* Flat views
+	* Multiplication
 
 ## Building
 

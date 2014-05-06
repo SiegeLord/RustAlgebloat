@@ -20,6 +20,7 @@ pub mod view;
 pub mod row_accessor;
 pub mod column_accessor;
 pub mod flat_view;
+pub mod matrix_mul;
 #[cfg(test)]
 mod test;
 
@@ -63,6 +64,13 @@ impl Matrix
 				mat_data.push(Cell::new(cb(r, c)));
 			}
 		}
+		Matrix{ data: mat_data, nrow: nrow, ncol: ncol }
+	}
+
+	pub fn from_iter<T: Iterator<f64>>(nrow: uint, ncol: uint, t: T) -> Matrix
+	{
+		let mat_data: Vec<Cell<f64>> = t.map(|v| Cell::new(v)).collect();
+		assert_eq!(mat_data.len(), nrow * ncol);
 		Matrix{ data: mat_data, nrow: nrow, ncol: ncol }
 	}
 }
