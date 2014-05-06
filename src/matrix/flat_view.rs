@@ -7,7 +7,6 @@ use vector::write_vec;
 pub struct FlatView<T>
 {
 	base: T,
-	base_cols: uint
 }
 
 impl<T: MatrixShape>
@@ -15,8 +14,7 @@ FlatView<T>
 {
 	pub fn new(base: T) -> FlatView<T>
 	{
-		let ncol = base.ncol();
-		FlatView{ base: base, base_cols: ncol }
+		FlatView{ base: base }
 	}
 }
 
@@ -37,7 +35,7 @@ FlatView<T>
 {
 	unsafe fn unsafe_get(&self, idx: uint) -> f64
 	{
-		self.base.unsafe_get(idx / self.base_cols, idx % self.base_cols)
+		self.base.unsafe_get(idx / self.base.ncol(), idx % self.base.ncol())
 	}
 
 	fn get(&self, idx: uint) -> f64
@@ -45,7 +43,7 @@ FlatView<T>
 		assert!(idx < self.len());
 		unsafe
 		{
-			self.base.unsafe_get(idx / self.base_cols, idx % self.base_cols)
+			self.base.unsafe_get(idx / self.base.ncol(), idx % self.base.ncol())
 		}
 	}
 }
@@ -76,6 +74,6 @@ FlatView<T>
 {
 	fn clone(&self) -> FlatView<T>
 	{
-		FlatView{ base: self.base.clone(), base_cols: self.base_cols }
+		FlatView{ base: self.base.clone() }
 	}
 }
