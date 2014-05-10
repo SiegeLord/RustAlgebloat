@@ -24,7 +24,7 @@ mod test;
 
 pub struct Vector
 {
-	data: ~[Cell<f64>]
+	data: Vec<Cell<f64>>
 }
 
 impl Vector
@@ -84,13 +84,13 @@ VectorGet for
 	#[inline]
 	unsafe fn unsafe_get(&self, idx: uint) -> f64
 	{
-		(*self.data.unsafe_ref(idx)).get()
+		(*self.data.as_slice().unsafe_ref(idx)).get()
 	}
 
 	#[inline]
 	fn get(&self, idx: uint) -> f64
 	{
-		self.data[idx].get()
+		self.data.get(idx).get()
 	}
 }
 
@@ -101,13 +101,13 @@ VectorSet for
 	#[inline]
 	unsafe fn unsafe_set(&self, idx: uint, val: f64)
 	{
-		self.data.unsafe_ref(idx).set(val);
+		self.data.as_slice().unsafe_ref(idx).set(val);
 	}
 
 	#[inline]
 	fn set(&self, idx: uint, val: f64)
 	{
-		self.data[idx].set(val);
+		self.data.get(idx).set(val);
 	}
 }
 
@@ -140,13 +140,13 @@ Vector
 	#[inline]
 	unsafe fn unsafe_get(&self, idx: uint) -> f64
 	{
-		(*self.data.unsafe_ref(idx)).get()
+		(*self.data.as_slice().unsafe_ref(idx)).get()
 	}
 	
 	#[inline]
 	fn get(&self, idx: uint) -> f64
 	{
-		self.data[idx].get()
+		self.data.get(idx).get()
 	}
 }
 
@@ -157,13 +157,13 @@ Vector
 	#[inline]
 	unsafe fn unsafe_set(&self, idx: uint, val: f64)
 	{
-		self.data.unsafe_ref(idx).set(val);
+		self.data.as_slice().unsafe_ref(idx).set(val);
 	}
 
 	#[inline]
 	fn set(&self, idx: uint, val: f64)
 	{
-		self.data[idx].set(val);
+		self.data.get(idx).set(val);
 	}
 }
 
