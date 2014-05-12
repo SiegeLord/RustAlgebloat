@@ -3,8 +3,8 @@
 // All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.
 
 use transpose::Transposer;
-//~ use row_accessor::RowAccessor;
-//~ use column_accessor::ColumnAccessor;
+use row_accessor::RowAccessor;
+use column_accessor::ColumnAccessor;
 use elements::MatrixElements;
 use matrix_mul::MatrixMul;
 use view::View;
@@ -44,17 +44,17 @@ pub trait MatrixTranspose
 	fn t(self) -> Transposer<Self>;
 }
 
-//~ pub trait MatrixRowAccess
-//~ {
-	//~ unsafe fn unsafe_row(self, row: uint) -> RowAccessor<Self>;
-	//~ fn row(self, row: uint) -> RowAccessor<Self>;
-//~ }
-//~ 
-//~ pub trait MatrixColumnAccess
-//~ {
-	//~ unsafe fn unsafe_col(self, col: uint) -> ColumnAccessor<Self>;
-	//~ fn col(self, col: uint) -> ColumnAccessor<Self>;
-//~ }
+pub trait MatrixRowAccess
+{
+	unsafe fn unsafe_row(self, row: uint) -> RowAccessor<Self>;
+	fn row(self, row: uint) -> RowAccessor<Self>;
+}
+
+pub trait MatrixColumnAccess
+{
+	unsafe fn unsafe_col(self, col: uint) -> ColumnAccessor<Self>;
+	fn col(self, col: uint) -> ColumnAccessor<Self>;
+}
 
 pub trait MatrixView
 {

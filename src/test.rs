@@ -2,9 +2,8 @@
 //
 // All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.
 
-use traits::{MatrixGet, MatrixSet, MatrixShape, MatrixElems, /*MatrixRowAccess, MatrixColumnAccess,*/
+use traits::{MatrixGet, MatrixSet, MatrixShape, MatrixElems, MatrixRowAccess, MatrixColumnAccess,
              MatrixView, MatrixTranspose, MatrixAssign, ToMatrix, MatrixMultiply};
-//~ use vector::traits::{VectorGet};
 
 use super::*;
 

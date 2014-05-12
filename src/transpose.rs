@@ -1,9 +1,9 @@
 use std::fmt;
 
-use traits::{MatrixRawGet, MatrixRawSet, MatrixShape/*, MatrixRowAccess, MatrixColumnAccess*/, MatrixView, MatrixTranspose/*, MatrixFlat*/};
+use traits::{MatrixRawGet, MatrixRawSet, MatrixShape, MatrixRowAccess, MatrixColumnAccess, MatrixView, MatrixTranspose};
 use matrix::write_mat;
-//~ use row_accessor::RowAccessor;
-//~ use column_accessor::ColumnAccessor;
+use row_accessor::RowAccessor;
+use column_accessor::ColumnAccessor;
 use view::View;
 
 pub struct Transposer<T>
@@ -76,7 +76,6 @@ Transposer<T>
 	}
 }
 
-/*
 impl<T: MatrixShape>
 MatrixColumnAccess for
 Transposer<T>
@@ -105,7 +104,7 @@ Transposer<T>
 	{
 		RowAccessor::new(self, r)
 	}
-}*/
+}
 
 impl<T: MatrixShape>
 MatrixView for

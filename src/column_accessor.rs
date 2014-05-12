@@ -1,8 +1,7 @@
 use std::fmt;
 
-use traits::{MatrixGet, MatrixShape, MatrixColumnAccess};
-use vector::traits::{VectorGet, LengthEq};
-use vector::write_vec;
+use traits::{MatrixRawGet, MatrixRawSet, MatrixShape};
+use matrix::write_mat;
 
 pub struct ColumnAccessor<T>
 {
@@ -17,7 +16,7 @@ ColumnAccessor<T>
 	{
 		ColumnAccessor{ base: base, col: col }
 	}
-	
+
 	pub fn new(base: T, col: uint) -> ColumnAccessor<T>
 	{
 		assert!(col < base.ncol());
@@ -26,32 +25,46 @@ ColumnAccessor<T>
 }
 
 impl<T: MatrixShape>
-LengthEq for
+MatrixShape for
 ColumnAccessor<T>
 {
-	fn len_eq(&self, other_len: uint) -> bool
+	fn nrow(&self) -> uint
 	{
-		other_len == self.len()
+		self.base.nrow()
+	}
+	fn ncol(&self) -> uint
+	{
+		1
 	}
 }
 
-impl<'l,
-     T: MatrixGet + MatrixShape>
-VectorGet for
+//~ impl<T: MatrixShape>
+//~ LengthEq for
+//~ ColumnAccessor<T>
+//~ {
+	//~ fn len_eq(&self, other_len: uint) -> bool
+	//~ {
+		//~ other_len == self.len()
+	//~ }
+//~ }
+
+impl<T: MatrixRawGet + MatrixShape>
+MatrixRawGet for
 ColumnAccessor<T>
 {
-	unsafe fn unsafe_get(&self, idx: uint) -> f64
+	unsafe fn raw_get(&self, r: uint, _: uint) -> f64
 	{
-		self.base.unsafe_get(idx, self.col)
+		self.base.raw_get(r, self.col)
 	}
+}
 
-	fn get(&self, idx: uint) -> f64
+impl<T: MatrixRawSet + MatrixShape>
+MatrixRawSet for
+ColumnAccessor<T>
+{
+	unsafe fn raw_set(&self, r: uint, _: uint, v: f64)
 	{
-		assert!(idx < self.base.ncol());
-		unsafe
-		{
-			self.base.unsafe_get(idx, self.col)
-		}
+		self.base.raw_set(r, self.col, v)
 	}
 }
 
@@ -65,13 +78,13 @@ ColumnAccessor<T>
 	}
 }
 
-impl<T: MatrixShape + MatrixGet>
+impl<T: MatrixShape + MatrixRawGet>
 fmt::Show for
 ColumnAccessor<T>
 {
 	fn fmt(&self, buf: &mut fmt::Formatter) -> fmt::Result
 	{
-		write_vec(buf.buf, self)
+		write_mat(buf.buf, self)
 	}
 }
 

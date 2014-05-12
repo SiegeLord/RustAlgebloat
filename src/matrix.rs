@@ -7,10 +7,10 @@ use std::fmt;
 use std::io::Writer;
 use std::cell::Cell;
 
-use traits::{MatrixRawGet, MatrixRawSet, MatrixShape, /*MatrixRowAccess, MatrixColumnAccess, */MatrixView, MatrixTranspose/*, MatrixFlat*/};
+use traits::{MatrixRawGet, MatrixRawSet, MatrixShape, MatrixRowAccess, MatrixColumnAccess, MatrixView, MatrixTranspose};
 use transpose::Transposer;
-//~ use row_accessor::RowAccessor;
-//~ use column_accessor::ColumnAccessor;
+use row_accessor::RowAccessor;
+use column_accessor::ColumnAccessor;
 use view::View;
 
 pub struct Matrix
@@ -174,7 +174,7 @@ MatrixTranspose for
 		Transposer::new(self)
 	}
 }
-/*
+
 impl<'l>
 MatrixRowAccess for
 &'l Matrix
@@ -208,7 +208,7 @@ MatrixColumnAccess for
 		ColumnAccessor::new(self, col)
 	}
 }
-*/
+
 impl<'l>
 MatrixView for
 &'l Matrix
