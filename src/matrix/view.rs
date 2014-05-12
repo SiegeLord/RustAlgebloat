@@ -1,10 +1,10 @@
 use std::fmt;
 
-use matrix::traits::{MatrixGet, MatrixSet, MatrixShape, MatrixRowAccess, MatrixColumnAccess, MatrixView, MatrixTranspose, MatrixFlat};
+use matrix::traits::{MatrixGet, MatrixSet, MatrixShape,/* MatrixRowAccess, MatrixColumnAccess,*/ MatrixView, MatrixTranspose/*, MatrixFlat*/};
 use matrix::transpose::Transposer;
-use matrix::row_accessor::RowAccessor;
-use matrix::column_accessor::ColumnAccessor;
-use matrix::flat_view::FlatView;
+//~ use matrix::row_accessor::RowAccessor;
+//~ use matrix::column_accessor::ColumnAccessor;
+//~ use matrix::flat_view::FlatView;
 use matrix::write_mat;
 
 pub struct View<T>
@@ -107,45 +107,45 @@ View<T>
 	}
 }
 
-impl<T: MatrixShape>
-MatrixFlat for
-View<T>
-{
-	fn flat(self) -> FlatView<View<T>>
-	{
-		FlatView::new(self)
-	}
-}
-
-impl<T: MatrixShape>
-MatrixColumnAccess for
-View<T>
-{
-	unsafe fn unsafe_col(self, c: uint) -> ColumnAccessor<View<T>>
-	{
-		ColumnAccessor::unsafe_new(self, c)
-	}
-	
-	fn col(self, c: uint) -> ColumnAccessor<View<T>>
-	{
-		ColumnAccessor::new(self, c)
-	}
-}
-
-impl<T: MatrixShape>
-MatrixRowAccess for
-View<T>
-{
-	unsafe fn unsafe_row(self, r: uint) -> RowAccessor<View<T>>
-	{
-		RowAccessor::unsafe_new(self, r)
-	}
-	
-	fn row(self, r: uint) -> RowAccessor<View<T>>
-	{
-		RowAccessor::new(self, r)
-	}
-}
+//~ impl<T: MatrixShape>
+//~ MatrixFlat for
+//~ View<T>
+//~ {
+	//~ fn flat(self) -> FlatView<View<T>>
+	//~ {
+		//~ FlatView::new(self)
+	//~ }
+//~ }
+//~ 
+//~ impl<T: MatrixShape>
+//~ MatrixColumnAccess for
+//~ View<T>
+//~ {
+	//~ unsafe fn unsafe_col(self, c: uint) -> ColumnAccessor<View<T>>
+	//~ {
+		//~ ColumnAccessor::unsafe_new(self, c)
+	//~ }
+	//~ 
+	//~ fn col(self, c: uint) -> ColumnAccessor<View<T>>
+	//~ {
+		//~ ColumnAccessor::new(self, c)
+	//~ }
+//~ }
+//~ 
+//~ impl<T: MatrixShape>
+//~ MatrixRowAccess for
+//~ View<T>
+//~ {
+	//~ unsafe fn unsafe_row(self, r: uint) -> RowAccessor<View<T>>
+	//~ {
+		//~ RowAccessor::unsafe_new(self, r)
+	//~ }
+	//~ 
+	//~ fn row(self, r: uint) -> RowAccessor<View<T>>
+	//~ {
+		//~ RowAccessor::new(self, r)
+	//~ }
+//~ }
 
 impl<T>
 MatrixTranspose for

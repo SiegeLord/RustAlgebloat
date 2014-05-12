@@ -1,10 +1,10 @@
 use std::fmt;
 
-use matrix::traits::{MatrixGet, MatrixSet, MatrixShape, MatrixRowAccess, MatrixColumnAccess, MatrixView, MatrixTranspose, MatrixFlat};
+use matrix::traits::{MatrixGet, MatrixSet, MatrixShape/*, MatrixRowAccess, MatrixColumnAccess*/, MatrixView, MatrixTranspose/*, MatrixFlat*/};
 use matrix::write_mat;
-use matrix::row_accessor::RowAccessor;
-use matrix::column_accessor::ColumnAccessor;
-use matrix::flat_view::FlatView;
+//~ use matrix::row_accessor::RowAccessor;
+//~ use matrix::column_accessor::ColumnAccessor;
+//~ use matrix::flat_view::FlatView;
 use matrix::view::View;
 
 pub struct Transposer<T>
@@ -76,7 +76,7 @@ Transposer<T>
 	}
 }
 
-impl<T: MatrixShape>
+/*impl<T: MatrixShape>
 MatrixFlat for
 Transposer<T>
 {
@@ -114,7 +114,7 @@ Transposer<T>
 	{
 		RowAccessor::new(self, r)
 	}
-}
+}*/
 
 impl<T: MatrixShape>
 MatrixView for

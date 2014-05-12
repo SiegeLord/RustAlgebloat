@@ -1,10 +1,10 @@
 use std::fmt;
 
-use matrix::traits::{MatrixGet, MatrixShape, MatrixRowAccess, MatrixColumnAccess, MatrixTranspose, MatrixFlat};
+use matrix::traits::{MatrixGet, MatrixShape/*, MatrixRowAccess, MatrixColumnAccess*/, MatrixTranspose/*, MatrixFlat*/};
 use matrix::transpose::Transposer;
-use matrix::row_accessor::RowAccessor;
-use matrix::column_accessor::ColumnAccessor;
-use matrix::flat_view::FlatView;
+//~ use matrix::row_accessor::RowAccessor;
+//~ use matrix::column_accessor::ColumnAccessor;
+//~ use matrix::flat_view::FlatView;
 use matrix::write_mat;
 
 pub struct MatrixMul<LHS, RHS>
@@ -82,48 +82,48 @@ MatrixMul<LHS, RHS>
 	}
 }
 
-impl<LHS: MatrixShape,
-     RHS: MatrixShape>
-MatrixFlat for
-MatrixMul<LHS, RHS>
-{
-	fn flat(self) -> FlatView<MatrixMul<LHS, RHS>>
-	{
-		FlatView::new(self)
-	}
-}
-
-impl<LHS: MatrixShape,
-     RHS: MatrixShape>
-MatrixColumnAccess for
-MatrixMul<LHS, RHS>
-{
-	unsafe fn unsafe_col(self, c: uint) -> ColumnAccessor<MatrixMul<LHS, RHS>>
-	{
-		ColumnAccessor::unsafe_new(self, c)
-	}
-	
-	fn col(self, c: uint) -> ColumnAccessor<MatrixMul<LHS, RHS>>
-	{
-		ColumnAccessor::new(self, c)
-	}
-}
-
-impl<LHS: MatrixShape,
-     RHS: MatrixShape>
-MatrixRowAccess for
-MatrixMul<LHS, RHS>
-{
-	unsafe fn unsafe_row(self, r: uint) -> RowAccessor<MatrixMul<LHS, RHS>>
-	{
-		RowAccessor::unsafe_new(self, r)
-	}
-	
-	fn row(self, r: uint) -> RowAccessor<MatrixMul<LHS, RHS>>
-	{
-		RowAccessor::new(self, r)
-	}
-}
+//~ impl<LHS: MatrixShape,
+     //~ RHS: MatrixShape>
+//~ MatrixFlat for
+//~ MatrixMul<LHS, RHS>
+//~ {
+	//~ fn flat(self) -> FlatView<MatrixMul<LHS, RHS>>
+	//~ {
+		//~ FlatView::new(self)
+	//~ }
+//~ }
+//~ 
+//~ impl<LHS: MatrixShape,
+     //~ RHS: MatrixShape>
+//~ MatrixColumnAccess for
+//~ MatrixMul<LHS, RHS>
+//~ {
+	//~ unsafe fn unsafe_col(self, c: uint) -> ColumnAccessor<MatrixMul<LHS, RHS>>
+	//~ {
+		//~ ColumnAccessor::unsafe_new(self, c)
+	//~ }
+	//~ 
+	//~ fn col(self, c: uint) -> ColumnAccessor<MatrixMul<LHS, RHS>>
+	//~ {
+		//~ ColumnAccessor::new(self, c)
+	//~ }
+//~ }
+//~ 
+//~ impl<LHS: MatrixShape,
+     //~ RHS: MatrixShape>
+//~ MatrixRowAccess for
+//~ MatrixMul<LHS, RHS>
+//~ {
+	//~ unsafe fn unsafe_row(self, r: uint) -> RowAccessor<MatrixMul<LHS, RHS>>
+	//~ {
+		//~ RowAccessor::unsafe_new(self, r)
+	//~ }
+	//~ 
+	//~ fn row(self, r: uint) -> RowAccessor<MatrixMul<LHS, RHS>>
+	//~ {
+		//~ RowAccessor::new(self, r)
+	//~ }
+//~ }
 
 impl<LHS,
      RHS>

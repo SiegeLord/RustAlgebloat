@@ -7,19 +7,19 @@ use std::fmt;
 use std::io::Writer;
 use std::cell::Cell;
 
-use matrix::traits::{MatrixGet, MatrixSet, MatrixShape, MatrixRowAccess, MatrixColumnAccess, MatrixView, MatrixTranspose, MatrixFlat};
+use matrix::traits::{MatrixGet, MatrixSet, MatrixShape, /*MatrixRowAccess, MatrixColumnAccess, */MatrixView, MatrixTranspose/*, MatrixFlat*/};
 use matrix::transpose::Transposer;
-use matrix::row_accessor::RowAccessor;
-use matrix::column_accessor::ColumnAccessor;
-use matrix::flat_view::FlatView;
+//~ use matrix::row_accessor::RowAccessor;
+//~ use matrix::column_accessor::ColumnAccessor;
+//~ use matrix::flat_view::FlatView;
 use matrix::view::View;
 
 pub mod traits;
 pub mod transpose;
 pub mod view;
-pub mod row_accessor;
-pub mod column_accessor;
-pub mod flat_view;
+//~ pub mod row_accessor;
+//~ pub mod column_accessor;
+//~ pub mod flat_view;
 pub mod matrix_mul;
 #[cfg(test)]
 mod test;
@@ -207,7 +207,7 @@ MatrixTranspose for
 		Transposer::new(self)
 	}
 }
-
+/*
 impl<'l>
 MatrixRowAccess for
 &'l Matrix
@@ -252,7 +252,7 @@ MatrixFlat for
 		FlatView::new(self)
 	}
 }
-
+*/
 impl<'l>
 MatrixView for
 &'l Matrix
