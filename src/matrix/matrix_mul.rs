@@ -1,6 +1,6 @@
 use std::fmt;
 
-use matrix::traits::{MatrixGet, MatrixShape/*, MatrixRowAccess, MatrixColumnAccess*/, MatrixTranspose/*, MatrixFlat*/};
+use matrix::traits::{MatrixRawGet, MatrixShape/*, MatrixRowAccess, MatrixColumnAccess*/, MatrixTranspose/*, MatrixFlat*/};
 use matrix::transpose::Transposer;
 //~ use matrix::row_accessor::RowAccessor;
 //~ use matrix::column_accessor::ColumnAccessor;
@@ -29,30 +29,20 @@ MatrixMul<LHS, RHS>
 	}
 }
 
-impl<LHS: MatrixGet + MatrixShape,
-     RHS: MatrixGet + MatrixShape>
-MatrixGet for
+impl<LHS: MatrixRawGet + MatrixShape,
+     RHS: MatrixRawGet + MatrixShape>
+MatrixRawGet for
 MatrixMul<LHS, RHS>
 {
-	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f64
+	unsafe fn raw_get(&self, r: uint, c: uint) -> f64
 	{
 		let mut ret = 0.0;
 		
 		for z in range(0, self.lhs.ncol())
 		{
-			ret += self.lhs.unsafe_get(r, z) * self.rhs.unsafe_get(z, c);
+			ret += self.lhs.raw_get(r, z) * self.rhs.raw_get(z, c);
 		}
 		ret
-	}
-
-	fn get(&self, r: uint, c: uint) -> f64
-	{
-		assert!(r < self.nrow());
-		assert!(c < self.ncol());
-		unsafe
-		{
-			self.unsafe_get(r, c)
-		}
 	}
 }
 
@@ -136,8 +126,8 @@ MatrixMul<LHS, RHS>
 	}
 }
 
-impl<LHS: MatrixGet + MatrixShape,
-     RHS: MatrixGet + MatrixShape>
+impl<LHS: MatrixRawGet + MatrixShape,
+     RHS: MatrixRawGet + MatrixShape>
 fmt::Show for
 MatrixMul<LHS, RHS>
 {

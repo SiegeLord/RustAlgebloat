@@ -9,18 +9,29 @@ use matrix::transpose::Transposer;
 use matrix::matrix_mul::MatrixMul;
 use matrix::view::View;
 use matrix::Matrix;
+use matrix::index::{MatrixIndexGet, MatrixIndexSet};
 //~ use vector::traits::VectorElems;
 
-pub trait MatrixGet
+pub trait MatrixRawGet
 {
-	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f64;
-	fn get(&self, r: uint, c: uint) -> f64;
+	unsafe fn raw_get(&self, r: uint, c: uint) -> f64;
 }
 
-pub trait MatrixSet
+pub trait MatrixRawSet
 {
-	unsafe fn unsafe_set(&self, r: uint, c: uint, val: f64);
-	fn set(&self, r: uint, c: uint, val: f64);
+	unsafe fn raw_set(&self, r: uint, c: uint, val: f64);
+}
+
+pub trait MatrixGet<T>
+{
+	unsafe fn unsafe_get(&self, idx: T) -> f64;
+	fn get(&self, idx: T) -> f64;
+}
+
+pub trait MatrixSet<T>
+{
+	unsafe fn unsafe_set(&self, idx: T, val: f64);
+	fn set(&self, idx: T, val: f64);
 }
 
 pub trait MatrixShape
@@ -63,7 +74,6 @@ pub trait MatrixAssign<RHS>
 	fn assign(&self, m: RHS);
 }
 
-
 pub trait MatrixMultiply<RHS>
 {
 	//~ unsafe fn unsafe_mat_mul(self, rhs: RHS) -> Matrix;
@@ -77,8 +87,40 @@ pub trait MatrixMultiply<RHS>
 	//~ fn to_mat(self) -> Matrix;
 //~ }
 
-impl<LHS: MatrixShape + MatrixSet,
-     RHS: MatrixShape + MatrixGet>
+impl<LHS: MatrixRawGet + MatrixShape,
+     T: MatrixIndexGet<LHS>>
+MatrixGet<T> for
+LHS
+{
+	unsafe fn unsafe_get(&self, idx: T) -> f64
+	{
+		idx.unsafe_get_idx(self)
+	}
+
+	fn get(&self, idx: T) -> f64
+	{
+		idx.get_idx(self)
+	}
+}
+
+impl<LHS: MatrixRawSet + MatrixShape,
+     T: MatrixIndexSet<LHS>>
+MatrixSet<T> for
+LHS
+{
+	unsafe fn unsafe_set(&self, idx: T, val: f64)
+	{
+		idx.unsafe_set_idx(self, val);
+	}
+
+	fn set(&self, idx: T, val: f64)
+	{
+		idx.set_idx(self, val);
+	}
+}
+
+impl<LHS: MatrixShape + MatrixRawSet,
+     RHS: MatrixShape + MatrixRawGet>
 MatrixAssign<RHS> for LHS
 {
 	unsafe fn unsafe_assign(&self, m: RHS)
@@ -87,7 +129,7 @@ MatrixAssign<RHS> for LHS
 		{
 			for c in range(0, self.ncol())
 			{
-				self.unsafe_set(r, c, m.unsafe_get(r, c));
+				self.raw_set(r, c, m.raw_get(r, c));
 			}
 		}
 	}
@@ -103,8 +145,8 @@ MatrixAssign<RHS> for LHS
 	}
 }
 
-impl<LHS: MatrixShape + MatrixGet,
-     RHS: MatrixShape + MatrixGet>
+impl<LHS: MatrixShape + MatrixRawGet,
+     RHS: MatrixShape + MatrixRawGet>
 MatrixMultiply<RHS> for LHS
 {
 	//~ unsafe fn unsafe_mat_mul(self, rhs: RHS) -> Matrix

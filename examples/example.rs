@@ -6,8 +6,8 @@
 //~ extern crate algebloat;
 //~ use algebloat::*;
 //~ 
-//~ fn main()
-//~ {
+fn main()
+{
 	//~ let a = vec!(1.0, 2.0, 3.0);
 	//~ a.set(0, 10.0);
 	//~ let b = vec!(1.0, 2.0, 3.0);
@@ -47,4 +47,4 @@
 	//~ println!("t1 =\n{}", t1);
 	//~ let r = m.row(0) + t1.row(0);
 	//~ println!("r =\n{}", r);
-//~ } 
+}

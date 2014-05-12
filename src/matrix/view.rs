@@ -1,6 +1,6 @@
 use std::fmt;
 
-use matrix::traits::{MatrixGet, MatrixSet, MatrixShape,/* MatrixRowAccess, MatrixColumnAccess,*/ MatrixView, MatrixTranspose/*, MatrixFlat*/};
+use matrix::traits::{MatrixRawGet, MatrixRawSet, MatrixShape,/* MatrixRowAccess, MatrixColumnAccess,*/ MatrixView, MatrixTranspose/*, MatrixFlat*/};
 use matrix::transpose::Transposer;
 //~ use matrix::row_accessor::RowAccessor;
 //~ use matrix::column_accessor::ColumnAccessor;
@@ -16,37 +16,23 @@ pub struct View<T>
 	col_end: uint,
 }
 
-impl<T: MatrixGet>
-MatrixGet for
+impl<T: MatrixRawGet>
+MatrixRawGet for
 View<T>
 {
-	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f64
+	unsafe fn raw_get(&self, r: uint, c: uint) -> f64
 	{
-		self.base.unsafe_get(r + self.row_start, c + self.col_start)
-	}
-
-	fn get(&self, r: uint, c: uint) -> f64
-	{
-		assert!(r < self.nrow());
-		assert!(c < self.ncol());
-		self.base.get(r + self.row_start, c + self.col_start)
+		self.base.raw_get(r + self.row_start, c + self.col_start)
 	}
 }
 
-impl<T: MatrixSet>
-MatrixSet for
+impl<T: MatrixRawSet>
+MatrixRawSet for
 View<T>
 {
-	unsafe fn unsafe_set(&self, r: uint, c: uint, val: f64)
+	unsafe fn raw_set(&self, r: uint, c: uint, val: f64)
 	{
-		self.base.unsafe_set(r + self.row_start, c + self.col_start, val)
-	}
-
-	fn set(&self, r: uint, c: uint, val: f64)
-	{
-		assert!(r < self.nrow());
-		assert!(c < self.ncol());
-		self.base.set(r + self.row_start, c + self.col_start, val)
+		self.base.raw_set(r + self.row_start, c + self.col_start, val)
 	}
 }
 
@@ -157,7 +143,7 @@ View<T>
 	}
 }
 
-impl<T: MatrixGet + MatrixShape>
+impl<T: MatrixRawGet + MatrixShape>
 fmt::Show for
 View<T>
 {

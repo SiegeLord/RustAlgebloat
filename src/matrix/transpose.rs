@@ -1,6 +1,6 @@
 use std::fmt;
 
-use matrix::traits::{MatrixGet, MatrixSet, MatrixShape/*, MatrixRowAccess, MatrixColumnAccess*/, MatrixView, MatrixTranspose/*, MatrixFlat*/};
+use matrix::traits::{MatrixRawGet, MatrixRawSet, MatrixShape/*, MatrixRowAccess, MatrixColumnAccess*/, MatrixView, MatrixTranspose/*, MatrixFlat*/};
 use matrix::write_mat;
 //~ use matrix::row_accessor::RowAccessor;
 //~ use matrix::column_accessor::ColumnAccessor;
@@ -21,33 +21,23 @@ Transposer<T>
 	}
 }
 
-impl<T: MatrixGet>
-MatrixGet for
+impl<T: MatrixRawGet>
+MatrixRawGet for
 Transposer<T>
 {
-	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f64
+	unsafe fn raw_get(&self, r: uint, c: uint) -> f64
 	{
-		self.base.unsafe_get(c, r)
-	}
-
-	fn get(&self, r: uint, c: uint) -> f64
-	{
-		self.base.get(c, r)
+		self.base.raw_get(c, r)
 	}
 }
 
-impl<T: MatrixSet>
-MatrixSet for
+impl<T: MatrixRawSet>
+MatrixRawSet for
 Transposer<T>
 {
-	unsafe fn unsafe_set(&self, r: uint, c: uint, val: f64)
+	unsafe fn raw_set(&self, r: uint, c: uint, val: f64)
 	{
-		self.base.unsafe_set(c, r, val)
-	}
-
-	fn set(&self, r: uint, c: uint, val: f64)
-	{
-		self.base.set(c, r, val)
+		self.base.raw_set(c, r, val)
 	}
 }
 
@@ -131,7 +121,7 @@ Transposer<T>
 	}
 }
 
-impl<T: MatrixGet + MatrixShape>
+impl<T: MatrixRawGet + MatrixShape>
 fmt::Show for
 Transposer<T>
 {
