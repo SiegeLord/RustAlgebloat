@@ -11,7 +11,6 @@ use matrix::traits::{MatrixRawGet, MatrixRawSet, MatrixShape, /*MatrixRowAccess,
 use matrix::transpose::Transposer;
 //~ use matrix::row_accessor::RowAccessor;
 //~ use matrix::column_accessor::ColumnAccessor;
-//~ use matrix::flat_view::FlatView;
 use matrix::view::View;
 
 pub mod traits;
@@ -19,7 +18,7 @@ pub mod transpose;
 pub mod view;
 //~ pub mod row_accessor;
 //~ pub mod column_accessor;
-//~ pub mod flat_view;
+pub mod elements;
 pub mod matrix_mul;
 pub mod index;
 #[cfg(test)]
@@ -77,6 +76,17 @@ impl Matrix
 }
 
 impl<'l>
+Container for
+&'l Matrix
+{
+	#[inline]
+	fn len(&self) -> uint
+	{
+		self.nrow() * self.ncol()
+	}
+}
+
+impl<'l>
 MatrixRawGet for
 &'l Matrix
 {
@@ -112,6 +122,17 @@ MatrixShape for
 	fn ncol(&self) -> uint
 	{
 		self.ncol
+	}
+}
+
+impl
+Container for
+Matrix
+{
+	#[inline]
+	fn len(&self) -> uint
+	{
+		self.nrow() * self.ncol()
 	}
 }
 
@@ -196,17 +217,6 @@ MatrixColumnAccess for
 	fn col(self, col: uint) -> ColumnAccessor<&'l Matrix>
 	{
 		ColumnAccessor::new(self, col)
-	}
-}
-
-impl<'l>
-MatrixFlat for
-&'l Matrix
-{
-	#[inline]
-	fn flat(self) -> FlatView<&'l Matrix>
-	{
-		FlatView::new(self)
 	}
 }
 */

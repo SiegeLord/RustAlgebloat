@@ -5,12 +5,11 @@
 use matrix::transpose::Transposer;
 //~ use matrix::row_accessor::RowAccessor;
 //~ use matrix::column_accessor::ColumnAccessor;
-//~ use matrix::flat_view::FlatView;
+use matrix::elements::MatrixElements;
 use matrix::matrix_mul::MatrixMul;
 use matrix::view::View;
 use matrix::Matrix;
 use matrix::index::{MatrixIndexGet, MatrixIndexSet};
-//~ use vector::traits::VectorElems;
 
 pub trait MatrixRawGet
 {
@@ -57,11 +56,6 @@ pub trait MatrixTranspose
 	//~ fn col(self, col: uint) -> ColumnAccessor<Self>;
 //~ }
 
-//~ pub trait MatrixFlat
-//~ {
-	//~ fn flat(self) -> FlatView<Self>;
-//~ }
-
 pub trait MatrixView
 {
 	unsafe fn unsafe_view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<Self>;
@@ -76,16 +70,21 @@ pub trait MatrixAssign<RHS>
 
 pub trait MatrixMultiply<RHS>
 {
-	//~ unsafe fn unsafe_mat_mul(self, rhs: RHS) -> Matrix;
+	unsafe fn unsafe_mat_mul(self, rhs: RHS) -> Matrix;
 	unsafe fn unsafe_mat_mul_lazy(self, rhs: RHS) -> MatrixMul<Self, RHS>;
-	//~ fn mat_mul(self, rhs: RHS) -> Matrix;
+	fn mat_mul(self, rhs: RHS) -> Matrix;
 	fn mat_mul_lazy(self, rhs: RHS) -> MatrixMul<Self, RHS>;
 }
 
-//~ pub trait ToMatrix
-//~ {
-	//~ fn to_mat(self) -> Matrix;
-//~ }
+pub trait MatrixElems
+{
+	fn elems(self) -> MatrixElements<Self>;
+}
+
+pub trait ToMatrix
+{
+	fn to_mat(self) -> Matrix;
+}
 
 impl<LHS: MatrixRawGet + MatrixShape,
      T: MatrixIndexGet<LHS>>
@@ -149,20 +148,20 @@ impl<LHS: MatrixShape + MatrixRawGet,
      RHS: MatrixShape + MatrixRawGet>
 MatrixMultiply<RHS> for LHS
 {
-	//~ unsafe fn unsafe_mat_mul(self, rhs: RHS) -> Matrix
-	//~ {
-		//~ MatrixMul::unsafe_new(self, rhs).to_mat()
-	//~ }
+	unsafe fn unsafe_mat_mul(self, rhs: RHS) -> Matrix
+	{
+		MatrixMul::unsafe_new(self, rhs).to_mat()
+	}
 
 	unsafe fn unsafe_mat_mul_lazy(self, rhs: RHS) -> MatrixMul<LHS, RHS>
 	{
 		MatrixMul::unsafe_new(self, rhs)
 	}
 
-	//~ fn mat_mul(self, rhs: RHS) -> Matrix
-	//~ {
-		//~ MatrixMul::new(self, rhs).to_mat()
-	//~ }
+	fn mat_mul(self, rhs: RHS) -> Matrix
+	{
+		MatrixMul::new(self, rhs).to_mat()
+	}
 
 	fn mat_mul_lazy(self, rhs: RHS) -> MatrixMul<LHS, RHS>
 	{
@@ -170,11 +169,21 @@ MatrixMultiply<RHS> for LHS
 	}
 }
 
-//~ impl<T: MatrixShape + MatrixGet + MatrixFlat>
-//~ ToMatrix for T
-//~ {
-	//~ fn to_mat(self) -> Matrix
-	//~ {
-		//~ Matrix::from_iter(self.nrow(), self.ncol(), self.flat().elems())
-	//~ }
-//~ }
+impl<T: MatrixGet<uint> + Container>
+MatrixElems for
+T
+{
+	fn elems(self) -> MatrixElements<T>
+	{
+		MatrixElements::new(self)
+	}
+}
+
+impl<T: MatrixShape + MatrixGet<uint> + Container>
+ToMatrix for T
+{
+	fn to_mat(self) -> Matrix
+	{
+		Matrix::from_iter(self.nrow(), self.ncol(), self.elems())
+	}
+}

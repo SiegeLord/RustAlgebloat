@@ -2,40 +2,50 @@
 //
 // All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.
 
-use matrix::traits::{MatrixGet, MatrixSet, MatrixShape, /*MatrixRowAccess, MatrixColumnAccess,*/
-                     MatrixView, MatrixTranspose, MatrixAssign, /*MatrixFlat, ToMatrix,*/ MatrixMultiply};
+use matrix::traits::{MatrixGet, MatrixSet, MatrixShape, MatrixElems, /*MatrixRowAccess, MatrixColumnAccess,*/
+                     MatrixView, MatrixTranspose, MatrixAssign, ToMatrix, MatrixMultiply};
 //~ use vector::traits::{VectorGet};
 
 use super::*;
 
-//~ #[test]
-//~ fn to_matrix()
-//~ {
-	//~ let m = mat!(1.0, 2.0, 3.0;
-	             //~ 4.0, 5.0, 6.0);
-	//~ let m2 = (&m).to_mat();
-	//~ assert_eq!(m.get(0, 0), m2.get(0, 0));
-	//~ assert_eq!(m.get(0, 2), m2.get(0, 2));
-//~ }
+#[test]
+fn to_matrix()
+{
+	let m = mat!(1.0, 2.0, 3.0;
+	             4.0, 5.0, 6.0);
+	let m2 = (&m).to_mat();
+	assert_eq!(m.get((0, 0)), m2.get((0, 0)));
+	assert_eq!(m.get((0, 2)), m2.get((0, 2)));
+}
 
-//~ #[test]
-//~ fn matrix_multiply()
-//~ {
-	//~ let m = mat!(1.0, 2.0, 3.0;
-	             //~ 4.0, 5.0, 6.0);
-	//~ let m2 = (&m).mat_mul(m.t());
-	//~ assert_eq!(m2.nrow(), 2);
-	//~ assert_eq!(m2.ncol(), 2);
-	//~ assert_eq!(m2.get(0, 0), 14.0);
-	//~ assert_eq!(m2.get(0, 1), 32.0);
-	//~ assert_eq!(m2.get(1, 0), 32.0);
-	//~ assert_eq!(m2.get(1, 1), 77.0);
-	//~ m2.assign((&m).mat_mul_lazy(m.t()));
-	//~ assert_eq!(m2.get(0, 0), 14.0);
-	//~ assert_eq!(m2.get(0, 1), 32.0);
-	//~ assert_eq!(m2.get(1, 0), 32.0);
-	//~ assert_eq!(m2.get(1, 1), 77.0);
-//~ }
+#[test]
+fn matrix_multiply()
+{
+	let m = mat!(1.0, 2.0, 3.0;
+	             4.0, 5.0, 6.0);
+	let m2 = (&m).mat_mul(m.t());
+	assert_eq!(m2.nrow(), 2);
+	assert_eq!(m2.ncol(), 2);
+	assert_eq!(m2.get((0, 0)), 14.0);
+	assert_eq!(m2.get((0, 1)), 32.0);
+	assert_eq!(m2.get((1, 0)), 32.0);
+	assert_eq!(m2.get((1, 1)), 77.0);
+	m2.assign((&m).mat_mul_lazy(m.t()));
+	assert_eq!(m2.get((0, 0)), 14.0);
+	assert_eq!(m2.get((0, 1)), 32.0);
+	assert_eq!(m2.get((1, 0)), 32.0);
+	assert_eq!(m2.get((1, 1)), 77.0);
+}
+
+#[test]
+fn elems()
+{
+	let m = mat![1.0, 2.0, 3.0;
+	             4.0, 5.0, 6.0];
+	let v1 = vec![1.0, 2.0, 3.0, 4.0, 5.0, 6.0];
+	let v2: Vec<_> = m.elems().collect();
+	assert_eq!(v1, v2);
+}
 
 #[test]
 fn flat_view()

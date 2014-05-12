@@ -4,7 +4,6 @@ use matrix::traits::{MatrixRawGet, MatrixShape/*, MatrixRowAccess, MatrixColumnA
 use matrix::transpose::Transposer;
 //~ use matrix::row_accessor::RowAccessor;
 //~ use matrix::column_accessor::ColumnAccessor;
-//~ use matrix::flat_view::FlatView;
 use matrix::write_mat;
 
 pub struct MatrixMul<LHS, RHS>
@@ -26,6 +25,18 @@ MatrixMul<LHS, RHS>
 	{
 		assert_eq!(lhs.ncol(), rhs.nrow());
 		MatrixMul{ lhs: lhs, rhs: rhs }
+	}
+}
+
+impl<LHS: MatrixRawGet + MatrixShape,
+     RHS: MatrixRawGet + MatrixShape>
+Container for
+MatrixMul<LHS, RHS>
+{
+	#[inline]
+	fn len(&self) -> uint
+	{
+		self.nrow() * self.ncol()
 	}
 }
 
@@ -72,17 +83,6 @@ MatrixMul<LHS, RHS>
 	}
 }
 
-//~ impl<LHS: MatrixShape,
-     //~ RHS: MatrixShape>
-//~ MatrixFlat for
-//~ MatrixMul<LHS, RHS>
-//~ {
-	//~ fn flat(self) -> FlatView<MatrixMul<LHS, RHS>>
-	//~ {
-		//~ FlatView::new(self)
-	//~ }
-//~ }
-//~ 
 //~ impl<LHS: MatrixShape,
      //~ RHS: MatrixShape>
 //~ MatrixColumnAccess for

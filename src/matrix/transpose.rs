@@ -4,7 +4,6 @@ use matrix::traits::{MatrixRawGet, MatrixRawSet, MatrixShape/*, MatrixRowAccess,
 use matrix::write_mat;
 //~ use matrix::row_accessor::RowAccessor;
 //~ use matrix::column_accessor::ColumnAccessor;
-//~ use matrix::flat_view::FlatView;
 use matrix::view::View;
 
 pub struct Transposer<T>
@@ -18,6 +17,17 @@ Transposer<T>
 	pub fn new(base: T) -> Transposer<T>
 	{
 		Transposer{ base: base }
+	}
+}
+
+impl<T: MatrixShape>
+Container for
+Transposer<T>
+{
+	#[inline]
+	fn len(&self) -> uint
+	{
+		self.nrow() * self.ncol()
 	}
 }
 
@@ -66,16 +76,7 @@ Transposer<T>
 	}
 }
 
-/*impl<T: MatrixShape>
-MatrixFlat for
-Transposer<T>
-{
-	fn flat(self) -> FlatView<Transposer<T>>
-	{
-		FlatView::new(self)
-	}
-}
-
+/*
 impl<T: MatrixShape>
 MatrixColumnAccess for
 Transposer<T>
