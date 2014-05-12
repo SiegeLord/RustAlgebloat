@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.
 
-use matrix::traits::MatrixGet;
+use traits::MatrixGet;
 
 pub struct MatrixElements<T>
 {

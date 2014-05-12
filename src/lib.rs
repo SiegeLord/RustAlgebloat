@@ -12,7 +12,7 @@
 extern crate algebloat_macros;
 
 pub use matrix::*;
-pub use matrix::traits::*;
+pub use traits::*;
 
 //~ pub use vector::*;
 //~ pub use vector::bin_ops::*;
@@ -23,4 +23,15 @@ pub use matrix::traits::*;
 //~ pub use vector::traits::*;
 
 pub mod matrix;
+pub mod traits;
+pub mod transpose;
+pub mod view;
+//~ pub mod row_accessor;
+//~ pub mod column_accessor;
+pub mod elements;
+pub mod matrix_mul;
+pub mod index;
+#[cfg(test)]
+mod test;
+
 //~ pub mod vector;

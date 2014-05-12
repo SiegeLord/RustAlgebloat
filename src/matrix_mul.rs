@@ -1,9 +1,9 @@
 use std::fmt;
 
-use matrix::traits::{MatrixRawGet, MatrixShape/*, MatrixRowAccess, MatrixColumnAccess*/, MatrixTranspose/*, MatrixFlat*/};
-use matrix::transpose::Transposer;
-//~ use matrix::row_accessor::RowAccessor;
-//~ use matrix::column_accessor::ColumnAccessor;
+use traits::{MatrixRawGet, MatrixShape/*, MatrixRowAccess, MatrixColumnAccess*/, MatrixTranspose/*, MatrixFlat*/};
+use transpose::Transposer;
+//~ use row_accessor::RowAccessor;
+//~ use column_accessor::ColumnAccessor;
 use matrix::write_mat;
 
 pub struct MatrixMul<LHS, RHS>

@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.
 
-use matrix::traits::{MatrixShape, MatrixRawSet, MatrixRawGet};
+use traits::{MatrixShape, MatrixRawSet, MatrixRawGet};
 
 pub trait MatrixIndexGet<T>
 {

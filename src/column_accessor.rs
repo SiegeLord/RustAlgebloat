@@ -1,33 +1,33 @@
 use std::fmt;
 
-use matrix::traits::{MatrixGet, MatrixShape, MatrixRowAccess};
+use traits::{MatrixGet, MatrixShape, MatrixColumnAccess};
 use vector::traits::{VectorGet, LengthEq};
 use vector::write_vec;
 
-pub struct RowAccessor<T>
+pub struct ColumnAccessor<T>
 {
 	base: T,
-	row: uint
+	col: uint
 }
 
 impl<T: MatrixShape>
-RowAccessor<T>
+ColumnAccessor<T>
 {
-	pub unsafe fn unsafe_new(base: T, row: uint) -> RowAccessor<T>
+	pub unsafe fn unsafe_new(base: T, col: uint) -> ColumnAccessor<T>
 	{
-		RowAccessor{ base: base, row: row }
+		ColumnAccessor{ base: base, col: col }
 	}
 	
-	pub fn new(base: T, row: uint) -> RowAccessor<T>
+	pub fn new(base: T, col: uint) -> ColumnAccessor<T>
 	{
-		assert!(row < base.nrow());
-		RowAccessor{ base: base, row: row }
+		assert!(col < base.ncol());
+		ColumnAccessor{ base: base, col: col }
 	}
 }
 
 impl<T: MatrixShape>
 LengthEq for
-RowAccessor<T>
+ColumnAccessor<T>
 {
 	fn len_eq(&self, other_len: uint) -> bool
 	{
@@ -38,11 +38,11 @@ RowAccessor<T>
 impl<'l,
      T: MatrixGet + MatrixShape>
 VectorGet for
-RowAccessor<T>
+ColumnAccessor<T>
 {
 	unsafe fn unsafe_get(&self, idx: uint) -> f64
 	{
-		self.base.unsafe_get(self.row, idx)
+		self.base.unsafe_get(idx, self.col)
 	}
 
 	fn get(&self, idx: uint) -> f64
@@ -50,24 +50,24 @@ RowAccessor<T>
 		assert!(idx < self.base.ncol());
 		unsafe
 		{
-			self.base.unsafe_get(self.row, idx)
+			self.base.unsafe_get(idx, self.col)
 		}
 	}
 }
 
 impl<T: MatrixShape>
 Container for
-RowAccessor<T>
+ColumnAccessor<T>
 {
 	fn len(&self) -> uint
 	{
-		self.base.ncol()
+		self.base.nrow()
 	}
 }
 
 impl<T: MatrixShape + MatrixGet>
 fmt::Show for
-RowAccessor<T>
+ColumnAccessor<T>
 {
 	fn fmt(&self, buf: &mut fmt::Formatter) -> fmt::Result
 	{
@@ -77,10 +77,10 @@ RowAccessor<T>
 
 impl<T: Clone>
 Clone for
-RowAccessor<T>
+ColumnAccessor<T>
 {
-	fn clone(&self) -> RowAccessor<T>
+	fn clone(&self) -> ColumnAccessor<T>
 	{
-		RowAccessor{ base: self.base.clone(), row: self.row }
+		ColumnAccessor{ base: self.base.clone(), col: self.col }
 	}
 }

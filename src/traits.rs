@@ -2,14 +2,14 @@
 //
 // All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.
 
-use matrix::transpose::Transposer;
-//~ use matrix::row_accessor::RowAccessor;
-//~ use matrix::column_accessor::ColumnAccessor;
-use matrix::elements::MatrixElements;
-use matrix::matrix_mul::MatrixMul;
-use matrix::view::View;
+use transpose::Transposer;
+//~ use row_accessor::RowAccessor;
+//~ use column_accessor::ColumnAccessor;
+use elements::MatrixElements;
+use matrix_mul::MatrixMul;
+use view::View;
 use matrix::Matrix;
-use matrix::index::{MatrixIndexGet, MatrixIndexSet};
+use index::{MatrixIndexGet, MatrixIndexSet};
 
 pub trait MatrixRawGet
 {
