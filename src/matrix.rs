@@ -7,11 +7,7 @@ use std::fmt;
 use std::io::Writer;
 use std::cell::Cell;
 
-use traits::{MatrixRawGet, MatrixRawSet, MatrixShape, MatrixRowAccess, MatrixColumnAccess, MatrixView, MatrixTranspose};
-use transpose::Transposer;
-use row_accessor::RowAccessor;
-use column_accessor::ColumnAccessor;
-use view::View;
+use traits::{MatrixRawGet, MatrixRawSet, MatrixShape};
 
 pub struct Matrix
 {
@@ -161,68 +157,6 @@ Matrix
 	fn ncol(&self) -> uint
 	{
 		self.ncol
-	}
-}
-
-impl<'l>
-MatrixTranspose for
-&'l Matrix
-{
-	#[inline]
-	fn t(self) -> Transposer<&'l Matrix>
-	{
-		Transposer::new(self)
-	}
-}
-
-impl<'l>
-MatrixRowAccess for
-&'l Matrix
-{
-	#[inline]
-	unsafe fn unsafe_row(self, row: uint) -> RowAccessor<&'l Matrix>
-	{
-		RowAccessor::unsafe_new(self, row)
-	}
-
-	#[inline]
-	fn row(self, row: uint) -> RowAccessor<&'l Matrix>
-	{
-		RowAccessor::new(self, row)
-	}
-}
-
-impl<'l>
-MatrixColumnAccess for
-&'l Matrix
-{
-	#[inline]
-	unsafe fn unsafe_col(self, col: uint) -> ColumnAccessor<&'l Matrix>
-	{
-		ColumnAccessor::unsafe_new(self, col)
-	}
-
-	#[inline]
-	fn col(self, col: uint) -> ColumnAccessor<&'l Matrix>
-	{
-		ColumnAccessor::new(self, col)
-	}
-}
-
-impl<'l>
-MatrixView for
-&'l Matrix
-{
-	#[inline]
-	unsafe fn unsafe_view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<&'l Matrix>
-	{
-		View::unsafe_new(self, row_start, col_start, row_end, col_end)
-	}
-
-	#[inline]
-	fn view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<&'l Matrix>
-	{
-		View::new(self, row_start, col_start, row_end, col_end)
 	}
 }
 

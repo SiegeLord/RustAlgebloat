@@ -39,6 +39,12 @@ pub trait MatrixShape
 	fn nrow(&self) -> uint;
 }
 
+/* Hack necessary for operator overloading */
+pub trait SameShape
+{
+	fn same_shape(&self, nrow: uint, ncol: uint) -> bool;
+}
+
 pub trait MatrixTranspose
 {
 	fn t(self) -> Transposer<Self>;
@@ -118,18 +124,25 @@ LHS
 	}
 }
 
-impl<LHS: MatrixShape + MatrixRawSet,
-     RHS: MatrixShape + MatrixRawGet>
+//~ impl<LHS: MatrixShape + MatrixRawSet,
+     //~ RHS: MatrixShape + MatrixRawGet>
+impl<LHS: MatrixShape + Container + MatrixSet<uint>,
+     RHS: MatrixShape + Container + MatrixGet<uint>>
 MatrixAssign<RHS> for LHS
 {
 	unsafe fn unsafe_assign(&self, m: RHS)
 	{
-		for r in range(0, self.nrow())
+		//~ for r in range(0, self.nrow())
+		//~ {
+			//~ for c in range(0, self.ncol())
+			//~ {
+				//~ self.raw_set(r, c, m.raw_get(r, c));
+			//~ }
+		//~ }
+		//~ 
+		for i in range(0, self.len())
 		{
-			for c in range(0, self.ncol())
-			{
-				self.raw_set(r, c, m.raw_get(r, c));
-			}
+			self.unsafe_set(i, m.unsafe_get(i));
 		}
 	}
 	
@@ -144,46 +157,21 @@ MatrixAssign<RHS> for LHS
 	}
 }
 
-impl<LHS: MatrixShape + MatrixRawGet,
-     RHS: MatrixShape + MatrixRawGet>
-MatrixMultiply<RHS> for LHS
-{
-	unsafe fn unsafe_mat_mul(self, rhs: RHS) -> Matrix
-	{
-		MatrixMul::unsafe_new(self, rhs).to_mat()
-	}
-
-	unsafe fn unsafe_mat_mul_lazy(self, rhs: RHS) -> MatrixMul<LHS, RHS>
-	{
-		MatrixMul::unsafe_new(self, rhs)
-	}
-
-	fn mat_mul(self, rhs: RHS) -> Matrix
-	{
-		MatrixMul::new(self, rhs).to_mat()
-	}
-
-	fn mat_mul_lazy(self, rhs: RHS) -> MatrixMul<LHS, RHS>
-	{
-		MatrixMul::new(self, rhs)
-	}
-}
-
-impl<T: MatrixGet<uint> + Container>
-MatrixElems for
-T
-{
-	fn elems(self) -> MatrixElements<T>
-	{
-		MatrixElements::new(self)
-	}
-}
-
 impl<T: MatrixShape + MatrixGet<uint> + Container>
 ToMatrix for T
 {
 	fn to_mat(self) -> Matrix
 	{
 		Matrix::from_iter(self.nrow(), self.ncol(), self.elems())
+	}
+}
+
+impl<T: MatrixShape>
+SameShape for
+T
+{
+	fn same_shape(&self, nrow: uint, ncol: uint) -> bool
+	{
+		self.nrow() == nrow && self.ncol() == ncol
 	}
 }

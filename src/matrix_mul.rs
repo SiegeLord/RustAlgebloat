@@ -1,10 +1,32 @@
 use std::fmt;
 
-use traits::{MatrixRawGet, MatrixShape, MatrixRowAccess, MatrixColumnAccess, MatrixTranspose/*, MatrixFlat*/};
-use transpose::Transposer;
-use row_accessor::RowAccessor;
-use column_accessor::ColumnAccessor;
-use matrix::write_mat;
+use traits::{MatrixRawGet, MatrixShape, MatrixMultiply, ToMatrix};
+use matrix::{Matrix, write_mat};
+
+impl<LHS: MatrixShape + MatrixRawGet,
+     RHS: MatrixShape + MatrixRawGet>
+MatrixMultiply<RHS> for LHS
+{
+	unsafe fn unsafe_mat_mul(self, rhs: RHS) -> Matrix
+	{
+		MatrixMul::unsafe_new(self, rhs).to_mat()
+	}
+
+	unsafe fn unsafe_mat_mul_lazy(self, rhs: RHS) -> MatrixMul<LHS, RHS>
+	{
+		MatrixMul::unsafe_new(self, rhs)
+	}
+
+	fn mat_mul(self, rhs: RHS) -> Matrix
+	{
+		MatrixMul::new(self, rhs).to_mat()
+	}
+
+	fn mat_mul_lazy(self, rhs: RHS) -> MatrixMul<LHS, RHS>
+	{
+		MatrixMul::new(self, rhs)
+	}
+}
 
 pub struct MatrixMul<LHS, RHS>
 {
@@ -80,49 +102,6 @@ MatrixMul<LHS, RHS>
 	fn clone(&self) -> MatrixMul<LHS, RHS>
 	{
 		MatrixMul{ rhs: self.rhs.clone(), lhs: self.lhs.clone() }
-	}
-}
-
-impl<LHS: MatrixShape,
-     RHS: MatrixShape>
-MatrixColumnAccess for
-MatrixMul<LHS, RHS>
-{
-	unsafe fn unsafe_col(self, c: uint) -> ColumnAccessor<MatrixMul<LHS, RHS>>
-	{
-		ColumnAccessor::unsafe_new(self, c)
-	}
-	
-	fn col(self, c: uint) -> ColumnAccessor<MatrixMul<LHS, RHS>>
-	{
-		ColumnAccessor::new(self, c)
-	}
-}
-
-impl<LHS: MatrixShape,
-     RHS: MatrixShape>
-MatrixRowAccess for
-MatrixMul<LHS, RHS>
-{
-	unsafe fn unsafe_row(self, r: uint) -> RowAccessor<MatrixMul<LHS, RHS>>
-	{
-		RowAccessor::unsafe_new(self, r)
-	}
-	
-	fn row(self, r: uint) -> RowAccessor<MatrixMul<LHS, RHS>>
-	{
-		RowAccessor::new(self, r)
-	}
-}
-
-impl<LHS,
-     RHS>
-MatrixTranspose for
-MatrixMul<LHS, RHS>
-{
-	fn t(self) -> Transposer<MatrixMul<LHS, RHS>>
-	{
-		Transposer::new(self)
 	}
 }
 

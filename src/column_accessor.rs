@@ -1,7 +1,22 @@
 use std::fmt;
 
-use traits::{MatrixRawGet, MatrixRawSet, MatrixShape};
+use traits::{MatrixRawGet, MatrixRawSet, MatrixShape, MatrixColumnAccess};
 use matrix::write_mat;
+
+impl<T: MatrixShape>
+MatrixColumnAccess for
+T
+{
+	unsafe fn unsafe_col(self, c: uint) -> ColumnAccessor<T>
+	{
+		ColumnAccessor::unsafe_new(self, c)
+	}
+	
+	fn col(self, c: uint) -> ColumnAccessor<T>
+	{
+		ColumnAccessor::new(self, c)
+	}
+}
 
 pub struct ColumnAccessor<T>
 {

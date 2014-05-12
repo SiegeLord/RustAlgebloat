@@ -1,10 +1,17 @@
 use std::fmt;
 
-use traits::{MatrixRawGet, MatrixRawSet, MatrixShape, MatrixRowAccess, MatrixColumnAccess, MatrixView, MatrixTranspose};
+use traits::{MatrixRawGet, MatrixRawSet, MatrixShape, MatrixTranspose};
 use matrix::write_mat;
-use row_accessor::RowAccessor;
-use column_accessor::ColumnAccessor;
-use view::View;
+
+impl<T: MatrixShape>
+MatrixTranspose for
+T
+{
+	fn t(self) -> Transposer<T>
+	{
+		Transposer::new(self)
+	}
+}
 
 pub struct Transposer<T>
 {
@@ -63,61 +70,6 @@ Transposer<T>
 	fn nrow(&self) -> uint
 	{
 		self.base.ncol()
-	}
-}
-
-impl<T>
-MatrixTranspose for
-Transposer<T>
-{
-	fn t(self) -> Transposer<Transposer<T>>
-	{
-		Transposer{ base: self }
-	}
-}
-
-impl<T: MatrixShape>
-MatrixColumnAccess for
-Transposer<T>
-{
-	unsafe fn unsafe_col(self, c: uint) -> ColumnAccessor<Transposer<T>>
-	{
-		ColumnAccessor::unsafe_new(self, c)
-	}
-	
-	fn col(self, c: uint) -> ColumnAccessor<Transposer<T>>
-	{
-		ColumnAccessor::new(self, c)
-	}
-}
-
-impl<T: MatrixShape>
-MatrixRowAccess for
-Transposer<T>
-{
-	unsafe fn unsafe_row(self, r: uint) -> RowAccessor<Transposer<T>>
-	{
-		RowAccessor::unsafe_new(self, r)
-	}
-	
-	fn row(self, r: uint) -> RowAccessor<Transposer<T>>
-	{
-		RowAccessor::new(self, r)
-	}
-}
-
-impl<T: MatrixShape>
-MatrixView for
-Transposer<T>
-{
-	unsafe fn unsafe_view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<Transposer<T>>
-	{
-		View::unsafe_new(self, row_start, col_start, row_end, col_end)
-	}
-
-	fn view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<Transposer<T>>
-	{
-		View::new(self, row_start, col_start, row_end, col_end)
 	}
 }
 

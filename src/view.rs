@@ -1,10 +1,22 @@
 use std::fmt;
 
-use traits::{MatrixRawGet, MatrixRawSet, MatrixShape, MatrixRowAccess, MatrixColumnAccess, MatrixView, MatrixTranspose};
-use transpose::Transposer;
-use row_accessor::RowAccessor;
-use column_accessor::ColumnAccessor;
+use traits::{MatrixRawGet, MatrixRawSet, MatrixShape, MatrixView};
 use matrix::write_mat;
+
+impl<T: MatrixShape>
+MatrixView for
+T
+{
+	unsafe fn unsafe_view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<T>
+	{
+		View::unsafe_new(self, row_start, col_start, row_end, col_end)
+	}
+
+	fn view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<T>
+	{
+		View::new(self, row_start, col_start, row_end, col_end)
+	}
+}
 
 pub struct View<T>
 {
@@ -64,21 +76,6 @@ View<T>
 	}
 }
 
-impl<T: MatrixShape>
-MatrixView for
-View<T>
-{
-	unsafe fn unsafe_view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<View<T>>
-	{
-		View::unsafe_new(self, row_start, col_start, row_end, col_end)
-	}
-
-	fn view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<View<T>>
-	{
-		View::new(self, row_start, col_start, row_end, col_end)
-	}
-}
-
 impl<T>
 MatrixShape for
 View<T>
@@ -100,46 +97,6 @@ View<T>
 	fn clone(&self) -> View<T>
 	{
 		View{ base: self.base.clone(), row_start: self.row_start, col_start: self.col_start, row_end: self.row_end, col_end: self.col_end }
-	}
-}
-
-impl<T: MatrixShape>
-MatrixColumnAccess for
-View<T>
-{
-	unsafe fn unsafe_col(self, c: uint) -> ColumnAccessor<View<T>>
-	{
-		ColumnAccessor::unsafe_new(self, c)
-	}
-	
-	fn col(self, c: uint) -> ColumnAccessor<View<T>>
-	{
-		ColumnAccessor::new(self, c)
-	}
-}
-
-impl<T: MatrixShape>
-MatrixRowAccess for
-View<T>
-{
-	unsafe fn unsafe_row(self, r: uint) -> RowAccessor<View<T>>
-	{
-		RowAccessor::unsafe_new(self, r)
-	}
-	
-	fn row(self, r: uint) -> RowAccessor<View<T>>
-	{
-		RowAccessor::new(self, r)
-	}
-}
-
-impl<T>
-MatrixTranspose for
-View<T>
-{
-	fn t(self) -> Transposer<View<T>>
-	{
-		Transposer::new(self)
 	}
 }
 
