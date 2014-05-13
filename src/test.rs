@@ -10,26 +10,27 @@ use super::*;
 use self::test::Bencher;
 use self::rand::{weak_rng, Rng};
 
-fn bug_14149(a: &Matrix)
-{
-	for _ in range(0, 100)
-	{
-		a.assign((a + a * a) / a);
-	}
-	
-	let mut sum = 0f64;
-	for v in a.elems()
-	{
-		sum += v;
-	}
-	assert!(sum != 96.0);
-}
-
 #[bench]
 fn vec_speed_vec(bh: &mut Bencher) {
 	let mut rng = weak_rng();
 	
 	let a = &Matrix::from_iter(1, 10, rng.gen_vec::<f64>(10).iter().map(|&v| v));
+	
+	#[inline(never)]
+	fn bug_14149(a: &Matrix)
+	{
+		for _ in range(0, 100)
+		{
+			a.assign((a + a * a) / a);
+		}
+		
+		let mut sum = 0f64;
+		for v in a.elems()
+		{
+			sum += v;
+		}
+		assert!(sum != 96.0);
+	}
 
 	bh.iter(|| {
 		bug_14149(a);
@@ -41,8 +42,10 @@ fn vec_speed_loop(bh: &mut Bencher) {
 	let mut rng = weak_rng();
 	
 	let a = &Matrix::from_iter(1, 10, rng.gen_vec::<f64>(10).iter().map(|&v| v));
-
-	bh.iter(|| {
+	
+	#[inline(never)]
+	fn bug_14149(a: &Matrix)
+	{
 		for _ in range(0, 100)
 		{
 			for i in range(0, a.len())
@@ -61,6 +64,10 @@ fn vec_speed_loop(bh: &mut Bencher) {
 			sum += v;
 		}
 		assert!(sum != 96.0);
+	}
+
+	bh.iter(|| {
+		bug_14149(a);
 	})
 }
 

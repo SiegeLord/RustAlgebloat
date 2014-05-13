@@ -26,6 +26,7 @@ macro_rules! op
 		pub struct $name;
 		impl $name
 		{
+			#[inline(always)]
 			pub fn new() -> $name
 			{
 				$name
@@ -33,6 +34,7 @@ macro_rules! op
 		}
 		impl BinOp for $name
 		{
+			#[inline(always)]
 			fn op(&self, a: f64, b: f64) -> f64
 			{
 				expr!(a $op b)
