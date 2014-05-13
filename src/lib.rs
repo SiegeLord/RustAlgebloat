@@ -32,6 +32,7 @@ pub mod column_accessor;
 pub mod elements;
 pub mod matrix_mul;
 pub mod bin_ops;
+pub mod scalar;
 pub mod index;
 #[cfg(test)]
 mod test;

@@ -166,12 +166,13 @@ ToMatrix for T
 	}
 }
 
-impl<T: MatrixShape>
-SameShape for
-T
-{
-	fn same_shape(&self, nrow: uint, ncol: uint) -> bool
-	{
-		self.nrow() == nrow && self.ncol() == ncol
-	}
-}
+// TODO: Re-add when the trait reform is implemented
+//~ impl<T: MatrixShape>
+//~ SameShape for
+//~ T
+//~ {
+	//~ fn same_shape(&self, nrow: uint, ncol: uint) -> bool
+	//~ {
+		//~ self.nrow() == nrow && self.ncol() == ncol
+	//~ }
+//~ }

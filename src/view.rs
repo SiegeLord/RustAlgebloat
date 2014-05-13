@@ -1,6 +1,6 @@
 use std::fmt;
 
-use traits::{MatrixRawGet, MatrixRawSet, MatrixShape, MatrixView};
+use traits::{MatrixRawGet, MatrixRawSet, MatrixShape, MatrixView, SameShape};
 use matrix::write_mat;
 
 impl<T: MatrixShape>
@@ -25,6 +25,24 @@ pub struct View<T>
 	col_start: uint,
 	row_end: uint,
 	col_end: uint,
+}
+
+impl<T: MatrixShape>
+View<T>
+{
+	pub unsafe fn unsafe_new(base: T, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<T>
+	{
+		View{ base: base, row_start: row_start, col_start: col_start, row_end: row_end, col_end: col_end }
+	}
+
+	pub fn new(base: T, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<T>
+	{
+		assert!(row_start <= row_end);
+		assert!(col_start <= col_end);
+		assert!(row_end <= base.nrow());
+		assert!(col_end <= base.ncol());
+		View{ base: base, row_start: row_start, col_start: col_start, row_end: row_end, col_end: col_end }
+	}
 }
 
 impl<T: MatrixShape>
@@ -58,24 +76,6 @@ View<T>
 	}
 }
 
-impl<T: MatrixShape>
-View<T>
-{
-	pub unsafe fn unsafe_new(base: T, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<T>
-	{
-		View{ base: base, row_start: row_start, col_start: col_start, row_end: row_end, col_end: col_end }
-	}
-
-	pub fn new(base: T, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<T>
-	{
-		assert!(row_start <= row_end);
-		assert!(col_start <= col_end);
-		assert!(row_end <= base.nrow());
-		assert!(col_end <= base.ncol());
-		View{ base: base, row_start: row_start, col_start: col_start, row_end: row_end, col_end: col_end }
-	}
-}
-
 impl<T>
 MatrixShape for
 View<T>
@@ -87,6 +87,16 @@ View<T>
 	fn ncol(&self) -> uint
 	{
 		self.col_end - self.col_start
+	}
+}
+
+impl<T: MatrixShape>
+SameShape for
+View<T>
+{
+	fn same_shape(&self, nrow: uint, ncol: uint) -> bool
+	{
+		self.nrow() == nrow && self.ncol() == ncol
 	}
 }
 

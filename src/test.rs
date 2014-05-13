@@ -217,3 +217,14 @@ fn set()
 	t1.set((1, 0), 11.0);
 	assert_eq!(m1.get((0, 1)), 11.0);
 }
+
+#[test]
+fn scalars()
+{
+	let a = &mat![1.0, 2.0, 3.0;
+	              4.0, 5.0, 6.0];
+	let b = a * 2.0f64;
+	let c = b.view(0, 1, 2, 2) * 3.0f64;
+	assert_eq!(b.get((0, 0)), 2.0);
+	assert_eq!(c.get((0, 0)), 12.0);
+}

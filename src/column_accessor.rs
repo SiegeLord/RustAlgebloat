@@ -1,6 +1,6 @@
 use std::fmt;
 
-use traits::{MatrixRawGet, MatrixRawSet, MatrixShape, MatrixColumnAccess};
+use traits::{MatrixRawGet, MatrixRawSet, MatrixShape, MatrixColumnAccess, SameShape};
 use matrix::write_mat;
 
 impl<T: MatrixShape>
@@ -53,15 +53,15 @@ ColumnAccessor<T>
 	}
 }
 
-//~ impl<T: MatrixShape>
-//~ LengthEq for
-//~ ColumnAccessor<T>
-//~ {
-	//~ fn len_eq(&self, other_len: uint) -> bool
-	//~ {
-		//~ other_len == self.len()
-	//~ }
-//~ }
+impl<T: MatrixShape>
+SameShape for
+ColumnAccessor<T>
+{
+	fn same_shape(&self, nrow: uint, ncol: uint) -> bool
+	{
+		self.nrow() == nrow && self.ncol() == ncol
+	}
+}
 
 impl<T: MatrixRawGet + MatrixShape>
 MatrixRawGet for

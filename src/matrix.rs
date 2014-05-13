@@ -7,7 +7,7 @@ use std::fmt;
 use std::io::Writer;
 use std::cell::Cell;
 
-use traits::{MatrixRawGet, MatrixRawSet, MatrixShape};
+use traits::{MatrixRawGet, MatrixRawSet, MatrixShape, SameShape};
 
 pub struct Matrix
 {
@@ -107,6 +107,16 @@ MatrixShape for
 	fn ncol(&self) -> uint
 	{
 		self.ncol
+	}
+}
+
+impl<'l>
+SameShape for
+&'l Matrix
+{
+	fn same_shape(&self, nrow: uint, ncol: uint) -> bool
+	{
+		self.nrow() == nrow && self.ncol() == ncol
 	}
 }
 

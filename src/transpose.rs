@@ -1,6 +1,6 @@
 use std::fmt;
 
-use traits::{MatrixRawGet, MatrixRawSet, MatrixShape, MatrixTranspose};
+use traits::{MatrixRawGet, MatrixRawSet, MatrixShape, MatrixTranspose, SameShape};
 use matrix::write_mat;
 
 impl<T: MatrixShape>
@@ -70,6 +70,16 @@ Transposer<T>
 	fn nrow(&self) -> uint
 	{
 		self.base.ncol()
+	}
+}
+
+impl<T: MatrixShape>
+SameShape for
+Transposer<T>
+{
+	fn same_shape(&self, nrow: uint, ncol: uint) -> bool
+	{
+		self.nrow() == nrow && self.ncol() == ncol
 	}
 }
 

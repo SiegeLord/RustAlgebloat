@@ -130,17 +130,17 @@ MatrixBinOp<TA, TB, TO>
 	}
 }
 
-//~ impl<TA: MatrixShape,
-	 //~ TB,
-     //~ TO: BinOp>
-//~ SameShape for
-//~ MatrixBinOp<TA, TB, TO>
-//~ {
-	//~ fn len_eq(&self, other_len: uint) -> bool
-	//~ {
-		//~ other_len == self.len()
-	//~ }
-//~ }
+impl<TA: MatrixShape,
+	 TB,
+     TO: BinOp>
+SameShape for
+MatrixBinOp<TA, TB, TO>
+{
+	fn same_shape(&self, nrow: uint, ncol: uint) -> bool
+	{
+		self.nrow() == nrow && self.ncol() == ncol
+	}
+}
 
 impl<TA: MatrixRawGet + MatrixShape,
      TB: MatrixRawGet + SameShape,
