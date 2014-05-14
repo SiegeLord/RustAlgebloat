@@ -9,9 +9,9 @@ use row_accessor::RowAccessor;
 use column_accessor::ColumnAccessor;
 use transpose::Transposer;
 use view::View;
+use matrix_mul::MatrixMul;
 use matrix::{Matrix, write_mat};
-//~ use vector::slice::Slice;
-//~ use vector::un_ops::{MatrixUnOp, UnOp};
+use un_ops::{MatrixUnOp, UnOp};
 
 pub trait BinOp
 {
@@ -171,17 +171,17 @@ macro_rules! bin_op
 			}
 		}
 		
-		//~ impl<RHS: MatrixRawGet + Clone + SameShape,
-             //~ TA: MatrixRawGet + Clone + MatrixShape,
-             //~ TO: UnOp + Clone>
-		//~ $op_name<RHS, MatrixBinOp<MatrixUnOp<TA, TO>, RHS, $op>> for
-		//~ MatrixUnOp<TA, TO>
-		//~ {
-			//~ fn $op_method(&self, rhs: &RHS) -> MatrixBinOp<MatrixUnOp<TA, TO>, RHS, $op>
-			//~ {
-				//~ MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
-			//~ }
-		//~ }
+		impl<RHS: MatrixRawGet + Clone + SameShape,
+             TA: MatrixRawGet + Clone + MatrixShape,
+             TO: UnOp + Clone>
+		$op_name<RHS, MatrixBinOp<MatrixUnOp<TA, TO>, RHS, $op>> for
+		MatrixUnOp<TA, TO>
+		{
+			fn $op_method(&self, rhs: &RHS) -> MatrixBinOp<MatrixUnOp<TA, TO>, RHS, $op>
+			{
+				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
+			}
+		}
 		
 		impl<'l,
 		     RHS: MatrixRawGet + Clone + SameShape>
@@ -233,6 +233,18 @@ macro_rules! bin_op
 		ColumnAccessor<T>
 		{
 			fn $op_method(&self, rhs: &RHS) -> MatrixBinOp<ColumnAccessor<T>, RHS, $op>
+			{
+				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
+			}
+		}
+
+		impl<RHS: MatrixRawGet + Clone + SameShape,
+		     T1:   MatrixShape + Clone,
+		     T2:   MatrixShape + Clone>
+		$op_name<RHS, MatrixBinOp<MatrixMul<T1, T2>, RHS, $op>> for
+		MatrixMul<T1, T2>
+		{
+			fn $op_method(&self, rhs: &RHS) -> MatrixBinOp<MatrixMul<T1, T2>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
 			}

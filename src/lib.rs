@@ -34,5 +34,6 @@ pub mod matrix_mul;
 pub mod bin_ops;
 pub mod scalar;
 pub mod index;
+pub mod un_ops;
 #[cfg(test)]
 mod test;

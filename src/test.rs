@@ -228,3 +228,13 @@ fn scalars()
 	assert_eq!(b.get((0, 0)), 2.0);
 	assert_eq!(c.get((0, 0)), 12.0);
 }
+
+#[test]
+fn neg()
+{
+	let a = &mat![1.0, 2.0, 3.0];
+	let b = -(-a * 2.0);
+	let c = -(b.view(0, 1, 1, 3) * 3.0);
+	assert_eq!(b.get(0), 2.0);
+	assert_eq!(c.get(0), -12.0);
+}
