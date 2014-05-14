@@ -19,7 +19,7 @@ fn vec_speed_vec(bh: &mut Bencher) {
 	#[inline(never)]
 	fn bug_14149(a: &Matrix)
 	{
-		for _ in range(0, 100)
+		for _ in range(0, 1000)
 		{
 			a.assign((a + a * a) / a);
 		}
@@ -46,7 +46,7 @@ fn vec_speed_loop(bh: &mut Bencher) {
 	#[inline(never)]
 	fn bug_14149(a: &Matrix)
 	{
-		for _ in range(0, 100)
+		for _ in range(0, 1000)
 		{
 			for i in range(0, a.len())
 			{
