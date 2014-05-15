@@ -14,6 +14,8 @@ extern crate algebloat_macros;
 pub use matrix::*;
 pub use traits::*;
 pub use bin_ops::*;
+pub use un_ops::*;
+pub use un_funs::*;
 
 //~ pub use vector::*;
 //~ pub use vector::bin_ops::*;
@@ -35,5 +37,6 @@ pub mod bin_ops;
 pub mod scalar;
 pub mod index;
 pub mod un_ops;
+pub mod un_funs;
 #[cfg(test)]
 mod test;

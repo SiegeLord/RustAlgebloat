@@ -238,3 +238,15 @@ fn neg()
 	assert_eq!(b.get(0), 2.0);
 	assert_eq!(c.get(0), -12.0);
 }
+
+#[test]
+fn un_funs()
+{
+	use std::f64::consts::PI;
+	let a = &mat![0.0, PI / 2.0, -PI / 2.0];
+	let s1 = a.sin();
+	let b = a.view(0, 1, 1, a.len());
+	let s2 = b.sin() + 1.0f64;
+	assert_eq!(s1.get(1), 1.0);
+	assert_eq!(s2.get(0), 2.0);
+}
