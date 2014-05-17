@@ -89,7 +89,7 @@ Transposer<T>
 {
 	fn fmt(&self, buf: &mut fmt::Formatter) -> fmt::Result
 	{
-		write_mat(buf.buf, self)
+		write_mat(buf, self)
 	}
 } 
 

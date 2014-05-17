@@ -184,7 +184,7 @@ Vector
 {
 	fn fmt(&self, buf: &mut fmt::Formatter) -> fmt::Result
 	{
-		write_vec(buf.buf, self)
+		write_vec(buf, self)
 	}
 }
 
