@@ -64,22 +64,6 @@
 <span id='24'>24</span>
 <span id='25'>25</span>
 <span id='26'>26</span>
-<span id='27'>27</span>
-<span id='28'>28</span>
-<span id='29'>29</span>
-<span id='30'>30</span>
-<span id='31'>31</span>
-<span id='32'>32</span>
-<span id='33'>33</span>
-<span id='34'>34</span>
-<span id='35'>35</span>
-<span id='36'>36</span>
-<span id='37'>37</span>
-<span id='38'>38</span>
-<span id='39'>39</span>
-<span id='40'>40</span>
-<span id='41'>41</span>
-<span id='42'>42</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord
 //
@@ -95,34 +79,18 @@
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>algebloat_macros</span>;
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>matrix</span>::<span class='op'>*</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>traits</span>::<span class='op'>*</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>bin_ops</span>::<span class='op'>*</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>un_ops</span>::<span class='op'>*</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>un_funs</span>::<span class='op'>*</span>;<span class='comment'>
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>matrix</span>::<span class='ident'>traits</span>::<span class='op'>*</span>;
 
-//~ pub use vector::*;
-//~ pub use vector::bin_ops::*;
-//~ pub use vector::bin_funs::*;
-//~ pub use vector::un_ops::*;
-//~ pub use vector::un_funs::*;
-//~ pub use vector::reductions::*;
-//~ pub use vector::traits::*;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>vector</span>::<span class='op'>*</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>vector</span>::<span class='ident'>bin_ops</span>::<span class='op'>*</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>vector</span>::<span class='ident'>bin_funs</span>::<span class='op'>*</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>vector</span>::<span class='ident'>un_ops</span>::<span class='op'>*</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>vector</span>::<span class='ident'>un_funs</span>::<span class='op'>*</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>vector</span>::<span class='ident'>reductions</span>::<span class='op'>*</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>vector</span>::<span class='ident'>traits</span>::<span class='op'>*</span>;
 
-</span><span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>matrix</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>traits</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>transpose</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>view</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>row_accessor</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>column_accessor</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>elements</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>matrix_mul</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>bin_ops</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>scalar</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>index</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>un_ops</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>un_funs</span>;
-<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
-<span class='kw'>mod</span> <span class='ident'>test</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>matrix</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>vector</span>;
 </pre>
 </section>
     <section id='search' class="content hidden"></section>
