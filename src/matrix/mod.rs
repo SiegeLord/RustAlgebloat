@@ -275,23 +275,23 @@ pub fn write_mat<T: MatrixGet + MatrixShape>(w: &mut Writer, a: &T) -> fmt::Resu
 	for r in range(0, a.nrow())
 	{
 		let mut first = true;
-		try!(write!(w, "│"))
+		try!(write!(w, "│").map_err(|_| fmt::WriteError))
 		for c in range(0, a.ncol())
 		{
 			if !first
 			{
-				try!(write!(w, " "))
+				try!(write!(w, " ").map_err(|_| fmt::WriteError))
 			}
 			first = false;
 			unsafe
 			{
-				try!(write!(w, "{}", a.unsafe_get(r, c)))
+				try!(write!(w, "{}", a.unsafe_get(r, c)).map_err(|_| fmt::WriteError))
 			}
 		}
-		try!(write!(w, "│"))
+		try!(write!(w, "│").map_err(|_| fmt::WriteError))
 		if r + 1 < a.nrow()
 		{
-			try!(writeln!(w, ""))
+			try!(writeln!(w, "").map_err(|_| fmt::WriteError))
 		}
 	}
 	Ok(())
@@ -303,6 +303,6 @@ Matrix
 {
 	fn fmt(&self, buf: &mut fmt::Formatter) -> fmt::Result
 	{
-		write_mat(buf.buf, self)
+		write_mat(buf, self)
 	}
 }

@@ -184,25 +184,25 @@ Vector
 {
 	fn fmt(&self, buf: &mut fmt::Formatter) -> fmt::Result
 	{
-		write_vec(buf.buf, self)
+		write_vec(buf, self)
 	}
 }
 
 pub fn write_vec<T: VectorGet + Container>(w: &mut Writer, a: &T) -> fmt::Result
 {
 	let mut first = true;
-	try!(write!(w, "["))
+	try!(write!(w, "[").map_err(|_| fmt::WriteError))
 	for i in range(0, a.len())
 	{
 		if !first
 		{
-			try!(write!(w, " "))
+			try!(write!(w, " ").map_err(|_| fmt::WriteError))
 		}
 		first = false;
 		unsafe
 		{
-			try!(write!(w, "{}", a.unsafe_get(i)))
+			try!(write!(w, "{}", a.unsafe_get(i)).map_err(|_| fmt::WriteError))
 		}
 	}
-	write!(w, "]")
+	(write!(w, "]")).map_err(|_| fmt::WriteError)
 }
