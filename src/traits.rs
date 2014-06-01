@@ -8,6 +8,7 @@ use column_accessor::ColumnAccessor;
 use elements::MatrixElements;
 use matrix_mul::MatrixMul;
 use view::View;
+use slice::Slice;
 use matrix::Matrix;
 use index::{MatrixIndexGet, MatrixIndexSet};
 
@@ -66,6 +67,12 @@ pub trait MatrixView
 {
 	unsafe fn unsafe_view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<Self>;
 	fn view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<Self>;
+}
+
+pub trait MatrixSlice
+{
+	unsafe fn unsafe_slice(self, start: uint, end: uint) -> Slice<Self>;
+	fn slice(self, start: uint, end: uint) -> Slice<Self>;
 }
 
 pub trait MatrixAssign<RHS>

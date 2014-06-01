@@ -42,5 +42,6 @@ pub mod index;
 pub mod un_ops;
 pub mod un_funs;
 pub mod reductions;
+pub mod slice;
 #[cfg(test)]
 mod test;

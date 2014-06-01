@@ -274,3 +274,15 @@ fn min_max()
 	assert_eq!(max_idx, 3);
 	assert_eq!(max, 7.0);
 }
+
+#[test]
+fn slice()
+{
+	let m1 = &mat!(1.0, 2.0;
+	               3.0, 4.0);
+	let s = m1.slice(1, 3);
+	assert_eq!(s.nrow(), 2);
+	assert_eq!(s.ncol(), 1);
+	assert_eq!(s.get(0), 2.0);
+	assert_eq!(s.get(1), 3.0);
+}
