@@ -10,6 +10,7 @@ use row_accessor::RowAccessor;
 use column_accessor::ColumnAccessor;
 use transpose::Transposer;
 use view::View;
+use slice::Slice;
 use matrix_mul::MatrixMul;
 use matrix::{Matrix, write_mat};
 use bin_ops::{MatrixBinOp, BinOp};
@@ -193,6 +194,16 @@ Neg<MatrixUnOp<View<T>, OpNeg>> for
 View<T>
 {
 	fn neg(&self) -> MatrixUnOp<View<T>, OpNeg>
+	{
+		MatrixUnOp::new(self.clone(), OpNeg::new())
+	}
+}
+
+impl<T: MatrixShape + Clone>
+Neg<MatrixUnOp<Slice<T>, OpNeg>> for
+Slice<T>
+{
+	fn neg(&self) -> MatrixUnOp<Slice<T>, OpNeg>
 	{
 		MatrixUnOp::new(self.clone(), OpNeg::new())
 	}

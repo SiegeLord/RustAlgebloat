@@ -9,6 +9,7 @@ use row_accessor::RowAccessor;
 use column_accessor::ColumnAccessor;
 use transpose::Transposer;
 use view::View;
+use slice::Slice;
 use matrix_mul::MatrixMul;
 use matrix::{Matrix, write_mat};
 use un_ops::{MatrixUnOp, UnOp};
@@ -200,6 +201,17 @@ macro_rules! bin_op
 		View<T>
 		{
 			fn $op_method(&self, rhs: &RHS) -> MatrixBinOp<View<T>, RHS, $op>
+			{
+				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
+			}
+		}
+
+		impl<RHS: MatrixRawGet + Clone + SameShape,
+		     T:   MatrixShape + Clone>
+		$op_name<RHS, MatrixBinOp<Slice<T>, RHS, $op>> for
+		Slice<T>
+		{
+			fn $op_method(&self, rhs: &RHS) -> MatrixBinOp<Slice<T>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
 			}
