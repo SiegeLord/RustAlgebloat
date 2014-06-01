@@ -3,18 +3,17 @@
 // All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.
 
 extern crate test;
-extern crate rand;
 
 use super::*;
 
 use self::test::Bencher;
-use self::rand::{weak_rng, Rng};
+use std::rand::{weak_rng, Rng};
 
 #[bench]
 fn vec_speed_vec(bh: &mut Bencher) {
 	let mut rng = weak_rng();
 	
-	let a = &Matrix::from_iter(1, 10, rng.gen_vec::<f64>(10).iter().map(|&v| v));
+	let a = &Matrix::from_iter(1, 10, rng.gen_iter::<f64>().take(10));
 	
 	#[inline(never)]
 	fn bug_14149(a: &Matrix)
@@ -41,7 +40,7 @@ fn vec_speed_vec(bh: &mut Bencher) {
 fn vec_speed_loop(bh: &mut Bencher) {
 	let mut rng = weak_rng();
 	
-	let a = &Matrix::from_iter(1, 10, rng.gen_vec::<f64>(10).iter().map(|&v| v));
+	let a = &Matrix::from_iter(1, 10, rng.gen_iter::<f64>().take(10));
 	
 	#[inline(never)]
 	fn bug_14149(a: &Matrix)
