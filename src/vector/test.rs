@@ -3,7 +3,6 @@
 // All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.
 
 extern crate test;
-extern crate rand;
 
 use vector::*;
 use vector::traits::*;
@@ -11,13 +10,13 @@ use vector::un_funs::*;
 use vector::bin_funs::*;
 use vector::reductions::*;
 use self::test::Bencher;
-use self::rand::{weak_rng, Rng};
+use std::rand::{weak_rng, Rng};
 
 #[bench]
 fn vec_speed_vec(bh: &mut Bencher) {
 	let mut rng = weak_rng();
 	
-	let a = Vector::new(rng.gen_vec(10).slice(0, 10));
+	let a: Vector = rng.gen_iter::<f64>().take(10).collect();
 
 	bh.iter(|| {
 		for _ in range(0, 100)
@@ -38,7 +37,7 @@ fn vec_speed_vec(bh: &mut Bencher) {
 fn vec_speed_loop(bh: &mut Bencher) {
 	let mut rng = weak_rng();
 	
-	let a = Vector::new(rng.gen_vec(10).slice(0, 10));
+	let a: Vector = rng.gen_iter::<f64>().take(10).collect();
 
 	bh.iter(|| {
 		for _ in range(0, 100)
