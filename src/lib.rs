@@ -17,6 +17,7 @@ pub use bin_ops::*;
 pub use un_ops::*;
 pub use un_funs::*;
 pub use bin_funs::*;
+pub use reductions::*;
 
 //~ pub use vector::*;
 //~ pub use vector::bin_ops::*;
@@ -40,5 +41,6 @@ pub mod scalar;
 pub mod index;
 pub mod un_ops;
 pub mod un_funs;
+pub mod reductions;
 #[cfg(test)]
 mod test;

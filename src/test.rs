@@ -262,3 +262,15 @@ fn bin_funs()
 	let d = c + 1.0;
 	assert_eq!(d.get(2), 28.0);
 }
+
+#[test]
+fn min_max()
+{
+	let a = &mat![1.0, 2.0, 3.0, 7.0, -1.0, 5.0];
+	let (min_idx, min) = a.min().unwrap();
+	let (max_idx, max) = a.max().unwrap();
+	assert_eq!(min_idx, 4);
+	assert_eq!(min, -1.0);
+	assert_eq!(max_idx, 3);
+	assert_eq!(max, 7.0);
+}
