@@ -216,6 +216,20 @@
 <span id='176'>176</span>
 <span id='177'>177</span>
 <span id='178'>178</span>
+<span id='179'>179</span>
+<span id='180'>180</span>
+<span id='181'>181</span>
+<span id='182'>182</span>
+<span id='183'>183</span>
+<span id='184'>184</span>
+<span id='185'>185</span>
+<span id='186'>186</span>
+<span id='187'>187</span>
+<span id='188'>188</span>
+<span id='189'>189</span>
+<span id='190'>190</span>
+<span id='191'>191</span>
+<span id='192'>192</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord
 //
@@ -227,6 +241,8 @@
 <span class='kw'>use</span> <span class='ident'>elements</span>::<span class='ident'>MatrixElements</span>;
 <span class='kw'>use</span> <span class='ident'>matrix_mul</span>::<span class='ident'>MatrixMul</span>;
 <span class='kw'>use</span> <span class='ident'>view</span>::<span class='ident'>View</span>;
+<span class='kw'>use</span> <span class='ident'>slice</span>::<span class='ident'>Slice</span>;
+<span class='kw'>use</span> <span class='ident'>reshape</span>::<span class='ident'>Reshape</span>;
 <span class='kw'>use</span> <span class='ident'>matrix</span>::<span class='ident'>Matrix</span>;
 <span class='kw'>use</span> <span class='ident'>index</span>::{<span class='ident'>MatrixIndexGet</span>, <span class='ident'>MatrixIndexSet</span>};
 
@@ -285,6 +301,18 @@
 {
 	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_view</span>(<span class='self'>self</span>, <span class='ident'>row_start</span>: <span class='ident'>uint</span>, <span class='ident'>col_start</span>: <span class='ident'>uint</span>, <span class='ident'>row_end</span>: <span class='ident'>uint</span>, <span class='ident'>col_end</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>View</span><span class='op'>&lt;</span><span class='ident'>Self</span><span class='op'>&gt;</span>;
 	<span class='kw'>fn</span> <span class='ident'>view</span>(<span class='self'>self</span>, <span class='ident'>row_start</span>: <span class='ident'>uint</span>, <span class='ident'>col_start</span>: <span class='ident'>uint</span>, <span class='ident'>row_end</span>: <span class='ident'>uint</span>, <span class='ident'>col_end</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>View</span><span class='op'>&lt;</span><span class='ident'>Self</span><span class='op'>&gt;</span>;
+}
+
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MatrixReshape</span>
+{
+	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_reshape</span>(<span class='self'>self</span>, <span class='ident'>nrow</span>: <span class='ident'>uint</span>, <span class='ident'>ncol</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>Reshape</span><span class='op'>&lt;</span><span class='ident'>Self</span><span class='op'>&gt;</span>;
+	<span class='kw'>fn</span> <span class='ident'>reshape</span>(<span class='self'>self</span>, <span class='ident'>nrow</span>: <span class='ident'>uint</span>, <span class='ident'>ncol</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>Reshape</span><span class='op'>&lt;</span><span class='ident'>Self</span><span class='op'>&gt;</span>;
+}
+
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MatrixSlice</span>
+{
+	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_slice</span>(<span class='self'>self</span>, <span class='ident'>start</span>: <span class='ident'>uint</span>, <span class='ident'>end</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>Slice</span><span class='op'>&lt;</span><span class='ident'>Self</span><span class='op'>&gt;</span>;
+	<span class='kw'>fn</span> <span class='ident'>slice</span>(<span class='self'>self</span>, <span class='ident'>start</span>: <span class='ident'>uint</span>, <span class='ident'>end</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>Slice</span><span class='op'>&lt;</span><span class='ident'>Self</span><span class='op'>&gt;</span>;
 }
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MatrixAssign</span><span class='op'>&lt;</span><span class='ident'>RHS</span><span class='op'>&gt;</span>

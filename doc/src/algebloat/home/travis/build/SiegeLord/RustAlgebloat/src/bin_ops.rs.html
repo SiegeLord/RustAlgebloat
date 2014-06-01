@@ -296,6 +296,30 @@
 <span id='256'>256</span>
 <span id='257'>257</span>
 <span id='258'>258</span>
+<span id='259'>259</span>
+<span id='260'>260</span>
+<span id='261'>261</span>
+<span id='262'>262</span>
+<span id='263'>263</span>
+<span id='264'>264</span>
+<span id='265'>265</span>
+<span id='266'>266</span>
+<span id='267'>267</span>
+<span id='268'>268</span>
+<span id='269'>269</span>
+<span id='270'>270</span>
+<span id='271'>271</span>
+<span id='272'>272</span>
+<span id='273'>273</span>
+<span id='274'>274</span>
+<span id='275'>275</span>
+<span id='276'>276</span>
+<span id='277'>277</span>
+<span id='278'>278</span>
+<span id='279'>279</span>
+<span id='280'>280</span>
+<span id='281'>281</span>
+<span id='282'>282</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord
 //
@@ -308,6 +332,8 @@
 <span class='kw'>use</span> <span class='ident'>column_accessor</span>::<span class='ident'>ColumnAccessor</span>;
 <span class='kw'>use</span> <span class='ident'>transpose</span>::<span class='ident'>Transposer</span>;
 <span class='kw'>use</span> <span class='ident'>view</span>::<span class='ident'>View</span>;
+<span class='kw'>use</span> <span class='ident'>slice</span>::<span class='ident'>Slice</span>;
+<span class='kw'>use</span> <span class='ident'>reshape</span>::<span class='ident'>Reshape</span>;
 <span class='kw'>use</span> <span class='ident'>matrix_mul</span>::<span class='ident'>MatrixMul</span>;
 <span class='kw'>use</span> <span class='ident'>matrix</span>::{<span class='ident'>Matrix</span>, <span class='ident'>write_mat</span>};
 <span class='kw'>use</span> <span class='ident'>un_ops</span>::{<span class='ident'>MatrixUnOp</span>, <span class='ident'>UnOp</span>};
@@ -499,6 +525,28 @@
 		<span class='ident'>View</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
 		{
 			<span class='kw'>fn</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>op_method</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>rhs</span>: <span class='kw-2'>&amp;</span><span class='ident'>RHS</span>) <span class='op'>-&gt;</span> <span class='ident'>MatrixBinOp</span><span class='op'>&lt;</span><span class='ident'>View</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>, <span class='ident'>RHS</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>op</span><span class='op'>&gt;</span>
+			{
+				<span class='ident'>MatrixBinOp</span>::<span class='ident'>new</span>(<span class='self'>self</span>.<span class='ident'>clone</span>(), <span class='ident'>rhs</span>.<span class='ident'>clone</span>(), <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>op</span>::<span class='ident'>new</span>())
+			}
+		}
+
+		<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>RHS</span>: <span class='ident'>MatrixRawGet</span> <span class='op'>+</span> <span class='ident'>Clone</span> <span class='op'>+</span> <span class='ident'>SameShape</span>,
+		     <span class='ident'>T</span>:   <span class='ident'>MatrixShape</span> <span class='op'>+</span> <span class='ident'>Clone</span><span class='op'>&gt;</span>
+		<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>op_name</span><span class='op'>&lt;</span><span class='ident'>RHS</span>, <span class='ident'>MatrixBinOp</span><span class='op'>&lt;</span><span class='ident'>Slice</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>, <span class='ident'>RHS</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>op</span><span class='op'>&gt;&gt;</span> <span class='kw'>for</span>
+		<span class='ident'>Slice</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
+		{
+			<span class='kw'>fn</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>op_method</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>rhs</span>: <span class='kw-2'>&amp;</span><span class='ident'>RHS</span>) <span class='op'>-&gt;</span> <span class='ident'>MatrixBinOp</span><span class='op'>&lt;</span><span class='ident'>Slice</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>, <span class='ident'>RHS</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>op</span><span class='op'>&gt;</span>
+			{
+				<span class='ident'>MatrixBinOp</span>::<span class='ident'>new</span>(<span class='self'>self</span>.<span class='ident'>clone</span>(), <span class='ident'>rhs</span>.<span class='ident'>clone</span>(), <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>op</span>::<span class='ident'>new</span>())
+			}
+		}
+
+		<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>RHS</span>: <span class='ident'>MatrixRawGet</span> <span class='op'>+</span> <span class='ident'>Clone</span> <span class='op'>+</span> <span class='ident'>SameShape</span>,
+		     <span class='ident'>T</span>:   <span class='ident'>MatrixShape</span> <span class='op'>+</span> <span class='ident'>Clone</span><span class='op'>&gt;</span>
+		<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>op_name</span><span class='op'>&lt;</span><span class='ident'>RHS</span>, <span class='ident'>MatrixBinOp</span><span class='op'>&lt;</span><span class='ident'>Reshape</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>, <span class='ident'>RHS</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>op</span><span class='op'>&gt;&gt;</span> <span class='kw'>for</span>
+		<span class='ident'>Reshape</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
+		{
+			<span class='kw'>fn</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>op_method</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>rhs</span>: <span class='kw-2'>&amp;</span><span class='ident'>RHS</span>) <span class='op'>-&gt;</span> <span class='ident'>MatrixBinOp</span><span class='op'>&lt;</span><span class='ident'>Reshape</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>, <span class='ident'>RHS</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>op</span><span class='op'>&gt;</span>
 			{
 				<span class='ident'>MatrixBinOp</span>::<span class='ident'>new</span>(<span class='self'>self</span>.<span class='ident'>clone</span>(), <span class='ident'>rhs</span>.<span class='ident'>clone</span>(), <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>op</span>::<span class='ident'>new</span>())
 			}
