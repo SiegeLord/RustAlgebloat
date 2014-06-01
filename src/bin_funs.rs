@@ -2,8 +2,8 @@
 //
 // All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.
 
-use vector::bin_ops::{BinOp, VectorBinOp};
-use vector::traits::LengthEq;
+use bin_ops::{BinOp, MatrixBinOp};
+use traits::{SameShape, MatrixShape};
 
 macro_rules! bin_fun
 {
@@ -38,17 +38,17 @@ macro_rules! bin_fun
 
 		pub trait $trait_name<RHS>
 		{
-			fn $func_name(self, rhs: RHS) -> VectorBinOp<Self, RHS, $struct_name>;
+			fn $func_name(self, rhs: RHS) -> MatrixBinOp<Self, RHS, $struct_name>;
 		}
 
-		impl<T: Clone + Container,
-		     RHS: Clone + LengthEq>
+		impl<T: Clone + MatrixShape,
+		     RHS: Clone + SameShape>
 		$trait_name<RHS> for
 		T
 		{
-			fn $func_name(self, rhs: RHS) -> VectorBinOp<T, RHS, $struct_name>
+			fn $func_name(self, rhs: RHS) -> MatrixBinOp<T, RHS, $struct_name>
 			{
-				VectorBinOp::new(self.clone(), rhs.clone(), $struct_name::new())
+				MatrixBinOp::new(self.clone(), rhs.clone(), $struct_name::new())
 			}
 		}
 	}

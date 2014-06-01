@@ -7,20 +7,20 @@ use std::fmt;
 use std::io::Writer;
 use std::cell::Cell;
 
-use matrix::traits::{MatrixGet, MatrixSet, MatrixShape, MatrixRowAccess, MatrixColumnAccess, MatrixView, MatrixTranspose, MatrixFlat};
-use matrix::transpose::Transposer;
-use matrix::row_accessor::RowAccessor;
-use matrix::column_accessor::ColumnAccessor;
-use matrix::flat_view::FlatView;
-use matrix::view::View;
+use traits::{MatrixRawGet, MatrixRawSet, MatrixShape, /*MatrixRowAccess, MatrixColumnAccess, */MatrixView, MatrixTranspose/*, MatrixFlat*/};
+use transpose::Transposer;
+//~ use row_accessor::RowAccessor;
+//~ use column_accessor::ColumnAccessor;
+use view::View;
 
 pub mod traits;
 pub mod transpose;
 pub mod view;
-pub mod row_accessor;
-pub mod column_accessor;
-pub mod flat_view;
+//~ pub mod row_accessor;
+//~ pub mod column_accessor;
+pub mod elements;
 pub mod matrix_mul;
+pub mod index;
 #[cfg(test)]
 mod test;
 
@@ -76,46 +76,35 @@ impl Matrix
 }
 
 impl<'l>
-MatrixGet for
+Container for
 &'l Matrix
 {
 	#[inline]
-	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f64
+	fn len(&self) -> uint
 	{
-		self.data.as_slice().unsafe_ref(c + r * self.ncol).get()
-	}
-
-	#[inline]
-	fn get(&self, r: uint, c: uint) -> f64
-	{
-		assert!(r < self.nrow());
-		assert!(c < self.ncol());
-		unsafe
-		{
-			self.unsafe_get(r, c)
-		}
+		self.nrow() * self.ncol()
 	}
 }
 
 impl<'l>
-MatrixSet for
+MatrixRawGet for
 &'l Matrix
 {
 	#[inline]
-	unsafe fn unsafe_set(&self, r: uint, c: uint, val: f64)
+	unsafe fn raw_get(&self, r: uint, c: uint) -> f64
+	{
+		self.data.as_slice().unsafe_ref(c + r * self.ncol).get()
+	}
+}
+
+impl<'l>
+MatrixRawSet for
+&'l Matrix
+{
+	#[inline]
+	unsafe fn raw_set(&self, r: uint, c: uint, val: f64)
 	{
 		self.data.as_slice().unsafe_ref(c + r * self.ncol).set(val);
-	}
-
-	#[inline]
-	fn set(&self, r: uint, c: uint, val: f64)
-	{
-		assert!(r < self.nrow());
-		assert!(c < self.ncol());
-		unsafe
-		{
-			self.unsafe_set(r, c, val);
-		}
 	}
 }
 
@@ -137,46 +126,35 @@ MatrixShape for
 }
 
 impl
-MatrixGet for
+Container for
 Matrix
 {
 	#[inline]
-	unsafe fn unsafe_get(&self, r: uint, c: uint) -> f64
+	fn len(&self) -> uint
 	{
-		self.data.as_slice().unsafe_ref(c + r * self.ncol).get()
-	}
-
-	#[inline]
-	fn get(&self, r: uint, c: uint) -> f64
-	{
-		assert!(r < self.nrow());
-		assert!(c < self.ncol());
-		unsafe
-		{
-			self.unsafe_get(r, c)
-		}
+		self.nrow() * self.ncol()
 	}
 }
 
 impl
-MatrixSet for
+MatrixRawGet for
 Matrix
 {
 	#[inline]
-	unsafe fn unsafe_set(&self, r: uint, c: uint, val: f64)
+	unsafe fn raw_get(&self, r: uint, c: uint) -> f64
+	{
+		self.data.as_slice().unsafe_ref(c + r * self.ncol).get()
+	}
+}
+
+impl
+MatrixRawSet for
+Matrix
+{
+	#[inline]
+	unsafe fn raw_set(&self, r: uint, c: uint, val: f64)
 	{
 		self.data.as_slice().unsafe_ref(c + r * self.ncol).set(val);
-	}
-
-	#[inline]
-	fn set(&self, r: uint, c: uint, val: f64)
-	{
-		assert!(r < self.nrow());
-		assert!(c < self.ncol());
-		unsafe
-		{
-			self.unsafe_set(r, c, val);
-		}
 	}
 }
 
@@ -207,7 +185,7 @@ MatrixTranspose for
 		Transposer::new(self)
 	}
 }
-
+/*
 impl<'l>
 MatrixRowAccess for
 &'l Matrix
@@ -241,18 +219,7 @@ MatrixColumnAccess for
 		ColumnAccessor::new(self, col)
 	}
 }
-
-impl<'l>
-MatrixFlat for
-&'l Matrix
-{
-	#[inline]
-	fn flat(self) -> FlatView<&'l Matrix>
-	{
-		FlatView::new(self)
-	}
-}
-
+*/
 impl<'l>
 MatrixView for
 &'l Matrix
@@ -270,7 +237,7 @@ MatrixView for
 	}
 }
 
-pub fn write_mat<T: MatrixGet + MatrixShape>(w: &mut Writer, a: &T) -> fmt::Result
+pub fn write_mat<T: MatrixRawGet + MatrixShape>(w: &mut Writer, a: &T) -> fmt::Result
 {
 	for r in range(0, a.nrow())
 	{
@@ -285,7 +252,7 @@ pub fn write_mat<T: MatrixGet + MatrixShape>(w: &mut Writer, a: &T) -> fmt::Resu
 			first = false;
 			unsafe
 			{
-				try!(write!(w, "{}", a.unsafe_get(r, c)).map_err(|_| fmt::WriteError))
+				try!(write!(w, "{}", a.raw_get(r, c)))
 			}
 		}
 		try!(write!(w, "│").map_err(|_| fmt::WriteError))

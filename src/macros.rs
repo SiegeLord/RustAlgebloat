@@ -7,16 +7,16 @@
 #![crate_type="lib"]
 #![crate_id="algebloat_macros"]
 
-#[macro_export]
-macro_rules! vec
-{
-	( $($e: expr),+) =>
-	{
-		Vector::new([$(
-				($e) as f64,
-		)+])
-	}
-}
+//~ #[macro_export]
+//~ macro_rules! vec
+//~ {
+	//~ ( $($e: expr),+) =>
+	//~ {
+		//~ Vector::new([$(
+				//~ ($e) as f64,
+		//~ )+])
+	//~ }
+//~ }
 
 #[macro_export]
 macro_rules! mat

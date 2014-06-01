@@ -2,22 +2,19 @@
 //
 // All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.
 
-//~ use vector::traits::VectorElems;
-use vector::traits::VectorGet;
+use traits::MatrixGet;
 
-pub trait VectorReduce
+pub trait MatrixReduce
 {
-	fn min(&self) -> Option<f64>;
-	fn min_idx(&self) -> Option<(uint, f64)>;
-	fn max(&self) -> Option<f64>;
-	fn max_idx(&self) -> Option<(uint, f64)>;
+	fn min(&self) -> Option<(uint, f64)>;
+	fn max(&self) -> Option<(uint, f64)>;
 }
 
-impl<T: VectorGet + Container>
-VectorReduce for
+impl<T: MatrixGet<uint> + Container>
+MatrixReduce for
 T
 {
-	fn min_idx(&self) -> Option<(uint, f64)>
+	fn min(&self) -> Option<(uint, f64)>
 	{
 		let l = self.len();
 		if l == 0
@@ -44,16 +41,7 @@ T
 		}
 	}
 
-	fn min(&self) -> Option<f64>
-	{
-		match self.min_idx()
-		{
-			Some((_, ret)) => Some(ret),
-			None => None
-		}
-	}
-
-	fn max_idx(&self) -> Option<(uint, f64)>
+	fn max(&self) -> Option<(uint, f64)>
 	{
 		let l = self.len();
 		if l == 0
@@ -79,13 +67,5 @@ T
 			Some((ret_i, ret))
 		}
 	}
-
-	fn max(&self) -> Option<f64>
-	{
-		match self.max_idx()
-		{
-			Some((_, ret)) => Some(ret),
-			None => None
-		}
-	}
 }
+
