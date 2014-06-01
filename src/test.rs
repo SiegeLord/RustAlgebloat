@@ -286,3 +286,21 @@ fn slice()
 	assert_eq!(s.get(0), 3.0);
 	assert_eq!(s.get(1), 4.0);
 }
+
+#[test]
+fn reshape()
+{
+	let m1 = &mat!(1.0, 2.0;
+	               3.0, 4.0);
+	let m2 = m1.reshape(4, 1) + 0.0;
+	assert_eq!(m2.nrow(), 4);
+	assert_eq!(m2.ncol(), 1);
+	assert_eq!(m2.get(0), 1.0);
+	assert_eq!(m2.get(1), 2.0);
+	assert_eq!(m2.get(2), 3.0);
+	let m3 = m2.reshape(2, 2);
+	assert_eq!(m3.get((1, 1)), 4.0);
+	let m4 = m1.reshape(4, 1);
+	m4.set((2, 0), 5.0);
+	assert_eq!(m1.get((1, 0)), 5.0);
+}

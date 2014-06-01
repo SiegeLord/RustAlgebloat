@@ -9,6 +9,7 @@ use elements::MatrixElements;
 use matrix_mul::MatrixMul;
 use view::View;
 use slice::Slice;
+use reshape::Reshape;
 use matrix::Matrix;
 use index::{MatrixIndexGet, MatrixIndexSet};
 
@@ -67,6 +68,12 @@ pub trait MatrixView
 {
 	unsafe fn unsafe_view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<Self>;
 	fn view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<Self>;
+}
+
+pub trait MatrixReshape
+{
+	unsafe fn unsafe_reshape(self, nrow: uint, ncol: uint) -> Reshape<Self>;
+	fn reshape(self, nrow: uint, ncol: uint) -> Reshape<Self>;
 }
 
 pub trait MatrixSlice
