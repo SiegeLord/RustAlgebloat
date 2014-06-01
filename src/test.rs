@@ -245,7 +245,20 @@ fn un_funs()
 	let a = &mat![0.0, PI / 2.0, -PI / 2.0];
 	let s1 = a.sin();
 	let b = a.view(0, 1, 1, a.len());
-	let s2 = b.sin() + 1.0f64;
+	let s2 = b.sin() + 1.0;
 	assert_eq!(s1.get(1), 1.0);
 	assert_eq!(s2.get(0), 2.0);
+}
+
+#[test]
+fn bin_funs()
+{
+	let a = &mat![1.0, 2.0, 3.0];
+	let b = &mat![1.0, 2.0, 3.0];
+	let c = a.powf(b);
+	assert_eq!(c.get(0), 1.0);
+	assert_eq!(c.get(1), 4.0);
+	assert_eq!(c.get(2), 27.0);
+	let d = c + 1.0;
+	assert_eq!(d.get(2), 28.0);
 }

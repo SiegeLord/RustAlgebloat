@@ -16,6 +16,7 @@ pub use traits::*;
 pub use bin_ops::*;
 pub use un_ops::*;
 pub use un_funs::*;
+pub use bin_funs::*;
 
 //~ pub use vector::*;
 //~ pub use vector::bin_ops::*;
@@ -26,6 +27,7 @@ pub use un_funs::*;
 //~ pub use vector::traits::*;
 
 pub mod matrix;
+pub mod bin_funs;
 pub mod traits;
 pub mod transpose;
 pub mod view;
