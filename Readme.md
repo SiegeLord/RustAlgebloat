@@ -16,9 +16,9 @@ Some basic operations and row access (no allocations except during the initial
 matrix creation!):
 
 ~~~rust
-let m = mat!(1.0, 2.0, 3.0;
-             4.0, 5.0, 6.0;
-             7.0, 8.0, 9.0);
+let m = &mat![1.0, 2.0, 3.0;
+              4.0, 5.0, 6.0;
+              7.0, 8.0, 9.0];
 println!("m =\n{}", m);
 let t1 = m.t();
 println!("t1 =\n{}", t1);
@@ -38,7 +38,7 @@ t1 =
 │2 5 8│
 │3 6 9│
 r =
-[2 6 10]
+│2 6 10│
 ~~~
 
 ## Features
@@ -47,8 +47,7 @@ r =
 * Expression templates (well, more like expression traits since this is Rust) 
 assure all the caveats above while in principle providing allocation-free speed 
 (only available with optimizations turned on)!
-* Vectors
-	* Slicing
+* Matrices
 	* Elementwise operations (right-hand side can be a scalar)
 		* Binary operators (`*/-+`)
 		* Unary negation
@@ -57,31 +56,22 @@ assure all the caveats above while in principle providing allocation-free speed
 			* `atan2`
 			* `hypot`
 		* Unary functions
-			* `abs`
-			* `acos`
-			* `asin`
-			* `atan`
+			* Trigonometry/exponential functions
 			* `ceil`
-			* `cos`
-			* `cosh`
-			* `exp`
 			* `floor`
 			* `ln`
 			* `log10`
-			* `round`
-			* `sin`
-			* `sinh`
 			* `sqrt`
-			* `tan`
-			* `tanh`
 		* Reductions
 			* `min`
 			* `max`
-* Matrices
 	* Row and column access
 	* Views
-	* Flat views
 	* Multiplication
+	* Reshaping
+	* Flat views (view matrix as a vector)
+		* Element access
+		* Slicing
 
 ## Building
 
