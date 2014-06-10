@@ -8,7 +8,7 @@
 #![crate_id="algebloat"]
 #![license = "LGPL3"]
 
-#[phase(syntax)]
+#[phase(plugin)]
 extern crate algebloat_macros;
 
 pub use matrix::*;

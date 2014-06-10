@@ -10,7 +10,7 @@ pub trait MatrixReduce
 	fn max(&self) -> Option<(uint, f64)>;
 }
 
-impl<T: MatrixGet<uint> + Container>
+impl<T: MatrixGet<uint> + Collection>
 MatrixReduce for
 T
 {

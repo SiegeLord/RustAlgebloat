@@ -84,7 +84,7 @@ RowAccessor<T>
 }
 
 impl<T: MatrixShape>
-Container for
+Collection for
 RowAccessor<T>
 {
 	fn len(&self) -> uint

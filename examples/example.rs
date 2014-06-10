@@ -1,7 +1,7 @@
 // This file is released into Public Domain.
 #![feature(globs, macro_rules, phase)]
 
-#[phase(syntax)]
+#[phase(plugin)]
 extern crate algebloat_macros;
 extern crate algebloat;
 use algebloat::*;

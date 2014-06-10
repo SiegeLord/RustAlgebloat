@@ -3,7 +3,7 @@ use std::fmt;
 use traits::{MatrixGet, MatrixSet, MatrixRawGet, MatrixRawSet, MatrixShape, MatrixReshape, SameShape};
 use matrix::write_mat;
 
-impl<T: MatrixShape + Container>
+impl<T: MatrixShape + Collection>
 MatrixReshape for
 T
 {
@@ -25,7 +25,7 @@ pub struct Reshape<T>
 	ncol: uint,
 }
 
-impl<T: MatrixShape + Container>
+impl<T: MatrixShape + Collection>
 Reshape<T>
 {
 	pub unsafe fn unsafe_new(base: T, nrow: uint, ncol: uint) -> Reshape<T>
@@ -41,7 +41,7 @@ Reshape<T>
 }
 
 impl<T: MatrixShape>
-Container for
+Collection for
 Reshape<T>
 {
 	#[inline]

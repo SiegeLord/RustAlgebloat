@@ -94,9 +94,9 @@ MatrixUnOp<TA, TO>
 	}
 }
 
-impl<TA: Container,
+impl<TA: Collection,
      TO>
-Container for
+Collection for
 MatrixUnOp<TA, TO>
 {
 	fn len(&self) -> uint

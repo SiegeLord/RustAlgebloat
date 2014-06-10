@@ -28,7 +28,7 @@ Transposer<T>
 }
 
 impl<T: MatrixShape>
-Container for
+Collection for
 Transposer<T>
 {
 	#[inline]

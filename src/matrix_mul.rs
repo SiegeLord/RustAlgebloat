@@ -52,7 +52,7 @@ MatrixMul<LHS, RHS>
 
 impl<LHS: MatrixRawGet + MatrixShape,
      RHS: MatrixRawGet + MatrixShape>
-Container for
+Collection for
 MatrixMul<LHS, RHS>
 {
 	#[inline]

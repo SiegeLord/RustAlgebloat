@@ -84,7 +84,7 @@ ColumnAccessor<T>
 }
 
 impl<T: MatrixShape>
-Container for
+Collection for
 ColumnAccessor<T>
 {
 	fn len(&self) -> uint

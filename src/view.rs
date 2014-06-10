@@ -46,7 +46,7 @@ View<T>
 }
 
 impl<T: MatrixShape>
-Container for
+Collection for
 View<T>
 {
 	#[inline]

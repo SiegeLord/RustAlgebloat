@@ -3,7 +3,7 @@ use std::fmt;
 use traits::{MatrixRawGet, MatrixGet, MatrixSet, MatrixRawSet, MatrixShape, MatrixSlice, SameShape};
 use matrix::write_mat;
 
-impl<T: MatrixShape + Container>
+impl<T: MatrixShape + Collection>
 MatrixSlice for
 T
 {
@@ -25,7 +25,7 @@ pub struct Slice<T>
 	end: uint,
 }
 
-impl<T: MatrixShape + Container>
+impl<T: MatrixShape + Collection>
 Slice<T>
 {
 	pub unsafe fn unsafe_new(base: T, start: uint, end: uint) -> Slice<T>
@@ -42,7 +42,7 @@ Slice<T>
 }
 
 impl<T: MatrixShape>
-Container for
+Collection for
 Slice<T>
 {
 	#[inline]

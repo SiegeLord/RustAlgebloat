@@ -4,7 +4,7 @@
 
 use traits::{MatrixGet, MatrixElems};
 
-impl<T: MatrixGet<uint> + Container>
+impl<T: MatrixGet<uint> + Collection>
 MatrixElems for
 T
 {
@@ -20,7 +20,7 @@ pub struct MatrixElements<T>
 	idx: uint
 }
 
-impl<T: MatrixGet<uint> + Container>
+impl<T: MatrixGet<uint> + Collection>
 MatrixElements<T>
 {
 	pub fn new(base: T) -> MatrixElements<T>
@@ -29,7 +29,7 @@ MatrixElements<T>
 	}
 }
 
-impl<T: MatrixGet<uint> + Container>
+impl<T: MatrixGet<uint> + Collection>
 Iterator<f64> for
 MatrixElements<T>
 {

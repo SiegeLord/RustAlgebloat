@@ -61,7 +61,7 @@ impl Matrix
 }
 
 impl<'l>
-Container for
+Collection for
 &'l Matrix
 {
 	#[inline]
@@ -121,7 +121,7 @@ SameShape for
 }
 
 impl
-Container for
+Collection for
 Matrix
 {
 	#[inline]

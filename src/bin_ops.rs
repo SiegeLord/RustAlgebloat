@@ -120,10 +120,10 @@ MatrixBinOp<TA, TB, TO>
 	}
 }
 
-impl<TA: Container,
+impl<TA: Collection,
 	 TB,
      TO: BinOp>
-Container for
+Collection for
 MatrixBinOp<TA, TB, TO>
 {
 	fn len(&self) -> uint
