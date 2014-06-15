@@ -23,7 +23,6 @@
 
     <section class="sidebar">
         
-
         
     </section>
 
@@ -294,11 +293,11 @@
 	<span class='kw'>fn</span> <span class='ident'>op</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>a</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>;
 }
 
-<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Clone</span>)]</span>
+<span class='attribute'>\#[<span class='ident'>deriving</span>(<span class='ident'>Clone</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>OpNeg</span>;
 <span class='kw'>impl</span> <span class='ident'>OpNeg</span>
 {
-	<span class='attribute'>#[<span class='ident'>inline</span>]</span>
+	<span class='attribute'>\#[<span class='ident'>inline</span>]</span>
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>() <span class='op'>-&gt;</span> <span class='ident'>OpNeg</span>
 	{
 		<span class='ident'>OpNeg</span>
@@ -306,7 +305,7 @@
 }
 <span class='kw'>impl</span> <span class='ident'>UnOp</span> <span class='kw'>for</span> <span class='ident'>OpNeg</span>
 {
-	<span class='attribute'>#[<span class='ident'>inline</span>]</span>
+	<span class='attribute'>\#[<span class='ident'>inline</span>]</span>
 	<span class='kw'>fn</span> <span class='ident'>op</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>a</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>
 	{
 		<span class='op'>-</span><span class='ident'>a</span>
@@ -521,7 +520,7 @@
                 <dd>Move up in search results</dd>
                 <dt>&darr;</dt>
                 <dd>Move down in search results</dd>
-                <dt>&#9166;</dt>
+                <dt>&\#9166;</dt>
                 <dd>Go to active search result</dd>
             </dl>
         </div>
