@@ -312,7 +312,7 @@
 <span class='ident'>Collection</span> <span class='kw'>for</span>
 <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;l</span> <span class='ident'>Matrix</span>
 {
-	<span class='attribute'>\#[<span class='ident'>inline</span>]</span>
+	<span class='attribute'>#[<span class='ident'>inline</span>]</span>
 	<span class='kw'>fn</span> <span class='ident'>len</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>uint</span>
 	{
 		<span class='self'>self</span>.<span class='ident'>nrow</span>() <span class='op'>*</span> <span class='self'>self</span>.<span class='ident'>ncol</span>()
@@ -323,7 +323,7 @@
 <span class='ident'>MatrixRawGet</span> <span class='kw'>for</span>
 <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;l</span> <span class='ident'>Matrix</span>
 {
-	<span class='attribute'>\#[<span class='ident'>inline</span>]</span>
+	<span class='attribute'>#[<span class='ident'>inline</span>]</span>
 	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>raw_get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>
 	{
 		<span class='self'>self</span>.<span class='ident'>data</span>.<span class='ident'>as_slice</span>().<span class='ident'>unsafe_ref</span>(<span class='ident'>c</span> <span class='op'>+</span> <span class='ident'>r</span> <span class='op'>*</span> <span class='self'>self</span>.<span class='ident'>ncol</span>).<span class='ident'>get</span>()
@@ -334,7 +334,7 @@
 <span class='ident'>MatrixRawSet</span> <span class='kw'>for</span>
 <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;l</span> <span class='ident'>Matrix</span>
 {
-	<span class='attribute'>\#[<span class='ident'>inline</span>]</span>
+	<span class='attribute'>#[<span class='ident'>inline</span>]</span>
 	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>raw_set</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>, <span class='ident'>val</span>: <span class='ident'>f64</span>)
 	{
 		<span class='self'>self</span>.<span class='ident'>data</span>.<span class='ident'>as_slice</span>().<span class='ident'>unsafe_ref</span>(<span class='ident'>c</span> <span class='op'>+</span> <span class='ident'>r</span> <span class='op'>*</span> <span class='self'>self</span>.<span class='ident'>ncol</span>).<span class='ident'>set</span>(<span class='ident'>val</span>);
@@ -345,13 +345,13 @@
 <span class='ident'>MatrixShape</span> <span class='kw'>for</span>
 <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;l</span> <span class='ident'>Matrix</span>
 {
-	<span class='attribute'>\#[<span class='ident'>inline</span>]</span>
+	<span class='attribute'>#[<span class='ident'>inline</span>]</span>
 	<span class='kw'>fn</span> <span class='ident'>nrow</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>uint</span>
 	{
 		<span class='self'>self</span>.<span class='ident'>nrow</span>
 	}
 
-	<span class='attribute'>\#[<span class='ident'>inline</span>]</span>
+	<span class='attribute'>#[<span class='ident'>inline</span>]</span>
 	<span class='kw'>fn</span> <span class='ident'>ncol</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>uint</span>
 	{
 		<span class='self'>self</span>.<span class='ident'>ncol</span>
@@ -372,7 +372,7 @@
 <span class='ident'>Collection</span> <span class='kw'>for</span>
 <span class='ident'>Matrix</span>
 {
-	<span class='attribute'>\#[<span class='ident'>inline</span>]</span>
+	<span class='attribute'>#[<span class='ident'>inline</span>]</span>
 	<span class='kw'>fn</span> <span class='ident'>len</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>uint</span>
 	{
 		<span class='self'>self</span>.<span class='ident'>nrow</span>() <span class='op'>*</span> <span class='self'>self</span>.<span class='ident'>ncol</span>()
@@ -383,7 +383,7 @@
 <span class='ident'>MatrixRawGet</span> <span class='kw'>for</span>
 <span class='ident'>Matrix</span>
 {
-	<span class='attribute'>\#[<span class='ident'>inline</span>]</span>
+	<span class='attribute'>#[<span class='ident'>inline</span>]</span>
 	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>raw_get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>
 	{
 		<span class='self'>self</span>.<span class='ident'>data</span>.<span class='ident'>as_slice</span>().<span class='ident'>unsafe_ref</span>(<span class='ident'>c</span> <span class='op'>+</span> <span class='ident'>r</span> <span class='op'>*</span> <span class='self'>self</span>.<span class='ident'>ncol</span>).<span class='ident'>get</span>()
@@ -394,7 +394,7 @@
 <span class='ident'>MatrixRawSet</span> <span class='kw'>for</span>
 <span class='ident'>Matrix</span>
 {
-	<span class='attribute'>\#[<span class='ident'>inline</span>]</span>
+	<span class='attribute'>#[<span class='ident'>inline</span>]</span>
 	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>raw_set</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>, <span class='ident'>val</span>: <span class='ident'>f64</span>)
 	{
 		<span class='self'>self</span>.<span class='ident'>data</span>.<span class='ident'>as_slice</span>().<span class='ident'>unsafe_ref</span>(<span class='ident'>c</span> <span class='op'>+</span> <span class='ident'>r</span> <span class='op'>*</span> <span class='self'>self</span>.<span class='ident'>ncol</span>).<span class='ident'>set</span>(<span class='ident'>val</span>);
@@ -405,13 +405,13 @@
 <span class='ident'>MatrixShape</span> <span class='kw'>for</span>
 <span class='ident'>Matrix</span>
 {
-	<span class='attribute'>\#[<span class='ident'>inline</span>]</span>
+	<span class='attribute'>#[<span class='ident'>inline</span>]</span>
 	<span class='kw'>fn</span> <span class='ident'>nrow</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>uint</span>
 	{
 		<span class='self'>self</span>.<span class='ident'>nrow</span>
 	}
 
-	<span class='attribute'>\#[<span class='ident'>inline</span>]</span>
+	<span class='attribute'>#[<span class='ident'>inline</span>]</span>
 	<span class='kw'>fn</span> <span class='ident'>ncol</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>uint</span>
 	{
 		<span class='self'>self</span>.<span class='ident'>ncol</span>
@@ -472,7 +472,7 @@
                 <dd>Move up in search results</dd>
                 <dt>&darr;</dt>
                 <dd>Move down in search results</dd>
-                <dt>&\#9166;</dt>
+                <dt>&#9166;</dt>
                 <dd>Go to active search result</dd>
             </dl>
         </div>

@@ -123,12 +123,12 @@
 {
 	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span>: <span class='ident'>ident</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>trait_name</span>: <span class='ident'>ident</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>func_name</span>: <span class='ident'>ident</span>) <span class='op'>=&gt;</span>
 	{
-		<span class='attribute'>\#[<span class='ident'>deriving</span>(<span class='ident'>Clone</span>)]</span>
+		<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Clone</span>)]</span>
 		<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span>;
 
 		<span class='kw'>impl</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span>
 		{
-			<span class='attribute'>\#[<span class='ident'>inline</span>]</span>
+			<span class='attribute'>#[<span class='ident'>inline</span>]</span>
 			<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>() <span class='op'>-&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span>
 			{
 				<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>struct_name</span>
@@ -137,7 +137,7 @@
 
 		<span class='kw'>mod</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>func_name</span>
 		{
-			<span class='attribute'>\#[<span class='ident'>inline</span>]</span>
+			<span class='attribute'>#[<span class='ident'>inline</span>]</span>
 			<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>func_name</span>(<span class='ident'>a</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>
 			{
 				<span class='ident'>a</span>.<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>func_name</span>()
@@ -204,7 +204,7 @@
                 <dd>Move up in search results</dd>
                 <dt>&darr;</dt>
                 <dd>Move down in search results</dd>
-                <dt>&\#9166;</dt>
+                <dt>&#9166;</dt>
                 <dd>Go to active search result</dd>
             </dl>
         </div>
