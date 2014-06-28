@@ -9,12 +9,12 @@ use algebloat::*;
 fn main()
 {
 	let a = &mat![1.0, 2.0, 3.0];
-	a.set(0, 10.0);
+	a.set(0u, 10.0);
 	let b = &mat![1.0, 2.0, 3.0];
 	
-	let d = (a + b - b * 2.0).slice(1, 3).slice(0, 1).to_mat();
+	let d = (a + b - b * 2.0f64).slice(1, 3).slice(0, 1).to_mat();
 	let sa = a.slice(1, 3);
-	sa.set(0, 10.0);
+	sa.set(0u, 10.0);
 	let sb1 = b.slice(1, 3);
 	let sb2 = b.slice(2, 3);
 	
