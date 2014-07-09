@@ -4,9 +4,9 @@
 
 #![feature(globs, macro_rules, phase)]
 
-#![crate_type="lib"]
-#![crate_id="algebloat"]
-#![license = "LGPL3"]
+#![crate_type = "lib"]
+#![crate_name = "algebloat"]
+#![license    = "LGPL3"]
 
 #[phase(plugin)]
 extern crate algebloat_macros;

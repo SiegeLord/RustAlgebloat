@@ -5,7 +5,7 @@
 #![feature(macro_rules)]
 
 #![crate_type="lib"]
-#![crate_id="algebloat_macros"]
+#![crate_name="algebloat_macros"]
 
 //~ #[macro_export]
 //~ macro_rules! vec
