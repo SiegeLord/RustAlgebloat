@@ -8,9 +8,17 @@ env:
 before_install:
   - wget http://static.rust-lang.org/dist/rust-nightly-x86_64-unknown-linux-gnu.tar.gz
   - tar xf rust-nightly-x86_64-unknown-linux-gnu.tar.gz
+  - wget http://static.rust-lang.org/cargo-dist/cargo-nightly-linux.tar.gz
+  - tar xf cargo-nightly-linux.tar.gz
 install:
   - sudo ./rust-nightly-x86_64-unknown-linux-gnu/install.sh
+  - sudo cp -r cargo-nightly/bin /usr/local/
 script:
+  - cd algebloat
+  - cargo test
+  - cd ../examples
+  - cargo build
+  - cd ..
   - mkdir build
   - cd build
   - cmake .. -DCMAKE_INSTALL_PREFIX=/tmp
