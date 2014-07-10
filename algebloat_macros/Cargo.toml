@@ -7,4 +7,4 @@ authors = [ "SiegeLord <slabode@aim.com>" ]
 [[lib]]
 
 name = "algebloat_macros"
-path = "lib.rs"
+path = "src/lib.rs"

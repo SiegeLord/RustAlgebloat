@@ -7,7 +7,7 @@ authors = [ "SiegeLord <slabode@aim.com>" ]
 [[lib]]
 
 name = "algebloat"
-path = "lib.rs"
+path = "src/lib.rs"
 
 [dependencies.Algebloat Macros]
 
