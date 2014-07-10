@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="The algebloat library documentation.">
 
-    <title>column_accessor.rs.html -- source</title>
+    <title>row_accessor.rs.html -- source</title>
 
     <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400,600'
           rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="../../../../../../../../../main.css">
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../main.css">
 
     
     
@@ -157,62 +157,62 @@
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fmt</span>;
 
-<span class='kw'>use</span> <span class='ident'>traits</span>::{<span class='ident'>MatrixRawGet</span>, <span class='ident'>MatrixRawSet</span>, <span class='ident'>MatrixShape</span>, <span class='ident'>MatrixColumnAccess</span>, <span class='ident'>SameShape</span>};
+<span class='kw'>use</span> <span class='ident'>traits</span>::{<span class='ident'>MatrixRawGet</span>, <span class='ident'>MatrixRawSet</span>, <span class='ident'>MatrixShape</span>, <span class='ident'>MatrixRowAccess</span>, <span class='ident'>SameShape</span>};
 <span class='kw'>use</span> <span class='ident'>matrix</span>::<span class='ident'>write_mat</span>;
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>MatrixShape</span><span class='op'>&gt;</span>
-<span class='ident'>MatrixColumnAccess</span> <span class='kw'>for</span>
+<span class='ident'>MatrixRowAccess</span> <span class='kw'>for</span>
 <span class='ident'>T</span>
 {
-	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_col</span>(<span class='self'>self</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>ColumnAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
+	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_row</span>(<span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>RowAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
 	{
-		<span class='ident'>ColumnAccessor</span>::<span class='ident'>unsafe_new</span>(<span class='self'>self</span>, <span class='ident'>c</span>)
+		<span class='ident'>RowAccessor</span>::<span class='ident'>unsafe_new</span>(<span class='self'>self</span>, <span class='ident'>r</span>)
 	}
 	
-	<span class='kw'>fn</span> <span class='ident'>col</span>(<span class='self'>self</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>ColumnAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
+	<span class='kw'>fn</span> <span class='ident'>row</span>(<span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>RowAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
 	{
-		<span class='ident'>ColumnAccessor</span>::<span class='ident'>new</span>(<span class='self'>self</span>, <span class='ident'>c</span>)
+		<span class='ident'>RowAccessor</span>::<span class='ident'>new</span>(<span class='self'>self</span>, <span class='ident'>r</span>)
 	}
 }
 
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ColumnAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>RowAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
 {
 	<span class='ident'>base</span>: <span class='ident'>T</span>,
-	<span class='ident'>col</span>: <span class='ident'>uint</span>
+	<span class='ident'>row</span>: <span class='ident'>uint</span>
 }
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>MatrixShape</span><span class='op'>&gt;</span>
-<span class='ident'>ColumnAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
+<span class='ident'>RowAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
 {
-	<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_new</span>(<span class='ident'>base</span>: <span class='ident'>T</span>, <span class='ident'>col</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>ColumnAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_new</span>(<span class='ident'>base</span>: <span class='ident'>T</span>, <span class='ident'>row</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>RowAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
 	{
-		<span class='ident'>ColumnAccessor</span>{ <span class='ident'>base</span>: <span class='ident'>base</span>, <span class='ident'>col</span>: <span class='ident'>col</span> }
+		<span class='ident'>RowAccessor</span>{ <span class='ident'>base</span>: <span class='ident'>base</span>, <span class='ident'>row</span>: <span class='ident'>row</span> }
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>base</span>: <span class='ident'>T</span>, <span class='ident'>col</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>ColumnAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>base</span>: <span class='ident'>T</span>, <span class='ident'>row</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>RowAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
 	{
-		<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>col</span> <span class='op'>&lt;</span> <span class='ident'>base</span>.<span class='ident'>ncol</span>());
-		<span class='ident'>ColumnAccessor</span>{ <span class='ident'>base</span>: <span class='ident'>base</span>, <span class='ident'>col</span>: <span class='ident'>col</span> }
+		<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>row</span> <span class='op'>&lt;</span> <span class='ident'>base</span>.<span class='ident'>nrow</span>());
+		<span class='ident'>RowAccessor</span>{ <span class='ident'>base</span>: <span class='ident'>base</span>, <span class='ident'>row</span>: <span class='ident'>row</span> }
 	}
 }
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>MatrixShape</span><span class='op'>&gt;</span>
 <span class='ident'>MatrixShape</span> <span class='kw'>for</span>
-<span class='ident'>ColumnAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
+<span class='ident'>RowAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
 {
 	<span class='kw'>fn</span> <span class='ident'>nrow</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>uint</span>
 	{
-		<span class='self'>self</span>.<span class='ident'>base</span>.<span class='ident'>nrow</span>()
+		<span class='number'>1</span>
 	}
 	<span class='kw'>fn</span> <span class='ident'>ncol</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>uint</span>
 	{
-		<span class='number'>1</span>
+		<span class='self'>self</span>.<span class='ident'>base</span>.<span class='ident'>ncol</span>()
 	}
 }
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>MatrixShape</span><span class='op'>&gt;</span>
 <span class='ident'>SameShape</span> <span class='kw'>for</span>
-<span class='ident'>ColumnAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
+<span class='ident'>RowAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
 {
 	<span class='kw'>fn</span> <span class='ident'>same_shape</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>nrow</span>: <span class='ident'>uint</span>, <span class='ident'>ncol</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>
 	{
@@ -222,37 +222,37 @@
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>MatrixRawGet</span> <span class='op'>+</span> <span class='ident'>MatrixShape</span><span class='op'>&gt;</span>
 <span class='ident'>MatrixRawGet</span> <span class='kw'>for</span>
-<span class='ident'>ColumnAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
+<span class='ident'>RowAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
 {
-	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>raw_get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, _: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>
+	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>raw_get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, _: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>
 	{
-		<span class='self'>self</span>.<span class='ident'>base</span>.<span class='ident'>raw_get</span>(<span class='ident'>r</span>, <span class='self'>self</span>.<span class='ident'>col</span>)
+		<span class='self'>self</span>.<span class='ident'>base</span>.<span class='ident'>raw_get</span>(<span class='self'>self</span>.<span class='ident'>row</span>, <span class='ident'>c</span>)
 	}
 }
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>MatrixRawSet</span> <span class='op'>+</span> <span class='ident'>MatrixShape</span><span class='op'>&gt;</span>
 <span class='ident'>MatrixRawSet</span> <span class='kw'>for</span>
-<span class='ident'>ColumnAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
+<span class='ident'>RowAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
 {
-	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>raw_set</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>uint</span>, _: <span class='ident'>uint</span>, <span class='ident'>v</span>: <span class='ident'>f64</span>)
+	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>raw_set</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, _: <span class='ident'>uint</span>, <span class='ident'>c</span>: <span class='ident'>uint</span>, <span class='ident'>v</span>: <span class='ident'>f64</span>)
 	{
-		<span class='self'>self</span>.<span class='ident'>base</span>.<span class='ident'>raw_set</span>(<span class='ident'>r</span>, <span class='self'>self</span>.<span class='ident'>col</span>, <span class='ident'>v</span>)
+		<span class='self'>self</span>.<span class='ident'>base</span>.<span class='ident'>raw_set</span>(<span class='self'>self</span>.<span class='ident'>row</span>, <span class='ident'>c</span>, <span class='ident'>v</span>)
 	}
 }
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>MatrixShape</span><span class='op'>&gt;</span>
 <span class='ident'>Collection</span> <span class='kw'>for</span>
-<span class='ident'>ColumnAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
+<span class='ident'>RowAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
 {
 	<span class='kw'>fn</span> <span class='ident'>len</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>uint</span>
 	{
-		<span class='self'>self</span>.<span class='ident'>base</span>.<span class='ident'>nrow</span>()
+		<span class='self'>self</span>.<span class='ident'>base</span>.<span class='ident'>ncol</span>()
 	}
 }
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>MatrixShape</span> <span class='op'>+</span> <span class='ident'>MatrixRawGet</span><span class='op'>&gt;</span>
 <span class='ident'>fmt</span>::<span class='ident'>Show</span> <span class='kw'>for</span>
-<span class='ident'>ColumnAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
+<span class='ident'>RowAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
 {
 	<span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>buf</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span>
 	{
@@ -262,11 +262,11 @@
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>Clone</span><span class='op'>&gt;</span>
 <span class='ident'>Clone</span> <span class='kw'>for</span>
-<span class='ident'>ColumnAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
+<span class='ident'>RowAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
 {
-	<span class='kw'>fn</span> <span class='ident'>clone</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>ColumnAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
+	<span class='kw'>fn</span> <span class='ident'>clone</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>RowAccessor</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>
 	{
-		<span class='ident'>ColumnAccessor</span>{ <span class='ident'>base</span>: <span class='self'>self</span>.<span class='ident'>base</span>.<span class='ident'>clone</span>(), <span class='ident'>col</span>: <span class='self'>self</span>.<span class='ident'>col</span> }
+		<span class='ident'>RowAccessor</span>{ <span class='ident'>base</span>: <span class='self'>self</span>.<span class='ident'>base</span>.<span class='ident'>clone</span>(), <span class='ident'>row</span>: <span class='self'>self</span>.<span class='ident'>row</span> }
 	}
 }
 </pre>
@@ -309,13 +309,13 @@
     
 
     <script>
-        window.rootPath = "../../../../../../../../../";
+        window.rootPath = "../../../../../../../../";
         window.currentCrate = "algebloat";
         window.playgroundUrl = "";
     </script>
-    <script src="../../../../../../../../../jquery.js"></script>
-    <script src="../../../../../../../../../main.js"></script>
+    <script src="../../../../../../../../jquery.js"></script>
+    <script src="../../../../../../../../main.js"></script>
     
-    <script async src="../../../../../../../../../search-index.js"></script>
+    <script async src="../../../../../../../../search-index.js"></script>
 </body>
 </html>
