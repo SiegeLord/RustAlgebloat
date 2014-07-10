@@ -75,6 +75,16 @@ assure all the caveats above while in principle providing allocation-free speed
 
 ## Building
 
+### Via Cargo:
+
+The included packages are:
+
+* algebloat - Main library
+* algebloat_macros - Useful macros
+* algebloat_examples - Examples
+
+### Via CMake 2.8:
+
 ~~~
 mkdir build
 cd build
