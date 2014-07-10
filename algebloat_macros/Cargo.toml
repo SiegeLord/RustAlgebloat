@@ -1,6 +1,6 @@
 [package]
 
-name = "Algebloat Macros"
+name = "algebloat_macros"
 version = "0.0.0"
 authors = [ "SiegeLord <slabode@aim.com>" ]
 

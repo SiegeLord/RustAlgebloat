@@ -1,6 +1,6 @@
 [package]
 
-name = "Algebloat Examples"
+name = "algebloat_examples"
 version = "0.0.0"
 authors = [ "SiegeLord <slabode@aim.com>" ]
 
@@ -9,10 +9,10 @@ authors = [ "SiegeLord <slabode@aim.com>" ]
 name = "example"
 path = "example.rs"
 
-[dependencies.Algebloat]
+[dependencies.algebloat]
 
 path = "../algebloat"
 
-[dependencies.Algebloat Macros]
+[dependencies.algebloat_macros]
 
 path = "../algebloat_macros"
