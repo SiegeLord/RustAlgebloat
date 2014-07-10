@@ -1,0 +1,18 @@
+[package]
+
+name = "Algebloat Examples"
+version = "0.0.0"
+authors = [ "SiegeLord <slabode@aim.com>" ]
+
+[[bin]]
+
+name = "example"
+path = "example.rs"
+
+[dependencies.Algebloat]
+
+path = "../algebloat"
+
+[dependencies.Algebloat Macros]
+
+path = "../algebloat_macros"
