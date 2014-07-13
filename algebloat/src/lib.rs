@@ -19,14 +19,6 @@ pub use un_funs::*;
 pub use bin_funs::*;
 pub use reductions::*;
 
-//~ pub use vector::*;
-//~ pub use vector::bin_ops::*;
-//~ pub use vector::bin_funs::*;
-//~ pub use vector::un_ops::*;
-//~ pub use vector::un_funs::*;
-//~ pub use vector::reductions::*;
-//~ pub use vector::traits::*;
-
 pub mod matrix;
 pub mod bin_funs;
 pub mod traits;
