@@ -14,9 +14,7 @@ install:
   - sudo ./rust-nightly-x86_64-unknown-linux-gnu/install.sh
   - sudo cp -r cargo-nightly/bin /usr/local/
 script:
-  - cd algebloat
-  - cargo test
-  - cd ../examples
+  - cd examples
   - cargo build
   - cd ..
   - mkdir build
