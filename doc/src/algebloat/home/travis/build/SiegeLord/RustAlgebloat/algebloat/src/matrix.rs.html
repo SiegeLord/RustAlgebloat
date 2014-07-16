@@ -246,6 +246,33 @@
 <span id='206'>206</span>
 <span id='207'>207</span>
 <span id='208'>208</span>
+<span id='209'>209</span>
+<span id='210'>210</span>
+<span id='211'>211</span>
+<span id='212'>212</span>
+<span id='213'>213</span>
+<span id='214'>214</span>
+<span id='215'>215</span>
+<span id='216'>216</span>
+<span id='217'>217</span>
+<span id='218'>218</span>
+<span id='219'>219</span>
+<span id='220'>220</span>
+<span id='221'>221</span>
+<span id='222'>222</span>
+<span id='223'>223</span>
+<span id='224'>224</span>
+<span id='225'>225</span>
+<span id='226'>226</span>
+<span id='227'>227</span>
+<span id='228'>228</span>
+<span id='229'>229</span>
+<span id='230'>230</span>
+<span id='231'>231</span>
+<span id='232'>232</span>
+<span id='233'>233</span>
+<span id='234'>234</span>
+<span id='235'>235</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -421,10 +448,41 @@
 
 <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>write_mat</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>MatrixRawGet</span> <span class='op'>+</span> <span class='ident'>MatrixShape</span><span class='op'>&gt;</span>(<span class='ident'>w</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Writer</span>, <span class='ident'>a</span>: <span class='kw-2'>&amp;</span><span class='ident'>T</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span>
 {
+	<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>cmp</span>::<span class='ident'>max</span>;
+	
+	<span class='comment'>/* HACK: This could avoid allocating all the strings... */</span>
+	<span class='kw'>let</span> <span class='ident'>col_widths</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>uint</span><span class='op'>&gt;</span> <span class='op'>=</span>
+		<span class='ident'>range</span>(<span class='number'>0</span>, <span class='ident'>a</span>.<span class='ident'>ncol</span>())
+		.<span class='ident'>map</span>(<span class='op'>|</span><span class='ident'>c</span><span class='op'>|</span>
+			<span class='ident'>range</span>(<span class='number'>0</span>, <span class='ident'>a</span>.<span class='ident'>nrow</span>())
+			.<span class='ident'>map</span>(<span class='op'>|</span><span class='ident'>r</span><span class='op'>|</span> <span class='kw'>unsafe</span>
+				{
+					<span class='ident'>a</span>.<span class='ident'>raw_get</span>(<span class='ident'>r</span>, <span class='ident'>c</span>)
+				})
+			.<span class='ident'>fold</span>(<span class='number'>0</span>, <span class='op'>|</span><span class='ident'>l</span>, <span class='ident'>v</span><span class='op'>|</span> <span class='ident'>max</span>(<span class='ident'>l</span>, <span class='ident'>v</span>.<span class='ident'>to_string</span>().<span class='ident'>len</span>())))
+		.<span class='ident'>collect</span>();
+	
 	<span class='kw'>for</span> <span class='ident'>r</span> <span class='kw'>in</span> <span class='ident'>range</span>(<span class='number'>0</span>, <span class='ident'>a</span>.<span class='ident'>nrow</span>())
 	{
 		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>first</span> <span class='op'>=</span> <span class='boolval'>true</span>;
-		<span class='macro'>try</span><span class='macro'>!</span>(<span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>w</span>, <span class='string'>&quot;│&quot;</span>).<span class='ident'>map_err</span>(<span class='op'>|</span>_<span class='op'>|</span> <span class='ident'>fmt</span>::<span class='ident'>WriteError</span>))
+		<span class='kw'>let</span> (<span class='ident'>lstr</span>, <span class='ident'>rstr</span>) <span class='op'>=</span>
+			<span class='kw'>if</span> <span class='ident'>a</span>.<span class='ident'>nrow</span>() <span class='op'>==</span> <span class='number'>1</span>
+			{
+				(<span class='string'>&quot;[&quot;</span>, <span class='string'>&quot;]&quot;</span>)
+			}
+			<span class='kw'>else</span> <span class='kw'>if</span> <span class='ident'>r</span> <span class='op'>==</span> <span class='number'>0</span>
+			{
+				(<span class='string'>&quot;⎡&quot;</span>, <span class='string'>&quot;⎤\n&quot;</span>)
+			}
+			<span class='kw'>else</span> <span class='kw'>if</span> <span class='ident'>r</span> <span class='op'>==</span> <span class='ident'>a</span>.<span class='ident'>nrow</span>() <span class='op'>-</span> <span class='number'>1</span>
+			{
+				(<span class='string'>&quot;⎣&quot;</span>, <span class='string'>&quot;⎦&quot;</span>)
+			}
+			<span class='kw'>else</span>
+			{
+				(<span class='string'>&quot;⎢&quot;</span>, <span class='string'>&quot;⎥\n&quot;</span>)
+			};
+		<span class='macro'>try</span><span class='macro'>!</span>(<span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>w</span>, <span class='string'>&quot;{}&quot;</span>, <span class='ident'>lstr</span>).<span class='ident'>map_err</span>(<span class='op'>|</span>_<span class='op'>|</span> <span class='ident'>fmt</span>::<span class='ident'>WriteError</span>))
 		<span class='kw'>for</span> <span class='ident'>c</span> <span class='kw'>in</span> <span class='ident'>range</span>(<span class='number'>0</span>, <span class='ident'>a</span>.<span class='ident'>ncol</span>())
 		{
 			<span class='kw'>if</span> <span class='op'>!</span><span class='ident'>first</span>
@@ -434,14 +492,10 @@
 			<span class='ident'>first</span> <span class='op'>=</span> <span class='boolval'>false</span>;
 			<span class='kw'>unsafe</span>
 			{
-				<span class='macro'>try</span><span class='macro'>!</span>(<span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>w</span>, <span class='string'>&quot;{}&quot;</span>, <span class='ident'>a</span>.<span class='ident'>raw_get</span>(<span class='ident'>r</span>, <span class='ident'>c</span>)).<span class='ident'>map_err</span>(<span class='op'>|</span>_<span class='op'>|</span> <span class='ident'>fmt</span>::<span class='ident'>WriteError</span>))
+				<span class='macro'>try</span><span class='macro'>!</span>(<span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>w</span>, <span class='string'>&quot;{:&gt;1$}&quot;</span>, <span class='ident'>a</span>.<span class='ident'>raw_get</span>(<span class='ident'>r</span>, <span class='ident'>c</span>), <span class='op'>*</span><span class='ident'>col_widths</span>.<span class='ident'>get</span>(<span class='ident'>c</span>)).<span class='ident'>map_err</span>(<span class='op'>|</span>_<span class='op'>|</span> <span class='ident'>fmt</span>::<span class='ident'>WriteError</span>))
 			}
 		}
-		<span class='macro'>try</span><span class='macro'>!</span>(<span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>w</span>, <span class='string'>&quot;│&quot;</span>).<span class='ident'>map_err</span>(<span class='op'>|</span>_<span class='op'>|</span> <span class='ident'>fmt</span>::<span class='ident'>WriteError</span>))
-		<span class='kw'>if</span> <span class='ident'>r</span> <span class='op'>+</span> <span class='number'>1</span> <span class='op'>&lt;</span> <span class='ident'>a</span>.<span class='ident'>nrow</span>()
-		{
-			<span class='macro'>try</span><span class='macro'>!</span>(<span class='macro'>writeln</span><span class='macro'>!</span>(<span class='ident'>w</span>, <span class='string'>&quot;&quot;</span>).<span class='ident'>map_err</span>(<span class='op'>|</span>_<span class='op'>|</span> <span class='ident'>fmt</span>::<span class='ident'>WriteError</span>))
-		}
+		<span class='macro'>try</span><span class='macro'>!</span>(<span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>w</span>, <span class='string'>&quot;{}&quot;</span>, <span class='ident'>rstr</span>).<span class='ident'>map_err</span>(<span class='op'>|</span>_<span class='op'>|</span> <span class='ident'>fmt</span>::<span class='ident'>WriteError</span>))
 	}
 	<span class='prelude-val'>Ok</span>(())
 }
