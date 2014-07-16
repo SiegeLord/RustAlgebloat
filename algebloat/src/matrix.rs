@@ -172,10 +172,41 @@ Matrix
 
 pub fn write_mat<T: MatrixRawGet + MatrixShape>(w: &mut Writer, a: &T) -> fmt::Result
 {
+	use std::cmp::max;
+	
+	/* HACK: This could avoid allocating all the strings... */
+	let col_widths: Vec<uint> =
+		range(0, a.ncol())
+		.map(|c|
+			range(0, a.nrow())
+			.map(|r| unsafe
+				{
+					a.raw_get(r, c)
+				})
+			.fold(0, |l, v| max(l, v.to_string().len())))
+		.collect();
+	
 	for r in range(0, a.nrow())
 	{
 		let mut first = true;
-		try!(write!(w, "│").map_err(|_| fmt::WriteError))
+		let (lstr, rstr) =
+			if a.nrow() == 1
+			{
+				("[", "]")
+			}
+			else if r == 0
+			{
+				("⎡", "⎤\n")
+			}
+			else if r == a.nrow() - 1
+			{
+				("⎣", "⎦")
+			}
+			else
+			{
+				("⎢", "⎥\n")
+			};
+		try!(write!(w, "{}", lstr).map_err(|_| fmt::WriteError))
 		for c in range(0, a.ncol())
 		{
 			if !first
@@ -185,14 +216,10 @@ pub fn write_mat<T: MatrixRawGet + MatrixShape>(w: &mut Writer, a: &T) -> fmt::R
 			first = false;
 			unsafe
 			{
-				try!(write!(w, "{}", a.raw_get(r, c)).map_err(|_| fmt::WriteError))
+				try!(write!(w, "{:>1$}", a.raw_get(r, c), *col_widths.get(c)).map_err(|_| fmt::WriteError))
 			}
 		}
-		try!(write!(w, "│").map_err(|_| fmt::WriteError))
-		if r + 1 < a.nrow()
-		{
-			try!(writeln!(w, "").map_err(|_| fmt::WriteError))
-		}
+		try!(write!(w, "{}", rstr).map_err(|_| fmt::WriteError))
 	}
 	Ok(())
 }
