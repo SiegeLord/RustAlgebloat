@@ -37,7 +37,8 @@ fn main()
 	println!("{}", t1);
 	println!("r {}\n", t1.row(0));
 	println!("{}", t2);
-	println!("r {}", t2.row(0));
+	println!("r {}\n", t2.row(0));
+	println!("alt matrix\n{:#}", m);
 
 	let m = &mat![1.0, 2.0, 3.0;
 				  4.0, 5.0, 6.0;

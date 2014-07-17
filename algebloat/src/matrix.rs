@@ -170,9 +170,13 @@ Matrix
 	}
 }
 
-pub fn write_mat<T: MatrixRawGet + MatrixShape>(w: &mut Writer, a: &T) -> fmt::Result
+pub fn write_mat<T: MatrixRawGet + MatrixShape>(fmt: &mut fmt::Formatter, a: &T) -> fmt::Result
 {
 	use std::cmp::max;
+	
+	let alt = fmt.flags & (1 << (fmt::rt::FlagAlternate as uint)) != 0;
+	
+	let w: &mut Writer = fmt;
 	
 	/* HACK: This could avoid allocating all the strings... */
 	let col_widths: Vec<uint> =
@@ -189,29 +193,60 @@ pub fn write_mat<T: MatrixRawGet + MatrixShape>(w: &mut Writer, a: &T) -> fmt::R
 	for r in range(0, a.nrow())
 	{
 		let mut first = true;
-		let (lstr, rstr) =
-			if a.nrow() == 1
+		let mstr =
+			if alt
 			{
-				("[", "]")
-			}
-			else if r == 0
-			{
-				("⎡", "⎤\n")
-			}
-			else if r == a.nrow() - 1
-			{
-				("⎣", "⎦")
+				", "
 			}
 			else
 			{
-				("⎢", "⎥\n")
+				" "
+			};
+		let (lstr, rstr) =
+			if alt
+			{
+				if a.nrow() == 1
+				{
+					("[", "]")
+				}
+				else if r == 0
+				{
+					("[", ";\n")
+				}
+				else if r == a.nrow() - 1
+				{
+					(" ", "]")
+				}
+				else
+				{
+					(" ", ";\n")
+				}
+			}
+			else
+			{
+				if a.nrow() == 1
+				{
+					("[", "]")
+				}
+				else if r == 0
+				{
+					("⎡", "⎤\n")
+				}
+				else if r == a.nrow() - 1
+				{
+					("⎣", "⎦")
+				}
+				else
+				{
+					("⎢", "⎥\n")
+				}
 			};
 		try!(write!(w, "{}", lstr).map_err(|_| fmt::WriteError))
 		for c in range(0, a.ncol())
 		{
 			if !first
 			{
-				try!(write!(w, " ").map_err(|_| fmt::WriteError))
+				try!(write!(w, "{}", mstr).map_err(|_| fmt::WriteError))
 			}
 			first = false;
 			unsafe
