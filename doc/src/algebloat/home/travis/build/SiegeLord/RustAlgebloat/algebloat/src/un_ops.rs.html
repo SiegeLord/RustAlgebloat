@@ -270,6 +270,30 @@
 <span id='230'>230</span>
 <span id='231'>231</span>
 <span id='232'>232</span>
+<span id='233'>233</span>
+<span id='234'>234</span>
+<span id='235'>235</span>
+<span id='236'>236</span>
+<span id='237'>237</span>
+<span id='238'>238</span>
+<span id='239'>239</span>
+<span id='240'>240</span>
+<span id='241'>241</span>
+<span id='242'>242</span>
+<span id='243'>243</span>
+<span id='244'>244</span>
+<span id='245'>245</span>
+<span id='246'>246</span>
+<span id='247'>247</span>
+<span id='248'>248</span>
+<span id='249'>249</span>
+<span id='250'>250</span>
+<span id='251'>251</span>
+<span id='252'>252</span>
+<span id='253'>253</span>
+<span id='254'>254</span>
+<span id='255'>255</span>
+<span id='256'>256</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -285,6 +309,8 @@
 <span class='kw'>use</span> <span class='ident'>view</span>::<span class='ident'>View</span>;
 <span class='kw'>use</span> <span class='ident'>slice</span>::<span class='ident'>Slice</span>;
 <span class='kw'>use</span> <span class='ident'>reshape</span>::<span class='ident'>Reshape</span>;
+<span class='kw'>use</span> <span class='ident'>hstack</span>::<span class='ident'>HStack</span>;
+<span class='kw'>use</span> <span class='ident'>vstack</span>::<span class='ident'>VStack</span>;
 <span class='kw'>use</span> <span class='ident'>matrix_mul</span>::<span class='ident'>MatrixMul</span>;
 <span class='kw'>use</span> <span class='ident'>matrix</span>::{<span class='ident'>Matrix</span>, <span class='ident'>write_mat</span>};
 <span class='kw'>use</span> <span class='ident'>bin_ops</span>::{<span class='ident'>MatrixBinOp</span>, <span class='ident'>BinOp</span>};
@@ -499,6 +525,28 @@
 <span class='ident'>MatrixMul</span><span class='op'>&lt;</span><span class='ident'>T1</span>, <span class='ident'>T2</span><span class='op'>&gt;</span>
 {
 	<span class='kw'>fn</span> <span class='ident'>neg</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>MatrixUnOp</span><span class='op'>&lt;</span><span class='ident'>MatrixMul</span><span class='op'>&lt;</span><span class='ident'>T1</span>, <span class='ident'>T2</span><span class='op'>&gt;</span>, <span class='ident'>OpNeg</span><span class='op'>&gt;</span>
+	{
+		<span class='ident'>MatrixUnOp</span>::<span class='ident'>new</span>(<span class='self'>self</span>.<span class='ident'>clone</span>(), <span class='ident'>OpNeg</span>::<span class='ident'>new</span>())
+	}
+}
+
+<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T1</span>: <span class='ident'>MatrixShape</span> <span class='op'>+</span> <span class='ident'>Clone</span>,
+     <span class='ident'>T2</span>: <span class='ident'>MatrixShape</span> <span class='op'>+</span> <span class='ident'>Clone</span><span class='op'>&gt;</span>
+<span class='ident'>Neg</span><span class='op'>&lt;</span><span class='ident'>MatrixUnOp</span><span class='op'>&lt;</span><span class='ident'>HStack</span><span class='op'>&lt;</span><span class='ident'>T1</span>, <span class='ident'>T2</span><span class='op'>&gt;</span>, <span class='ident'>OpNeg</span><span class='op'>&gt;&gt;</span> <span class='kw'>for</span>
+<span class='ident'>HStack</span><span class='op'>&lt;</span><span class='ident'>T1</span>, <span class='ident'>T2</span><span class='op'>&gt;</span>
+{
+	<span class='kw'>fn</span> <span class='ident'>neg</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>MatrixUnOp</span><span class='op'>&lt;</span><span class='ident'>HStack</span><span class='op'>&lt;</span><span class='ident'>T1</span>, <span class='ident'>T2</span><span class='op'>&gt;</span>, <span class='ident'>OpNeg</span><span class='op'>&gt;</span>
+	{
+		<span class='ident'>MatrixUnOp</span>::<span class='ident'>new</span>(<span class='self'>self</span>.<span class='ident'>clone</span>(), <span class='ident'>OpNeg</span>::<span class='ident'>new</span>())
+	}
+}
+
+<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T1</span>: <span class='ident'>MatrixShape</span> <span class='op'>+</span> <span class='ident'>Clone</span>,
+     <span class='ident'>T2</span>: <span class='ident'>MatrixShape</span> <span class='op'>+</span> <span class='ident'>Clone</span><span class='op'>&gt;</span>
+<span class='ident'>Neg</span><span class='op'>&lt;</span><span class='ident'>MatrixUnOp</span><span class='op'>&lt;</span><span class='ident'>VStack</span><span class='op'>&lt;</span><span class='ident'>T1</span>, <span class='ident'>T2</span><span class='op'>&gt;</span>, <span class='ident'>OpNeg</span><span class='op'>&gt;&gt;</span> <span class='kw'>for</span>
+<span class='ident'>VStack</span><span class='op'>&lt;</span><span class='ident'>T1</span>, <span class='ident'>T2</span><span class='op'>&gt;</span>
+{
+	<span class='kw'>fn</span> <span class='ident'>neg</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>MatrixUnOp</span><span class='op'>&lt;</span><span class='ident'>VStack</span><span class='op'>&lt;</span><span class='ident'>T1</span>, <span class='ident'>T2</span><span class='op'>&gt;</span>, <span class='ident'>OpNeg</span><span class='op'>&gt;</span>
 	{
 		<span class='ident'>MatrixUnOp</span>::<span class='ident'>new</span>(<span class='self'>self</span>.<span class='ident'>clone</span>(), <span class='ident'>OpNeg</span>::<span class='ident'>new</span>())
 	}
