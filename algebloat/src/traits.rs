@@ -6,6 +6,8 @@ use transpose::Transposer;
 use row_accessor::RowAccessor;
 use column_accessor::ColumnAccessor;
 use elements::MatrixElements;
+use hstack::HStack;
+use vstack::VStack;
 use matrix_mul::MatrixMul;
 use view::View;
 use slice::Slice;
@@ -94,6 +96,18 @@ pub trait MatrixMultiply<RHS>
 	unsafe fn unsafe_mat_mul_lazy(self, rhs: RHS) -> MatrixMul<Self, RHS>;
 	fn mat_mul(self, rhs: RHS) -> Matrix;
 	fn mat_mul_lazy(self, rhs: RHS) -> MatrixMul<Self, RHS>;
+}
+
+pub trait MatrixHStack<R>
+{
+	unsafe fn unsafe_hstack(self, right: R) -> HStack<Self, R>;
+	fn hstack(self, right: R) -> HStack<Self, R>;
+}
+
+pub trait MatrixVStack<B>
+{
+	unsafe fn unsafe_vstack(self, bot: B) -> VStack<Self, B>;
+	fn vstack(self, bot: B) -> VStack<Self, B>;
 }
 
 pub trait MatrixElems

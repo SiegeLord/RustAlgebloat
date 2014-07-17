@@ -11,6 +11,8 @@ use transpose::Transposer;
 use view::View;
 use slice::Slice;
 use reshape::Reshape;
+use hstack::HStack;
+use vstack::VStack;
 use matrix_mul::MatrixMul;
 use matrix::{Matrix, write_mat};
 use un_ops::{MatrixUnOp, UnOp};
@@ -263,12 +265,36 @@ macro_rules! bin_op
 		}
 
 		impl<RHS: MatrixRawGet + Clone + SameShape,
-		     T1:   MatrixShape + Clone,
-		     T2:   MatrixShape + Clone>
+		     T1:  MatrixShape + Clone,
+		     T2:  MatrixShape + Clone>
 		$op_name<RHS, MatrixBinOp<MatrixMul<T1, T2>, RHS, $op>> for
 		MatrixMul<T1, T2>
 		{
 			fn $op_method(&self, rhs: &RHS) -> MatrixBinOp<MatrixMul<T1, T2>, RHS, $op>
+			{
+				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
+			}
+		}
+
+		impl<RHS: MatrixRawGet + Clone + SameShape,
+		     T1:  MatrixShape + Clone,
+		     T2:  MatrixShape + Clone>
+		$op_name<RHS, MatrixBinOp<HStack<T1, T2>, RHS, $op>> for
+		HStack<T1, T2>
+		{
+			fn $op_method(&self, rhs: &RHS) -> MatrixBinOp<HStack<T1, T2>, RHS, $op>
+			{
+				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
+			}
+		}
+
+		impl<RHS: MatrixRawGet + Clone + SameShape,
+		     T1:  MatrixShape + Clone,
+		     T2:  MatrixShape + Clone>
+		$op_name<RHS, MatrixBinOp<VStack<T1, T2>, RHS, $op>> for
+		VStack<T1, T2>
+		{
+			fn $op_method(&self, rhs: &RHS) -> MatrixBinOp<VStack<T1, T2>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
 			}

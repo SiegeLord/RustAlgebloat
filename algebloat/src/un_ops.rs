@@ -12,6 +12,8 @@ use transpose::Transposer;
 use view::View;
 use slice::Slice;
 use reshape::Reshape;
+use hstack::HStack;
+use vstack::VStack;
 use matrix_mul::MatrixMul;
 use matrix::{Matrix, write_mat};
 use bin_ops::{MatrixBinOp, BinOp};
@@ -226,6 +228,28 @@ Neg<MatrixUnOp<MatrixMul<T1, T2>, OpNeg>> for
 MatrixMul<T1, T2>
 {
 	fn neg(&self) -> MatrixUnOp<MatrixMul<T1, T2>, OpNeg>
+	{
+		MatrixUnOp::new(self.clone(), OpNeg::new())
+	}
+}
+
+impl<T1: MatrixShape + Clone,
+     T2: MatrixShape + Clone>
+Neg<MatrixUnOp<HStack<T1, T2>, OpNeg>> for
+HStack<T1, T2>
+{
+	fn neg(&self) -> MatrixUnOp<HStack<T1, T2>, OpNeg>
+	{
+		MatrixUnOp::new(self.clone(), OpNeg::new())
+	}
+}
+
+impl<T1: MatrixShape + Clone,
+     T2: MatrixShape + Clone>
+Neg<MatrixUnOp<VStack<T1, T2>, OpNeg>> for
+VStack<T1, T2>
+{
+	fn neg(&self) -> MatrixUnOp<VStack<T1, T2>, OpNeg>
 	{
 		MatrixUnOp::new(self.clone(), OpNeg::new())
 	}

@@ -69,6 +69,7 @@ assure all the caveats above while in principle providing allocation-free speed
 	* Views
 	* Multiplication
 	* Reshaping
+	* Stacking
 	* Flat views (view matrix as a vector)
 		* Element access
 		* Slicing

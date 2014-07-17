@@ -304,3 +304,21 @@ fn reshape()
 	m4.set((2u, 0u), 5.0);
 	assert_eq!(m1.get((1u, 0u)), 5.0);
 }
+
+#[test]
+fn stack()
+{
+	let m1 = &mat!(1.0, 2.0;
+	               3.0, 4.0);
+	let m2 = &mat!(1.0, 2.0, 3.0;
+	               3.0, 4.0, 5.0);
+	let h = m1.hstack(m2);
+	assert_eq!(h.ncol(), 5);
+	assert_eq!(h.nrow(), 2);
+	assert_eq!(h.get((1u, 4u)), 5.0);
+	
+	let h = m1.vstack(m2.t());
+	assert_eq!(h.ncol(), 2);
+	assert_eq!(h.nrow(), 5);
+	assert_eq!(h.get((4u, 1u)), 5.0);
+}
