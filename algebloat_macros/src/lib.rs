@@ -30,3 +30,20 @@ macro_rules! mat
 		)+])
 	}
 }
+
+#[macro_export]
+macro_rules! stack
+{
+    ($($a: expr),+; $($($b: expr),+);+) =>
+    {
+        (stack!($($a),+)).vstack(stack!($(stack!($($b),+));+))
+    };
+    ($a: expr, $($b: expr),+) =>
+    {
+        $a.hstack(stack!($($b),+))
+    };
+    ($e: expr) =>
+    {
+        $e
+    }
+}
