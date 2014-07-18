@@ -34,6 +34,21 @@ impl Matrix
 		Matrix{ data: mat_data, nrow: nrow, ncol: ncol }
 	}
 
+	pub fn eye(size: uint) -> Matrix
+	{
+		Matrix::from_fn(size, size, |r, c| if r == c { 1.0 } else { 0.0 })
+	}
+
+	pub fn zeros(nrow: uint, ncol: uint) -> Matrix
+	{
+		Matrix::from_elem(nrow, ncol, 0.0)
+	}
+
+	pub fn ones(nrow: uint, ncol: uint) -> Matrix
+	{
+		Matrix::from_elem(nrow, ncol, 1.0)
+	}
+
 	pub fn from_elem(nrow: uint, ncol: uint, elem: f64) -> Matrix
 	{
 		Matrix{ data: Vec::from_elem(nrow * ncol, Cell::new(elem)), nrow: nrow, ncol: ncol }

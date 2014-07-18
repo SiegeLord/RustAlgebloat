@@ -322,3 +322,26 @@ fn stack()
 	assert_eq!(h.nrow(), 5);
 	assert_eq!(h.get((4u, 1u)), 5.0);
 }
+
+#[test]
+fn convenience()
+{
+	let m1 = Matrix::eye(5);
+	let m2 = Matrix::ones(5, 5);
+	let m3 = Matrix::zeros(5, 5);
+
+	for (i, e) in m1.elems().enumerate()
+	{
+		assert_eq!(e, if i / 5 == i % 5 { 1.0 } else { 0.0 })
+	}
+
+	for e in m2.elems()
+	{
+		assert_eq!(e, 1.0)
+	}
+
+	for e in m3.elems()
+	{
+		assert_eq!(e, 0.0)
+	}
+}
