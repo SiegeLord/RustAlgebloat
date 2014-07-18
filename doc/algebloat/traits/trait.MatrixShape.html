@@ -39,14 +39,19 @@
     </nav>
 
     <section id='main' class="content trait">
-<h1 class='fqn'>Trait <a href='../index.html'>algebloat</a>::<a href='index.html'>traits</a>::<a class='trait' href=''>MatrixShape</a><span class='out-of-band'><a id='src-1802' href='../../src/algebloat/home/travis/build/SiegeLord/RustAlgebloat/algebloat/src/traits.rs.html#40-44'>[src]</a></span></h1>
+<h1 class='fqn'>Trait <a href='../index.html'>algebloat</a>::<a href='index.html'>traits</a>::<a class='trait' href=''>MatrixShape</a><span class='out-of-band'><a id='src-1866' href='../../src/algebloat/home/travis/build/SiegeLord/RustAlgebloat/algebloat/src/traits.rs.html#40-48'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait MatrixShape {
     fn <a href='#tymethod.ncol' class='fnname'>ncol</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/master/std/primitive.uint.html'>uint</a>;
     fn <a href='#tymethod.nrow' class='fnname'>nrow</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/master/std/primitive.uint.html'>uint</a>;
+
+    fn <a href='#method.size' class='fnname'>size</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/master/std/primitive.tuple.html'>(<a href='http://doc.rust-lang.org/master/std/primitive.uint.html'>uint</a>, <a href='http://doc.rust-lang.org/master/std/primitive.uint.html'>uint</a>)</a> { ... }
 }</pre>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
         <h3 id='tymethod.ncol' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.ncol' class='fnname'>ncol</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/master/std/primitive.uint.html'>uint</a></code></h3><h3 id='tymethod.nrow' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.nrow' class='fnname'>nrow</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/master/std/primitive.uint.html'>uint</a></code></h3></div>
+            <h2 id='provided-methods'>Provided Methods</h2>
+            <div class='methods'>
+        <h3 id='method.size' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.size' class='fnname'>size</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/master/std/primitive.tuple.html'>(<a href='http://doc.rust-lang.org/master/std/primitive.uint.html'>uint</a>, <a href='http://doc.rust-lang.org/master/std/primitive.uint.html'>uint</a>)</a></code></h3></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
     <li><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;'l&gt; <a class='trait' href='../../algebloat/traits/trait.MatrixShape.html' title='algebloat::traits::MatrixShape'>MatrixShape</a> for &amp;'l <a class='struct' href='../../algebloat/matrix/struct.Matrix.html' title='algebloat::matrix::Matrix'>Matrix</a></code></li>

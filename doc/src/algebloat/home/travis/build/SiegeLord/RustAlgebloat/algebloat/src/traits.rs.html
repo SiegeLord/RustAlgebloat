@@ -244,6 +244,10 @@
 <span id='204'>204</span>
 <span id='205'>205</span>
 <span id='206'>206</span>
+<span id='207'>207</span>
+<span id='208'>208</span>
+<span id='209'>209</span>
+<span id='210'>210</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -288,6 +292,10 @@
 {
 	<span class='kw'>fn</span> <span class='ident'>ncol</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>uint</span>;
 	<span class='kw'>fn</span> <span class='ident'>nrow</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>uint</span>;
+	<span class='kw'>fn</span> <span class='ident'>size</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> (<span class='ident'>uint</span>, <span class='ident'>uint</span>)
+	{
+		(<span class='self'>self</span>.<span class='ident'>nrow</span>(), <span class='self'>self</span>.<span class='ident'>ncol</span>())
+	}
 }
 
 <span class='comment'>/* Hack necessary for operator overloading */</span>

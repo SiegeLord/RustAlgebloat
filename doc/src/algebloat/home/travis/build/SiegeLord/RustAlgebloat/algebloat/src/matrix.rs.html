@@ -308,6 +308,21 @@
 <span id='268'>268</span>
 <span id='269'>269</span>
 <span id='270'>270</span>
+<span id='271'>271</span>
+<span id='272'>272</span>
+<span id='273'>273</span>
+<span id='274'>274</span>
+<span id='275'>275</span>
+<span id='276'>276</span>
+<span id='277'>277</span>
+<span id='278'>278</span>
+<span id='279'>279</span>
+<span id='280'>280</span>
+<span id='281'>281</span>
+<span id='282'>282</span>
+<span id='283'>283</span>
+<span id='284'>284</span>
+<span id='285'>285</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -343,6 +358,21 @@
 			}
 		}
 		<span class='ident'>Matrix</span>{ <span class='ident'>data</span>: <span class='ident'>mat_data</span>, <span class='ident'>nrow</span>: <span class='ident'>nrow</span>, <span class='ident'>ncol</span>: <span class='ident'>ncol</span> }
+	}
+
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>eye</span>(<span class='ident'>size</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>Matrix</span>
+	{
+		<span class='ident'>Matrix</span>::<span class='ident'>from_fn</span>(<span class='ident'>size</span>, <span class='ident'>size</span>, <span class='op'>|</span><span class='ident'>r</span>, <span class='ident'>c</span><span class='op'>|</span> <span class='kw'>if</span> <span class='ident'>r</span> <span class='op'>==</span> <span class='ident'>c</span> { <span class='number'>1.0</span> } <span class='kw'>else</span> { <span class='number'>0.0</span> })
+	}
+
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>zeros</span>(<span class='ident'>nrow</span>: <span class='ident'>uint</span>, <span class='ident'>ncol</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>Matrix</span>
+	{
+		<span class='ident'>Matrix</span>::<span class='ident'>from_elem</span>(<span class='ident'>nrow</span>, <span class='ident'>ncol</span>, <span class='number'>0.0</span>)
+	}
+
+	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>ones</span>(<span class='ident'>nrow</span>: <span class='ident'>uint</span>, <span class='ident'>ncol</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='ident'>Matrix</span>
+	{
+		<span class='ident'>Matrix</span>::<span class='ident'>from_elem</span>(<span class='ident'>nrow</span>, <span class='ident'>ncol</span>, <span class='number'>1.0</span>)
 	}
 
 	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>from_elem</span>(<span class='ident'>nrow</span>: <span class='ident'>uint</span>, <span class='ident'>ncol</span>: <span class='ident'>uint</span>, <span class='ident'>elem</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>Matrix</span>
