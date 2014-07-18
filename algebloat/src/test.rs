@@ -330,6 +330,10 @@ fn convenience()
 	let m2 = Matrix::ones(5, 5);
 	let m3 = Matrix::zeros(5, 5);
 
+	assert_eq!(m1.size(), (5, 5));
+	assert_eq!(m2.size(), (5, 5));
+	assert_eq!(m3.size(), (5, 5));
+
 	for (i, e) in m1.elems().enumerate()
 	{
 		assert_eq!(e, if i / 5 == i % 5 { 1.0 } else { 0.0 })

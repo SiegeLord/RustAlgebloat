@@ -41,6 +41,10 @@ pub trait MatrixShape
 {
 	fn ncol(&self) -> uint;
 	fn nrow(&self) -> uint;
+	fn size(&self) -> (uint, uint)
+	{
+		(self.nrow(), self.ncol())
+	}
 }
 
 /* Hack necessary for operator overloading */
