@@ -93,7 +93,7 @@ MatrixRawGet for
 	#[inline]
 	unsafe fn raw_get(&self, r: uint, c: uint) -> f64
 	{
-		self.data.as_slice().unsafe_ref(c + r * self.ncol).get()
+		self.data.as_slice().unsafe_get(c + r * self.ncol).get()
 	}
 }
 
@@ -104,7 +104,7 @@ MatrixRawSet for
 	#[inline]
 	unsafe fn raw_set(&self, r: uint, c: uint, val: f64)
 	{
-		self.data.as_slice().unsafe_ref(c + r * self.ncol).set(val);
+		self.data.as_slice().unsafe_get(c + r * self.ncol).set(val);
 	}
 }
 
@@ -153,7 +153,7 @@ Matrix
 	#[inline]
 	unsafe fn raw_get(&self, r: uint, c: uint) -> f64
 	{
-		self.data.as_slice().unsafe_ref(c + r * self.ncol).get()
+		self.data.as_slice().unsafe_get(c + r * self.ncol).get()
 	}
 }
 
@@ -164,7 +164,7 @@ Matrix
 	#[inline]
 	unsafe fn raw_set(&self, r: uint, c: uint, val: f64)
 	{
-		self.data.as_slice().unsafe_ref(c + r * self.ncol).set(val);
+		self.data.as_slice().unsafe_get(c + r * self.ncol).set(val);
 	}
 }
 
