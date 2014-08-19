@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.
 
-#![feature(globs, macro_rules, phase)]
+#![feature(globs, macro_rules, phase, import_shadowing)]
 
 #![crate_type = "lib"]
 #![crate_name = "algebloat"]
