@@ -13,9 +13,9 @@ macro_rules! mat
 	( $($($e: expr),+);+ ) =>
 	{
 		Matrix::new([$(
-			&[$(
+			[$(
 				($e) as f64,
-			)+],
+			)+].as_slice(),
 		)+])
 	}
 }
