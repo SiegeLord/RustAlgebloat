@@ -393,6 +393,7 @@ button {
     text-overflow: ellipsis;
     overflow: hidden;
     display: block;
+    font-weight: normal;
 }
 
 #help {
@@ -435,7 +436,7 @@ button {
     float: left;
     width: 1.0em;
     text-overflow: clip;
-    white-space: nowrap; 
+    white-space: nowrap;
     overflow: hidden;
 }
 
