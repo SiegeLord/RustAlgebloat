@@ -4,7 +4,7 @@ name = "algebloat_macros"
 version = "0.0.0"
 authors = [ "SiegeLord <slabode@aim.com>" ]
 
-[[lib]]
+[lib]
 
 name = "algebloat_macros"
 path = "src/lib.rs"

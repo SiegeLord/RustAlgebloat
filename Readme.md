@@ -87,11 +87,23 @@ assure all the caveats above while in principle providing allocation-free speed
 
 ### Via Cargo:
 
-The included packages are:
+Main library:
+```
+[dependencies.algebloat]
 
-* algebloat - Main library
-* algebloat_macros - Useful macros
-* algebloat_examples - Examples
+git = "https://github.com/SiegeLord/RustAlgebloat.git"
+```
+
+Useful macros:
+```
+[dependencies.algebloat_macros]
+
+git = "https://github.com/SiegeLord/RustAlgebloat.git"
+```
+
+Examples:
+
+* algebloat_examples
 
 ### Via CMake 2.8:
 
