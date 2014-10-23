@@ -266,7 +266,7 @@ pub fn write_mat<T: MatrixRawGet + MatrixShape>(fmt: &mut fmt::Formatter, a: &T)
 			first = false;
 			unsafe
 			{
-				try!(write!(w, "{:>1$}", a.raw_get(r, c), *col_widths.get(c)).map_err(|_| fmt::WriteError))
+				try!(write!(w, "{:>1$}", a.raw_get(r, c), col_widths[c]).map_err(|_| fmt::WriteError))
 			}
 		}
 		try!(write!(w, "{}", rstr).map_err(|_| fmt::WriteError))
