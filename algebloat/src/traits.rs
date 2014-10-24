@@ -158,8 +158,8 @@ LHS
 
 //~ impl<LHS: MatrixShape + MatrixRawSet,
      //~ RHS: MatrixShape + MatrixRawGet>
-impl<LHS: MatrixShape + Collection + MatrixSet<uint>,
-     RHS: MatrixShape + Collection + MatrixGet<uint>>
+impl<LHS: MatrixShape + Collection + MatrixRawSet + MatrixSet<uint>,
+     RHS: MatrixShape + Collection + MatrixRawGet + MatrixGet<uint>>
 MatrixAssign<RHS> for LHS
 {
 	unsafe fn unsafe_assign(&self, m: RHS)
