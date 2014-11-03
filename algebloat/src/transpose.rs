@@ -27,17 +27,6 @@ Transposer<T>
 	}
 }
 
-impl<T: MatrixShape>
-Collection for
-Transposer<T>
-{
-	#[inline]
-	fn len(&self) -> uint
-	{
-		self.nrow() * self.ncol()
-	}
-}
-
 impl<T: MatrixRawGet>
 MatrixRawGet for
 Transposer<T>

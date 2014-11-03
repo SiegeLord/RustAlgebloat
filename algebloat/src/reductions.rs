@@ -2,7 +2,7 @@
 //
 // All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.
 
-use traits::MatrixGet;
+use traits::{MatrixGet, MatrixShape};
 
 pub trait MatrixReduce
 {
@@ -10,7 +10,7 @@ pub trait MatrixReduce
 	fn max(&self) -> Option<(uint, f64)>;
 }
 
-impl<T: MatrixGet<uint> + Collection>
+impl<T: MatrixGet<uint> + MatrixShape>
 MatrixReduce for
 T
 {

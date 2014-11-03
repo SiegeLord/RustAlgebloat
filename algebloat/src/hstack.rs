@@ -41,18 +41,6 @@ HStack<L, R>
 	}
 }
 
-impl<L: MatrixShape,
-     R: MatrixShape>
-Collection for
-HStack<L, R>
-{
-	#[inline]
-	fn len(&self) -> uint
-	{
-		self.nrow() * self.ncol()
-	}
-}
-
 impl<L: MatrixRawGet + MatrixShape,
      R: MatrixRawGet>
 MatrixRawGet for

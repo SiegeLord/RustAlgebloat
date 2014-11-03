@@ -96,17 +96,6 @@ MatrixUnOp<TA, TO>
 	}
 }
 
-impl<TA: Collection,
-     TO>
-Collection for
-MatrixUnOp<TA, TO>
-{
-	fn len(&self) -> uint
-	{
-		self.a.len()
-	}
-}
-
 impl<TA: MatrixShape,
      TO: UnOp>
 SameShape for

@@ -52,18 +52,6 @@ MatrixMul<LHS, RHS>
 
 impl<LHS: MatrixRawGet + MatrixShape,
      RHS: MatrixRawGet + MatrixShape>
-Collection for
-MatrixMul<LHS, RHS>
-{
-	#[inline]
-	fn len(&self) -> uint
-	{
-		self.nrow() * self.ncol()
-	}
-}
-
-impl<LHS: MatrixRawGet + MatrixShape,
-     RHS: MatrixRawGet + MatrixShape>
 MatrixRawGet for
 MatrixMul<LHS, RHS>
 {

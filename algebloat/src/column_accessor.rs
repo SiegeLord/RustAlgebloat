@@ -83,16 +83,6 @@ ColumnAccessor<T>
 	}
 }
 
-impl<T: MatrixShape>
-Collection for
-ColumnAccessor<T>
-{
-	fn len(&self) -> uint
-	{
-		self.base.nrow()
-	}
-}
-
 impl<T: MatrixShape + MatrixRawGet>
 fmt::Show for
 ColumnAccessor<T>

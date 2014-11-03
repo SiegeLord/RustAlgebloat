@@ -41,9 +41,15 @@ pub trait MatrixShape
 {
 	fn ncol(&self) -> uint;
 	fn nrow(&self) -> uint;
+	#[inline]
 	fn size(&self) -> (uint, uint)
 	{
 		(self.nrow(), self.ncol())
+	}
+	#[inline]
+	fn len(&self) -> uint
+	{
+		self.nrow() * self.ncol()
 	}
 }
 
@@ -158,8 +164,8 @@ LHS
 
 //~ impl<LHS: MatrixShape + MatrixRawSet,
      //~ RHS: MatrixShape + MatrixRawGet>
-impl<LHS: MatrixShape + Collection + MatrixRawSet + MatrixSet<uint>,
-     RHS: MatrixShape + Collection + MatrixRawGet + MatrixGet<uint>>
+impl<LHS: MatrixShape + MatrixRawSet + MatrixSet<uint>,
+     RHS: MatrixShape + MatrixRawGet + MatrixGet<uint>>
 MatrixAssign<RHS> for LHS
 {
 	unsafe fn unsafe_assign(&self, m: RHS)
@@ -189,7 +195,7 @@ MatrixAssign<RHS> for LHS
 	}
 }
 
-impl<T: MatrixShape + MatrixGet<uint> + Collection>
+impl<T: MatrixShape + MatrixGet<uint>>
 ToMatrix for T
 {
 	fn to_mat(self) -> Matrix

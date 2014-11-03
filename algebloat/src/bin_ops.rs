@@ -122,18 +122,6 @@ MatrixBinOp<TA, TB, TO>
 	}
 }
 
-impl<TA: Collection,
-	 TB,
-     TO: BinOp>
-Collection for
-MatrixBinOp<TA, TB, TO>
-{
-	fn len(&self) -> uint
-	{
-		self.a.len()
-	}
-}
-
 impl<TA: MatrixShape,
 	 TB,
      TO: BinOp>

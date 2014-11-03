@@ -76,17 +76,6 @@ impl Matrix
 }
 
 impl<'l>
-Collection for
-&'l Matrix
-{
-	#[inline]
-	fn len(&self) -> uint
-	{
-		self.nrow() * self.ncol()
-	}
-}
-
-impl<'l>
 MatrixRawGet for
 &'l Matrix
 {
@@ -132,17 +121,6 @@ SameShape for
 	fn same_shape(&self, nrow: uint, ncol: uint) -> bool
 	{
 		self.nrow() == nrow && self.ncol() == ncol
-	}
-}
-
-impl
-Collection for
-Matrix
-{
-	#[inline]
-	fn len(&self) -> uint
-	{
-		self.nrow() * self.ncol()
 	}
 }
 

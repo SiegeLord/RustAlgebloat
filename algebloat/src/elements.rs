@@ -2,9 +2,9 @@
 //
 // All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.
 
-use traits::{MatrixGet, MatrixElems};
+use traits::{MatrixGet, MatrixElems, MatrixShape};
 
-impl<T: MatrixGet<uint> + Collection>
+impl<T: MatrixGet<uint> + MatrixShape>
 MatrixElems for
 T
 {
@@ -20,7 +20,7 @@ pub struct MatrixElements<T>
 	idx: uint
 }
 
-impl<T: MatrixGet<uint> + Collection>
+impl<T: MatrixGet<uint> + MatrixShape>
 MatrixElements<T>
 {
 	pub fn new(base: T) -> MatrixElements<T>
@@ -29,7 +29,7 @@ MatrixElements<T>
 	}
 }
 
-impl<T: MatrixGet<uint> + Collection>
+impl<T: MatrixGet<uint> + MatrixShape>
 Iterator<f64> for
 MatrixElements<T>
 {

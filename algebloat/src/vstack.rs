@@ -41,18 +41,6 @@ VStack<T, B>
 	}
 }
 
-impl<T: MatrixShape,
-     B: MatrixShape>
-Collection for
-VStack<T, B>
-{
-	#[inline]
-	fn len(&self) -> uint
-	{
-		self.nrow() * self.ncol()
-	}
-}
-
 impl<T: MatrixRawGet + MatrixShape,
      B: MatrixRawGet>
 MatrixRawGet for

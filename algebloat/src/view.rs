@@ -45,17 +45,6 @@ View<T>
 	}
 }
 
-impl<T: MatrixShape>
-Collection for
-View<T>
-{
-	#[inline]
-	fn len(&self) -> uint
-	{
-		self.nrow() * self.ncol()
-	}
-}
-
 impl<T: MatrixRawGet>
 MatrixRawGet for
 View<T>
