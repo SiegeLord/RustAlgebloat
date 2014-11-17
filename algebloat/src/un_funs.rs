@@ -23,6 +23,9 @@ macro_rules! un_fun
 
 		mod $func_name
 		{
+			#[allow(unused_imports)]
+			use std::num::{Float, FloatMath};
+
 			#[inline]
 			pub fn $func_name(a: f64) -> f64
 			{
