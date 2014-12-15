@@ -18,6 +18,7 @@ T
 	}
 }
 
+#[deriving(Copy)]
 pub struct Slice<T>
 {
 	base: T,

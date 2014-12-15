@@ -9,7 +9,7 @@ macro_rules! bin_fun
 {
 	($struct_name: ident, $trait_name: ident, $func_name: ident) =>
 	{
-		#[deriving(Clone)]
+		#[deriving(Copy, Clone)]
 		pub struct $struct_name;
 
 		impl $struct_name

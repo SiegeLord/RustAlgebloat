@@ -19,6 +19,7 @@ L
 	}
 }
 
+#[deriving(Copy)]
 pub struct HStack<L, R>
 {
 	left: L,

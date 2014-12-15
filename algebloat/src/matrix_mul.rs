@@ -28,6 +28,7 @@ MatrixMultiply<RHS> for LHS
 	}
 }
 
+#[deriving(Copy)]
 pub struct MatrixMul<LHS, RHS>
 {
 	lhs: LHS,

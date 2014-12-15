@@ -23,7 +23,7 @@ pub trait UnOp
 	fn op(&self, a: f64) -> f64;
 }
 
-#[deriving(Clone)]
+#[deriving(Copy, Clone)]
 pub struct OpNeg;
 impl OpNeg
 {
@@ -42,6 +42,7 @@ impl UnOp for OpNeg
 	}
 }
 
+#[deriving(Copy)]
 pub struct MatrixUnOp<TA, TO>
 {
 	a: TA,

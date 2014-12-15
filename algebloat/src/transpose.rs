@@ -13,6 +13,7 @@ T
 	}
 }
 
+#[deriving(Copy)]
 pub struct Transposer<T>
 {
 	base: T

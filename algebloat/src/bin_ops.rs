@@ -26,7 +26,7 @@ macro_rules! op
 {
 	($name: ident, $op: tt) =>
 	{
-		#[deriving(Clone)]
+		#[deriving(Copy, Clone)]
 		pub struct $name;
 		impl $name
 		{
@@ -57,6 +57,7 @@ op!(OpSub, -)
 op!(OpDiv, /)
 op!(OpMul, *)
 
+#[deriving(Copy)]
 pub struct MatrixBinOp<TA, TB, TO>
 {
 	a: TA,

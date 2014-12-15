@@ -19,6 +19,7 @@ T
 	}
 }
 
+#[deriving(Copy)]
 pub struct VStack<T, B>
 {
 	top: T,

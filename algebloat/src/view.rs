@@ -18,6 +18,7 @@ T
 	}
 }
 
+#[deriving(Copy)]
 pub struct View<T>
 {
 	base: T,
