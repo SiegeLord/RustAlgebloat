@@ -6,7 +6,6 @@
 
 #![crate_type = "lib"]
 #![crate_name = "algebloat"]
-#![license    = "LGPL3"]
 
 #[phase(plugin)]
 extern crate algebloat_macros;
