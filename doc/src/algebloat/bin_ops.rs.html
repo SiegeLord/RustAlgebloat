@@ -336,6 +336,7 @@
 <span id='294'>294</span>
 <span id='295'>295</span>
 <span id='296'>296</span>
+<span id='297'>297</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
 <span class='comment'>//</span>
@@ -365,7 +366,7 @@
 {
 	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>name</span>: <span class='ident'>ident</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>op</span>: <span class='ident'>tt</span>) <span class='op'>=&gt;</span>
 	{
-		<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Clone</span>)]</span>
+		<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
 		<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>name</span>;
 		<span class='kw'>impl</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>name</span>
 		{
@@ -396,6 +397,7 @@
 <span class='macro'>op</span><span class='macro'>!</span>(<span class='ident'>OpDiv</span>, <span class='op'>/</span>)
 <span class='macro'>op</span><span class='macro'>!</span>(<span class='ident'>OpMul</span>, <span class='op'>*</span>)
 
+<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>MatrixBinOp</span><span class='op'>&lt;</span><span class='ident'>TA</span>, <span class='ident'>TB</span>, <span class='ident'>TO</span><span class='op'>&gt;</span>
 {
 	<span class='ident'>a</span>: <span class='ident'>TA</span>,
