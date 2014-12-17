@@ -158,7 +158,7 @@ macro_rules! bin_op
 		$op_name<RHS, MatrixBinOp<MatrixBinOp<TA, TB, TO>, RHS, $op>> for
 		MatrixBinOp<TA, TB, TO>
 		{
-			fn $op_method(&self, rhs: &RHS) -> MatrixBinOp<MatrixBinOp<TA, TB, TO>, RHS, $op>
+			fn $op_method(self, rhs: RHS) -> MatrixBinOp<MatrixBinOp<TA, TB, TO>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
 			}
@@ -170,7 +170,7 @@ macro_rules! bin_op
 		$op_name<RHS, MatrixBinOp<MatrixUnOp<TA, TO>, RHS, $op>> for
 		MatrixUnOp<TA, TO>
 		{
-			fn $op_method(&self, rhs: &RHS) -> MatrixBinOp<MatrixUnOp<TA, TO>, RHS, $op>
+			fn $op_method(self, rhs: RHS) -> MatrixBinOp<MatrixUnOp<TA, TO>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
 			}
@@ -181,7 +181,7 @@ macro_rules! bin_op
 		$op_name<RHS, MatrixBinOp<&'l Matrix, RHS, $op>> for
 		&'l Matrix
 		{
-			fn $op_method(&self, rhs: &RHS) -> MatrixBinOp<&'l Matrix, RHS, $op>
+			fn $op_method(self, rhs: RHS) -> MatrixBinOp<&'l Matrix, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
 			}
@@ -192,7 +192,7 @@ macro_rules! bin_op
 		$op_name<RHS, MatrixBinOp<View<T>, RHS, $op>> for
 		View<T>
 		{
-			fn $op_method(&self, rhs: &RHS) -> MatrixBinOp<View<T>, RHS, $op>
+			fn $op_method(self, rhs: RHS) -> MatrixBinOp<View<T>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
 			}
@@ -203,7 +203,7 @@ macro_rules! bin_op
 		$op_name<RHS, MatrixBinOp<Slice<T>, RHS, $op>> for
 		Slice<T>
 		{
-			fn $op_method(&self, rhs: &RHS) -> MatrixBinOp<Slice<T>, RHS, $op>
+			fn $op_method(self, rhs: RHS) -> MatrixBinOp<Slice<T>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
 			}
@@ -214,7 +214,7 @@ macro_rules! bin_op
 		$op_name<RHS, MatrixBinOp<Reshape<T>, RHS, $op>> for
 		Reshape<T>
 		{
-			fn $op_method(&self, rhs: &RHS) -> MatrixBinOp<Reshape<T>, RHS, $op>
+			fn $op_method(self, rhs: RHS) -> MatrixBinOp<Reshape<T>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
 			}
@@ -225,7 +225,7 @@ macro_rules! bin_op
 		$op_name<RHS, MatrixBinOp<Transposer<T>, RHS, $op>> for
 		Transposer<T>
 		{
-			fn $op_method(&self, rhs: &RHS) -> MatrixBinOp<Transposer<T>, RHS, $op>
+			fn $op_method(self, rhs: RHS) -> MatrixBinOp<Transposer<T>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
 			}
@@ -236,7 +236,7 @@ macro_rules! bin_op
 		$op_name<RHS, MatrixBinOp<RowAccessor<T>, RHS, $op>> for
 		RowAccessor<T>
 		{
-			fn $op_method(&self, rhs: &RHS) -> MatrixBinOp<RowAccessor<T>, RHS, $op>
+			fn $op_method(self, rhs: RHS) -> MatrixBinOp<RowAccessor<T>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
 			}
@@ -247,7 +247,7 @@ macro_rules! bin_op
 		$op_name<RHS, MatrixBinOp<ColumnAccessor<T>, RHS, $op>> for
 		ColumnAccessor<T>
 		{
-			fn $op_method(&self, rhs: &RHS) -> MatrixBinOp<ColumnAccessor<T>, RHS, $op>
+			fn $op_method(self, rhs: RHS) -> MatrixBinOp<ColumnAccessor<T>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
 			}
@@ -259,7 +259,7 @@ macro_rules! bin_op
 		$op_name<RHS, MatrixBinOp<MatrixMul<T1, T2>, RHS, $op>> for
 		MatrixMul<T1, T2>
 		{
-			fn $op_method(&self, rhs: &RHS) -> MatrixBinOp<MatrixMul<T1, T2>, RHS, $op>
+			fn $op_method(self, rhs: RHS) -> MatrixBinOp<MatrixMul<T1, T2>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
 			}
@@ -271,7 +271,7 @@ macro_rules! bin_op
 		$op_name<RHS, MatrixBinOp<HStack<T1, T2>, RHS, $op>> for
 		HStack<T1, T2>
 		{
-			fn $op_method(&self, rhs: &RHS) -> MatrixBinOp<HStack<T1, T2>, RHS, $op>
+			fn $op_method(self, rhs: RHS) -> MatrixBinOp<HStack<T1, T2>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
 			}
@@ -283,7 +283,7 @@ macro_rules! bin_op
 		$op_name<RHS, MatrixBinOp<VStack<T1, T2>, RHS, $op>> for
 		VStack<T1, T2>
 		{
-			fn $op_method(&self, rhs: &RHS) -> MatrixBinOp<VStack<T1, T2>, RHS, $op>
+			fn $op_method(self, rhs: RHS) -> MatrixBinOp<VStack<T1, T2>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
 			}
