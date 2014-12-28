@@ -52,10 +52,10 @@ macro_rules! expr
 	($e: expr) => { $e }
 }
 
-op!(OpAdd, +)
-op!(OpSub, -)
-op!(OpDiv, /)
-op!(OpMul, *)
+op!(OpAdd, +);
+op!(OpSub, -);
+op!(OpDiv, /);
+op!(OpMul, *);
 
 #[deriving(Copy)]
 pub struct MatrixBinOp<TA, TB, TO>
@@ -291,7 +291,7 @@ macro_rules! bin_op
 	}
 }
 
-bin_op!(Add, add, OpAdd)
-bin_op!(Sub, sub, OpSub)
-bin_op!(Mul, mul, OpMul)
-bin_op!(Div, div, OpDiv)
+bin_op!(Add, add, OpAdd);
+bin_op!(Sub, sub, OpSub);
+bin_op!(Mul, mul, OpMul);
+bin_op!(Div, div, OpDiv);

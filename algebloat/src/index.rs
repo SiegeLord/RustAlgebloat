@@ -81,7 +81,7 @@ fn to_rc(idx: uint, ncol: uint) -> (uint, uint)
 	(idx / ncol, idx % ncol)
 }
 
-index_impl!(self_, mat, (uint, uint), {*self_})
-index_impl!(self_, mat, (int, int), {let (r, c) = *self_; (r as uint, c as uint)})
-index_impl!(self_, mat, uint, {to_rc(*self_, mat.ncol())})
-index_impl!(self_, mat, int,  {to_rc(*self_ as uint, mat.ncol())})
+index_impl!(self_, mat, (uint, uint), {*self_});
+index_impl!(self_, mat, (int, int), {let (r, c) = *self_; (r as uint, c as uint)});
+index_impl!(self_, mat, uint, {to_rc(*self_, mat.ncol())});
+index_impl!(self_, mat, int,  {to_rc(*self_ as uint, mat.ncol())});

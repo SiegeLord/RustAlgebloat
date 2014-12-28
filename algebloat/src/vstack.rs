@@ -37,7 +37,7 @@ VStack<T, B>
 
 	fn new(top: T, bot: B) -> VStack<T, B>
 	{
-		assert_eq!(top.ncol(), bot.ncol())
+		assert_eq!(top.ncol(), bot.ncol());
 		VStack{ top: top, bot: bot }
 	}
 }

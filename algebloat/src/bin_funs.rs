@@ -58,6 +58,6 @@ macro_rules! bin_fun
 	}
 }
 
-bin_fun!(PowOp, VectorPowOp, powf)
-bin_fun!(HypotOp, VectorHypotOp, hypot)
-bin_fun!(Atan2Op, VectorAtan2Op, atan2)
+bin_fun!(PowOp, VectorPowOp, powf);
+bin_fun!(HypotOp, VectorHypotOp, hypot);
+bin_fun!(Atan2Op, VectorAtan2Op, atan2);

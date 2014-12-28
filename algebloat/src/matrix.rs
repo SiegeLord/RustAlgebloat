@@ -234,20 +234,20 @@ pub fn write_mat<T: MatrixRawGet + MatrixShape>(fmt: &mut fmt::Formatter, a: &T)
 					("⎢", "⎥\n")
 				}
 			};
-		try!(write!(w, "{}", lstr).map_err(|_| fmt::Error))
+		try!(write!(w, "{}", lstr).map_err(|_| fmt::Error));
 		for c in range(0, a.ncol())
 		{
 			if !first
 			{
-				try!(write!(w, "{}", mstr).map_err(|_| fmt::Error))
+				try!(write!(w, "{}", mstr).map_err(|_| fmt::Error));
 			}
 			first = false;
 			unsafe
 			{
-				try!(write!(w, "{:>1$}", a.raw_get(r, c), col_widths[c]).map_err(|_| fmt::Error))
+				try!(write!(w, "{:>1$}", a.raw_get(r, c), col_widths[c]).map_err(|_| fmt::Error));
 			}
 		}
-		try!(write!(w, "{}", rstr).map_err(|_| fmt::Error))
+		try!(write!(w, "{}", rstr).map_err(|_| fmt::Error));
 	}
 	Ok(())
 }

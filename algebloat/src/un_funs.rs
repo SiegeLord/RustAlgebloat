@@ -58,20 +58,20 @@ macro_rules! un_fun
 	}
 }
 
-un_fun!(AbsOp, MatrixAbsOp, abs)
-un_fun!(AcosOp, MatrixAcosOp, acos)
-un_fun!(AsinOp, MatrixAsinOp, asin)
-un_fun!(AtanOp, MatrixAtanOp, atan)
-un_fun!(CeilOp, MatrixCeilOp, ceil)
-un_fun!(CosOp, MatrixCosOp, cos)
-un_fun!(CoshOp, MatrixCoshOp, cosh)
-un_fun!(ExpOp, MatrixExpOp, exp)
-un_fun!(FloorOp, MatrixFloorOp, floor)
-un_fun!(LnOp, MatrixLnOp, ln)
-un_fun!(Log10Op, MatrixLog10Op, log10)
-un_fun!(RoundOp, MatrixRoundOp, round)
-un_fun!(SinOp, MatrixSinOp, sin)
-un_fun!(SinhOp, MatrixSinhOp, sinh)
-un_fun!(SqrtOp, MatrixSqrtOp, sqrt)
-un_fun!(TanOp, MatrixTanOp, tan)
-un_fun!(TanhOp, MatrixTanhOp, tanh)
+un_fun!(AbsOp, MatrixAbsOp, abs);
+un_fun!(AcosOp, MatrixAcosOp, acos);
+un_fun!(AsinOp, MatrixAsinOp, asin);
+un_fun!(AtanOp, MatrixAtanOp, atan);
+un_fun!(CeilOp, MatrixCeilOp, ceil);
+un_fun!(CosOp, MatrixCosOp, cos);
+un_fun!(CoshOp, MatrixCoshOp, cosh);
+un_fun!(ExpOp, MatrixExpOp, exp);
+un_fun!(FloorOp, MatrixFloorOp, floor);
+un_fun!(LnOp, MatrixLnOp, ln);
+un_fun!(Log10Op, MatrixLog10Op, log10);
+un_fun!(RoundOp, MatrixRoundOp, round);
+un_fun!(SinOp, MatrixSinOp, sin);
+un_fun!(SinhOp, MatrixSinhOp, sinh);
+un_fun!(SqrtOp, MatrixSqrtOp, sqrt);
+un_fun!(TanOp, MatrixTanOp, tan);
+un_fun!(TanhOp, MatrixTanhOp, tanh);

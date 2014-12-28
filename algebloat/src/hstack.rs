@@ -37,7 +37,7 @@ HStack<L, R>
 
 	fn new(left: L, right: R) -> HStack<L, R>
 	{
-		assert_eq!(left.nrow(), right.nrow())
+		assert_eq!(left.nrow(), right.nrow());
 		HStack{ left: left, right: right }
 	}
 }

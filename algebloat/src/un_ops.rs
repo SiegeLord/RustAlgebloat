@@ -124,7 +124,7 @@ impl<TA: MatrixRawGet + Clone + MatrixShape,
 Neg<MatrixUnOp<MatrixUnOp<TA, TO>, OpNeg>> for
 MatrixUnOp<TA, TO>
 {
-	fn neg(&self) -> MatrixUnOp<MatrixUnOp<TA, TO>, OpNeg>
+	fn neg(self) -> MatrixUnOp<MatrixUnOp<TA, TO>, OpNeg>
 	{
 		MatrixUnOp::new(self.clone(), OpNeg::new())
 	}
@@ -136,7 +136,7 @@ impl<TA: MatrixRawGet + Clone + MatrixShape,
 Neg<MatrixUnOp<MatrixBinOp<TA, TB, TO>, OpNeg>> for
 MatrixBinOp<TA, TB, TO>
 {
-	fn neg(&self) -> MatrixUnOp<MatrixBinOp<TA, TB, TO>, OpNeg>
+	fn neg(self) -> MatrixUnOp<MatrixBinOp<TA, TB, TO>, OpNeg>
 	{
 		MatrixUnOp::new(self.clone(), OpNeg::new())
 	}
@@ -146,7 +146,7 @@ impl<'l>
 Neg<MatrixUnOp<&'l Matrix, OpNeg>> for
 &'l Matrix
 {
-	fn neg(&self) -> MatrixUnOp<&'l Matrix, OpNeg>
+	fn neg(self) -> MatrixUnOp<&'l Matrix, OpNeg>
 	{
 		MatrixUnOp::new(self.clone(), OpNeg::new())
 	}
@@ -156,7 +156,7 @@ impl<T: MatrixShape + Clone>
 Neg<MatrixUnOp<RowAccessor<T>, OpNeg>> for
 RowAccessor<T>
 {
-	fn neg(&self) -> MatrixUnOp<RowAccessor<T>, OpNeg>
+	fn neg(self) -> MatrixUnOp<RowAccessor<T>, OpNeg>
 	{
 		MatrixUnOp::new(self.clone(), OpNeg::new())
 	}
@@ -166,7 +166,7 @@ impl<T: MatrixShape + Clone>
 Neg<MatrixUnOp<ColumnAccessor<T>, OpNeg>> for
 ColumnAccessor<T>
 {
-	fn neg(&self) -> MatrixUnOp<ColumnAccessor<T>, OpNeg>
+	fn neg(self) -> MatrixUnOp<ColumnAccessor<T>, OpNeg>
 	{
 		MatrixUnOp::new(self.clone(), OpNeg::new())
 	}
@@ -176,7 +176,7 @@ impl<T: MatrixShape + Clone>
 Neg<MatrixUnOp<Transposer<T>, OpNeg>> for
 Transposer<T>
 {
-	fn neg(&self) -> MatrixUnOp<Transposer<T>, OpNeg>
+	fn neg(self) -> MatrixUnOp<Transposer<T>, OpNeg>
 	{
 		MatrixUnOp::new(self.clone(), OpNeg::new())
 	}
@@ -186,7 +186,7 @@ impl<T: MatrixShape + Clone>
 Neg<MatrixUnOp<View<T>, OpNeg>> for
 View<T>
 {
-	fn neg(&self) -> MatrixUnOp<View<T>, OpNeg>
+	fn neg(self) -> MatrixUnOp<View<T>, OpNeg>
 	{
 		MatrixUnOp::new(self.clone(), OpNeg::new())
 	}
@@ -196,7 +196,7 @@ impl<T: MatrixShape + Clone>
 Neg<MatrixUnOp<Slice<T>, OpNeg>> for
 Slice<T>
 {
-	fn neg(&self) -> MatrixUnOp<Slice<T>, OpNeg>
+	fn neg(self) -> MatrixUnOp<Slice<T>, OpNeg>
 	{
 		MatrixUnOp::new(self.clone(), OpNeg::new())
 	}
@@ -206,7 +206,7 @@ impl<T: MatrixShape + Clone>
 Neg<MatrixUnOp<Reshape<T>, OpNeg>> for
 Reshape<T>
 {
-	fn neg(&self) -> MatrixUnOp<Reshape<T>, OpNeg>
+	fn neg(self) -> MatrixUnOp<Reshape<T>, OpNeg>
 	{
 		MatrixUnOp::new(self.clone(), OpNeg::new())
 	}
@@ -217,7 +217,7 @@ impl<T1: MatrixShape + Clone,
 Neg<MatrixUnOp<MatrixMul<T1, T2>, OpNeg>> for
 MatrixMul<T1, T2>
 {
-	fn neg(&self) -> MatrixUnOp<MatrixMul<T1, T2>, OpNeg>
+	fn neg(self) -> MatrixUnOp<MatrixMul<T1, T2>, OpNeg>
 	{
 		MatrixUnOp::new(self.clone(), OpNeg::new())
 	}
@@ -228,7 +228,7 @@ impl<T1: MatrixShape + Clone,
 Neg<MatrixUnOp<HStack<T1, T2>, OpNeg>> for
 HStack<T1, T2>
 {
-	fn neg(&self) -> MatrixUnOp<HStack<T1, T2>, OpNeg>
+	fn neg(self) -> MatrixUnOp<HStack<T1, T2>, OpNeg>
 	{
 		MatrixUnOp::new(self.clone(), OpNeg::new())
 	}
@@ -239,7 +239,7 @@ impl<T1: MatrixShape + Clone,
 Neg<MatrixUnOp<VStack<T1, T2>, OpNeg>> for
 VStack<T1, T2>
 {
-	fn neg(&self) -> MatrixUnOp<VStack<T1, T2>, OpNeg>
+	fn neg(self) -> MatrixUnOp<VStack<T1, T2>, OpNeg>
 	{
 		MatrixUnOp::new(self.clone(), OpNeg::new())
 	}
