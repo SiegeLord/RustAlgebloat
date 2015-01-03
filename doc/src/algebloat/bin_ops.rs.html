@@ -392,10 +392,10 @@
 	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>: <span class='ident'>expr</span>) <span class='op'>=&gt;</span> { <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span> }
 }
 
-<span class='macro'>op</span><span class='macro'>!</span>(<span class='ident'>OpAdd</span>, <span class='op'>+</span>)
-<span class='macro'>op</span><span class='macro'>!</span>(<span class='ident'>OpSub</span>, <span class='op'>-</span>)
-<span class='macro'>op</span><span class='macro'>!</span>(<span class='ident'>OpDiv</span>, <span class='op'>/</span>)
-<span class='macro'>op</span><span class='macro'>!</span>(<span class='ident'>OpMul</span>, <span class='op'>*</span>)
+<span class='macro'>op</span><span class='macro'>!</span>(<span class='ident'>OpAdd</span>, <span class='op'>+</span>);
+<span class='macro'>op</span><span class='macro'>!</span>(<span class='ident'>OpSub</span>, <span class='op'>-</span>);
+<span class='macro'>op</span><span class='macro'>!</span>(<span class='ident'>OpDiv</span>, <span class='op'>/</span>);
+<span class='macro'>op</span><span class='macro'>!</span>(<span class='ident'>OpMul</span>, <span class='op'>*</span>);
 
 <span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>MatrixBinOp</span><span class='op'>&lt;</span><span class='ident'>TA</span>, <span class='ident'>TB</span>, <span class='ident'>TO</span><span class='op'>&gt;</span>
@@ -631,10 +631,10 @@
 	}
 }
 
-<span class='macro'>bin_op</span><span class='macro'>!</span>(<span class='ident'>Add</span>, <span class='ident'>add</span>, <span class='ident'>OpAdd</span>)
-<span class='macro'>bin_op</span><span class='macro'>!</span>(<span class='ident'>Sub</span>, <span class='ident'>sub</span>, <span class='ident'>OpSub</span>)
-<span class='macro'>bin_op</span><span class='macro'>!</span>(<span class='ident'>Mul</span>, <span class='ident'>mul</span>, <span class='ident'>OpMul</span>)
-<span class='macro'>bin_op</span><span class='macro'>!</span>(<span class='ident'>Div</span>, <span class='ident'>div</span>, <span class='ident'>OpDiv</span>)
+<span class='macro'>bin_op</span><span class='macro'>!</span>(<span class='ident'>Add</span>, <span class='ident'>add</span>, <span class='ident'>OpAdd</span>);
+<span class='macro'>bin_op</span><span class='macro'>!</span>(<span class='ident'>Sub</span>, <span class='ident'>sub</span>, <span class='ident'>OpSub</span>);
+<span class='macro'>bin_op</span><span class='macro'>!</span>(<span class='ident'>Mul</span>, <span class='ident'>mul</span>, <span class='ident'>OpMul</span>);
+<span class='macro'>bin_op</span><span class='macro'>!</span>(<span class='ident'>Div</span>, <span class='ident'>div</span>, <span class='ident'>OpDiv</span>);
 </pre>
 </section>
     <section id='search' class="content hidden"></section>

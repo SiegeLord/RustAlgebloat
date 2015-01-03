@@ -208,7 +208,7 @@
 
 	<span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>top</span>: <span class='ident'>T</span>, <span class='ident'>bot</span>: <span class='ident'>B</span>) <span class='op'>-&gt;</span> <span class='ident'>VStack</span><span class='op'>&lt;</span><span class='ident'>T</span>, <span class='ident'>B</span><span class='op'>&gt;</span>
 	{
-		<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>top</span>.<span class='ident'>ncol</span>(), <span class='ident'>bot</span>.<span class='ident'>ncol</span>())
+		<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>top</span>.<span class='ident'>ncol</span>(), <span class='ident'>bot</span>.<span class='ident'>ncol</span>());
 		<span class='ident'>VStack</span>{ <span class='ident'>top</span>: <span class='ident'>top</span>, <span class='ident'>bot</span>: <span class='ident'>bot</span> }
 	}
 }
