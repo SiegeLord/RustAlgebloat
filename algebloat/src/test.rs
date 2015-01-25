@@ -139,7 +139,7 @@ fn assignment()
 	               3.0, 4.0);
 	let m2 = &mat!(5.0, 6.0;
 	               7.0, 8.0);
-	let v1 = m1.view(0, 0, m1.nrow(), m1.ncol());
+	let v1 = m1.view(0..m1.nrow(), 0..m1.ncol());
 	m2.assign(m1);
 	assert_eq!(m2.get((0, 0)), 1.0);
 	m2.assign(v1);
@@ -194,8 +194,8 @@ fn views()
 	let m = &mat!(1.0, 2.0, 3.0;
 	              4.0, 5.0, 6.0;
 	              7.0, 8.0, 9.0);
-	let m1 = m.view(0, 0, m.nrow() - 1, m.ncol() - 1);
-	let m2 = m.view(1, 1, m.nrow(), m.ncol());
+	let m1 = m.view(..m.nrow() - 1, ..m.ncol() - 1);
+	let m2 = m.view(1.., 1..);
 	let v1 = m1.row(0) + m2.row(0);
 	let v2 = m1.t().row(0) + m2.t().row(0);
 	assert_eq!(v1.get(1), 8.0);
@@ -207,7 +207,7 @@ fn set()
 {
 	let m1 = &mat!(1.0, 2.0;
 	               3.0, 4.0);
-	let v1 = m1.view(0, 0, m1.nrow(), m1.ncol());
+	let v1 = m1.view(0.., 0..);
 	m1.set((0, 1), 5.0);
 	v1.set((1, 0), 7.0);
 	assert_eq!(m1.get((0, 1)), 5.0);
@@ -223,7 +223,7 @@ fn scalars()
 	let a = &mat![1.0, 2.0, 3.0;
 	              4.0, 5.0, 6.0];
 	let b = a * 2.0f64;
-	let c = b.view(0, 1, 2, 2) * 3.0f64;
+	let c = b.view(..2, 1..2) * 3.0f64;
 	assert_eq!(b.get((0, 0)), 2.0);
 	assert_eq!(c.get((0, 0)), 12.0);
 }
@@ -233,7 +233,7 @@ fn neg()
 {
 	let a = &mat![1.0, 2.0, 3.0];
 	let b = -(-a * 2.0f64);
-	let c = -(b.view(0, 1, 1, 3) * 3.0f64);
+	let c = -(b.view(..1, 1..) * 3.0f64);
 	assert_eq!(b.get(0), 2.0);
 	assert_eq!(c.get(0), -12.0);
 }
@@ -244,7 +244,7 @@ fn un_funs()
 	use std::f64::consts::PI;
 	let a = &mat![0.0, PI / 2.0, -PI / 2.0];
 	let s1 = a.sin();
-	let b = a.view(0, 1, 1, a.len());
+	let b = a.view(..1, 1..);
 	let s2 = b.sin() + 1.0f64;
 	assert_eq!(s1.get(1), 1.0);
 	assert_eq!(s2.get(0), 2.0);
@@ -280,11 +280,19 @@ fn slice()
 {
 	let m1 = &mat!(1.0, 2.0;
 	               3.0, 4.0);
-	let s = m1.slice(1, 3) + 1.0f64;
+	let s = m1.slice(1..3) + 1.0f64;
 	assert_eq!(s.nrow(), 2);
 	assert_eq!(s.ncol(), 1);
 	assert_eq!(s.get(0), 3.0);
 	assert_eq!(s.get(1), 4.0);
+
+	let s = m1.slice(1..);
+	assert_eq!(s.len(), 3);
+	assert_eq!(s.get(2), 4.0);
+
+	let s = m1.slice(..2);
+	assert_eq!(s.len(), 2);
+	assert_eq!(s.get(1), 2.0);
 }
 
 #[test]

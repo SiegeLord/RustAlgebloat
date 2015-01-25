@@ -10,13 +10,13 @@ fn main()
 	a.set(0, 10.0);
 	let b = &mat![1.0, 2.0, 3.0];
 	
-	let d = (a + b - b * 2.0f64).slice(1, 3).slice(0, 1).to_mat();
-	let sa = a.slice(1, 3);
+	let d = (a + b - b * 2.0f64).slice(1..3).slice(0..1).to_mat();
+	let sa = a.slice(1..3);
 	sa.set(0, 10.0);
-	let sb1 = b.slice(1, 3);
-	let sb2 = b.slice(2, 3);
+	let sb1 = b.slice(1..3);
+	let sb2 = b.slice(2..3);
 	
-	let e = (a.slice(1, 3) + b.slice(1, 3)).to_mat();
+	let e = (a.slice(1..3) + b.slice(1..3)).to_mat();
 	println!("Vectors");
 	println!("{}", a);
 	println!("{}", sb1.t());
@@ -47,7 +47,7 @@ fn main()
 	let r = m.row(0) + t1.row(0);
 	println!("r =\n{}", r);
 
-	let m2 = stack![m.view(0, 0, 2, 2), m.view(0, 1, 2, 3);
-	                m.view(1, 0, 3, 2), m.view(1, 1, 3, 3)];
+	let m2 = stack![m.view( ..2, ..2), m.view( ..2, 1..);
+	                m.view(1..,  ..2), m.view(1..,  1..)];
 	println!("m2 =\n{}", m2);
 }

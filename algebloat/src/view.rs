@@ -1,22 +1,82 @@
 use std::fmt;
+use std::ops::*;
 
 use traits::{MatrixRawGet, MatrixRawSet, MatrixShape, MatrixView, SameShape};
 use matrix::write_mat;
 
-impl<T: MatrixShape>
-MatrixView for
-T
+trait UnwrapRange
 {
-	unsafe fn unsafe_view(self, row_start: usize, col_start: usize, row_end: usize, col_end: usize) -> View<T>
-	{
-		View::unsafe_new(self, row_start, col_start, row_end, col_end)
-	}
+	#[inline]
+	fn get(&self, end: usize) -> (usize, usize);
+}
 
-	fn view(self, row_start: usize, col_start: usize, row_end: usize, col_end: usize) -> View<T>
+macro_rules! view_impl
+{
+	($row_range_type: ident, $col_range_type: ident, $idx_type: ident) =>
 	{
-		View::new(self, row_start, col_start, row_end, col_end)
+		impl<T: MatrixShape>
+		MatrixView<$row_range_type<$idx_type>, $col_range_type<$idx_type>> for
+		T
+		{
+			unsafe fn unsafe_view(self, row_range: $row_range_type<$idx_type>, col_range: $col_range_type<$idx_type>) -> View<T>
+			{
+				let (row_start, row_end) = row_range.get(self.nrow());
+				let (col_start, col_end) = col_range.get(self.ncol());
+				View::unsafe_new(self, row_start, col_start, row_end, col_end)
+			}
+
+			fn view(self, row_range: $row_range_type<$idx_type>, col_range: $col_range_type<$idx_type>) -> View<T>
+			{
+				let (row_start, row_end) = row_range.get(self.nrow());
+				let (col_start, col_end) = col_range.get(self.ncol());
+				View::new(self, row_start, col_start, row_end, col_end)
+			}
+		}
+	};
+	
+	($idx_type: ident) =>
+	{
+		impl UnwrapRange for Range<$idx_type>
+		{
+			#[inline]
+			fn get(&self, _: usize) -> (usize, usize)
+			{
+				(self.start as usize, self.end as usize)
+			}
+		}
+
+		impl UnwrapRange for RangeFrom<$idx_type>
+		{
+			#[inline]
+			fn get(&self, end: usize) -> (usize, usize)
+			{
+				(self.start as usize, end)
+			}
+		}
+
+		impl UnwrapRange for RangeTo<$idx_type>
+		{
+			#[inline]
+			fn get(&self, _: usize) -> (usize, usize)
+			{
+				(0, self.end as usize)
+			}
+		}
+		
+		view_impl!(Range,     Range,     $idx_type);
+		view_impl!(RangeFrom, Range,     $idx_type);
+		view_impl!(RangeTo,   Range,     $idx_type);
+		view_impl!(Range,     RangeFrom, $idx_type);
+		view_impl!(RangeFrom, RangeFrom, $idx_type);
+		view_impl!(RangeTo,   RangeFrom, $idx_type);
+		view_impl!(Range,     RangeTo,   $idx_type);
+		view_impl!(RangeFrom, RangeTo,   $idx_type);
+		view_impl!(RangeTo,   RangeTo,   $idx_type);
 	}
 }
+
+view_impl!(usize);
+view_impl!(i32);
 
 #[derive(Copy)]
 pub struct View<T>

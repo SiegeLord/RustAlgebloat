@@ -25,8 +25,8 @@ println!("t1 =\n{}", t1);
 let r = m.row(0) + t1.row(0);
 println!("r =\n{}", r);
 
-let m2 = stack![m.view(0, 0, 2, 2), m.view(0, 1, 2, 3);
-				m.view(1, 0, 3, 2), m.view(1, 1, 3, 3)];
+let m2 = stack![m.view( ..2, ..2), m.view( ..2, 1..);
+                m.view(1..,  ..2), m.view(1..,  1..)];
 println!("m2 =\n{}", m2);
 ~~~
 

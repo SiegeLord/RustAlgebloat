@@ -1,22 +1,64 @@
 use std::fmt;
+use std::ops::*;
 
 use traits::{MatrixRawGet, MatrixGet, MatrixSet, MatrixRawSet, MatrixShape, MatrixSlice, SameShape};
 use matrix::write_mat;
 
-impl<T: MatrixShape>
-MatrixSlice for
-T
+macro_rules! slice_impl
 {
-	unsafe fn unsafe_slice(self, start: usize, end: usize) -> Slice<T>
+	($idx_type: ident) =>
 	{
-		Slice::unsafe_new(self, start, end)
-	}
+		impl<T: MatrixShape>
+		MatrixSlice<Range<$idx_type>> for
+		T
+		{
+			unsafe fn unsafe_slice(self, range: Range<$idx_type>) -> Slice<T>
+			{
+				Slice::unsafe_new(self, range.start as usize, range.end as usize)
+			}
 
-	fn slice(self, start: usize, end: usize) -> Slice<T>
-	{
-		Slice::new(self, start, end)
+			fn slice(self, range: Range<$idx_type>) -> Slice<T>
+			{
+				Slice::new(self, range.start as usize, range.end as usize)
+			}
+		}
+
+		impl<T: MatrixShape>
+		MatrixSlice<RangeFrom<$idx_type>> for
+		T
+		{
+			unsafe fn unsafe_slice(self, range: RangeFrom<$idx_type>) -> Slice<T>
+			{
+				let l = self.len();
+				Slice::unsafe_new(self, range.start as usize, l)
+			}
+
+			fn slice(self, range: RangeFrom<$idx_type>) -> Slice<T>
+			{
+				let l = self.len();
+				Slice::new(self, range.start as usize, l)
+			}
+		}
+
+		impl<T: MatrixShape>
+		MatrixSlice<RangeTo<$idx_type>> for
+		T
+		{
+			unsafe fn unsafe_slice(self, range: RangeTo<$idx_type>) -> Slice<T>
+			{
+				Slice::unsafe_new(self, 0, range.end as usize)
+			}
+
+			fn slice(self, range: RangeTo<$idx_type>) -> Slice<T>
+			{
+				Slice::new(self, 0, range.end as usize)
+			}
+		}
 	}
 }
+
+slice_impl!(usize);
+slice_impl!(i32);
 
 #[derive(Copy)]
 pub struct Slice<T>

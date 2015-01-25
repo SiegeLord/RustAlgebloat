@@ -76,10 +76,10 @@ pub trait MatrixColumnAccess
 	fn col(self, col: usize) -> ColumnAccessor<Self>;
 }
 
-pub trait MatrixView
+pub trait MatrixView<RowRangeType, ColRangeType>
 {
-	unsafe fn unsafe_view(self, row_start: usize, col_start: usize, row_end: usize, col_end: usize) -> View<Self>;
-	fn view(self, row_start: usize, col_start: usize, row_end: usize, col_end: usize) -> View<Self>;
+	unsafe fn unsafe_view(self, row_range: RowRangeType, col_range: ColRangeType) -> View<Self>;
+	fn view(self, row_range: RowRangeType, col_range: ColRangeType) -> View<Self>;
 }
 
 pub trait MatrixReshape
@@ -88,10 +88,10 @@ pub trait MatrixReshape
 	fn reshape(self, nrow: usize, ncol: usize) -> Reshape<Self>;
 }
 
-pub trait MatrixSlice
+pub trait MatrixSlice<RangeType>
 {
-	unsafe fn unsafe_slice(self, start: usize, end: usize) -> Slice<Self>;
-	fn slice(self, start: usize, end: usize) -> Slice<Self>;
+	unsafe fn unsafe_slice(self, range: RangeType) -> Slice<Self>;
+	fn slice(self, range: RangeType) -> Slice<Self>;
 }
 
 pub trait MatrixAssign<RHS>

@@ -5,6 +5,8 @@
 #![crate_type = "lib"]
 #![crate_name = "algebloat"]
 
+#![allow(unstable)]
+
 #[macro_use]
 extern crate algebloat_macros;
 
