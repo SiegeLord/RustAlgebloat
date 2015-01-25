@@ -19,7 +19,7 @@ T
 	}
 }
 
-#[deriving(Copy)]
+#[derive(Copy)]
 pub struct VStack<T, B>
 {
 	top: T,
@@ -47,7 +47,7 @@ impl<T: MatrixRawGet + MatrixShape,
 MatrixRawGet for
 VStack<T, B>
 {
-	unsafe fn raw_get(&self, r: uint, c: uint) -> f64
+	unsafe fn raw_get(&self, r: usize, c: usize) -> f64
 	{
 		if r < self.top.nrow()
 		{
@@ -65,7 +65,7 @@ impl<T: MatrixRawSet + MatrixShape,
 MatrixRawSet for
 VStack<T, B>
 {
-	unsafe fn raw_set(&self, r: uint, c: uint, val: f64)
+	unsafe fn raw_set(&self, r: usize, c: usize, val: f64)
 	{
 		if r < self.top.nrow()
 		{
@@ -83,12 +83,12 @@ impl<T: MatrixShape,
 MatrixShape for
 VStack<T, B>
 {
-	fn nrow(&self) -> uint
+	fn nrow(&self) -> usize
 	{
 		self.top.nrow() + self.bot.nrow()
 	}
 
-	fn ncol(&self) -> uint
+	fn ncol(&self) -> usize
 	{
 		self.top.ncol()
 	}
@@ -99,7 +99,7 @@ impl<T: MatrixShape,
 SameShape for
 VStack<T, B>
 {
-	fn same_shape(&self, nrow: uint, ncol: uint) -> bool
+	fn same_shape(&self, nrow: usize, ncol: usize) -> bool
 	{
 		self.nrow() == nrow && self.ncol() == ncol
 	}
@@ -118,7 +118,7 @@ VStack<T, B>
 
 impl<T: MatrixRawGet + MatrixShape,
      B: MatrixRawGet + MatrixShape>
-fmt::Show for
+fmt::Display for
 VStack<T, B>
 {
 	fn fmt(&self, buf: &mut fmt::Formatter) -> fmt::Result

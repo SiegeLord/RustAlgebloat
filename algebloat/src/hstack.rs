@@ -19,7 +19,7 @@ L
 	}
 }
 
-#[deriving(Copy)]
+#[derive(Copy)]
 pub struct HStack<L, R>
 {
 	left: L,
@@ -47,7 +47,7 @@ impl<L: MatrixRawGet + MatrixShape,
 MatrixRawGet for
 HStack<L, R>
 {
-	unsafe fn raw_get(&self, r: uint, c: uint) -> f64
+	unsafe fn raw_get(&self, r: usize, c: usize) -> f64
 	{
 		if c < self.left.ncol()
 		{
@@ -65,7 +65,7 @@ impl<L: MatrixRawSet + MatrixShape,
 MatrixRawSet for
 HStack<L, R>
 {
-	unsafe fn raw_set(&self, r: uint, c: uint, val: f64)
+	unsafe fn raw_set(&self, r: usize, c: usize, val: f64)
 	{
 		if c < self.left.ncol()
 		{
@@ -83,12 +83,12 @@ impl<L: MatrixShape,
 MatrixShape for
 HStack<L, R>
 {
-	fn nrow(&self) -> uint
+	fn nrow(&self) -> usize
 	{
 		self.left.nrow()
 	}
 
-	fn ncol(&self) -> uint
+	fn ncol(&self) -> usize
 	{
 		self.left.ncol() + self.right.ncol()
 	}
@@ -99,7 +99,7 @@ impl<L: MatrixShape,
 SameShape for
 HStack<L, R>
 {
-	fn same_shape(&self, nrow: uint, ncol: uint) -> bool
+	fn same_shape(&self, nrow: usize, ncol: usize) -> bool
 	{
 		self.nrow() == nrow && self.ncol() == ncol
 	}
@@ -118,7 +118,7 @@ HStack<L, R>
 
 impl<L: MatrixRawGet + MatrixShape,
      R: MatrixRawGet + MatrixShape>
-fmt::Show for
+fmt::Display for
 HStack<L, R>
 {
 	fn fmt(&self, buf: &mut fmt::Formatter) -> fmt::Result

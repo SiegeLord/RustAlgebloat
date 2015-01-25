@@ -7,55 +7,55 @@ impl<T: MatrixShape>
 MatrixReshape for
 T
 {
-	unsafe fn unsafe_reshape(self, nrow: uint, ncol: uint) -> Reshape<T>
+	unsafe fn unsafe_reshape(self, nrow: usize, ncol: usize) -> Reshape<T>
 	{
 		Reshape::unsafe_new(self, nrow, ncol)
 	}
 
-	fn reshape(self, nrow: uint, ncol: uint) -> Reshape<T>
+	fn reshape(self, nrow: usize, ncol: usize) -> Reshape<T>
 	{
 		Reshape::new(self, nrow, ncol)
 	}
 }
 
-#[deriving(Copy)]
+#[derive(Copy)]
 pub struct Reshape<T>
 {
 	base: T,
-	nrow: uint,
-	ncol: uint,
+	nrow: usize,
+	ncol: usize,
 }
 
 impl<T: MatrixShape>
 Reshape<T>
 {
-	pub unsafe fn unsafe_new(base: T, nrow: uint, ncol: uint) -> Reshape<T>
+	pub unsafe fn unsafe_new(base: T, nrow: usize, ncol: usize) -> Reshape<T>
 	{
 		Reshape{ base: base, nrow: nrow, ncol: ncol }
 	}
 
-	pub fn new(base: T, nrow: uint, ncol: uint) -> Reshape<T>
+	pub fn new(base: T, nrow: usize, ncol: usize) -> Reshape<T>
 	{
 		assert!(nrow * ncol == base.len());
 		Reshape{ base: base, nrow: nrow, ncol: ncol }
 	}
 }
 
-impl<T: MatrixGet<uint>>
+impl<T: MatrixGet<usize>>
 MatrixRawGet for
 Reshape<T>
 {
-	unsafe fn raw_get(&self, r: uint, c: uint) -> f64
+	unsafe fn raw_get(&self, r: usize, c: usize) -> f64
 	{
 		self.base.unsafe_get(r * self.ncol() + c)
 	}
 }
 
-impl<T: MatrixSet<uint>>
+impl<T: MatrixSet<usize>>
 MatrixRawSet for
 Reshape<T>
 {
-	unsafe fn raw_set(&self, r: uint, c: uint, val: f64)
+	unsafe fn raw_set(&self, r: usize, c: usize, val: f64)
 	{
 		self.base.unsafe_set(r * self.ncol() + c, val)
 	}
@@ -65,11 +65,11 @@ impl<T>
 MatrixShape for
 Reshape<T>
 {
-	fn nrow(&self) -> uint
+	fn nrow(&self) -> usize
 	{
 		self.nrow
 	}
-	fn ncol(&self) -> uint
+	fn ncol(&self) -> usize
 	{
 		self.ncol
 	}
@@ -79,7 +79,7 @@ impl<T: MatrixShape>
 SameShape for
 Reshape<T>
 {
-	fn same_shape(&self, nrow: uint, ncol: uint) -> bool
+	fn same_shape(&self, nrow: usize, ncol: usize) -> bool
 	{
 		self.nrow() == nrow && self.ncol() == ncol
 	}
@@ -96,7 +96,7 @@ Reshape<T>
 }
 
 impl<T: MatrixRawGet + MatrixShape>
-fmt::Show for
+fmt::Display for
 Reshape<T>
 {
 	fn fmt(&self, buf: &mut fmt::Formatter) -> fmt::Result

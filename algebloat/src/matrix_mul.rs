@@ -28,7 +28,7 @@ MatrixMultiply<RHS> for LHS
 	}
 }
 
-#[deriving(Copy)]
+#[derive(Copy)]
 pub struct MatrixMul<LHS, RHS>
 {
 	lhs: LHS,
@@ -56,11 +56,11 @@ impl<LHS: MatrixRawGet + MatrixShape,
 MatrixRawGet for
 MatrixMul<LHS, RHS>
 {
-	unsafe fn raw_get(&self, r: uint, c: uint) -> f64
+	unsafe fn raw_get(&self, r: usize, c: usize) -> f64
 	{
 		let mut ret = 0.0;
 		
-		for z in range(0, self.lhs.ncol())
+		for z in 0..self.lhs.ncol()
 		{
 			ret += self.lhs.raw_get(r, z) * self.rhs.raw_get(z, c);
 		}
@@ -73,11 +73,11 @@ impl<LHS: MatrixShape,
 MatrixShape for
 MatrixMul<LHS, RHS>
 {
-	fn nrow(&self) -> uint
+	fn nrow(&self) -> usize
 	{
 		self.lhs.nrow()
 	}
-	fn ncol(&self) -> uint
+	fn ncol(&self) -> usize
 	{
 		self.rhs.ncol()
 	}
@@ -96,7 +96,7 @@ MatrixMul<LHS, RHS>
 
 impl<LHS: MatrixRawGet + MatrixShape,
      RHS: MatrixRawGet + MatrixShape>
-fmt::Show for
+fmt::Display for
 MatrixMul<LHS, RHS>
 {
 	fn fmt(&self, buf: &mut fmt::Formatter) -> fmt::Result

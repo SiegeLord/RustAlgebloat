@@ -3,6 +3,7 @@
 // All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.
 
 use std::fmt;
+use std::ops::*;
 
 use traits::{MatrixShape, MatrixRawGet, SameShape};
 use row_accessor::RowAccessor;
@@ -26,7 +27,7 @@ macro_rules! op
 {
 	($name: ident, $op: tt) =>
 	{
-		#[deriving(Copy, Clone)]
+		#[derive(Copy, Clone)]
 		pub struct $name;
 		impl $name
 		{
@@ -57,7 +58,7 @@ op!(OpSub, -);
 op!(OpDiv, /);
 op!(OpMul, *);
 
-#[deriving(Copy)]
+#[derive(Copy)]
 pub struct MatrixBinOp<TA, TB, TO>
 {
 	a: TA,
@@ -100,7 +101,7 @@ impl<TA: MatrixRawGet + MatrixShape,
 MatrixRawGet for
 MatrixBinOp<TA, TB, TO>
 {
-	unsafe fn raw_get(&self, r: uint, c: uint) -> f64
+	unsafe fn raw_get(&self, r: usize, c: usize) -> f64
 	{
 		self.o.op(self.a.raw_get(r, c), self.b.raw_get(r, c))
 	}
@@ -112,12 +113,12 @@ impl<TA: MatrixShape,
 MatrixShape for
 MatrixBinOp<TA, TB, TO>
 {
-	fn nrow(&self) -> uint
+	fn nrow(&self) -> usize
 	{
 		self.a.nrow()
 	}
 
-	fn ncol(&self) -> uint
+	fn ncol(&self) -> usize
 	{
 		self.a.ncol()
 	}
@@ -129,7 +130,7 @@ impl<TA: MatrixShape,
 SameShape for
 MatrixBinOp<TA, TB, TO>
 {
-	fn same_shape(&self, nrow: uint, ncol: uint) -> bool
+	fn same_shape(&self, nrow: usize, ncol: usize) -> bool
 	{
 		self.nrow() == nrow && self.ncol() == ncol
 	}
@@ -138,7 +139,7 @@ MatrixBinOp<TA, TB, TO>
 impl<TA: MatrixRawGet + MatrixShape,
      TB: MatrixRawGet + SameShape,
      TO: BinOp>
-fmt::Show for
+fmt::Display for
 MatrixBinOp<TA, TB, TO>
 {
 	fn fmt(&self, buf: &mut fmt::Formatter) -> fmt::Result
@@ -155,9 +156,10 @@ macro_rules! bin_op
              TA: MatrixRawGet + Clone + MatrixShape,
              TB: MatrixRawGet + Clone + SameShape,
              TO: BinOp + Clone>
-		$op_name<RHS, MatrixBinOp<MatrixBinOp<TA, TB, TO>, RHS, $op>> for
+		$op_name<RHS> for
 		MatrixBinOp<TA, TB, TO>
 		{
+			type Output = MatrixBinOp<MatrixBinOp<TA, TB, TO>, RHS, $op>;
 			fn $op_method(self, rhs: RHS) -> MatrixBinOp<MatrixBinOp<TA, TB, TO>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
@@ -167,9 +169,10 @@ macro_rules! bin_op
 		impl<RHS: MatrixRawGet + Clone + SameShape,
              TA: MatrixRawGet + Clone + MatrixShape,
              TO: UnOp + Clone>
-		$op_name<RHS, MatrixBinOp<MatrixUnOp<TA, TO>, RHS, $op>> for
+		$op_name<RHS> for
 		MatrixUnOp<TA, TO>
 		{
+			type Output = MatrixBinOp<MatrixUnOp<TA, TO>, RHS, $op>;
 			fn $op_method(self, rhs: RHS) -> MatrixBinOp<MatrixUnOp<TA, TO>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
@@ -178,9 +181,10 @@ macro_rules! bin_op
 		
 		impl<'l,
 		     RHS: MatrixRawGet + Clone + SameShape>
-		$op_name<RHS, MatrixBinOp<&'l Matrix, RHS, $op>> for
+		$op_name<RHS> for
 		&'l Matrix
 		{
+			type Output = MatrixBinOp<&'l Matrix, RHS, $op>;
 			fn $op_method(self, rhs: RHS) -> MatrixBinOp<&'l Matrix, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
@@ -189,9 +193,10 @@ macro_rules! bin_op
 
 		impl<RHS: MatrixRawGet + Clone + SameShape,
 		     T:   MatrixShape + Clone>
-		$op_name<RHS, MatrixBinOp<View<T>, RHS, $op>> for
+		$op_name<RHS> for
 		View<T>
 		{
+			type Output = MatrixBinOp<View<T>, RHS, $op>;
 			fn $op_method(self, rhs: RHS) -> MatrixBinOp<View<T>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
@@ -200,9 +205,10 @@ macro_rules! bin_op
 
 		impl<RHS: MatrixRawGet + Clone + SameShape,
 		     T:   MatrixShape + Clone>
-		$op_name<RHS, MatrixBinOp<Slice<T>, RHS, $op>> for
+		$op_name<RHS> for
 		Slice<T>
 		{
+			type Output = MatrixBinOp<Slice<T>, RHS, $op>;
 			fn $op_method(self, rhs: RHS) -> MatrixBinOp<Slice<T>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
@@ -211,9 +217,10 @@ macro_rules! bin_op
 
 		impl<RHS: MatrixRawGet + Clone + SameShape,
 		     T:   MatrixShape + Clone>
-		$op_name<RHS, MatrixBinOp<Reshape<T>, RHS, $op>> for
+		$op_name<RHS> for
 		Reshape<T>
 		{
+			type Output = MatrixBinOp<Reshape<T>, RHS, $op>;
 			fn $op_method(self, rhs: RHS) -> MatrixBinOp<Reshape<T>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
@@ -222,9 +229,10 @@ macro_rules! bin_op
 
 		impl<RHS: MatrixRawGet + Clone + SameShape,
 		     T:   MatrixShape + Clone>
-		$op_name<RHS, MatrixBinOp<Transposer<T>, RHS, $op>> for
+		$op_name<RHS> for
 		Transposer<T>
 		{
+			type Output = MatrixBinOp<Transposer<T>, RHS, $op>;
 			fn $op_method(self, rhs: RHS) -> MatrixBinOp<Transposer<T>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
@@ -233,9 +241,10 @@ macro_rules! bin_op
 
 		impl<RHS: MatrixRawGet + Clone + SameShape,
 		     T:   MatrixShape + Clone>
-		$op_name<RHS, MatrixBinOp<RowAccessor<T>, RHS, $op>> for
+		$op_name<RHS> for
 		RowAccessor<T>
 		{
+			type Output = MatrixBinOp<RowAccessor<T>, RHS, $op>;
 			fn $op_method(self, rhs: RHS) -> MatrixBinOp<RowAccessor<T>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
@@ -244,9 +253,10 @@ macro_rules! bin_op
 
 		impl<RHS: MatrixRawGet + Clone + SameShape,
 		     T:   MatrixShape + Clone>
-		$op_name<RHS, MatrixBinOp<ColumnAccessor<T>, RHS, $op>> for
+		$op_name<RHS> for
 		ColumnAccessor<T>
 		{
+			type Output = MatrixBinOp<ColumnAccessor<T>, RHS, $op>;
 			fn $op_method(self, rhs: RHS) -> MatrixBinOp<ColumnAccessor<T>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
@@ -256,9 +266,10 @@ macro_rules! bin_op
 		impl<RHS: MatrixRawGet + Clone + SameShape,
 		     T1:  MatrixShape + Clone,
 		     T2:  MatrixShape + Clone>
-		$op_name<RHS, MatrixBinOp<MatrixMul<T1, T2>, RHS, $op>> for
+		$op_name<RHS> for
 		MatrixMul<T1, T2>
 		{
+			type Output = MatrixBinOp<MatrixMul<T1, T2>, RHS, $op>;
 			fn $op_method(self, rhs: RHS) -> MatrixBinOp<MatrixMul<T1, T2>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
@@ -268,9 +279,10 @@ macro_rules! bin_op
 		impl<RHS: MatrixRawGet + Clone + SameShape,
 		     T1:  MatrixShape + Clone,
 		     T2:  MatrixShape + Clone>
-		$op_name<RHS, MatrixBinOp<HStack<T1, T2>, RHS, $op>> for
+		$op_name<RHS> for
 		HStack<T1, T2>
 		{
+			type Output = MatrixBinOp<HStack<T1, T2>, RHS, $op>;
 			fn $op_method(self, rhs: RHS) -> MatrixBinOp<HStack<T1, T2>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())
@@ -280,9 +292,10 @@ macro_rules! bin_op
 		impl<RHS: MatrixRawGet + Clone + SameShape,
 		     T1:  MatrixShape + Clone,
 		     T2:  MatrixShape + Clone>
-		$op_name<RHS, MatrixBinOp<VStack<T1, T2>, RHS, $op>> for
+		$op_name<RHS> for
 		VStack<T1, T2>
 		{
+			type Output = MatrixBinOp<VStack<T1, T2>, RHS, $op>;
 			fn $op_method(self, rhs: RHS) -> MatrixBinOp<VStack<T1, T2>, RHS, $op>
 			{
 				MatrixBinOp::new(self.clone(), rhs.clone(), $op::new())

@@ -9,7 +9,7 @@ macro_rules! bin_fun
 {
 	($struct_name: ident, $trait_name: ident, $func_name: ident) =>
 	{
-		#[deriving(Copy, Clone)]
+		#[derive(Copy, Clone)]
 		pub struct $struct_name;
 
 		impl $struct_name
@@ -23,7 +23,7 @@ macro_rules! bin_fun
 		mod $func_name
 		{
 			#[allow(unused_imports)]
-			use std::num::{Float, FloatMath};
+			use std::num::Float;
 
 			#[inline]
 			pub fn $func_name(a: f64, b: f64) -> f64

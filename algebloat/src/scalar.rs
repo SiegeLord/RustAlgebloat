@@ -8,7 +8,7 @@ impl
 SameShape for
 f64
 {
-	fn same_shape(&self, _: uint, _: uint) -> bool
+	fn same_shape(&self, _: usize, _: usize) -> bool
 	{
 		true
 	}
@@ -18,7 +18,7 @@ impl
 MatrixRawGet for
 f64
 {
-	unsafe fn raw_get(&self, _: uint, _: uint) -> f64
+	unsafe fn raw_get(&self, _: usize, _: usize) -> f64
 	{
 		*self
 	}

@@ -6,15 +6,15 @@ use traits::{MatrixGet, MatrixShape};
 
 pub trait MatrixReduce
 {
-	fn min(&self) -> Option<(uint, f64)>;
-	fn max(&self) -> Option<(uint, f64)>;
+	fn min(&self) -> Option<(usize, f64)>;
+	fn max(&self) -> Option<(usize, f64)>;
 }
 
-impl<T: MatrixGet<uint> + MatrixShape>
+impl<T: MatrixGet<usize> + MatrixShape>
 MatrixReduce for
 T
 {
-	fn min(&self) -> Option<(uint, f64)>
+	fn min(&self) -> Option<(usize, f64)>
 	{
 		let l = self.len();
 		if l == 0
@@ -25,7 +25,7 @@ T
 		{
 			let mut ret = self.get(0);
 			let mut ret_i = 0;
-			for i in range(1, l)
+			for i in 1..l
 			{
 				unsafe
 				{
@@ -41,7 +41,7 @@ T
 		}
 	}
 
-	fn max(&self) -> Option<(uint, f64)>
+	fn max(&self) -> Option<(usize, f64)>
 	{
 		let l = self.len();
 		if l == 0
@@ -52,7 +52,7 @@ T
 		{
 			let mut ret = self.get(0);
 			let mut ret_i = 0;
-			for i in range(1, l)
+			for i in 1..l
 			{
 				unsafe
 				{

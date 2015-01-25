@@ -2,12 +2,10 @@
 //
 // All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.
 
-#![feature(globs, macro_rules, phase, import_shadowing)]
-
 #![crate_type = "lib"]
 #![crate_name = "algebloat"]
 
-#[phase(plugin)]
+#[macro_use]
 extern crate algebloat_macros;
 
 pub use matrix::*;

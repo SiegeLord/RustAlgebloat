@@ -76,12 +76,12 @@ macro_rules! index_impl
 	}
 }
 
-fn to_rc(idx: uint, ncol: uint) -> (uint, uint)
+fn to_rc(idx: usize, ncol: usize) -> (usize, usize)
 {
 	(idx / ncol, idx % ncol)
 }
 
-index_impl!(self_, mat, (uint, uint), {*self_});
-index_impl!(self_, mat, (int, int), {let (r, c) = *self_; (r as uint, c as uint)});
-index_impl!(self_, mat, uint, {to_rc(*self_, mat.ncol())});
-index_impl!(self_, mat, int,  {to_rc(*self_ as uint, mat.ncol())});
+index_impl!(self_, mat, (usize, usize), {*self_});
+index_impl!(self_, mat, (i32, i32), {let (r, c) = *self_; (r as usize, c as usize)});
+index_impl!(self_, mat, usize, {to_rc(*self_, mat.ncol())});
+index_impl!(self_, mat, i32,  {to_rc(*self_ as usize, mat.ncol())});

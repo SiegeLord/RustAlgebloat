@@ -4,7 +4,7 @@
 
 use traits::{MatrixGet, MatrixElems, MatrixShape};
 
-impl<T: MatrixGet<uint> + MatrixShape>
+impl<T: MatrixGet<usize> + MatrixShape>
 MatrixElems for
 T
 {
@@ -14,14 +14,14 @@ T
 	}
 }
 
-#[deriving(Copy)]
+#[derive(Copy)]
 pub struct MatrixElements<T>
 {
 	base: T,
-	idx: uint
+	idx: usize
 }
 
-impl<T: MatrixGet<uint> + MatrixShape>
+impl<T: MatrixGet<usize> + MatrixShape>
 MatrixElements<T>
 {
 	pub fn new(base: T) -> MatrixElements<T>
@@ -30,10 +30,11 @@ MatrixElements<T>
 	}
 }
 
-impl<T: MatrixGet<uint> + MatrixShape>
-Iterator<f64> for
+impl<T: MatrixGet<usize> + MatrixShape>
+Iterator for
 MatrixElements<T>
 {
+	type Item = f64;
 	fn next(&mut self) -> Option<f64>
 	{
 		let ret = if self.idx < self.base.len()

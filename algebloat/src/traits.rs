@@ -17,12 +17,12 @@ use index::{MatrixIndexGet, MatrixIndexSet};
 
 pub trait MatrixRawGet
 {
-	unsafe fn raw_get(&self, r: uint, c: uint) -> f64;
+	unsafe fn raw_get(&self, r: usize, c: usize) -> f64;
 }
 
 pub trait MatrixRawSet
 {
-	unsafe fn raw_set(&self, r: uint, c: uint, val: f64);
+	unsafe fn raw_set(&self, r: usize, c: usize, val: f64);
 }
 
 pub trait MatrixGet<T>
@@ -39,15 +39,15 @@ pub trait MatrixSet<T>
 
 pub trait MatrixShape
 {
-	fn ncol(&self) -> uint;
-	fn nrow(&self) -> uint;
+	fn ncol(&self) -> usize;
+	fn nrow(&self) -> usize;
 	#[inline]
-	fn size(&self) -> (uint, uint)
+	fn size(&self) -> (usize, usize)
 	{
 		(self.nrow(), self.ncol())
 	}
 	#[inline]
-	fn len(&self) -> uint
+	fn len(&self) -> usize
 	{
 		self.nrow() * self.ncol()
 	}
@@ -56,7 +56,7 @@ pub trait MatrixShape
 /* Hack necessary for operator overloading */
 pub trait SameShape
 {
-	fn same_shape(&self, nrow: uint, ncol: uint) -> bool;
+	fn same_shape(&self, nrow: usize, ncol: usize) -> bool;
 }
 
 pub trait MatrixTranspose
@@ -66,32 +66,32 @@ pub trait MatrixTranspose
 
 pub trait MatrixRowAccess
 {
-	unsafe fn unsafe_row(self, row: uint) -> RowAccessor<Self>;
-	fn row(self, row: uint) -> RowAccessor<Self>;
+	unsafe fn unsafe_row(self, row: usize) -> RowAccessor<Self>;
+	fn row(self, row: usize) -> RowAccessor<Self>;
 }
 
 pub trait MatrixColumnAccess
 {
-	unsafe fn unsafe_col(self, col: uint) -> ColumnAccessor<Self>;
-	fn col(self, col: uint) -> ColumnAccessor<Self>;
+	unsafe fn unsafe_col(self, col: usize) -> ColumnAccessor<Self>;
+	fn col(self, col: usize) -> ColumnAccessor<Self>;
 }
 
 pub trait MatrixView
 {
-	unsafe fn unsafe_view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<Self>;
-	fn view(self, row_start: uint, col_start: uint, row_end: uint, col_end: uint) -> View<Self>;
+	unsafe fn unsafe_view(self, row_start: usize, col_start: usize, row_end: usize, col_end: usize) -> View<Self>;
+	fn view(self, row_start: usize, col_start: usize, row_end: usize, col_end: usize) -> View<Self>;
 }
 
 pub trait MatrixReshape
 {
-	unsafe fn unsafe_reshape(self, nrow: uint, ncol: uint) -> Reshape<Self>;
-	fn reshape(self, nrow: uint, ncol: uint) -> Reshape<Self>;
+	unsafe fn unsafe_reshape(self, nrow: usize, ncol: usize) -> Reshape<Self>;
+	fn reshape(self, nrow: usize, ncol: usize) -> Reshape<Self>;
 }
 
 pub trait MatrixSlice
 {
-	unsafe fn unsafe_slice(self, start: uint, end: uint) -> Slice<Self>;
-	fn slice(self, start: uint, end: uint) -> Slice<Self>;
+	unsafe fn unsafe_slice(self, start: usize, end: usize) -> Slice<Self>;
+	fn slice(self, start: usize, end: usize) -> Slice<Self>;
 }
 
 pub trait MatrixAssign<RHS>
@@ -164,21 +164,21 @@ LHS
 
 //~ impl<LHS: MatrixShape + MatrixRawSet,
      //~ RHS: MatrixShape + MatrixRawGet>
-impl<LHS: MatrixShape + MatrixRawSet + MatrixSet<uint>,
-     RHS: MatrixShape + MatrixRawGet + MatrixGet<uint>>
+impl<LHS: MatrixShape + MatrixRawSet + MatrixSet<usize>,
+     RHS: MatrixShape + MatrixRawGet + MatrixGet<usize>>
 MatrixAssign<RHS> for LHS
 {
 	unsafe fn unsafe_assign(&self, m: RHS)
 	{
-		//~ for r in range(0, self.nrow())
+		//~ for r in 0..self.nrow()
 		//~ {
-			//~ for c in range(0, self.ncol())
+			//~ for c in 0..self.ncol()
 			//~ {
 				//~ self.raw_set(r, c, m.raw_get(r, c));
 			//~ }
 		//~ }
 		//~ 
-		for i in range(0, self.len())
+		for i in 0..self.len()
 		{
 			self.unsafe_set(i, m.unsafe_get(i));
 		}
@@ -195,7 +195,7 @@ MatrixAssign<RHS> for LHS
 	}
 }
 
-impl<T: MatrixShape + MatrixGet<uint>>
+impl<T: MatrixShape + MatrixGet<usize>>
 ToMatrix for T
 {
 	fn to_mat(self) -> Matrix
@@ -209,7 +209,7 @@ ToMatrix for T
 //~ SameShape for
 //~ T
 //~ {
-	//~ fn same_shape(&self, nrow: uint, ncol: uint) -> bool
+	//~ fn same_shape(&self, nrow: usize, ncol: usize) -> bool
 	//~ {
 		//~ self.nrow() == nrow && self.ncol() == ncol
 	//~ }

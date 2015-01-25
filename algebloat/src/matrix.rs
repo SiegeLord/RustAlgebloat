@@ -12,8 +12,8 @@ use traits::{MatrixRawGet, MatrixRawSet, MatrixShape, SameShape};
 pub struct Matrix
 {
 	data: Vec<Cell<f64>>,
-	nrow: uint,
-	ncol: uint
+	nrow: usize,
+	ncol: usize
 }
 
 impl Matrix
@@ -34,32 +34,36 @@ impl Matrix
 		Matrix{ data: mat_data, nrow: nrow, ncol: ncol }
 	}
 
-	pub fn eye(size: uint) -> Matrix
+	pub fn eye(size: usize) -> Matrix
 	{
 		Matrix::from_fn(size, size, |r, c| if r == c { 1.0 } else { 0.0 })
 	}
 
-	pub fn zeros(nrow: uint, ncol: uint) -> Matrix
+	pub fn zeros(nrow: usize, ncol: usize) -> Matrix
 	{
 		Matrix::from_elem(nrow, ncol, 0.0)
 	}
 
-	pub fn ones(nrow: uint, ncol: uint) -> Matrix
+	pub fn ones(nrow: usize, ncol: usize) -> Matrix
 	{
 		Matrix::from_elem(nrow, ncol, 1.0)
 	}
 
-	pub fn from_elem(nrow: uint, ncol: uint, elem: f64) -> Matrix
-	{
-		Matrix{ data: Vec::from_elem(nrow * ncol, Cell::new(elem)), nrow: nrow, ncol: ncol }
-	}
-
-	pub fn from_fn(nrow: uint, ncol: uint, cb: |uint, uint| -> f64) -> Matrix
+	pub fn from_elem(nrow: usize, ncol: usize, elem: f64) -> Matrix
 	{
 		let mut mat_data = Vec::with_capacity(nrow * ncol);
-		for r in range(0, nrow)
+		for _ in 0..nrow * ncol {
+			mat_data.push(Cell::new(elem));
+		}
+		Matrix{ data: mat_data, nrow: nrow, ncol: ncol }
+	}
+
+	pub fn from_fn<F: FnMut(usize, usize) -> f64>(nrow: usize, ncol: usize, mut cb: F) -> Matrix
+	{
+		let mut mat_data = Vec::with_capacity(nrow * ncol);
+		for r in 0..nrow
 		{
-			for c in range(0, ncol)
+			for c in 0..ncol
 			{
 				mat_data.push(Cell::new(cb(r, c)));
 			}
@@ -67,7 +71,7 @@ impl Matrix
 		Matrix{ data: mat_data, nrow: nrow, ncol: ncol }
 	}
 
-	pub fn from_iter<T: Iterator<f64>>(nrow: uint, ncol: uint, t: T) -> Matrix
+	pub fn from_iter<T: Iterator<Item=f64>>(nrow: usize, ncol: usize, t: T) -> Matrix
 	{
 		let mat_data: Vec<Cell<f64>> = t.map(|v| Cell::new(v)).collect();
 		assert_eq!(mat_data.len(), nrow * ncol);
@@ -80,9 +84,9 @@ MatrixRawGet for
 &'l Matrix
 {
 	#[inline]
-	unsafe fn raw_get(&self, r: uint, c: uint) -> f64
+	unsafe fn raw_get(&self, r: usize, c: usize) -> f64
 	{
-		self.data.as_slice().unsafe_get(c + r * self.ncol).get()
+		self.data[].get_unchecked(c + r * self.ncol).get()
 	}
 }
 
@@ -91,9 +95,9 @@ MatrixRawSet for
 &'l Matrix
 {
 	#[inline]
-	unsafe fn raw_set(&self, r: uint, c: uint, val: f64)
+	unsafe fn raw_set(&self, r: usize, c: usize, val: f64)
 	{
-		self.data.as_slice().unsafe_get(c + r * self.ncol).set(val);
+		self.data[].get_unchecked(c + r * self.ncol).set(val);
 	}
 }
 
@@ -102,13 +106,13 @@ MatrixShape for
 &'l Matrix
 {
 	#[inline]
-	fn nrow(&self) -> uint
+	fn nrow(&self) -> usize
 	{
 		self.nrow
 	}
 
 	#[inline]
-	fn ncol(&self) -> uint
+	fn ncol(&self) -> usize
 	{
 		self.ncol
 	}
@@ -118,7 +122,7 @@ impl<'l>
 SameShape for
 &'l Matrix
 {
-	fn same_shape(&self, nrow: uint, ncol: uint) -> bool
+	fn same_shape(&self, nrow: usize, ncol: usize) -> bool
 	{
 		self.nrow() == nrow && self.ncol() == ncol
 	}
@@ -129,9 +133,9 @@ MatrixRawGet for
 Matrix
 {
 	#[inline]
-	unsafe fn raw_get(&self, r: uint, c: uint) -> f64
+	unsafe fn raw_get(&self, r: usize, c: usize) -> f64
 	{
-		self.data.as_slice().unsafe_get(c + r * self.ncol).get()
+		self.data[].get_unchecked(c + r * self.ncol).get()
 	}
 }
 
@@ -140,9 +144,9 @@ MatrixRawSet for
 Matrix
 {
 	#[inline]
-	unsafe fn raw_set(&self, r: uint, c: uint, val: f64)
+	unsafe fn raw_set(&self, r: usize, c: usize, val: f64)
 	{
-		self.data.as_slice().unsafe_get(c + r * self.ncol).set(val);
+		self.data[].get_unchecked(c + r * self.ncol).set(val);
 	}
 }
 
@@ -151,31 +155,29 @@ MatrixShape for
 Matrix
 {
 	#[inline]
-	fn nrow(&self) -> uint
+	fn nrow(&self) -> usize
 	{
 		self.nrow
 	}
 
 	#[inline]
-	fn ncol(&self) -> uint
+	fn ncol(&self) -> usize
 	{
 		self.ncol
 	}
 }
 
-pub fn write_mat<T: MatrixRawGet + MatrixShape>(fmt: &mut fmt::Formatter, a: &T) -> fmt::Result
+pub fn write_mat<T: MatrixRawGet + MatrixShape>(w: &mut fmt::Formatter, a: &T) -> fmt::Result
 {
 	use std::cmp::max;
 	
-	let alt = fmt.flags() & (1 << (fmt::rt::FlagAlternate as uint)) != 0;
-	
-	let w: &mut Writer = fmt;
+	let alt = w.flags() & (1 << (fmt::rt::FlagAlternate as usize)) != 0;
 	
 	/* HACK: This could avoid allocating all the strings... */
-	let col_widths: Vec<uint> =
-		range(0, a.ncol())
+	let col_widths: Vec<usize> =
+		(0..a.ncol())
 		.map(|c|
-			range(0, a.nrow())
+			(0..a.nrow())
 			.map(|r| unsafe
 				{
 					a.raw_get(r, c)
@@ -183,7 +185,7 @@ pub fn write_mat<T: MatrixRawGet + MatrixShape>(fmt: &mut fmt::Formatter, a: &T)
 			.fold(0, |l, v| max(l, v.to_string().len())))
 		.collect();
 	
-	for r in range(0, a.nrow())
+	for r in 0..a.nrow()
 	{
 		let mut first = true;
 		let mstr =
@@ -235,7 +237,7 @@ pub fn write_mat<T: MatrixRawGet + MatrixShape>(fmt: &mut fmt::Formatter, a: &T)
 				}
 			};
 		try!(write!(w, "{}", lstr).map_err(|_| fmt::Error));
-		for c in range(0, a.ncol())
+		for c in 0..a.ncol()
 		{
 			if !first
 			{
@@ -253,7 +255,7 @@ pub fn write_mat<T: MatrixRawGet + MatrixShape>(fmt: &mut fmt::Formatter, a: &T)
 }
 
 impl
-fmt::Show for
+fmt::Display for
 Matrix
 {
 	fn fmt(&self, buf: &mut fmt::Formatter) -> fmt::Result

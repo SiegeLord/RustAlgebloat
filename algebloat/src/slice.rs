@@ -7,34 +7,34 @@ impl<T: MatrixShape>
 MatrixSlice for
 T
 {
-	unsafe fn unsafe_slice(self, start: uint, end: uint) -> Slice<T>
+	unsafe fn unsafe_slice(self, start: usize, end: usize) -> Slice<T>
 	{
 		Slice::unsafe_new(self, start, end)
 	}
 
-	fn slice(self, start: uint, end: uint) -> Slice<T>
+	fn slice(self, start: usize, end: usize) -> Slice<T>
 	{
 		Slice::new(self, start, end)
 	}
 }
 
-#[deriving(Copy)]
+#[derive(Copy)]
 pub struct Slice<T>
 {
 	base: T,
-	start: uint,
-	end: uint,
+	start: usize,
+	end: usize,
 }
 
 impl<T: MatrixShape>
 Slice<T>
 {
-	pub unsafe fn unsafe_new(base: T, start: uint, end: uint) -> Slice<T>
+	pub unsafe fn unsafe_new(base: T, start: usize, end: usize) -> Slice<T>
 	{
 		Slice{ base: base, start: start, end: end }
 	}
 
-	pub fn new(base: T, start: uint, end: uint) -> Slice<T>
+	pub fn new(base: T, start: usize, end: usize) -> Slice<T>
 	{
 		assert!(start <= end);
 		assert!(end <= base.len());
@@ -42,21 +42,21 @@ Slice<T>
 	}
 }
 
-impl<T: MatrixGet<uint>>
+impl<T: MatrixGet<usize>>
 MatrixRawGet for
 Slice<T>
 {
-	unsafe fn raw_get(&self, r: uint, _c: uint) -> f64
+	unsafe fn raw_get(&self, r: usize, _c: usize) -> f64
 	{
 		self.base.unsafe_get(r + self.start)
 	}
 }
 
-impl<T: MatrixSet<uint>>
+impl<T: MatrixSet<usize>>
 MatrixRawSet for
 Slice<T>
 {
-	unsafe fn raw_set(&self, r: uint, _c: uint, val: f64)
+	unsafe fn raw_set(&self, r: usize, _c: usize, val: f64)
 	{
 		self.base.unsafe_set(r + self.start, val)
 	}
@@ -66,11 +66,11 @@ impl<T>
 MatrixShape for
 Slice<T>
 {
-	fn nrow(&self) -> uint
+	fn nrow(&self) -> usize
 	{
 		self.end - self.start
 	}
-	fn ncol(&self) -> uint
+	fn ncol(&self) -> usize
 	{
 		1
 	}
@@ -80,7 +80,7 @@ impl<T: MatrixShape>
 SameShape for
 Slice<T>
 {
-	fn same_shape(&self, nrow: uint, ncol: uint) -> bool
+	fn same_shape(&self, nrow: usize, ncol: usize) -> bool
 	{
 		self.nrow() == nrow && self.ncol() == ncol
 	}
@@ -97,7 +97,7 @@ Slice<T>
 }
 
 impl<T: MatrixRawGet + MatrixShape>
-fmt::Show for
+fmt::Display for
 Slice<T>
 {
 	fn fmt(&self, buf: &mut fmt::Formatter) -> fmt::Result

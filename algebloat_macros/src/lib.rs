@@ -2,8 +2,6 @@
 //
 // All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.
 
-#![feature(macro_rules)]
-
 #![crate_type="lib"]
 #![crate_name="algebloat_macros"]
 
