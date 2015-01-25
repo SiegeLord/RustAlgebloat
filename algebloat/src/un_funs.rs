@@ -5,6 +5,21 @@
 use un_ops::{UnOp, MatrixUnOp};
 use traits::MatrixShape;
 
+pub trait Inv
+{
+	#[inline]
+	fn inv(self) -> Self;
+}
+
+impl Inv for f64
+{
+	#[inline]
+	fn inv(self) -> f64
+	{
+		1.0 / self
+	}
+}
+
 macro_rules! un_fun
 {
 	($struct_name: ident, $trait_name: ident, $func_name: ident) =>
@@ -25,6 +40,8 @@ macro_rules! un_fun
 		{
 			#[allow(unused_imports)]
 			use std::num::Float;
+			#[allow(unused_imports)]
+			use super::Inv;
 
 			#[inline]
 			pub fn $func_name(a: f64) -> f64
@@ -75,3 +92,4 @@ un_fun!(SinhOp, MatrixSinhOp, sinh);
 un_fun!(SqrtOp, MatrixSqrtOp, sqrt);
 un_fun!(TanOp, MatrixTanOp, tan);
 un_fun!(TanhOp, MatrixTanhOp, tanh);
+un_fun!(InvOp, MatrixInvOp, inv);

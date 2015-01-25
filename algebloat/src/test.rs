@@ -357,3 +357,12 @@ fn convenience()
 		assert_eq!(e, 0.0)
 	}
 }
+
+#[test]
+fn inv()
+{
+	let m1 = &Matrix::from_elem(2, 2, 2.0);
+	let m2 = m1.inv();
+
+	assert_eq!(m2.get((0, 0)), 0.5);
+}
