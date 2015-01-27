@@ -50,7 +50,7 @@
     resizeShortBlocks();
     $(window).on('resize', resizeShortBlocks);
 
-    function highlightSourceLines() {
+    function highlightSourceLines(ev) {
         var i, from, to, match = window.location.hash.match(/^#?(\d+)(?:-(\d+))?$/);
         if (match) {
             from = parseInt(match[1], 10);
@@ -59,14 +59,14 @@
             if ($('#' + from).length === 0) {
                 return;
             }
-            $('#' + from)[0].scrollIntoView();
+            if (ev === null) $('#' + from)[0].scrollIntoView();
             $('.line-numbers span').removeClass('line-highlighted');
             for (i = from; i <= to; ++i) {
                 $('#' + i).addClass('line-highlighted');
             }
         }
     }
-    highlightSourceLines();
+    highlightSourceLines(null);
     $(window).on('hashchange', highlightSourceLines);
 
     $(document).on('keyup', function(e) {
@@ -555,6 +555,8 @@
         // This mapping table should match the discriminants of
         // `rustdoc::html::item_type::ItemType` type in Rust.
         var itemTypes = ["mod",
+                         "externcrate",
+                         "import",
                          "struct",
                          "enum",
                          "fn",
@@ -562,13 +564,10 @@
                          "static",
                          "trait",
                          "impl",
-                         "viewitem",
                          "tymethod",
                          "method",
                          "structfield",
                          "variant",
-                         "ffi", // retained for backward compatibility
-                         "ffs", // retained for backward compatibility
                          "macro",
                          "primitive",
                          "associatedtype",
@@ -635,7 +634,7 @@
             $('.do-search').on('click', search);
             $('.search-input').on('keyup', function() {
                 clearTimeout(keyUpTimeout);
-                keyUpTimeout = setTimeout(search, 100);
+                keyUpTimeout = setTimeout(search, 500);
             });
 
             // Push and pop states are used to add search results to the browser
@@ -669,6 +668,15 @@
             search();
         }
 
+        function plainSummaryLine(markdown) {
+            var str = markdown.replace(/\n/g, ' ')
+            str = str.replace(/'/g, "\'")
+            str = str.replace(/^#+? (.+?)/, "$1")
+            str = str.replace(/\[(.*?)\]\(.*?\)/g, "$1")
+            str = str.replace(/\[(.*?)\]\[.*?\]/g, "$1")
+            return str;
+        }
+
         index = buildIndex(rawSearchIndex);
         startSearch();
 
@@ -689,8 +697,10 @@
                 if (crates[i] == window.currentCrate) {
                     klass += ' current';
                 }
+                var desc = rawSearchIndex[crates[i]].items[0][3];
                 div.append($('<a>', {'href': '../' + crates[i] + '/index.html',
-                                    'class': klass}).text(crates[i]));
+                                     'title': plainSummaryLine(desc),
+                                     'class': klass}).text(crates[i]));
             }
             sidebar.append(div);
         }
@@ -708,7 +718,7 @@
                 var code = $('<code>').append(structs[j]);
                 $.each(code.find('a'), function(idx, a) {
                     var href = $(a).attr('href');
-                    if (href && !href.startsWith('http')) {
+                    if (href && href.indexOf('http') !== 0) {
                         $(a).attr('href', rootPath + href);
                     }
                 });
@@ -777,5 +787,36 @@
         var wrapper =  $("<div class='toggle-wrapper'>").append(mainToggle);
         $("#main > .docblock").before(wrapper);
     });
+
+    $('pre.line-numbers').on('click', 'span', function() {
+        var prev_id = 0;
+
+        function set_fragment(name) {
+            if (history.replaceState) {
+                history.replaceState(null, null, '#' + name);
+                $(window).trigger('hashchange');
+            } else {
+                location.replace('#' + name);
+            }
+        }
+
+        return function(ev) {
+            var cur_id = parseInt(ev.target.id);
+
+            if (ev.shiftKey && prev_id) {
+                if (prev_id > cur_id) {
+                    var tmp = prev_id;
+                    prev_id = cur_id;
+                    cur_id = tmp;
+                }
+
+                set_fragment(prev_id + '-' + cur_id);
+            } else {
+                prev_id = cur_id;
+
+                set_fragment(cur_id);
+            }
+        };
+    }());
 
 }());
