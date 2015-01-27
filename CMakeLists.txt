@@ -8,7 +8,7 @@ include(Rust)
 
 set(ALGEBLOAT_ROOT algebloat/src/lib.rs)
 set(ALGEBLOAT_MACROS_ROOT algebloat_macros/src/lib.rs)
-set(EXAMPLE_ROOT examples/example.rs)
+set(EXAMPLE_ROOT algebloat/examples/example.rs)
 set(CUSTOM_CSS_SRC "${CMAKE_SOURCE_DIR}/doc/main.css")
 set(CUSTOM_CSS_DEST "${CMAKE_BINARY_DIR}/doc/main.css")
 

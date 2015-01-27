@@ -8,9 +8,8 @@ from shutil import copy
 from subprocess import check_call
 
 crate_list="""
-algebloat
 algebloat_macros
-examples
+algebloat
 """
 
 parser = argparse.ArgumentParser(description='Perform an operation on all crates.')
@@ -41,10 +40,10 @@ if args.publish:
 		check_call(['cargo', 'publish'], cwd=crate)
 
 if args.build:
-	check_call(['cargo', 'build'], cwd='examples')
+	check_call(['cargo', 'build'], cwd='algebloat')
 
 if args.test:
-	check_call(['cargo', 'build'], cwd='algebloat')
+	check_call(['cargo', 'test'], cwd='algebloat')
 
 if args.clean:
 	for crate in crate_list:
