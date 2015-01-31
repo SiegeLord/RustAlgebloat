@@ -4,7 +4,7 @@
 
 use std::vec::Vec;
 use std::fmt;
-use std::io::Writer;
+use std::old_io::Writer;
 use std::cell::Cell;
 
 use traits::{MatrixRawGet, MatrixRawSet, MatrixShape, SameShape};
