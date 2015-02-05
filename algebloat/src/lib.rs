@@ -6,10 +6,12 @@
 #![crate_name = "algebloat"]
 
 #![feature(core)]
-#![feature(collections)]
+#![feature(rustc_private)]
 
 #[macro_use]
 extern crate algebloat_macros;
+
+extern crate fmt_macros;
 
 pub use matrix::*;
 pub use traits::*;
