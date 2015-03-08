@@ -1,0 +1,1 @@
+initSidebarItems({"trait":[["VectorAtan2Op",""],["VectorHypotOp",""],["VectorPowOp",""]],"struct":[["Atan2Op",""],["HypotOp",""],["PowOp",""]]});
