@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["MatrixBinOp",""],["OpAdd",""],["OpDiv",""],["OpMul",""],["OpSub",""]],"trait":[["BinOp",""]]});
+initSidebarItems({"trait":[["BinOp",""]],"struct":[["MatrixBinOp",""],["OpAdd",""],["OpDiv",""],["OpMul",""],["OpSub",""]]});
