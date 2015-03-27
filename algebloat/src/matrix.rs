@@ -86,7 +86,7 @@ MatrixRawGet for
 	#[inline]
 	unsafe fn raw_get(&self, r: usize, c: usize) -> f64
 	{
-		self.data[].get_unchecked(c + r * self.ncol).get()
+		self.data[..].get_unchecked(c + r * self.ncol).get()
 	}
 }
 
@@ -97,7 +97,7 @@ MatrixRawSet for
 	#[inline]
 	unsafe fn raw_set(&self, r: usize, c: usize, val: f64)
 	{
-		self.data[].get_unchecked(c + r * self.ncol).set(val);
+		self.data[..].get_unchecked(c + r * self.ncol).set(val);
 	}
 }
 
@@ -135,7 +135,7 @@ Matrix
 	#[inline]
 	unsafe fn raw_get(&self, r: usize, c: usize) -> f64
 	{
-		self.data[].get_unchecked(c + r * self.ncol).get()
+		self.data[..].get_unchecked(c + r * self.ncol).get()
 	}
 }
 
@@ -146,7 +146,7 @@ Matrix
 	#[inline]
 	unsafe fn raw_set(&self, r: usize, c: usize, val: f64)
 	{
-		self.data[].get_unchecked(c + r * self.ncol).set(val);
+		self.data[..].get_unchecked(c + r * self.ncol).set(val);
 	}
 }
 

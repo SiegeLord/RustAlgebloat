@@ -5,8 +5,9 @@
 #![crate_type = "lib"]
 #![crate_name = "algebloat"]
 
-#![feature(core)]
+#![feature(old_io)]
 #![feature(rustc_private)]
+#![feature(std_misc)]
 
 #[macro_use]
 extern crate algebloat_macros;

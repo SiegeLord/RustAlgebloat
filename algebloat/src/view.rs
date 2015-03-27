@@ -1,3 +1,5 @@
+#![allow(trivial_numeric_casts)]
+
 use std::fmt;
 use std::ops::*;
 
