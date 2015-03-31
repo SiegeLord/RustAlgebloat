@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["MatrixUnOp",""],["OpNeg",""]],"trait":[["UnOp",""]]});
+initSidebarItems({"trait":[["UnOp",""]],"struct":[["MatrixUnOp",""],["OpNeg",""]]});
