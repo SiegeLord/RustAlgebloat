@@ -7,10 +7,8 @@
 
 #![feature(old_io)]
 #![feature(rustc_private)]
-#![feature(std_misc)]
 #![feature(test)]
 #![feature(rand)]
-#![feature(core)]
 
 #[macro_use]
 extern crate algebloat_macros;

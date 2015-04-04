@@ -39,8 +39,6 @@ macro_rules! un_fun
 		mod $func_name
 		{
 			#[allow(unused_imports)]
-			use std::num::Float;
-			#[allow(unused_imports)]
 			use super::Inv;
 
 			#[inline]
