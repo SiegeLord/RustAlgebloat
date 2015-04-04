@@ -14,7 +14,7 @@ T
 	}
 }
 
-#[derive(Copy)]
+#[derive(Copy, Clone)]
 pub struct MatrixElements<T>
 {
 	base: T,
