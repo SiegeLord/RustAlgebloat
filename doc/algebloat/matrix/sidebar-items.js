@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["Matrix",""]],"fn":[["write_mat",""]]});
+initSidebarItems({"fn":[["write_mat",""]],"struct":[["Matrix",""]]});
