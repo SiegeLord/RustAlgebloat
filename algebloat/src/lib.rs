@@ -5,14 +5,13 @@
 #![crate_type = "lib"]
 #![crate_name = "algebloat"]
 
-#![feature(old_io)]
 #![feature(rustc_private)]
 #![feature(test)]
 #![feature(rand)]
 
 #[macro_use]
 extern crate algebloat_macros;
-
+extern crate rand;
 extern crate fmt_macros;
 
 pub use matrix::*;

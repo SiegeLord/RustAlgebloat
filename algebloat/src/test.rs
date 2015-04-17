@@ -7,7 +7,7 @@ extern crate test;
 use super::*;
 
 use self::test::Bencher;
-use std::rand::{weak_rng, Rng};
+use rand::{weak_rng, Rng};
 
 #[bench]
 fn vec_speed_vec(bh: &mut Bencher) {
