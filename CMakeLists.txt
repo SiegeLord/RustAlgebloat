@@ -4,15 +4,23 @@ project(RustAlgebloat NONE)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 find_package(rustc)
 find_package(rustdoc)
+find_package(cargo)
 include(Rust)
+
+cargo_dependency(cargo
+                 OTHER_CARGO_FLAGS --release
+                 PACKAGE_NAMES rand
+                 PACKAGE_VERSIONS =0.3.8)
 
 set(ALGEBLOAT_ROOT algebloat/src/lib.rs)
 set(ALGEBLOAT_MACROS_ROOT algebloat_macros/src/lib.rs)
 set(EXAMPLE_ROOT algebloat/examples/example.rs)
 set(CUSTOM_CSS_SRC "${CMAKE_SOURCE_DIR}/doc/main.css")
 set(CUSTOM_CSS_DEST "${CMAKE_BINARY_DIR}/doc/main.css")
+set(CARGO_DEPENDENCY_DIR "${CMAKE_BINARY_DIR}/cargo/target/release/deps")
 
-set(RUSTC_FLAGS -L ${CMAKE_BINARY_DIR}/lib -C opt-level=3)
+set(RUSTC_FLAGS -L ${CMAKE_BINARY_DIR}/lib -L ${CARGO_DEPENDENCY_DIR} -C opt-level=3
+    --extern rand=${CARGO_DEPENDENCY_DIR}/librand-b924d9fc5b3eb5b8.rlib)
 set(RUSTDOC_FLAGS -L ${CMAKE_BINARY_DIR}/lib)
 
 # Compile the macros as part of the config process
