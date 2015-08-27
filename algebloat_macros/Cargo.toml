@@ -1,7 +1,7 @@
 [package]
 
 name = "algebloat_macros"
-version = "0.0.9" #auto
+version = "0.0.10" #auto
 license = "LGPL-3.0"
 repository = "https://github.com/SiegeLord/RustAlgebloat"
 documentation = "http://siegelord.github.io/RustAlgebloat/doc/algebloat/index.html"
