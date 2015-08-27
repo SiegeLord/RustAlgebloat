@@ -20,7 +20,7 @@ set(CUSTOM_CSS_DEST "${CMAKE_BINARY_DIR}/doc/main.css")
 set(CARGO_DEPENDENCY_DIR "${CMAKE_BINARY_DIR}/cargo/target/release/deps")
 
 set(RUSTC_FLAGS -L ${CMAKE_BINARY_DIR}/lib -L ${CARGO_DEPENDENCY_DIR} -C opt-level=3
-    --extern rand=${CARGO_DEPENDENCY_DIR}/librand-b924d9fc5b3eb5b8.rlib)
+    --extern rand=${CARGO_DEPENDENCY_DIR}/librand-de6cdb9e4fd93d55.rlib)
 set(RUSTDOC_FLAGS -L ${CMAKE_BINARY_DIR}/lib)
 
 # Compile the macros as part of the config process
