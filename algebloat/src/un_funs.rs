@@ -5,7 +5,7 @@
 use un_ops::{UnOp, MatrixUnOp};
 use traits::MatrixShape;
 
-pub trait Inv
+pub trait Inv where Self: Sized
 {
 	#[inline]
 	fn inv(self) -> Self;
@@ -56,7 +56,7 @@ macro_rules! un_fun
 			}
 		}
 
-		pub trait $trait_name
+		pub trait $trait_name where Self: Sized
 		{
 			fn $func_name(self) -> MatrixUnOp<Self, $struct_name>;
 		}

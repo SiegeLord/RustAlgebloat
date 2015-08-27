@@ -18,7 +18,7 @@ use matrix_mul::MatrixMul;
 use matrix::{Matrix, write_mat};
 use un_ops::{MatrixUnOp, UnOp};
 
-pub trait BinOp
+pub trait BinOp where Self: Sized
 {
 	fn op(&self, a: f64, b: f64) -> f64;
 }

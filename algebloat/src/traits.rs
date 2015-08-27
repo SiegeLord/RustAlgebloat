@@ -59,36 +59,36 @@ pub trait SameShape
 	fn same_shape(&self, nrow: usize, ncol: usize) -> bool;
 }
 
-pub trait MatrixTranspose
+pub trait MatrixTranspose where Self: Sized
 {
 	fn t(self) -> Transposer<Self>;
 }
 
-pub trait MatrixRowAccess
+pub trait MatrixRowAccess where Self: Sized
 {
 	unsafe fn unsafe_row(self, row: usize) -> RowAccessor<Self>;
 	fn row(self, row: usize) -> RowAccessor<Self>;
 }
 
-pub trait MatrixColumnAccess
+pub trait MatrixColumnAccess where Self: Sized
 {
 	unsafe fn unsafe_col(self, col: usize) -> ColumnAccessor<Self>;
 	fn col(self, col: usize) -> ColumnAccessor<Self>;
 }
 
-pub trait MatrixView<RowRangeType, ColRangeType>
+pub trait MatrixView<RowRangeType, ColRangeType> where Self: Sized
 {
 	unsafe fn unsafe_view(self, row_range: RowRangeType, col_range: ColRangeType) -> View<Self>;
 	fn view(self, row_range: RowRangeType, col_range: ColRangeType) -> View<Self>;
 }
 
-pub trait MatrixReshape
+pub trait MatrixReshape where Self: Sized
 {
 	unsafe fn unsafe_reshape(self, nrow: usize, ncol: usize) -> Reshape<Self>;
 	fn reshape(self, nrow: usize, ncol: usize) -> Reshape<Self>;
 }
 
-pub trait MatrixSlice<RangeType>
+pub trait MatrixSlice<RangeType> where Self: Sized
 {
 	unsafe fn unsafe_slice(self, range: RangeType) -> Slice<Self>;
 	fn slice(self, range: RangeType) -> Slice<Self>;
@@ -100,7 +100,7 @@ pub trait MatrixAssign<RHS>
 	fn assign(&self, m: RHS);
 }
 
-pub trait MatrixMultiply<RHS>
+pub trait MatrixMultiply<RHS> where Self: Sized
 {
 	unsafe fn unsafe_mat_mul(self, rhs: RHS) -> Matrix;
 	unsafe fn unsafe_mat_mul_lazy(self, rhs: RHS) -> MatrixMul<Self, RHS>;
@@ -108,19 +108,19 @@ pub trait MatrixMultiply<RHS>
 	fn mat_mul_lazy(self, rhs: RHS) -> MatrixMul<Self, RHS>;
 }
 
-pub trait MatrixHStack<R>
+pub trait MatrixHStack<R> where Self: Sized
 {
 	unsafe fn unsafe_hstack(self, right: R) -> HStack<Self, R>;
 	fn hstack(self, right: R) -> HStack<Self, R>;
 }
 
-pub trait MatrixVStack<B>
+pub trait MatrixVStack<B> where Self: Sized
 {
 	unsafe fn unsafe_vstack(self, bot: B) -> VStack<Self, B>;
 	fn vstack(self, bot: B) -> VStack<Self, B>;
 }
 
-pub trait MatrixElems
+pub trait MatrixElems where Self: Sized
 {
 	fn elems(self) -> MatrixElements<Self>;
 }

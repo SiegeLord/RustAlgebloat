@@ -39,7 +39,7 @@ macro_rules! bin_fun
 			}
 		}
 
-		pub trait $trait_name<RHS>
+		pub trait $trait_name<RHS> where Self: Sized
 		{
 			fn $func_name(self, rhs: RHS) -> MatrixBinOp<Self, RHS, $struct_name>;
 		}
