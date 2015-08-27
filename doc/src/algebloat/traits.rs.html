@@ -34,7 +34,7 @@
             <div class="search-container">
                 <input class="search-input" name="search"
                        autocomplete="off"
-                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
                        type="search">
             </div>
         </form>
@@ -318,36 +318,36 @@
 	<span class='kw'>fn</span> <span class='ident'>same_shape</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>nrow</span>: <span class='ident'>usize</span>, <span class='ident'>ncol</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span>;
 }
 
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MatrixTranspose</span>
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MatrixTranspose</span> <span class='kw'>where</span> <span class='kw'>Self</span>: <span class='ident'>Sized</span>
 {
 	<span class='kw'>fn</span> <span class='ident'>t</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Transposer</span><span class='op'>&lt;</span><span class='kw'>Self</span><span class='op'>&gt;</span>;
 }
 
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MatrixRowAccess</span>
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MatrixRowAccess</span> <span class='kw'>where</span> <span class='kw'>Self</span>: <span class='ident'>Sized</span>
 {
 	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_row</span>(<span class='self'>self</span>, <span class='ident'>row</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='ident'>RowAccessor</span><span class='op'>&lt;</span><span class='kw'>Self</span><span class='op'>&gt;</span>;
 	<span class='kw'>fn</span> <span class='ident'>row</span>(<span class='self'>self</span>, <span class='ident'>row</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='ident'>RowAccessor</span><span class='op'>&lt;</span><span class='kw'>Self</span><span class='op'>&gt;</span>;
 }
 
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MatrixColumnAccess</span>
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MatrixColumnAccess</span> <span class='kw'>where</span> <span class='kw'>Self</span>: <span class='ident'>Sized</span>
 {
 	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_col</span>(<span class='self'>self</span>, <span class='ident'>col</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='ident'>ColumnAccessor</span><span class='op'>&lt;</span><span class='kw'>Self</span><span class='op'>&gt;</span>;
 	<span class='kw'>fn</span> <span class='ident'>col</span>(<span class='self'>self</span>, <span class='ident'>col</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='ident'>ColumnAccessor</span><span class='op'>&lt;</span><span class='kw'>Self</span><span class='op'>&gt;</span>;
 }
 
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MatrixView</span><span class='op'>&lt;</span><span class='ident'>RowRangeType</span>, <span class='ident'>ColRangeType</span><span class='op'>&gt;</span>
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MatrixView</span><span class='op'>&lt;</span><span class='ident'>RowRangeType</span>, <span class='ident'>ColRangeType</span><span class='op'>&gt;</span> <span class='kw'>where</span> <span class='kw'>Self</span>: <span class='ident'>Sized</span>
 {
 	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_view</span>(<span class='self'>self</span>, <span class='ident'>row_range</span>: <span class='ident'>RowRangeType</span>, <span class='ident'>col_range</span>: <span class='ident'>ColRangeType</span>) <span class='op'>-&gt;</span> <span class='ident'>View</span><span class='op'>&lt;</span><span class='kw'>Self</span><span class='op'>&gt;</span>;
 	<span class='kw'>fn</span> <span class='ident'>view</span>(<span class='self'>self</span>, <span class='ident'>row_range</span>: <span class='ident'>RowRangeType</span>, <span class='ident'>col_range</span>: <span class='ident'>ColRangeType</span>) <span class='op'>-&gt;</span> <span class='ident'>View</span><span class='op'>&lt;</span><span class='kw'>Self</span><span class='op'>&gt;</span>;
 }
 
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MatrixReshape</span>
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MatrixReshape</span> <span class='kw'>where</span> <span class='kw'>Self</span>: <span class='ident'>Sized</span>
 {
 	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_reshape</span>(<span class='self'>self</span>, <span class='ident'>nrow</span>: <span class='ident'>usize</span>, <span class='ident'>ncol</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='ident'>Reshape</span><span class='op'>&lt;</span><span class='kw'>Self</span><span class='op'>&gt;</span>;
 	<span class='kw'>fn</span> <span class='ident'>reshape</span>(<span class='self'>self</span>, <span class='ident'>nrow</span>: <span class='ident'>usize</span>, <span class='ident'>ncol</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='ident'>Reshape</span><span class='op'>&lt;</span><span class='kw'>Self</span><span class='op'>&gt;</span>;
 }
 
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MatrixSlice</span><span class='op'>&lt;</span><span class='ident'>RangeType</span><span class='op'>&gt;</span>
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MatrixSlice</span><span class='op'>&lt;</span><span class='ident'>RangeType</span><span class='op'>&gt;</span> <span class='kw'>where</span> <span class='kw'>Self</span>: <span class='ident'>Sized</span>
 {
 	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_slice</span>(<span class='self'>self</span>, <span class='ident'>range</span>: <span class='ident'>RangeType</span>) <span class='op'>-&gt;</span> <span class='ident'>Slice</span><span class='op'>&lt;</span><span class='kw'>Self</span><span class='op'>&gt;</span>;
 	<span class='kw'>fn</span> <span class='ident'>slice</span>(<span class='self'>self</span>, <span class='ident'>range</span>: <span class='ident'>RangeType</span>) <span class='op'>-&gt;</span> <span class='ident'>Slice</span><span class='op'>&lt;</span><span class='kw'>Self</span><span class='op'>&gt;</span>;
@@ -359,7 +359,7 @@
 	<span class='kw'>fn</span> <span class='ident'>assign</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>m</span>: <span class='ident'>RHS</span>);
 }
 
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MatrixMultiply</span><span class='op'>&lt;</span><span class='ident'>RHS</span><span class='op'>&gt;</span>
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MatrixMultiply</span><span class='op'>&lt;</span><span class='ident'>RHS</span><span class='op'>&gt;</span> <span class='kw'>where</span> <span class='kw'>Self</span>: <span class='ident'>Sized</span>
 {
 	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_mat_mul</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>: <span class='ident'>RHS</span>) <span class='op'>-&gt;</span> <span class='ident'>Matrix</span>;
 	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_mat_mul_lazy</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>: <span class='ident'>RHS</span>) <span class='op'>-&gt;</span> <span class='ident'>MatrixMul</span><span class='op'>&lt;</span><span class='kw'>Self</span>, <span class='ident'>RHS</span><span class='op'>&gt;</span>;
@@ -367,19 +367,19 @@
 	<span class='kw'>fn</span> <span class='ident'>mat_mul_lazy</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>: <span class='ident'>RHS</span>) <span class='op'>-&gt;</span> <span class='ident'>MatrixMul</span><span class='op'>&lt;</span><span class='kw'>Self</span>, <span class='ident'>RHS</span><span class='op'>&gt;</span>;
 }
 
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MatrixHStack</span><span class='op'>&lt;</span><span class='ident'>R</span><span class='op'>&gt;</span>
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MatrixHStack</span><span class='op'>&lt;</span><span class='ident'>R</span><span class='op'>&gt;</span> <span class='kw'>where</span> <span class='kw'>Self</span>: <span class='ident'>Sized</span>
 {
 	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_hstack</span>(<span class='self'>self</span>, <span class='ident'>right</span>: <span class='ident'>R</span>) <span class='op'>-&gt;</span> <span class='ident'>HStack</span><span class='op'>&lt;</span><span class='kw'>Self</span>, <span class='ident'>R</span><span class='op'>&gt;</span>;
 	<span class='kw'>fn</span> <span class='ident'>hstack</span>(<span class='self'>self</span>, <span class='ident'>right</span>: <span class='ident'>R</span>) <span class='op'>-&gt;</span> <span class='ident'>HStack</span><span class='op'>&lt;</span><span class='kw'>Self</span>, <span class='ident'>R</span><span class='op'>&gt;</span>;
 }
 
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MatrixVStack</span><span class='op'>&lt;</span><span class='ident'>B</span><span class='op'>&gt;</span>
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MatrixVStack</span><span class='op'>&lt;</span><span class='ident'>B</span><span class='op'>&gt;</span> <span class='kw'>where</span> <span class='kw'>Self</span>: <span class='ident'>Sized</span>
 {
 	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_vstack</span>(<span class='self'>self</span>, <span class='ident'>bot</span>: <span class='ident'>B</span>) <span class='op'>-&gt;</span> <span class='ident'>VStack</span><span class='op'>&lt;</span><span class='kw'>Self</span>, <span class='ident'>B</span><span class='op'>&gt;</span>;
 	<span class='kw'>fn</span> <span class='ident'>vstack</span>(<span class='self'>self</span>, <span class='ident'>bot</span>: <span class='ident'>B</span>) <span class='op'>-&gt;</span> <span class='ident'>VStack</span><span class='op'>&lt;</span><span class='kw'>Self</span>, <span class='ident'>B</span><span class='op'>&gt;</span>;
 }
 
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MatrixElems</span>
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MatrixElems</span> <span class='kw'>where</span> <span class='kw'>Self</span>: <span class='ident'>Sized</span>
 {
 	<span class='kw'>fn</span> <span class='ident'>elems</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>MatrixElements</span><span class='op'>&lt;</span><span class='kw'>Self</span><span class='op'>&gt;</span>;
 }
@@ -480,37 +480,44 @@
     <section class="footer"></section>
 
     <div id="help" class="hidden">
-        <div class="shortcuts">
-            <h1>Keyboard shortcuts</h1>
-            <dl>
-                <dt>?</dt>
-                <dd>Show this help dialog</dd>
-                <dt>S</dt>
-                <dd>Focus the search field</dd>
-                <dt>&larrb;</dt>
-                <dd>Move up in search results</dd>
-                <dt>&rarrb;</dt>
-                <dd>Move down in search results</dd>
-                <dt>&#9166;</dt>
-                <dd>Go to active search result</dd>
-            </dl>
-        </div>
-        <div class="infos">
-            <h1>Search tricks</h1>
-            <p>
-                Prefix searches with a type followed by a colon (e.g.
-                <code>fn:</code>) to restrict the search to a given type.
-            </p>
-            <p>
-                Accepted types are: <code>fn</code>, <code>mod</code>,
-                <code>struct</code>, <code>enum</code>,
-                <code>trait</code>, <code>typedef</code> (or
-                <code>tdef</code>).
-            </p>
-            <p>
-                Search functions by type signature (e.g.
-                <code>vec -> usize</code>)
-            </p>
+        <div>
+            <div class="shortcuts">
+                <h1>Keyboard Shortcuts</h1>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h1>Search Tricks</h1>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
         </div>
     </div>
 
