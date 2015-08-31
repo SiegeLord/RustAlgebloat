@@ -1,6 +1,7 @@
 # RustAlgebloat
 
 [![Build Status](https://travis-ci.org/SiegeLord/RustAlgebloat.png)](https://travis-ci.org/SiegeLord/RustAlgebloat)
+[![](http://meritbadge.herokuapp.com/algebloat)](https://crates.io/crates/algebloat)
 
 Do you love template bloat? Do you think waiting for your program to compile is 
 awesome? Do you think complicated error messages are the best thing since 
@@ -8,9 +9,9 @@ sliced bread? If so, this linear algebra library is just for you!
 
 ## Packages
 
-* [![](http://meritbadge.herokuapp.com/algebloat)](https://crates.io/crates/algebloat) algebloat - The main library.
+[algebloat](https://crates.io/crates/algebloat) - The main library.
 
-* [![](http://meritbadge.herokuapp.com/algebloat_macros)](https://crates.io/crates/algebloat_macros) algebloat_macros - Useful macros.
+[algebloat_macros](https://crates.io/crates/algebloat_macros) - Useful macros.
 
 ## Documentation
 
@@ -94,7 +95,7 @@ assure all the caveats above while in principle providing allocation-free speed
 ### Via Cargo:
 
 ```
-cargo build
+./cargo_util.py --build
 ```
 
 ### Via CMake 2.8:
