@@ -9,9 +9,8 @@ sliced bread? If so, this linear algebra library is just for you!
 
 ## Packages
 
-[algebloat](https://crates.io/crates/algebloat) - The main library.
-
-[algebloat_macros](https://crates.io/crates/algebloat_macros) - Useful macros.
+* [algebloat](https://crates.io/crates/algebloat) - The main library.
+* [algebloat_macros](https://crates.io/crates/algebloat_macros) - Useful macros.
 
 ## Documentation
 
