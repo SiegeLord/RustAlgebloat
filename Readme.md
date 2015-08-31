@@ -6,9 +6,15 @@ Do you love template bloat? Do you think waiting for your program to compile is
 awesome? Do you think complicated error messages are the best thing since 
 sliced bread? If so, this linear algebra library is just for you!
 
+## Packages
+
+* [![](http://meritbadge.herokuapp.com/algebloat)](https://crates.io/crates/algebloat) algebloat - The main library.
+
+* [![](http://meritbadge.herokuapp.com/algebloat_macros)](https://crates.io/crates/algebloat_macros) algebloat_macros - Useful macros.
+
 ## Documentation
 
-See [here](http://siegelord.github.io/RustAlgebloat/doc/algebloat/index.html)
+See [here](http://siegelord.github.io/RustAlgebloat/doc/algebloat/index.html).
 
 ## Example
 
@@ -87,23 +93,9 @@ assure all the caveats above while in principle providing allocation-free speed
 
 ### Via Cargo:
 
-Main library:
 ```
-[dependencies.algebloat]
-
-git = "https://github.com/SiegeLord/RustAlgebloat.git"
+cargo build
 ```
-
-Useful macros:
-```
-[dependencies.algebloat_macros]
-
-git = "https://github.com/SiegeLord/RustAlgebloat.git"
-```
-
-Examples:
-
-* algebloat_examples
 
 ### Via CMake 2.8:
 
