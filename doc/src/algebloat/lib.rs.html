@@ -95,11 +95,11 @@
 
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>rustc_private</span>)]</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>test</span>)]</span>
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>rand</span>)]</span>
 
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>algebloat_macros</span>;
-<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>rand</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>chrono</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>fmt_macros</span>;
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>matrix</span>::<span class='op'>*</span>;
