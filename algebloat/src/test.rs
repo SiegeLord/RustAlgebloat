@@ -5,15 +5,17 @@
 extern crate test;
 
 use super::*;
+use chrono::*;
 
 use self::test::Bencher;
-use rand::{weak_rng, Rng};
+
+fn rand_matrix() -> Matrix {
+	Matrix::from_iter(1, 10, (0..10).map(|_| UTC::now().timestamp() as f64))
+}
 
 #[bench]
 fn vec_speed_vec(bh: &mut Bencher) {
-	let mut rng = weak_rng();
-	
-	let a = &Matrix::from_iter(1, 10, rng.gen_iter::<f64>().take(10));
+	let a = &rand_matrix();
 	
 	#[inline(never)]
 	fn bug_14149(a: &Matrix)
@@ -38,9 +40,7 @@ fn vec_speed_vec(bh: &mut Bencher) {
 
 #[bench]
 fn vec_speed_loop(bh: &mut Bencher) {
-	let mut rng = weak_rng();
-	
-	let a = &Matrix::from_iter(1, 10, rng.gen_iter::<f64>().take(10));
+	let a = &rand_matrix();
 	
 	#[inline(never)]
 	fn bug_14149(a: &Matrix)

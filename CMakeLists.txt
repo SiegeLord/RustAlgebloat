@@ -9,8 +9,8 @@ include(Rust)
 
 cargo_dependency(cargo
                  OTHER_CARGO_FLAGS --release
-                 PACKAGE_NAMES rand
-                 PACKAGE_VERSIONS =0.3.8)
+                 PACKAGE_NAMES chrono
+                 PACKAGE_VERSIONS =0.2.16)
 
 set(ALGEBLOAT_ROOT algebloat/src/lib.rs)
 set(ALGEBLOAT_MACROS_ROOT algebloat_macros/src/lib.rs)
@@ -19,8 +19,7 @@ set(CUSTOM_CSS_SRC "${CMAKE_SOURCE_DIR}/doc/main.css")
 set(CUSTOM_CSS_DEST "${CMAKE_BINARY_DIR}/doc/main.css")
 set(CARGO_DEPENDENCY_DIR "${CMAKE_BINARY_DIR}/cargo/target/release/deps")
 
-set(RUSTC_FLAGS -L ${CMAKE_BINARY_DIR}/lib -L ${CARGO_DEPENDENCY_DIR} -C opt-level=3
-    --extern rand=${CARGO_DEPENDENCY_DIR}/librand-de6cdb9e4fd93d55.rlib)
+set(RUSTC_FLAGS -L ${CMAKE_BINARY_DIR}/lib -L ${CARGO_DEPENDENCY_DIR} -C opt-level=3)
 set(RUSTDOC_FLAGS -L ${CMAKE_BINARY_DIR}/lib)
 
 # Compile the macros as part of the config process

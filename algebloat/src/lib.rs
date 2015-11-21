@@ -7,11 +7,11 @@
 
 #![feature(rustc_private)]
 #![feature(test)]
-#![feature(rand)]
 
 #[macro_use]
 extern crate algebloat_macros;
-extern crate rand;
+#[cfg(test)]
+extern crate chrono;
 extern crate fmt_macros;
 
 pub use matrix::*;
