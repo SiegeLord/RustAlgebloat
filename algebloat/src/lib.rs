@@ -7,7 +7,6 @@
 
 #![feature(rustc_private)]
 #![feature(test)]
-#![feature(rand)]
 
 #[macro_use]
 extern crate algebloat_macros;
