@@ -10,6 +10,7 @@
 
 #[macro_use]
 extern crate algebloat_macros;
+#[cfg(test)]
 extern crate rand;
 extern crate fmt_macros;
 
