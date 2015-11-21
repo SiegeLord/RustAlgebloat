@@ -24,6 +24,6 @@ path = "examples/example.rs"
 version = "=0.0.10" #auto
 path = "../algebloat_macros"
 
-[dev-dependencies.rand]
+[dev-dependencies.chrono]
 
-version = "=0.3.8"
+version = "=0.2.16"

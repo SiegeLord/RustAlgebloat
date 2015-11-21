@@ -11,7 +11,7 @@
 #[macro_use]
 extern crate algebloat_macros;
 #[cfg(test)]
-extern crate rand;
+extern crate chrono;
 extern crate fmt_macros;
 
 pub use matrix::*;
