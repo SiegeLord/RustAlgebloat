@@ -21,7 +21,7 @@ script:
   - cd build
   - cmake .. -DCMAKE_INSTALL_PREFIX=/tmp
   - make -j
-  - make test
+  - make test VERBOSE=1
   - make doc -j
   - cd examples
   - ./example
