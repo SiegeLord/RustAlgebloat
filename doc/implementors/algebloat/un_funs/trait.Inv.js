@@ -1,5 +1,5 @@
 (function() {var implementors = {};
-implementors['algebloat'] = [];
+implementors["algebloat"] = [];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);

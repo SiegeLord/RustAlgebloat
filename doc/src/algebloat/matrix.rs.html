@@ -495,7 +495,7 @@
 	
 	<span class='kw'>for</span> <span class='ident'>r</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='ident'>a</span>.<span class='ident'>nrow</span>()
 	{
-		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>first</span> <span class='op'>=</span> <span class='boolval'>true</span>;
+		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>first</span> <span class='op'>=</span> <span class='boolvalue'>true</span>;
 		<span class='kw'>let</span> <span class='ident'>mstr</span> <span class='op'>=</span>
 			<span class='kw'>if</span> <span class='ident'>alt</span>
 			{
@@ -551,7 +551,7 @@
 			{
 				<span class='macro'>try</span><span class='macro'>!</span>(<span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>w</span>, <span class='string'>&quot;{}&quot;</span>, <span class='ident'>mstr</span>).<span class='ident'>map_err</span>(<span class='op'>|</span>_<span class='op'>|</span> <span class='ident'>fmt</span>::<span class='ident'>Error</span>));
 			}
-			<span class='ident'>first</span> <span class='op'>=</span> <span class='boolval'>false</span>;
+			<span class='ident'>first</span> <span class='op'>=</span> <span class='boolvalue'>false</span>;
 			<span class='kw'>unsafe</span>
 			{
 				<span class='macro'>try</span><span class='macro'>!</span>(<span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>w</span>, <span class='string'>&quot;{:&gt;1$}&quot;</span>, <span class='ident'>a</span>.<span class='ident'>raw_get</span>(<span class='ident'>r</span>, <span class='ident'>c</span>), <span class='ident'>col_widths</span>[<span class='ident'>c</span>]).<span class='ident'>map_err</span>(<span class='op'>|</span>_<span class='op'>|</span> <span class='ident'>fmt</span>::<span class='ident'>Error</span>));
