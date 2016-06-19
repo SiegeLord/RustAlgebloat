@@ -96,13 +96,3 @@ assure all the caveats above while in principle providing allocation-free speed
 ```
 ./cargo_util.py --build
 ```
-
-### Via CMake 2.8:
-
-~~~
-mkdir build
-cd build
-cmake .. -DCMAKE_INSTALL_PREFIX=<your_prefix_goes_here>
-make -j
-make install
-~~~

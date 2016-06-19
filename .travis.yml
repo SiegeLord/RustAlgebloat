@@ -14,17 +14,9 @@ install:
   - sudo ./rust-nightly-x86_64-unknown-linux-gnu/install.sh
   - sudo ./cargo-nightly-x86_64-unknown-linux-gnu/install.sh
 script:
-  - cd algebloat
-  - cargo build
-  - cd ..
-  - mkdir build
-  - cd build
-  - cmake .. -DCMAKE_INSTALL_PREFIX=/tmp
-  - make -j
-  - make test VERBOSE=1
-  - make doc -j
-  - cd examples
-  - ./example
+  - ./cargo_util.py --test
+  - ./cargo_util.py --doc
+  - ./algebloat/target/debug/examples/example
 after_success:
   - cd ..
   - curl http://www.rust-ci.org/artifacts/put?t=$RUSTCI_TOKEN | sh

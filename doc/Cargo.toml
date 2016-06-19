@@ -1,0 +1,14 @@
+[package]
+
+name = "doc"
+version = "0.0.11" #auto
+authors = [ "SiegeLord <slabode@aim.com>" ]
+
+[lib]
+name = "delete_me"
+path = "dummy.rs"
+
+[dependencies.algebloat]
+
+path = "../algebloat"
+version = "=0.0.11" #auto

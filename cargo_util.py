@@ -4,7 +4,8 @@ import argparse
 import fileinput
 import re
 import os
-from shutil import copy
+import glob
+from shutil import copy, rmtree
 from subprocess import check_call
 
 crate_list="""
@@ -52,3 +53,21 @@ if args.clean:
 		if os.path.exists(lock):
 			os.remove(lock)
 		check_call(['cargo', 'clean'], cwd=crate)
+
+if args.doc:
+	rmtree('doc/target/doc', ignore_errors=True)
+	print 'Building docs'
+	check_call(['cargo', 'doc'], cwd='doc')
+	print 'Fixing up the search index'
+	found = False
+	for line in fileinput.input('doc/target/doc/search-index.js', inplace=1):
+		new_line = re.sub(r'searchIndex\["delete_me"\].*', '', line)
+		if new_line != line:
+			found = True
+		print new_line,
+	if not found:
+		raise Exception("Couldn't find the line in search-index.js!")
+	print 'Copying new CSS'
+	for path in glob.glob('doc/target/doc/*.css'):
+		os.remove(path)
+	copy('doc/main.css', 'doc/target/doc/main.css')
