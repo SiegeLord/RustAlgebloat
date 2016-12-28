@@ -5,14 +5,12 @@
 #![crate_type = "lib"]
 #![crate_name = "algebloat"]
 
-#![feature(rustc_private)]
-#![feature(test)]
+#![cfg_attr(test, feature(test))]
 
 #[macro_use]
 extern crate algebloat_macros;
 #[cfg(test)]
 extern crate chrono;
-extern crate fmt_macros;
 
 pub use matrix::*;
 pub use traits::*;

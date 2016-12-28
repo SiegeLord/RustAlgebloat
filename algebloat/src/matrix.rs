@@ -170,8 +170,6 @@ pub fn write_mat<T: MatrixRawGet + MatrixShape>(w: &mut fmt::Formatter, a: &T) -
 {
 	use std::cmp::max;
 	
-	let alt = w.flags() & (1 << (::fmt_macros::Flag::FlagAlternate as usize)) != 0;
-	
 	/* HACK: This could avoid allocating all the strings... */
 	let col_widths: Vec<usize> =
 		(0..a.ncol())
@@ -188,7 +186,7 @@ pub fn write_mat<T: MatrixRawGet + MatrixShape>(w: &mut fmt::Formatter, a: &T) -
 	{
 		let mut first = true;
 		let mstr =
-			if alt
+			if w.alternate()
 			{
 				", "
 			}
@@ -197,7 +195,7 @@ pub fn write_mat<T: MatrixRawGet + MatrixShape>(w: &mut fmt::Formatter, a: &T) -
 				" "
 			};
 		let (lstr, rstr) =
-			if alt
+			if w.alternate()
 			{
 				if a.nrow() == 1
 				{
