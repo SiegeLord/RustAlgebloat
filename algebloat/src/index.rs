@@ -6,13 +6,13 @@ use traits::{MatrixShape, MatrixRawSet, MatrixRawGet};
 
 pub trait MatrixIndexGet<T>
 {
-	fn unsafe_get_idx(&self, mat: &T) -> f64;
+	unsafe fn unsafe_get_idx(&self, mat: &T) -> f64;
 	fn get_idx(&self, mat: &T) -> f64;
 }
 
 pub trait MatrixIndexSet<T>
 {
-	fn unsafe_set_idx(&self, mat: &T, v: f64);
+	unsafe fn unsafe_set_idx(&self, mat: &T, v: f64);
 	fn set_idx(&self, mat: &T, v: f64);
 }
 
@@ -24,14 +24,11 @@ macro_rules! index_impl
 		     MatrixIndexGet<T> for
 		$idx_type
 		{
-			fn unsafe_get_idx(&self, $mat: &T) -> f64
+			unsafe fn unsafe_get_idx(&self, $mat: &T) -> f64
 			{
 				let $self_ = self;
 				let (r, c) = $rc_expr;
-				unsafe
-				{
-					$mat.raw_get(r, c)
-				}
+				$mat.raw_get(r, c)
 			}
 
 			fn get_idx(&self, $mat: &T) -> f64
@@ -51,14 +48,11 @@ macro_rules! index_impl
 		     MatrixIndexSet<T> for
 		$idx_type
 		{
-			fn unsafe_set_idx(&self, $mat: &T, v: f64)
+			unsafe fn unsafe_set_idx(&self, $mat: &T, v: f64)
 			{
 				let $self_ = self;
 				let (r, c) = $rc_expr;
-				unsafe
-				{
-					$mat.raw_set(r, c, v)
-				}
+				$mat.raw_set(r, c, v)
 			}
 
 			fn set_idx(&self, $mat: &T, v: f64)
