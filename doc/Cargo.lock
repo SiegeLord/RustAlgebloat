@@ -1,0 +1,18 @@
+[root]
+name = "doc"
+version = "0.0.12"
+dependencies = [
+ "algebloat 0.0.12",
+]
+
+[[package]]
+name = "algebloat"
+version = "0.0.12"
+dependencies = [
+ "algebloat_macros 0.0.12",
+]
+
+[[package]]
+name = "algebloat_macros"
+version = "0.0.12"
+
