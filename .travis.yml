@@ -12,6 +12,4 @@ script:
   - ./cargo_util.py --doc
   - ./algebloat/target/debug/examples/example
 after_success:
-  - cd ..
-  - curl http://www.rust-ci.org/artifacts/put?t=$RUSTCI_TOKEN | sh
-  - ../doc/gh_pages_upload.sh
+  - ./doc/gh_pages_upload.sh
