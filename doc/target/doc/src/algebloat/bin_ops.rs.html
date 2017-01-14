@@ -359,7 +359,7 @@
 <span class='comment'>// All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.</span>
 
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fmt</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ops</span>::<span class='op'>*</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ops</span>::<span class='kw-2'>*</span>;
 
 <span class='kw'>use</span> <span class='ident'>traits</span>::{<span class='ident'>MatrixShape</span>, <span class='ident'>MatrixRawGet</span>, <span class='ident'>SameShape</span>};
 <span class='kw'>use</span> <span class='ident'>row_accessor</span>::<span class='ident'>RowAccessor</span>;
@@ -412,7 +412,7 @@
 <span class='macro'>op</span><span class='macro'>!</span>(<span class='ident'>OpAdd</span>, <span class='op'>+</span>);
 <span class='macro'>op</span><span class='macro'>!</span>(<span class='ident'>OpSub</span>, <span class='op'>-</span>);
 <span class='macro'>op</span><span class='macro'>!</span>(<span class='ident'>OpDiv</span>, <span class='op'>/</span>);
-<span class='macro'>op</span><span class='macro'>!</span>(<span class='ident'>OpMul</span>, <span class='op'>*</span>);
+<span class='macro'>op</span><span class='macro'>!</span>(<span class='ident'>OpMul</span>, <span class='kw-2'>*</span>);
 
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>MatrixBinOp</span><span class='op'>&lt;</span><span class='ident'>TA</span>, <span class='ident'>TB</span>, <span class='ident'>TO</span><span class='op'>&gt;</span>
