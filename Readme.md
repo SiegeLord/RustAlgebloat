@@ -14,7 +14,7 @@ sliced bread? If so, this linear algebra library is just for you!
 
 ## Documentation
 
-See [here](http://siegelord.github.io/RustAlgebloat/doc/algebloat/index.html).
+See [here](https://docs.rs/algebloat).
 
 ## Example
 
