@@ -12,4 +12,5 @@ script:
   - ./cargo_util.py --doc
   - ./algebloat/target/debug/examples/example
 after_success:
-  - ./doc/gh_pages_upload.sh
+  - cd doc/target
+  - ../gh_pages_upload.sh
