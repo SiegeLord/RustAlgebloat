@@ -149,111 +149,111 @@
 <span id="104">104</span>
 <span id="105">105</span>
 <span id="106">106</span>
-</pre><pre class='rust '>
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fmt</span>;
+</pre><pre class="rust ">
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 
-<span class='kw'>use</span> <span class='ident'>traits</span>::{<span class='ident'>MatrixRawGet</span>, <span class='ident'>MatrixShape</span>, <span class='ident'>MatrixMultiply</span>, <span class='ident'>ToMatrix</span>};
-<span class='kw'>use</span> <span class='ident'>matrix</span>::{<span class='ident'>Matrix</span>, <span class='ident'>write_mat</span>};
+<span class="kw">use</span> <span class="ident">traits</span>::{<span class="ident">MatrixRawGet</span>, <span class="ident">MatrixShape</span>, <span class="ident">MatrixMultiply</span>, <span class="ident">ToMatrix</span>};
+<span class="kw">use</span> <span class="ident">matrix</span>::{<span class="ident">Matrix</span>, <span class="ident">write_mat</span>};
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>LHS</span>: <span class='ident'>MatrixShape</span> <span class='op'>+</span> <span class='ident'>MatrixRawGet</span>,
-     <span class='ident'>RHS</span>: <span class='ident'>MatrixShape</span> <span class='op'>+</span> <span class='ident'>MatrixRawGet</span><span class='op'>&gt;</span>
-<span class='ident'>MatrixMultiply</span><span class='op'>&lt;</span><span class='ident'>RHS</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>LHS</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">LHS</span>: <span class="ident">MatrixShape</span> <span class="op">+</span> <span class="ident">MatrixRawGet</span>,
+     <span class="ident">RHS</span>: <span class="ident">MatrixShape</span> <span class="op">+</span> <span class="ident">MatrixRawGet</span><span class="op">&gt;</span>
+<span class="ident">MatrixMultiply</span><span class="op">&lt;</span><span class="ident">RHS</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">LHS</span>
 {
-	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_mat_mul</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>: <span class='ident'>RHS</span>) <span class='op'>-&gt;</span> <span class='ident'>Matrix</span>
+	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_mat_mul</span>(<span class="self">self</span>, <span class="ident">rhs</span>: <span class="ident">RHS</span>) <span class="op">-&gt;</span> <span class="ident">Matrix</span>
 	{
-		<span class='ident'>MatrixMul</span>::<span class='ident'>unsafe_new</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>).<span class='ident'>to_mat</span>()
+		<span class="ident">MatrixMul</span>::<span class="ident">unsafe_new</span>(<span class="self">self</span>, <span class="ident">rhs</span>).<span class="ident">to_mat</span>()
 	}
 
-	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_mat_mul_lazy</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>: <span class='ident'>RHS</span>) <span class='op'>-&gt;</span> <span class='ident'>MatrixMul</span><span class='op'>&lt;</span><span class='ident'>LHS</span>, <span class='ident'>RHS</span><span class='op'>&gt;</span>
+	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_mat_mul_lazy</span>(<span class="self">self</span>, <span class="ident">rhs</span>: <span class="ident">RHS</span>) <span class="op">-&gt;</span> <span class="ident">MatrixMul</span><span class="op">&lt;</span><span class="ident">LHS</span>, <span class="ident">RHS</span><span class="op">&gt;</span>
 	{
-		<span class='ident'>MatrixMul</span>::<span class='ident'>unsafe_new</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>)
+		<span class="ident">MatrixMul</span>::<span class="ident">unsafe_new</span>(<span class="self">self</span>, <span class="ident">rhs</span>)
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>mat_mul</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>: <span class='ident'>RHS</span>) <span class='op'>-&gt;</span> <span class='ident'>Matrix</span>
+	<span class="kw">fn</span> <span class="ident">mat_mul</span>(<span class="self">self</span>, <span class="ident">rhs</span>: <span class="ident">RHS</span>) <span class="op">-&gt;</span> <span class="ident">Matrix</span>
 	{
-		<span class='ident'>MatrixMul</span>::<span class='ident'>new</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>).<span class='ident'>to_mat</span>()
+		<span class="ident">MatrixMul</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="ident">rhs</span>).<span class="ident">to_mat</span>()
 	}
 
-	<span class='kw'>fn</span> <span class='ident'>mat_mul_lazy</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>: <span class='ident'>RHS</span>) <span class='op'>-&gt;</span> <span class='ident'>MatrixMul</span><span class='op'>&lt;</span><span class='ident'>LHS</span>, <span class='ident'>RHS</span><span class='op'>&gt;</span>
+	<span class="kw">fn</span> <span class="ident">mat_mul_lazy</span>(<span class="self">self</span>, <span class="ident">rhs</span>: <span class="ident">RHS</span>) <span class="op">-&gt;</span> <span class="ident">MatrixMul</span><span class="op">&lt;</span><span class="ident">LHS</span>, <span class="ident">RHS</span><span class="op">&gt;</span>
 	{
-		<span class='ident'>MatrixMul</span>::<span class='ident'>new</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>)
+		<span class="ident">MatrixMul</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="ident">rhs</span>)
 	}
 }
 
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>MatrixMul</span><span class='op'>&lt;</span><span class='ident'>LHS</span>, <span class='ident'>RHS</span><span class='op'>&gt;</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MatrixMul</span><span class="op">&lt;</span><span class="ident">LHS</span>, <span class="ident">RHS</span><span class="op">&gt;</span>
 {
-	<span class='ident'>lhs</span>: <span class='ident'>LHS</span>,
-	<span class='ident'>rhs</span>: <span class='ident'>RHS</span>,
+	<span class="ident">lhs</span>: <span class="ident">LHS</span>,
+	<span class="ident">rhs</span>: <span class="ident">RHS</span>,
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>LHS</span>: <span class='ident'>MatrixShape</span>,
-     <span class='ident'>RHS</span>: <span class='ident'>MatrixShape</span><span class='op'>&gt;</span>
-<span class='ident'>MatrixMul</span><span class='op'>&lt;</span><span class='ident'>LHS</span>, <span class='ident'>RHS</span><span class='op'>&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">LHS</span>: <span class="ident">MatrixShape</span>,
+     <span class="ident">RHS</span>: <span class="ident">MatrixShape</span><span class="op">&gt;</span>
+<span class="ident">MatrixMul</span><span class="op">&lt;</span><span class="ident">LHS</span>, <span class="ident">RHS</span><span class="op">&gt;</span>
 {
-	<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>unsafe_new</span>(<span class='ident'>lhs</span>: <span class='ident'>LHS</span>, <span class='ident'>rhs</span>: <span class='ident'>RHS</span>) <span class='op'>-&gt;</span> <span class='ident'>MatrixMul</span><span class='op'>&lt;</span><span class='ident'>LHS</span>, <span class='ident'>RHS</span><span class='op'>&gt;</span>
+	<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_new</span>(<span class="ident">lhs</span>: <span class="ident">LHS</span>, <span class="ident">rhs</span>: <span class="ident">RHS</span>) <span class="op">-&gt;</span> <span class="ident">MatrixMul</span><span class="op">&lt;</span><span class="ident">LHS</span>, <span class="ident">RHS</span><span class="op">&gt;</span>
 	{
-		<span class='ident'>MatrixMul</span>{ <span class='ident'>lhs</span>: <span class='ident'>lhs</span>, <span class='ident'>rhs</span>: <span class='ident'>rhs</span> }
+		<span class="ident">MatrixMul</span>{ <span class="ident">lhs</span>: <span class="ident">lhs</span>, <span class="ident">rhs</span>: <span class="ident">rhs</span> }
 	}
 
-	<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>lhs</span>: <span class='ident'>LHS</span>, <span class='ident'>rhs</span>: <span class='ident'>RHS</span>) <span class='op'>-&gt;</span> <span class='ident'>MatrixMul</span><span class='op'>&lt;</span><span class='ident'>LHS</span>, <span class='ident'>RHS</span><span class='op'>&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">lhs</span>: <span class="ident">LHS</span>, <span class="ident">rhs</span>: <span class="ident">RHS</span>) <span class="op">-&gt;</span> <span class="ident">MatrixMul</span><span class="op">&lt;</span><span class="ident">LHS</span>, <span class="ident">RHS</span><span class="op">&gt;</span>
 	{
-		<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>lhs</span>.<span class='ident'>ncol</span>(), <span class='ident'>rhs</span>.<span class='ident'>nrow</span>());
-		<span class='ident'>MatrixMul</span>{ <span class='ident'>lhs</span>: <span class='ident'>lhs</span>, <span class='ident'>rhs</span>: <span class='ident'>rhs</span> }
+		<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">lhs</span>.<span class="ident">ncol</span>(), <span class="ident">rhs</span>.<span class="ident">nrow</span>());
+		<span class="ident">MatrixMul</span>{ <span class="ident">lhs</span>: <span class="ident">lhs</span>, <span class="ident">rhs</span>: <span class="ident">rhs</span> }
 	}
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>LHS</span>: <span class='ident'>MatrixRawGet</span> <span class='op'>+</span> <span class='ident'>MatrixShape</span>,
-     <span class='ident'>RHS</span>: <span class='ident'>MatrixRawGet</span> <span class='op'>+</span> <span class='ident'>MatrixShape</span><span class='op'>&gt;</span>
-<span class='ident'>MatrixRawGet</span> <span class='kw'>for</span>
-<span class='ident'>MatrixMul</span><span class='op'>&lt;</span><span class='ident'>LHS</span>, <span class='ident'>RHS</span><span class='op'>&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">LHS</span>: <span class="ident">MatrixRawGet</span> <span class="op">+</span> <span class="ident">MatrixShape</span>,
+     <span class="ident">RHS</span>: <span class="ident">MatrixRawGet</span> <span class="op">+</span> <span class="ident">MatrixShape</span><span class="op">&gt;</span>
+<span class="ident">MatrixRawGet</span> <span class="kw">for</span>
+<span class="ident">MatrixMul</span><span class="op">&lt;</span><span class="ident">LHS</span>, <span class="ident">RHS</span><span class="op">&gt;</span>
 {
-	<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>raw_get</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>r</span>: <span class='ident'>usize</span>, <span class='ident'>c</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='ident'>f64</span>
+	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">raw_get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">r</span>: <span class="ident">usize</span>, <span class="ident">c</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="ident">f64</span>
 	{
-		<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>ret</span> <span class='op'>=</span> <span class='number'>0.0</span>;
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ret</span> <span class="op">=</span> <span class="number">0.0</span>;
 		
-		<span class='kw'>for</span> <span class='ident'>z</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='self'>self</span>.<span class='ident'>lhs</span>.<span class='ident'>ncol</span>()
+		<span class="kw">for</span> <span class="ident">z</span> <span class="kw">in</span> <span class="number">0</span>..<span class="self">self</span>.<span class="ident">lhs</span>.<span class="ident">ncol</span>()
 		{
-			<span class='ident'>ret</span> <span class='op'>+=</span> <span class='self'>self</span>.<span class='ident'>lhs</span>.<span class='ident'>raw_get</span>(<span class='ident'>r</span>, <span class='ident'>z</span>) <span class='op'>*</span> <span class='self'>self</span>.<span class='ident'>rhs</span>.<span class='ident'>raw_get</span>(<span class='ident'>z</span>, <span class='ident'>c</span>);
+			<span class="ident">ret</span> <span class="op">+=</span> <span class="self">self</span>.<span class="ident">lhs</span>.<span class="ident">raw_get</span>(<span class="ident">r</span>, <span class="ident">z</span>) <span class="op">*</span> <span class="self">self</span>.<span class="ident">rhs</span>.<span class="ident">raw_get</span>(<span class="ident">z</span>, <span class="ident">c</span>);
 		}
-		<span class='ident'>ret</span>
+		<span class="ident">ret</span>
 	}
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>LHS</span>: <span class='ident'>MatrixShape</span>,
-     <span class='ident'>RHS</span>: <span class='ident'>MatrixShape</span><span class='op'>&gt;</span>
-<span class='ident'>MatrixShape</span> <span class='kw'>for</span>
-<span class='ident'>MatrixMul</span><span class='op'>&lt;</span><span class='ident'>LHS</span>, <span class='ident'>RHS</span><span class='op'>&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">LHS</span>: <span class="ident">MatrixShape</span>,
+     <span class="ident">RHS</span>: <span class="ident">MatrixShape</span><span class="op">&gt;</span>
+<span class="ident">MatrixShape</span> <span class="kw">for</span>
+<span class="ident">MatrixMul</span><span class="op">&lt;</span><span class="ident">LHS</span>, <span class="ident">RHS</span><span class="op">&gt;</span>
 {
-	<span class='kw'>fn</span> <span class='ident'>nrow</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>usize</span>
+	<span class="kw">fn</span> <span class="ident">nrow</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span>
 	{
-		<span class='self'>self</span>.<span class='ident'>lhs</span>.<span class='ident'>nrow</span>()
+		<span class="self">self</span>.<span class="ident">lhs</span>.<span class="ident">nrow</span>()
 	}
-	<span class='kw'>fn</span> <span class='ident'>ncol</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>usize</span>
+	<span class="kw">fn</span> <span class="ident">ncol</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span>
 	{
-		<span class='self'>self</span>.<span class='ident'>rhs</span>.<span class='ident'>ncol</span>()
-	}
-}
-
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>LHS</span>: <span class='ident'>Clone</span>,
-     <span class='ident'>RHS</span>: <span class='ident'>Clone</span><span class='op'>&gt;</span>
-<span class='ident'>Clone</span> <span class='kw'>for</span>
-<span class='ident'>MatrixMul</span><span class='op'>&lt;</span><span class='ident'>LHS</span>, <span class='ident'>RHS</span><span class='op'>&gt;</span>
-{
-	<span class='kw'>fn</span> <span class='ident'>clone</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>MatrixMul</span><span class='op'>&lt;</span><span class='ident'>LHS</span>, <span class='ident'>RHS</span><span class='op'>&gt;</span>
-	{
-		<span class='ident'>MatrixMul</span>{ <span class='ident'>rhs</span>: <span class='self'>self</span>.<span class='ident'>rhs</span>.<span class='ident'>clone</span>(), <span class='ident'>lhs</span>: <span class='self'>self</span>.<span class='ident'>lhs</span>.<span class='ident'>clone</span>() }
+		<span class="self">self</span>.<span class="ident">rhs</span>.<span class="ident">ncol</span>()
 	}
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>LHS</span>: <span class='ident'>MatrixRawGet</span> <span class='op'>+</span> <span class='ident'>MatrixShape</span>,
-     <span class='ident'>RHS</span>: <span class='ident'>MatrixRawGet</span> <span class='op'>+</span> <span class='ident'>MatrixShape</span><span class='op'>&gt;</span>
-<span class='ident'>fmt</span>::<span class='ident'>Display</span> <span class='kw'>for</span>
-<span class='ident'>MatrixMul</span><span class='op'>&lt;</span><span class='ident'>LHS</span>, <span class='ident'>RHS</span><span class='op'>&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">LHS</span>: <span class="ident">Clone</span>,
+     <span class="ident">RHS</span>: <span class="ident">Clone</span><span class="op">&gt;</span>
+<span class="ident">Clone</span> <span class="kw">for</span>
+<span class="ident">MatrixMul</span><span class="op">&lt;</span><span class="ident">LHS</span>, <span class="ident">RHS</span><span class="op">&gt;</span>
 {
-	<span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>buf</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span>
+	<span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">MatrixMul</span><span class="op">&lt;</span><span class="ident">LHS</span>, <span class="ident">RHS</span><span class="op">&gt;</span>
 	{
-		<span class='ident'>write_mat</span>(<span class='ident'>buf</span>, <span class='self'>self</span>)
+		<span class="ident">MatrixMul</span>{ <span class="ident">rhs</span>: <span class="self">self</span>.<span class="ident">rhs</span>.<span class="ident">clone</span>(), <span class="ident">lhs</span>: <span class="self">self</span>.<span class="ident">lhs</span>.<span class="ident">clone</span>() }
+	}
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">LHS</span>: <span class="ident">MatrixRawGet</span> <span class="op">+</span> <span class="ident">MatrixShape</span>,
+     <span class="ident">RHS</span>: <span class="ident">MatrixRawGet</span> <span class="op">+</span> <span class="ident">MatrixShape</span><span class="op">&gt;</span>
+<span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span>
+<span class="ident">MatrixMul</span><span class="op">&lt;</span><span class="ident">LHS</span>, <span class="ident">RHS</span><span class="op">&gt;</span>
+{
+	<span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span>
+	{
+		<span class="ident">write_mat</span>(<span class="ident">buf</span>, <span class="self">self</span>)
 	}
 }
 </pre>

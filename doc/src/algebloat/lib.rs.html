@@ -86,50 +86,50 @@
 <span id="41">41</span>
 <span id="42">42</span>
 <span id="43">43</span>
-</pre><pre class='rust '>
-<span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
-<span class='comment'>//</span>
-<span class='comment'>// All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.</span>
+</pre><pre class="rust ">
+<span class="comment">// Copyright (c) 2014 by SiegeLord</span>
+<span class="comment">//</span>
+<span class="comment">// All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.</span>
 
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_type</span> <span class='op'>=</span> <span class='string'>&quot;lib&quot;</span>]</span>
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_name</span> <span class='op'>=</span> <span class='string'>&quot;algebloat&quot;</span>]</span>
+<span class="attribute">#<span class="op">!</span>[<span class="ident">crate_type</span> <span class="op">=</span> <span class="string">&quot;lib&quot;</span>]</span>
+<span class="attribute">#<span class="op">!</span>[<span class="ident">crate_name</span> <span class="op">=</span> <span class="string">&quot;algebloat&quot;</span>]</span>
 
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>cfg_attr</span>(<span class='ident'>test</span>, <span class='ident'>feature</span>(<span class='ident'>test</span>))]</span>
+<span class="attribute">#<span class="op">!</span>[<span class="ident">cfg_attr</span>(<span class="ident">test</span>, <span class="ident">feature</span>(<span class="ident">test</span>))]</span>
 
-<span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
-<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>algebloat_macros</span>;
-<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
-<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>chrono</span>;
+<span class="attribute">#[<span class="ident">macro_use</span>]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">algebloat_macros</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">chrono</span>;
 
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>matrix</span>::<span class='kw-2'>*</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>traits</span>::<span class='kw-2'>*</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>bin_ops</span>::<span class='kw-2'>*</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>un_ops</span>::<span class='kw-2'>*</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>un_funs</span>::<span class='kw-2'>*</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>bin_funs</span>::<span class='kw-2'>*</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>reductions</span>::<span class='kw-2'>*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">matrix</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">traits</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">bin_ops</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">un_ops</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">un_funs</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">bin_funs</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">reductions</span>::<span class="kw-2">*</span>;
 
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>matrix</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>bin_funs</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>traits</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>transpose</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>view</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>row_accessor</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>column_accessor</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>elements</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>hstack</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>matrix_mul</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>bin_ops</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>scalar</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>index</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>un_ops</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>un_funs</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>vstack</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>reductions</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>reshape</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>slice</span>;
-<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
-<span class='kw'>mod</span> <span class='ident'>test</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">matrix</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">bin_funs</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">traits</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">transpose</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">view</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">row_accessor</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">column_accessor</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">elements</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">hstack</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">matrix_mul</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">bin_ops</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">scalar</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">index</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">un_ops</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">un_funs</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">vstack</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">reductions</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">reshape</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">slice</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
+<span class="kw">mod</span> <span class="ident">test</span>;
 </pre>
 </section>
     <section id='search' class="content hidden"></section>

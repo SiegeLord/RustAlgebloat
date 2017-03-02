@@ -79,41 +79,41 @@
 <span id="34">34</span>
 <span id="35">35</span>
 <span id="36">36</span>
-</pre><pre class='rust '>
-<span class='comment'>// Copyright (c) 2014 by SiegeLord</span>
-<span class='comment'>//</span>
-<span class='comment'>// All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.</span>
+</pre><pre class="rust ">
+<span class="comment">// Copyright (c) 2014 by SiegeLord</span>
+<span class="comment">//</span>
+<span class="comment">// All rights reserved. Distributed under LGPL 3.0. For full terms see the file LICENSE.</span>
 
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_type</span><span class='op'>=</span><span class='string'>&quot;lib&quot;</span>]</span>
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_name</span><span class='op'>=</span><span class='string'>&quot;algebloat_macros&quot;</span>]</span>
+<span class="attribute">#<span class="op">!</span>[<span class="ident">crate_type</span><span class="op">=</span><span class="string">&quot;lib&quot;</span>]</span>
+<span class="attribute">#<span class="op">!</span>[<span class="ident">crate_name</span><span class="op">=</span><span class="string">&quot;algebloat_macros&quot;</span>]</span>
 
-<span class='attribute'>#[<span class='ident'>macro_export</span>]</span>
-<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>mat</span>
+<span class="attribute">#[<span class="ident">macro_export</span>]</span>
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">mat</span>
 {
-	( $($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>: <span class='ident'>expr</span>),<span class='op'>+</span>);<span class='op'>+</span> ) <span class='op'>=&gt;</span>
+	( $($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">e</span>: <span class="ident">expr</span>),<span class="op">+</span>);<span class="op">+</span> ) <span class="op">=&gt;</span>
 	{
-		<span class='ident'>Matrix</span>::<span class='ident'>new</span>(<span class='kw-2'>&amp;</span>[$(
-			<span class='kw-2'>&amp;</span>[$(
-				(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>) <span class='kw'>as</span> <span class='ident'>f64</span>,
-			)<span class='op'>+</span>],
-		)<span class='op'>+</span>])
+		<span class="ident">Matrix</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span>[$(
+			<span class="kw-2">&amp;</span>[$(
+				(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">e</span>) <span class="kw">as</span> <span class="ident">f64</span>,
+			)<span class="op">+</span>],
+		)<span class="op">+</span>])
 	}
 }
 
-<span class='attribute'>#[<span class='ident'>macro_export</span>]</span>
-<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>stack</span>
+<span class="attribute">#[<span class="ident">macro_export</span>]</span>
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">stack</span>
 {
-	($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>a</span>: <span class='ident'>expr</span>),<span class='op'>+</span>; $($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>b</span>: <span class='ident'>expr</span>),<span class='op'>+</span>);<span class='op'>+</span>) <span class='op'>=&gt;</span>
+	($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">a</span>: <span class="ident">expr</span>),<span class="op">+</span>; $($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">b</span>: <span class="ident">expr</span>),<span class="op">+</span>);<span class="op">+</span>) <span class="op">=&gt;</span>
 	{
-		(<span class='macro'>stack</span><span class='macro'>!</span>($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>a</span>),<span class='op'>+</span>)).<span class='ident'>vstack</span>(<span class='macro'>stack</span><span class='macro'>!</span>($(<span class='macro'>stack</span><span class='macro'>!</span>($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>b</span>),<span class='op'>+</span>));<span class='op'>+</span>))
+		(<span class="macro">stack</span><span class="macro">!</span>($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">a</span>),<span class="op">+</span>)).<span class="ident">vstack</span>(<span class="macro">stack</span><span class="macro">!</span>($(<span class="macro">stack</span><span class="macro">!</span>($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">b</span>),<span class="op">+</span>));<span class="op">+</span>))
 	};
-	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>a</span>: <span class='ident'>expr</span>, $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>b</span>: <span class='ident'>expr</span>),<span class='op'>+</span>) <span class='op'>=&gt;</span>
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">a</span>: <span class="ident">expr</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">b</span>: <span class="ident">expr</span>),<span class="op">+</span>) <span class="op">=&gt;</span>
 	{
-		<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>a</span>.<span class='ident'>hstack</span>(<span class='macro'>stack</span><span class='macro'>!</span>($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>b</span>),<span class='op'>+</span>))
+		<span class="macro-nonterminal">$</span><span class="macro-nonterminal">a</span>.<span class="ident">hstack</span>(<span class="macro">stack</span><span class="macro">!</span>($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">b</span>),<span class="op">+</span>))
 	};
-	(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>: <span class='ident'>expr</span>) <span class='op'>=&gt;</span>
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">e</span>: <span class="ident">expr</span>) <span class="op">=&gt;</span>
 	{
-		<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>e</span>
+		<span class="macro-nonterminal">$</span><span class="macro-nonterminal">e</span>
 	}
 }
 </pre>
