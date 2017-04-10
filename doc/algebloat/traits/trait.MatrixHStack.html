@@ -49,7 +49,7 @@
                        [<span class='inner'>&#x2212;</span>]
                    </a>
                </span><a class='srclink' href='../../src/algebloat/traits.rs.html#111-115' title='goto source code'>[src]</a></span></h1>
-<pre class='rust trait'>pub trait MatrixHStack&lt;R&gt; <span class="where fmt-newline">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> {
+<pre class='rust trait'>pub trait MatrixHStack&lt;R&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span>{
     unsafe fn <a href='#tymethod.unsafe_hstack' class='fnname'>unsafe_hstack</a>(self, right: R) -&gt; <a class="struct" href="../../algebloat/hstack/struct.HStack.html" title="struct algebloat::hstack::HStack">HStack</a>&lt;Self, R&gt;;
     fn <a href='#tymethod.hstack' class='fnname'>hstack</a>(self, right: R) -&gt; <a class="struct" href="../../algebloat/hstack/struct.HStack.html" title="struct algebloat::hstack::HStack">HStack</a>&lt;Self, R&gt;;
 }</pre>

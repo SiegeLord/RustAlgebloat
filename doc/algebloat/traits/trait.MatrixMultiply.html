@@ -49,7 +49,7 @@
                        [<span class='inner'>&#x2212;</span>]
                    </a>
                </span><a class='srclink' href='../../src/algebloat/traits.rs.html#103-109' title='goto source code'>[src]</a></span></h1>
-<pre class='rust trait'>pub trait MatrixMultiply&lt;RHS&gt; <span class="where fmt-newline">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> {
+<pre class='rust trait'>pub trait MatrixMultiply&lt;RHS&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span>{
     unsafe fn <a href='#tymethod.unsafe_mat_mul' class='fnname'>unsafe_mat_mul</a>(self, rhs: RHS) -&gt; <a class="struct" href="../../algebloat/matrix/struct.Matrix.html" title="struct algebloat::matrix::Matrix">Matrix</a>;
     unsafe fn <a href='#tymethod.unsafe_mat_mul_lazy' class='fnname'>unsafe_mat_mul_lazy</a>(self, rhs: RHS) -&gt; <a class="struct" href="../../algebloat/matrix_mul/struct.MatrixMul.html" title="struct algebloat::matrix_mul::MatrixMul">MatrixMul</a>&lt;Self, RHS&gt;;
     fn <a href='#tymethod.mat_mul' class='fnname'>mat_mul</a>(self, rhs: RHS) -&gt; <a class="struct" href="../../algebloat/matrix/struct.Matrix.html" title="struct algebloat::matrix::Matrix">Matrix</a>;

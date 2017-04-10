@@ -49,7 +49,7 @@
                        [<span class='inner'>&#x2212;</span>]
                    </a>
                </span><a class='srclink' href='../../src/algebloat/traits.rs.html#73-77' title='goto source code'>[src]</a></span></h1>
-<pre class='rust trait'>pub trait MatrixColumnAccess <span class="where fmt-newline">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> {
+<pre class='rust trait'>pub trait MatrixColumnAccess <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span>{
     unsafe fn <a href='#tymethod.unsafe_col' class='fnname'>unsafe_col</a>(self, col: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <a class="struct" href="../../algebloat/column_accessor/struct.ColumnAccessor.html" title="struct algebloat::column_accessor::ColumnAccessor">ColumnAccessor</a>&lt;Self&gt;;
     fn <a href='#tymethod.col' class='fnname'>col</a>(self, col: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <a class="struct" href="../../algebloat/column_accessor/struct.ColumnAccessor.html" title="struct algebloat::column_accessor::ColumnAccessor">ColumnAccessor</a>&lt;Self&gt;;
 }</pre>
