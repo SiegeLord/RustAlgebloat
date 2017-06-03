@@ -1,7 +1,7 @@
 [package]
 
 name = "doc"
-version = "0.0.12" #auto
+version = "0.0.13" #auto
 authors = [ "SiegeLord <slabode@aim.com>" ]
 
 [lib]
@@ -11,4 +11,4 @@ path = "dummy.rs"
 [dependencies.algebloat]
 
 path = "../algebloat"
-version = "=0.0.12" #auto
+version = "=0.0.13" #auto
