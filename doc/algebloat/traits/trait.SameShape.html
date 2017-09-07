@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'>Trait SameShape</p><div class="block items"><ul><li><a href="#required-methods">Required Methods</a></li><li><a href="#implementors">Implementors</a></li></ul></div><p class='location'><a href='../index.html'>algebloat</a>::<wbr><a href='index.html'>traits</a></p><script>window.sidebarCurrent = {name: 'SameShape', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Trait SameShape</p><div class="block items"><ul><li><a href="#required-methods">Required Methods</a></li><li><a href="#foreign-impls">Implementations on Foreign Types</a></li><li><a href="#implementors">Implementors</a></li></ul></div><p class='location'><a href='../index.html'>algebloat</a>::<wbr><a href='index.html'>traits</a></p><script>window.sidebarCurrent = {name: 'SameShape', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -57,6 +57,12 @@
             </h2>
             <div class='methods'>
         <h3 id='tymethod.same_shape' class='method'><span id='same_shape.v' class='invisible'><code>fn <a href='#tymethod.same_shape' class='fnname'>same_shape</a>(&amp;self, nrow: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, ncol: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span></h3></div>
+                <h2 id='foreign-impls' class='section-header'>
+                  Implementations on Foreign Types<a href='#foreign-impls' class='anchor'></a>
+                </h2>
+            <h3 id='impl-SameShape' class='impl'><span class='in-band'><code>impl <a class="trait" href="../../algebloat/traits/trait.SameShape.html" title="trait algebloat::traits::SameShape">SameShape</a> for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a></code><a href='#impl-SameShape' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/algebloat/scalar.rs.html#7-15' title='goto source code'>[src]</a></span></h3>
+<span class='docblock autohide'><div class='impl-items'><h4 id='method.same_shape' class="method"><span id='same_shape.v-1' class='invisible'><code>fn <a href='#method.same_shape' class='fnname'>same_shape</a>(&amp;self, _: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, _: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/algebloat/scalar.rs.html#11-14' title='goto source code'>[src]</a></span></h4>
+</div></span>
         <h2 id='implementors' class='small-section-header'>
           Implementors<a href='#implementors' class='anchor'></a>
         </h2>
@@ -68,7 +74,6 @@
 <li><code>impl&lt;T:&nbsp;<a class="trait" href="../../algebloat/traits/trait.MatrixShape.html" title="trait algebloat::traits::MatrixShape">MatrixShape</a>&gt; SameShape for <a class="struct" href="../../algebloat/column_accessor/struct.ColumnAccessor.html" title="struct algebloat::column_accessor::ColumnAccessor">ColumnAccessor</a>&lt;T&gt;</code></li>
 <li><code>impl&lt;L:&nbsp;<a class="trait" href="../../algebloat/traits/trait.MatrixShape.html" title="trait algebloat::traits::MatrixShape">MatrixShape</a>, R:&nbsp;<a class="trait" href="../../algebloat/traits/trait.MatrixShape.html" title="trait algebloat::traits::MatrixShape">MatrixShape</a>&gt; SameShape for <a class="struct" href="../../algebloat/hstack/struct.HStack.html" title="struct algebloat::hstack::HStack">HStack</a>&lt;L, R&gt;</code></li>
 <li><code>impl&lt;TA:&nbsp;<a class="trait" href="../../algebloat/traits/trait.MatrixShape.html" title="trait algebloat::traits::MatrixShape">MatrixShape</a>, TB, TO:&nbsp;<a class="trait" href="../../algebloat/bin_ops/trait.BinOp.html" title="trait algebloat::bin_ops::BinOp">BinOp</a>&gt; SameShape for <a class="struct" href="../../algebloat/bin_ops/struct.MatrixBinOp.html" title="struct algebloat::bin_ops::MatrixBinOp">MatrixBinOp</a>&lt;TA, TB, TO&gt;</code></li>
-<li><code>impl SameShape for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a></code></li>
 <li><code>impl&lt;TA:&nbsp;<a class="trait" href="../../algebloat/traits/trait.MatrixShape.html" title="trait algebloat::traits::MatrixShape">MatrixShape</a>, TO:&nbsp;<a class="trait" href="../../algebloat/un_ops/trait.UnOp.html" title="trait algebloat::un_ops::UnOp">UnOp</a>&gt; SameShape for <a class="struct" href="../../algebloat/un_ops/struct.MatrixUnOp.html" title="struct algebloat::un_ops::MatrixUnOp">MatrixUnOp</a>&lt;TA, TO&gt;</code></li>
 <li><code>impl&lt;T:&nbsp;<a class="trait" href="../../algebloat/traits/trait.MatrixShape.html" title="trait algebloat::traits::MatrixShape">MatrixShape</a>, B:&nbsp;<a class="trait" href="../../algebloat/traits/trait.MatrixShape.html" title="trait algebloat::traits::MatrixShape">MatrixShape</a>&gt; SameShape for <a class="struct" href="../../algebloat/vstack/struct.VStack.html" title="struct algebloat::vstack::VStack">VStack</a>&lt;T, B&gt;</code></li>
 <li><code>impl&lt;T:&nbsp;<a class="trait" href="../../algebloat/traits/trait.MatrixShape.html" title="trait algebloat::traits::MatrixShape">MatrixShape</a>&gt; SameShape for <a class="struct" href="../../algebloat/reshape/struct.Reshape.html" title="struct algebloat::reshape::Reshape">Reshape</a>&lt;T&gt;</code></li>
