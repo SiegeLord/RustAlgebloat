@@ -371,7 +371,7 @@
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_elem</span>(<span class="ident">nrow</span>: <span class="ident">usize</span>, <span class="ident">ncol</span>: <span class="ident">usize</span>, <span class="ident">elem</span>: <span class="ident">f64</span>) <span class="op">-&gt;</span> <span class="ident">Matrix</span>
 	{
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">mat_data</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">with_capacity</span>(<span class="ident">nrow</span> <span class="op">*</span> <span class="ident">ncol</span>);
-		<span class="kw">for</span> _ <span class="kw">in</span> <span class="number">0</span>..<span class="ident">nrow</span> <span class="op">*</span> <span class="ident">ncol</span> {
+		<span class="kw">for</span> <span class="kw">_</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">nrow</span> <span class="op">*</span> <span class="ident">ncol</span> {
 			<span class="ident">mat_data</span>.<span class="ident">push</span>(<span class="ident">Cell</span>::<span class="ident">new</span>(<span class="ident">elem</span>));
 		}
 		<span class="ident">Matrix</span>{ <span class="ident">data</span>: <span class="ident">mat_data</span>, <span class="ident">nrow</span>: <span class="ident">nrow</span>, <span class="ident">ncol</span>: <span class="ident">ncol</span> }
@@ -553,20 +553,20 @@
 					(<span class="string">&quot;⎢&quot;</span>, <span class="string">&quot;⎥\n&quot;</span>)
 				}
 			};
-		<span class="macro">try</span><span class="macro">!</span>(<span class="macro">write</span><span class="macro">!</span>(<span class="ident">w</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">lstr</span>).<span class="ident">map_err</span>(<span class="op">|</span>_<span class="op">|</span> <span class="ident">fmt</span>::<span class="ident">Error</span>));
+		<span class="macro">try</span><span class="macro">!</span>(<span class="macro">write</span><span class="macro">!</span>(<span class="ident">w</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">lstr</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">fmt</span>::<span class="ident">Error</span>));
 		<span class="kw">for</span> <span class="ident">c</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">a</span>.<span class="ident">ncol</span>()
 		{
 			<span class="kw">if</span> <span class="op">!</span><span class="ident">first</span>
 			{
-				<span class="macro">try</span><span class="macro">!</span>(<span class="macro">write</span><span class="macro">!</span>(<span class="ident">w</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">mstr</span>).<span class="ident">map_err</span>(<span class="op">|</span>_<span class="op">|</span> <span class="ident">fmt</span>::<span class="ident">Error</span>));
+				<span class="macro">try</span><span class="macro">!</span>(<span class="macro">write</span><span class="macro">!</span>(<span class="ident">w</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">mstr</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">fmt</span>::<span class="ident">Error</span>));
 			}
 			<span class="ident">first</span> <span class="op">=</span> <span class="bool-val">false</span>;
 			<span class="kw">unsafe</span>
 			{
-				<span class="macro">try</span><span class="macro">!</span>(<span class="macro">write</span><span class="macro">!</span>(<span class="ident">w</span>, <span class="string">&quot;{:&gt;1$}&quot;</span>, <span class="ident">a</span>.<span class="ident">raw_get</span>(<span class="ident">r</span>, <span class="ident">c</span>), <span class="ident">col_widths</span>[<span class="ident">c</span>]).<span class="ident">map_err</span>(<span class="op">|</span>_<span class="op">|</span> <span class="ident">fmt</span>::<span class="ident">Error</span>));
+				<span class="macro">try</span><span class="macro">!</span>(<span class="macro">write</span><span class="macro">!</span>(<span class="ident">w</span>, <span class="string">&quot;{:&gt;1$}&quot;</span>, <span class="ident">a</span>.<span class="ident">raw_get</span>(<span class="ident">r</span>, <span class="ident">c</span>), <span class="ident">col_widths</span>[<span class="ident">c</span>]).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">fmt</span>::<span class="ident">Error</span>));
 			}
 		}
-		<span class="macro">try</span><span class="macro">!</span>(<span class="macro">write</span><span class="macro">!</span>(<span class="ident">w</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">rstr</span>).<span class="ident">map_err</span>(<span class="op">|</span>_<span class="op">|</span> <span class="ident">fmt</span>::<span class="ident">Error</span>));
+		<span class="macro">try</span><span class="macro">!</span>(<span class="macro">write</span><span class="macro">!</span>(<span class="ident">w</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">rstr</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">fmt</span>::<span class="ident">Error</span>));
 	}
 	<span class="prelude-val">Ok</span>(())
 }

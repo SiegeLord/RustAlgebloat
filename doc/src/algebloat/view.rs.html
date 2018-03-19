@@ -272,7 +272,7 @@
 		<span class="kw">impl</span> <span class="ident">UnwrapRange</span> <span class="kw">for</span> <span class="ident">Range</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span><span class="op">&gt;</span>
 		{
 			<span class="attribute">#[<span class="ident">inline</span>]</span>
-			<span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, _: <span class="ident">usize</span>) <span class="op">-&gt;</span> (<span class="ident">usize</span>, <span class="ident">usize</span>)
+			<span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> (<span class="ident">usize</span>, <span class="ident">usize</span>)
 			{
 				(<span class="self">self</span>.<span class="ident">start</span> <span class="kw">as</span> <span class="ident">usize</span>, <span class="self">self</span>.<span class="ident">end</span> <span class="kw">as</span> <span class="ident">usize</span>)
 			}
@@ -290,7 +290,7 @@
 		<span class="kw">impl</span> <span class="ident">UnwrapRange</span> <span class="kw">for</span> <span class="ident">RangeTo</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span><span class="op">&gt;</span>
 		{
 			<span class="attribute">#[<span class="ident">inline</span>]</span>
-			<span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, _: <span class="ident">usize</span>) <span class="op">-&gt;</span> (<span class="ident">usize</span>, <span class="ident">usize</span>)
+			<span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw">_</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> (<span class="ident">usize</span>, <span class="ident">usize</span>)
 			{
 				(<span class="number">0</span>, <span class="self">self</span>.<span class="ident">end</span> <span class="kw">as</span> <span class="ident">usize</span>)
 			}
