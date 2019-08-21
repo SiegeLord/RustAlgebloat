@@ -160,34 +160,34 @@
 
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">slice_impl</span>
 {
-	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span>: <span class="ident">ident</span>) <span class="op">=&gt;</span>
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span>: <span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span>
 	{
 		<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">MatrixShape</span><span class="op">&gt;</span>
-		<span class="ident">MatrixSlice</span><span class="op">&lt;</span><span class="ident">Range</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span><span class="op">&gt;&gt;</span> <span class="kw">for</span>
+		<span class="ident">MatrixSlice</span><span class="op">&lt;</span><span class="ident">Range</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span>
 		<span class="ident">T</span>
 		{
-			<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_slice</span>(<span class="self">self</span>, <span class="ident">range</span>: <span class="ident">Range</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
+			<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_slice</span>(<span class="self">self</span>, <span class="ident">range</span>: <span class="ident">Range</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 			{
 				<span class="ident">Slice</span>::<span class="ident">unsafe_new</span>(<span class="self">self</span>, <span class="ident">range</span>.<span class="ident">start</span> <span class="kw">as</span> <span class="ident">usize</span>, <span class="ident">range</span>.<span class="ident">end</span> <span class="kw">as</span> <span class="ident">usize</span>)
 			}
 
-			<span class="kw">fn</span> <span class="ident">slice</span>(<span class="self">self</span>, <span class="ident">range</span>: <span class="ident">Range</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
+			<span class="kw">fn</span> <span class="ident">slice</span>(<span class="self">self</span>, <span class="ident">range</span>: <span class="ident">Range</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 			{
 				<span class="ident">Slice</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="ident">range</span>.<span class="ident">start</span> <span class="kw">as</span> <span class="ident">usize</span>, <span class="ident">range</span>.<span class="ident">end</span> <span class="kw">as</span> <span class="ident">usize</span>)
 			}
 		}
 
 		<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">MatrixShape</span><span class="op">&gt;</span>
-		<span class="ident">MatrixSlice</span><span class="op">&lt;</span><span class="ident">RangeFrom</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span><span class="op">&gt;&gt;</span> <span class="kw">for</span>
+		<span class="ident">MatrixSlice</span><span class="op">&lt;</span><span class="ident">RangeFrom</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span>
 		<span class="ident">T</span>
 		{
-			<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_slice</span>(<span class="self">self</span>, <span class="ident">range</span>: <span class="ident">RangeFrom</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
+			<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_slice</span>(<span class="self">self</span>, <span class="ident">range</span>: <span class="ident">RangeFrom</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 			{
 				<span class="kw">let</span> <span class="ident">l</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">len</span>();
 				<span class="ident">Slice</span>::<span class="ident">unsafe_new</span>(<span class="self">self</span>, <span class="ident">range</span>.<span class="ident">start</span> <span class="kw">as</span> <span class="ident">usize</span>, <span class="ident">l</span>)
 			}
 
-			<span class="kw">fn</span> <span class="ident">slice</span>(<span class="self">self</span>, <span class="ident">range</span>: <span class="ident">RangeFrom</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
+			<span class="kw">fn</span> <span class="ident">slice</span>(<span class="self">self</span>, <span class="ident">range</span>: <span class="ident">RangeFrom</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 			{
 				<span class="kw">let</span> <span class="ident">l</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">len</span>();
 				<span class="ident">Slice</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="ident">range</span>.<span class="ident">start</span> <span class="kw">as</span> <span class="ident">usize</span>, <span class="ident">l</span>)
@@ -195,15 +195,15 @@
 		}
 
 		<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">MatrixShape</span><span class="op">&gt;</span>
-		<span class="ident">MatrixSlice</span><span class="op">&lt;</span><span class="ident">RangeTo</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span><span class="op">&gt;&gt;</span> <span class="kw">for</span>
+		<span class="ident">MatrixSlice</span><span class="op">&lt;</span><span class="ident">RangeTo</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span>
 		<span class="ident">T</span>
 		{
-			<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_slice</span>(<span class="self">self</span>, <span class="ident">range</span>: <span class="ident">RangeTo</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
+			<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_slice</span>(<span class="self">self</span>, <span class="ident">range</span>: <span class="ident">RangeTo</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 			{
 				<span class="ident">Slice</span>::<span class="ident">unsafe_new</span>(<span class="self">self</span>, <span class="number">0</span>, <span class="ident">range</span>.<span class="ident">end</span> <span class="kw">as</span> <span class="ident">usize</span>)
 			}
 
-			<span class="kw">fn</span> <span class="ident">slice</span>(<span class="self">self</span>, <span class="ident">range</span>: <span class="ident">RangeTo</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
+			<span class="kw">fn</span> <span class="ident">slice</span>(<span class="self">self</span>, <span class="ident">range</span>: <span class="ident">RangeTo</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 			{
 				<span class="ident">Slice</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="number">0</span>, <span class="ident">range</span>.<span class="ident">end</span> <span class="kw">as</span> <span class="ident">usize</span>)
 			}
@@ -225,30 +225,30 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">MatrixShape</span><span class="op">&gt;</span>
 <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 {
-	<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_new</span>(<span class="ident">base</span>: <span class="ident">T</span>, <span class="ident">start</span>: <span class="ident">usize</span>, <span class="ident">end</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_new</span>(<span class="ident">base</span>: <span class="ident">T</span>, <span class="ident">start</span>: <span class="ident">usize</span>, <span class="ident">end</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 	{
 		<span class="ident">Slice</span>{ <span class="ident">base</span>: <span class="ident">base</span>, <span class="ident">start</span>: <span class="ident">start</span>, <span class="ident">end</span>: <span class="ident">end</span> }
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">base</span>: <span class="ident">T</span>, <span class="ident">start</span>: <span class="ident">usize</span>, <span class="ident">end</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">base</span>: <span class="ident">T</span>, <span class="ident">start</span>: <span class="ident">usize</span>, <span class="ident">end</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 	{
-		<span class="macro">assert</span><span class="macro">!</span>(<span class="ident">start</span> <span class="op">&lt;=</span> <span class="ident">end</span>);
-		<span class="macro">assert</span><span class="macro">!</span>(<span class="ident">end</span> <span class="op">&lt;=</span> <span class="ident">base</span>.<span class="ident">len</span>());
+		<span class="macro">assert</span><span class="macro">!</span>(<span class="ident">start</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">end</span>);
+		<span class="macro">assert</span><span class="macro">!</span>(<span class="ident">end</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">base</span>.<span class="ident">len</span>());
 		<span class="ident">Slice</span>{ <span class="ident">base</span>: <span class="ident">base</span>, <span class="ident">start</span>: <span class="ident">start</span>, <span class="ident">end</span>: <span class="ident">end</span> }
 	}
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">MatrixGet</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">MatrixGet</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span><span class="op">&gt;</span>
 <span class="ident">MatrixRawGet</span> <span class="kw">for</span>
 <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 {
-	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">raw_get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">r</span>: <span class="ident">usize</span>, <span class="ident">_c</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="ident">f64</span>
+	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">raw_get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">r</span>: <span class="ident">usize</span>, <span class="ident">_c</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span>
 	{
 		<span class="self">self</span>.<span class="ident">base</span>.<span class="ident">unsafe_get</span>(<span class="ident">r</span> <span class="op">+</span> <span class="self">self</span>.<span class="ident">start</span>)
 	}
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">MatrixSet</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">MatrixSet</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span><span class="op">&gt;</span>
 <span class="ident">MatrixRawSet</span> <span class="kw">for</span>
 <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 {
@@ -262,11 +262,11 @@
 <span class="ident">MatrixShape</span> <span class="kw">for</span>
 <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 {
-	<span class="kw">fn</span> <span class="ident">nrow</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span>
+	<span class="kw">fn</span> <span class="ident">nrow</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span>
 	{
 		<span class="self">self</span>.<span class="ident">end</span> <span class="op">-</span> <span class="self">self</span>.<span class="ident">start</span>
 	}
-	<span class="kw">fn</span> <span class="ident">ncol</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span>
+	<span class="kw">fn</span> <span class="ident">ncol</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span>
 	{
 		<span class="number">1</span>
 	}
@@ -276,9 +276,9 @@
 <span class="ident">SameShape</span> <span class="kw">for</span>
 <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 {
-	<span class="kw">fn</span> <span class="ident">same_shape</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">nrow</span>: <span class="ident">usize</span>, <span class="ident">ncol</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>
+	<span class="kw">fn</span> <span class="ident">same_shape</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">nrow</span>: <span class="ident">usize</span>, <span class="ident">ncol</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>
 	{
-		<span class="self">self</span>.<span class="ident">nrow</span>() <span class="op">==</span> <span class="ident">nrow</span> <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">ncol</span>() <span class="op">==</span> <span class="ident">ncol</span>
+		<span class="self">self</span>.<span class="ident">nrow</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">nrow</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="self">self</span>.<span class="ident">ncol</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">ncol</span>
 	}
 }
 
@@ -286,7 +286,7 @@
 <span class="ident">Clone</span> <span class="kw">for</span>
 <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 {
-	<span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 	{
 		<span class="ident">Slice</span>{ <span class="ident">base</span>: <span class="self">self</span>.<span class="ident">base</span>.<span class="ident">clone</span>(), <span class="ident">start</span>: <span class="self">self</span>.<span class="ident">start</span>, <span class="ident">end</span>: <span class="self">self</span>.<span class="ident">end</span> }
 	}
@@ -296,7 +296,7 @@
 <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span>
 <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 {
-	<span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span>
+	<span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span>
 	{
 		<span class="ident">write_mat</span>(<span class="ident">buf</span>, <span class="self">self</span>)
 	}

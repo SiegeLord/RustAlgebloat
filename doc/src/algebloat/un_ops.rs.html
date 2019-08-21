@@ -279,7 +279,7 @@
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">UnOp</span>
 {
-	<span class="kw">fn</span> <span class="ident">op</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">a</span>: <span class="ident">f64</span>) <span class="op">-&gt;</span> <span class="ident">f64</span>;
+	<span class="kw">fn</span> <span class="ident">op</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">a</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span>;
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
@@ -287,7 +287,7 @@
 <span class="kw">impl</span> <span class="ident">OpNeg</span>
 {
 	<span class="attribute">#[<span class="ident">inline</span>]</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-&gt;</span> <span class="ident">OpNeg</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OpNeg</span>
 	{
 		<span class="ident">OpNeg</span>
 	}
@@ -295,7 +295,7 @@
 <span class="kw">impl</span> <span class="ident">UnOp</span> <span class="kw">for</span> <span class="ident">OpNeg</span>
 {
 	<span class="attribute">#[<span class="ident">inline</span>]</span>
-	<span class="kw">fn</span> <span class="ident">op</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">a</span>: <span class="ident">f64</span>) <span class="op">-&gt;</span> <span class="ident">f64</span>
+	<span class="kw">fn</span> <span class="ident">op</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">a</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span>
 	{
 		<span class="op">-</span><span class="ident">a</span>
 	}
@@ -312,7 +312,7 @@
      <span class="ident">TO</span>: <span class="ident">UnOp</span><span class="op">&gt;</span>
 <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">TA</span>, <span class="ident">TO</span><span class="op">&gt;</span>
 {
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">a</span>: <span class="ident">TA</span>, <span class="ident">o</span>: <span class="ident">TO</span>) <span class="op">-&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">TA</span>, <span class="ident">TO</span><span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">a</span>: <span class="ident">TA</span>, <span class="ident">o</span>: <span class="ident">TO</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">TA</span>, <span class="ident">TO</span><span class="op">&gt;</span>
 	{
 		<span class="ident">MatrixUnOp</span>{ <span class="ident">a</span>: <span class="ident">a</span>, <span class="ident">o</span>: <span class="ident">o</span> }
 	}
@@ -323,7 +323,7 @@
 <span class="ident">Clone</span> <span class="kw">for</span>
 <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">TA</span>, <span class="ident">TO</span><span class="op">&gt;</span>
 {
-	<span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">TA</span>, <span class="ident">TO</span><span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">TA</span>, <span class="ident">TO</span><span class="op">&gt;</span>
 	{
 		<span class="ident">MatrixUnOp</span>{ <span class="ident">a</span>: <span class="self">self</span>.<span class="ident">a</span>.<span class="ident">clone</span>(), <span class="ident">o</span>: <span class="self">self</span>.<span class="ident">o</span>.<span class="ident">clone</span>() }
 	}
@@ -334,7 +334,7 @@
 <span class="ident">MatrixRawGet</span> <span class="kw">for</span>
 <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">TA</span>, <span class="ident">TO</span><span class="op">&gt;</span>
 {
-	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">raw_get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">r</span>: <span class="ident">usize</span>, <span class="ident">c</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="ident">f64</span>
+	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">raw_get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">r</span>: <span class="ident">usize</span>, <span class="ident">c</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span>
 	{
 		<span class="self">self</span>.<span class="ident">o</span>.<span class="ident">op</span>(<span class="self">self</span>.<span class="ident">a</span>.<span class="ident">raw_get</span>(<span class="ident">r</span>, <span class="ident">c</span>))
 	}
@@ -345,12 +345,12 @@
 <span class="ident">MatrixShape</span> <span class="kw">for</span>
 <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">TA</span>, <span class="ident">TO</span><span class="op">&gt;</span>
 {
-	<span class="kw">fn</span> <span class="ident">nrow</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span>
+	<span class="kw">fn</span> <span class="ident">nrow</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span>
 	{
 		<span class="self">self</span>.<span class="ident">a</span>.<span class="ident">nrow</span>()
 	}
 
-	<span class="kw">fn</span> <span class="ident">ncol</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span>
+	<span class="kw">fn</span> <span class="ident">ncol</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span>
 	{
 		<span class="self">self</span>.<span class="ident">a</span>.<span class="ident">ncol</span>()
 	}
@@ -361,9 +361,9 @@
 <span class="ident">SameShape</span> <span class="kw">for</span>
 <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">TA</span>, <span class="ident">TO</span><span class="op">&gt;</span>
 {
-	<span class="kw">fn</span> <span class="ident">same_shape</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">nrow</span>: <span class="ident">usize</span>, <span class="ident">ncol</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>
+	<span class="kw">fn</span> <span class="ident">same_shape</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">nrow</span>: <span class="ident">usize</span>, <span class="ident">ncol</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>
 	{
-		<span class="self">self</span>.<span class="ident">nrow</span>() <span class="op">==</span> <span class="ident">nrow</span> <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">ncol</span>() <span class="op">==</span> <span class="ident">ncol</span>
+		<span class="self">self</span>.<span class="ident">nrow</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">nrow</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="self">self</span>.<span class="ident">ncol</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">ncol</span>
 	}
 }
 
@@ -372,7 +372,7 @@
 <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span>
 <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">TA</span>, <span class="ident">TO</span><span class="op">&gt;</span>
 {
-	<span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span>
+	<span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span>
 	{
 		<span class="ident">write_mat</span>(<span class="ident">buf</span>, <span class="self">self</span>)
 	}
@@ -384,7 +384,7 @@
 <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">TA</span>, <span class="ident">TO</span><span class="op">&gt;</span>
 {
 	<span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">TA</span>, <span class="ident">TO</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>;
-	<span class="kw">fn</span> <span class="ident">neg</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">TA</span>, <span class="ident">TO</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">neg</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">TA</span>, <span class="ident">TO</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>
 	{
 		<span class="ident">MatrixUnOp</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">clone</span>(), <span class="ident">OpNeg</span>::<span class="ident">new</span>())
 	}
@@ -397,7 +397,7 @@
 <span class="ident">MatrixBinOp</span><span class="op">&lt;</span><span class="ident">TA</span>, <span class="ident">TB</span>, <span class="ident">TO</span><span class="op">&gt;</span>
 {
 	<span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">MatrixBinOp</span><span class="op">&lt;</span><span class="ident">TA</span>, <span class="ident">TB</span>, <span class="ident">TO</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>;
-	<span class="kw">fn</span> <span class="ident">neg</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">MatrixBinOp</span><span class="op">&lt;</span><span class="ident">TA</span>, <span class="ident">TB</span>, <span class="ident">TO</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">neg</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">MatrixBinOp</span><span class="op">&lt;</span><span class="ident">TA</span>, <span class="ident">TB</span>, <span class="ident">TO</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>
 	{
 		<span class="ident">MatrixUnOp</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">clone</span>(), <span class="ident">OpNeg</span>::<span class="ident">new</span>())
 	}
@@ -408,7 +408,7 @@
 <span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="ident">Matrix</span>
 {
 	<span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="ident">Matrix</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>;
-	<span class="kw">fn</span> <span class="ident">neg</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="ident">Matrix</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">neg</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;l</span> <span class="ident">Matrix</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>
 	{
 		<span class="ident">MatrixUnOp</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">clone</span>(), <span class="ident">OpNeg</span>::<span class="ident">new</span>())
 	}
@@ -419,7 +419,7 @@
 <span class="ident">RowAccessor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 {
 	<span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">RowAccessor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>;
-	<span class="kw">fn</span> <span class="ident">neg</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">RowAccessor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">neg</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">RowAccessor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>
 	{
 		<span class="ident">MatrixUnOp</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">clone</span>(), <span class="ident">OpNeg</span>::<span class="ident">new</span>())
 	}
@@ -430,7 +430,7 @@
 <span class="ident">ColumnAccessor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 {
 	<span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">ColumnAccessor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>;
-	<span class="kw">fn</span> <span class="ident">neg</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">ColumnAccessor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">neg</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">ColumnAccessor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>
 	{
 		<span class="ident">MatrixUnOp</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">clone</span>(), <span class="ident">OpNeg</span>::<span class="ident">new</span>())
 	}
@@ -441,7 +441,7 @@
 <span class="ident">Transposer</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 {
 	<span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">Transposer</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>;
-	<span class="kw">fn</span> <span class="ident">neg</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">Transposer</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">neg</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">Transposer</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>
 	{
 		<span class="ident">MatrixUnOp</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">clone</span>(), <span class="ident">OpNeg</span>::<span class="ident">new</span>())
 	}
@@ -452,7 +452,7 @@
 <span class="ident">View</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 {
 	<span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">View</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>;
-	<span class="kw">fn</span> <span class="ident">neg</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">View</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">neg</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">View</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>
 	{
 		<span class="ident">MatrixUnOp</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">clone</span>(), <span class="ident">OpNeg</span>::<span class="ident">new</span>())
 	}
@@ -463,7 +463,7 @@
 <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 {
 	<span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>;
-	<span class="kw">fn</span> <span class="ident">neg</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">neg</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>
 	{
 		<span class="ident">MatrixUnOp</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">clone</span>(), <span class="ident">OpNeg</span>::<span class="ident">new</span>())
 	}
@@ -474,7 +474,7 @@
 <span class="ident">Reshape</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 {
 	<span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">Reshape</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>;
-	<span class="kw">fn</span> <span class="ident">neg</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">Reshape</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">neg</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">Reshape</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>
 	{
 		<span class="ident">MatrixUnOp</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">clone</span>(), <span class="ident">OpNeg</span>::<span class="ident">new</span>())
 	}
@@ -486,7 +486,7 @@
 <span class="ident">MatrixMul</span><span class="op">&lt;</span><span class="ident">T1</span>, <span class="ident">T2</span><span class="op">&gt;</span>
 {
 	<span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">MatrixMul</span><span class="op">&lt;</span><span class="ident">T1</span>, <span class="ident">T2</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>;
-	<span class="kw">fn</span> <span class="ident">neg</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">MatrixMul</span><span class="op">&lt;</span><span class="ident">T1</span>, <span class="ident">T2</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">neg</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">MatrixMul</span><span class="op">&lt;</span><span class="ident">T1</span>, <span class="ident">T2</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>
 	{
 		<span class="ident">MatrixUnOp</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">clone</span>(), <span class="ident">OpNeg</span>::<span class="ident">new</span>())
 	}
@@ -498,7 +498,7 @@
 <span class="ident">HStack</span><span class="op">&lt;</span><span class="ident">T1</span>, <span class="ident">T2</span><span class="op">&gt;</span>
 {
 	<span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">HStack</span><span class="op">&lt;</span><span class="ident">T1</span>, <span class="ident">T2</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>;
-	<span class="kw">fn</span> <span class="ident">neg</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">HStack</span><span class="op">&lt;</span><span class="ident">T1</span>, <span class="ident">T2</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">neg</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">HStack</span><span class="op">&lt;</span><span class="ident">T1</span>, <span class="ident">T2</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>
 	{
 		<span class="ident">MatrixUnOp</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">clone</span>(), <span class="ident">OpNeg</span>::<span class="ident">new</span>())
 	}
@@ -510,7 +510,7 @@
 <span class="ident">VStack</span><span class="op">&lt;</span><span class="ident">T1</span>, <span class="ident">T2</span><span class="op">&gt;</span>
 {
 	<span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">VStack</span><span class="op">&lt;</span><span class="ident">T1</span>, <span class="ident">T2</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>;
-	<span class="kw">fn</span> <span class="ident">neg</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">VStack</span><span class="op">&lt;</span><span class="ident">T1</span>, <span class="ident">T2</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">neg</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">VStack</span><span class="op">&lt;</span><span class="ident">T1</span>, <span class="ident">T2</span><span class="op">&gt;</span>, <span class="ident">OpNeg</span><span class="op">&gt;</span>
 	{
 		<span class="ident">MatrixUnOp</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">clone</span>(), <span class="ident">OpNeg</span>::<span class="ident">new</span>())
 	}
