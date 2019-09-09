@@ -6,5 +6,4 @@ implementors["algebloat"] = [{text:"impl&lt;RHS:&nbsp;<a class=\"trait\" href=\"
             } else {
                 window.pending_implementors = implementors;
             }
-        
-})()
+        })()

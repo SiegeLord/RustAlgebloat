@@ -6,5 +6,4 @@ implementors["algebloat"] = [];
             } else {
                 window.pending_implementors = implementors;
             }
-        
-})()
+        })()

@@ -6,5 +6,4 @@ implementors["algebloat"] = [{text:"impl Freeze for <a class=\"struct\" href=\"a
             } else {
                 window.pending_implementors = implementors;
             }
-        
-})()
+        })()
