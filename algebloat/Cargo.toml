@@ -26,4 +26,4 @@ path = "../algebloat_macros"
 
 [dev-dependencies.chrono]
 
-version = "=0.3.1"
+version = "0.4"

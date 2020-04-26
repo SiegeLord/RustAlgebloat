@@ -5,12 +5,12 @@
 extern crate test;
 
 use super::*;
-use chrono::*;
+use chrono::prelude::*;
 
 use self::test::Bencher;
 
 fn rand_matrix() -> Matrix {
-	Matrix::from_iter(1, 10, (0..10).map(|_| UTC::now().timestamp() as f64))
+	Matrix::from_iter(1, 10, (0..10).map(|_| Utc::now().timestamp() as f64))
 }
 
 #[bench]
