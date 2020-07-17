@@ -234,7 +234,7 @@
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MatrixRawGet</span>
 {
-	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">raw_get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">r</span>: <span class="ident">usize</span>, <span class="ident">c</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span>;
+	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">raw_get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">r</span>: <span class="ident">usize</span>, <span class="ident">c</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="ident">f64</span>;
 }
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MatrixRawSet</span>
@@ -244,8 +244,8 @@
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MatrixGet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 {
-	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">idx</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span>;
-	<span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">idx</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span>;
+	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">idx</span>: <span class="ident">T</span>) <span class="op">-&gt;</span> <span class="ident">f64</span>;
+	<span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">idx</span>: <span class="ident">T</span>) <span class="op">-&gt;</span> <span class="ident">f64</span>;
 }
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MatrixSet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
@@ -256,15 +256,15 @@
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MatrixShape</span>
 {
-	<span class="kw">fn</span> <span class="ident">ncol</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span>;
-	<span class="kw">fn</span> <span class="ident">nrow</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span>;
+	<span class="kw">fn</span> <span class="ident">ncol</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span>;
+	<span class="kw">fn</span> <span class="ident">nrow</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span>;
 	<span class="attribute">#[<span class="ident">inline</span>]</span>
-	<span class="kw">fn</span> <span class="ident">size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">usize</span>, <span class="ident">usize</span>)
+	<span class="kw">fn</span> <span class="ident">size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> (<span class="ident">usize</span>, <span class="ident">usize</span>)
 	{
 		(<span class="self">self</span>.<span class="ident">nrow</span>(), <span class="self">self</span>.<span class="ident">ncol</span>())
 	}
 	<span class="attribute">#[<span class="ident">inline</span>]</span>
-	<span class="kw">fn</span> <span class="ident">len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span>
+	<span class="kw">fn</span> <span class="ident">len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span>
 	{
 		<span class="self">self</span>.<span class="ident">nrow</span>() <span class="op">*</span> <span class="self">self</span>.<span class="ident">ncol</span>()
 	}
@@ -273,42 +273,42 @@
 <span class="comment">/* Hack necessary for operator overloading */</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SameShape</span>
 {
-	<span class="kw">fn</span> <span class="ident">same_shape</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">nrow</span>: <span class="ident">usize</span>, <span class="ident">ncol</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
+	<span class="kw">fn</span> <span class="ident">same_shape</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">nrow</span>: <span class="ident">usize</span>, <span class="ident">ncol</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>;
 }
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MatrixTranspose</span> <span class="kw">where</span> <span class="self">Self</span>: <span class="ident">Sized</span>
 {
-	<span class="kw">fn</span> <span class="ident">t</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Transposer</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">t</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Transposer</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MatrixRowAccess</span> <span class="kw">where</span> <span class="self">Self</span>: <span class="ident">Sized</span>
 {
-	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_row</span>(<span class="self">self</span>, <span class="ident">row</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RowAccessor</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
-	<span class="kw">fn</span> <span class="ident">row</span>(<span class="self">self</span>, <span class="ident">row</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RowAccessor</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_row</span>(<span class="self">self</span>, <span class="ident">row</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="ident">RowAccessor</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">row</span>(<span class="self">self</span>, <span class="ident">row</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="ident">RowAccessor</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MatrixColumnAccess</span> <span class="kw">where</span> <span class="self">Self</span>: <span class="ident">Sized</span>
 {
-	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_col</span>(<span class="self">self</span>, <span class="ident">col</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ColumnAccessor</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
-	<span class="kw">fn</span> <span class="ident">col</span>(<span class="self">self</span>, <span class="ident">col</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ColumnAccessor</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_col</span>(<span class="self">self</span>, <span class="ident">col</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="ident">ColumnAccessor</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">col</span>(<span class="self">self</span>, <span class="ident">col</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="ident">ColumnAccessor</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MatrixView</span><span class="op">&lt;</span><span class="ident">RowRangeType</span>, <span class="ident">ColRangeType</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="self">Self</span>: <span class="ident">Sized</span>
 {
-	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_view</span>(<span class="self">self</span>, <span class="ident">row_range</span>: <span class="ident">RowRangeType</span>, <span class="ident">col_range</span>: <span class="ident">ColRangeType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">View</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
-	<span class="kw">fn</span> <span class="ident">view</span>(<span class="self">self</span>, <span class="ident">row_range</span>: <span class="ident">RowRangeType</span>, <span class="ident">col_range</span>: <span class="ident">ColRangeType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">View</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_view</span>(<span class="self">self</span>, <span class="ident">row_range</span>: <span class="ident">RowRangeType</span>, <span class="ident">col_range</span>: <span class="ident">ColRangeType</span>) <span class="op">-&gt;</span> <span class="ident">View</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">view</span>(<span class="self">self</span>, <span class="ident">row_range</span>: <span class="ident">RowRangeType</span>, <span class="ident">col_range</span>: <span class="ident">ColRangeType</span>) <span class="op">-&gt;</span> <span class="ident">View</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MatrixReshape</span> <span class="kw">where</span> <span class="self">Self</span>: <span class="ident">Sized</span>
 {
-	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_reshape</span>(<span class="self">self</span>, <span class="ident">nrow</span>: <span class="ident">usize</span>, <span class="ident">ncol</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Reshape</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
-	<span class="kw">fn</span> <span class="ident">reshape</span>(<span class="self">self</span>, <span class="ident">nrow</span>: <span class="ident">usize</span>, <span class="ident">ncol</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Reshape</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_reshape</span>(<span class="self">self</span>, <span class="ident">nrow</span>: <span class="ident">usize</span>, <span class="ident">ncol</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="ident">Reshape</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">reshape</span>(<span class="self">self</span>, <span class="ident">nrow</span>: <span class="ident">usize</span>, <span class="ident">ncol</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="ident">Reshape</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MatrixSlice</span><span class="op">&lt;</span><span class="ident">RangeType</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="self">Self</span>: <span class="ident">Sized</span>
 {
-	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_slice</span>(<span class="self">self</span>, <span class="ident">range</span>: <span class="ident">RangeType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
-	<span class="kw">fn</span> <span class="ident">slice</span>(<span class="self">self</span>, <span class="ident">range</span>: <span class="ident">RangeType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_slice</span>(<span class="self">self</span>, <span class="ident">range</span>: <span class="ident">RangeType</span>) <span class="op">-&gt;</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">slice</span>(<span class="self">self</span>, <span class="ident">range</span>: <span class="ident">RangeType</span>) <span class="op">-&gt;</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MatrixAssign</span><span class="op">&lt;</span><span class="ident">RHS</span><span class="op">&gt;</span>
@@ -319,52 +319,52 @@
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MatrixMultiply</span><span class="op">&lt;</span><span class="ident">RHS</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="self">Self</span>: <span class="ident">Sized</span>
 {
-	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_mat_mul</span>(<span class="self">self</span>, <span class="ident">rhs</span>: <span class="ident">RHS</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span>;
-	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_mat_mul_lazy</span>(<span class="self">self</span>, <span class="ident">rhs</span>: <span class="ident">RHS</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixMul</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">RHS</span><span class="op">&gt;</span>;
-	<span class="kw">fn</span> <span class="ident">mat_mul</span>(<span class="self">self</span>, <span class="ident">rhs</span>: <span class="ident">RHS</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span>;
-	<span class="kw">fn</span> <span class="ident">mat_mul_lazy</span>(<span class="self">self</span>, <span class="ident">rhs</span>: <span class="ident">RHS</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixMul</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">RHS</span><span class="op">&gt;</span>;
+	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_mat_mul</span>(<span class="self">self</span>, <span class="ident">rhs</span>: <span class="ident">RHS</span>) <span class="op">-&gt;</span> <span class="ident">Matrix</span>;
+	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_mat_mul_lazy</span>(<span class="self">self</span>, <span class="ident">rhs</span>: <span class="ident">RHS</span>) <span class="op">-&gt;</span> <span class="ident">MatrixMul</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">RHS</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">mat_mul</span>(<span class="self">self</span>, <span class="ident">rhs</span>: <span class="ident">RHS</span>) <span class="op">-&gt;</span> <span class="ident">Matrix</span>;
+	<span class="kw">fn</span> <span class="ident">mat_mul_lazy</span>(<span class="self">self</span>, <span class="ident">rhs</span>: <span class="ident">RHS</span>) <span class="op">-&gt;</span> <span class="ident">MatrixMul</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">RHS</span><span class="op">&gt;</span>;
 }
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MatrixHStack</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="self">Self</span>: <span class="ident">Sized</span>
 {
-	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_hstack</span>(<span class="self">self</span>, <span class="ident">right</span>: <span class="ident">R</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HStack</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">R</span><span class="op">&gt;</span>;
-	<span class="kw">fn</span> <span class="ident">hstack</span>(<span class="self">self</span>, <span class="ident">right</span>: <span class="ident">R</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HStack</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">R</span><span class="op">&gt;</span>;
+	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_hstack</span>(<span class="self">self</span>, <span class="ident">right</span>: <span class="ident">R</span>) <span class="op">-&gt;</span> <span class="ident">HStack</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">R</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">hstack</span>(<span class="self">self</span>, <span class="ident">right</span>: <span class="ident">R</span>) <span class="op">-&gt;</span> <span class="ident">HStack</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">R</span><span class="op">&gt;</span>;
 }
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MatrixVStack</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="self">Self</span>: <span class="ident">Sized</span>
 {
-	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_vstack</span>(<span class="self">self</span>, <span class="ident">bot</span>: <span class="ident">B</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">VStack</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">B</span><span class="op">&gt;</span>;
-	<span class="kw">fn</span> <span class="ident">vstack</span>(<span class="self">self</span>, <span class="ident">bot</span>: <span class="ident">B</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">VStack</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">B</span><span class="op">&gt;</span>;
+	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_vstack</span>(<span class="self">self</span>, <span class="ident">bot</span>: <span class="ident">B</span>) <span class="op">-&gt;</span> <span class="ident">VStack</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">B</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">vstack</span>(<span class="self">self</span>, <span class="ident">bot</span>: <span class="ident">B</span>) <span class="op">-&gt;</span> <span class="ident">VStack</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">B</span><span class="op">&gt;</span>;
 }
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MatrixElems</span> <span class="kw">where</span> <span class="self">Self</span>: <span class="ident">Sized</span>
 {
-	<span class="kw">fn</span> <span class="ident">elems</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixElements</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">elems</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">MatrixElements</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ToMatrix</span>
 {
-	<span class="kw">fn</span> <span class="ident">to_mat</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span>;
+	<span class="kw">fn</span> <span class="ident">to_mat</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Matrix</span>;
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">LHS</span>: <span class="ident">MatrixRawGet</span> <span class="op">+</span> <span class="ident">MatrixShape</span>,
-     <span class="ident">T</span>: <span class="ident">MatrixIndexGet</span><span class="op">&lt;</span><span class="ident">LHS</span><span class="op">&gt;</span><span class="op">&gt;</span>
+     <span class="ident">T</span>: <span class="ident">MatrixIndexGet</span><span class="op">&lt;</span><span class="ident">LHS</span><span class="op">&gt;&gt;</span>
 <span class="ident">MatrixGet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span>
 <span class="ident">LHS</span>
 {
-	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">idx</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span>
+	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">idx</span>: <span class="ident">T</span>) <span class="op">-&gt;</span> <span class="ident">f64</span>
 	{
 		<span class="ident">idx</span>.<span class="ident">unsafe_get_idx</span>(<span class="self">self</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">idx</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span>
+	<span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">idx</span>: <span class="ident">T</span>) <span class="op">-&gt;</span> <span class="ident">f64</span>
 	{
 		<span class="ident">idx</span>.<span class="ident">get_idx</span>(<span class="self">self</span>)
 	}
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">LHS</span>: <span class="ident">MatrixRawSet</span> <span class="op">+</span> <span class="ident">MatrixShape</span>,
-     <span class="ident">T</span>: <span class="ident">MatrixIndexSet</span><span class="op">&lt;</span><span class="ident">LHS</span><span class="op">&gt;</span><span class="op">&gt;</span>
+     <span class="ident">T</span>: <span class="ident">MatrixIndexSet</span><span class="op">&lt;</span><span class="ident">LHS</span><span class="op">&gt;&gt;</span>
 <span class="ident">MatrixSet</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span>
 <span class="ident">LHS</span>
 {
@@ -382,7 +382,7 @@
 <span class="comment">//~ impl&lt;LHS: MatrixShape + MatrixRawSet,</span>
      <span class="comment">//~ RHS: MatrixShape + MatrixRawGet&gt;</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">LHS</span>: <span class="ident">MatrixShape</span> <span class="op">+</span> <span class="ident">MatrixRawSet</span> <span class="op">+</span> <span class="ident">MatrixSet</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>,
-     <span class="ident">RHS</span>: <span class="ident">MatrixShape</span> <span class="op">+</span> <span class="ident">MatrixRawGet</span> <span class="op">+</span> <span class="ident">MatrixGet</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span><span class="op">&gt;</span>
+     <span class="ident">RHS</span>: <span class="ident">MatrixShape</span> <span class="op">+</span> <span class="ident">MatrixRawGet</span> <span class="op">+</span> <span class="ident">MatrixGet</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;&gt;</span>
 <span class="ident">MatrixAssign</span><span class="op">&lt;</span><span class="ident">RHS</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">LHS</span>
 {
 	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_assign</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">m</span>: <span class="ident">RHS</span>)
@@ -412,10 +412,10 @@
 	}
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">MatrixShape</span> <span class="op">+</span> <span class="ident">MatrixGet</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span><span class="op">&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">MatrixShape</span> <span class="op">+</span> <span class="ident">MatrixGet</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;&gt;</span>
 <span class="ident">ToMatrix</span> <span class="kw">for</span> <span class="ident">T</span>
 {
-	<span class="kw">fn</span> <span class="ident">to_mat</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span>
+	<span class="kw">fn</span> <span class="ident">to_mat</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Matrix</span>
 	{
 		<span class="ident">Matrix</span>::<span class="ident">from_iter</span>(<span class="self">self</span>.<span class="ident">nrow</span>(), <span class="self">self</span>.<span class="ident">ncol</span>(), <span class="self">self</span>.<span class="ident">elems</span>())
 	}
