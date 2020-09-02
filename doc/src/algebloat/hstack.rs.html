@@ -138,12 +138,12 @@
 <span class="ident">MatrixHStack</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> <span class="kw">for</span>
 <span class="ident">L</span>
 {
-	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_hstack</span>(<span class="self">self</span>, <span class="ident">right</span>: <span class="ident">R</span>) <span class="op">-&gt;</span> <span class="ident">HStack</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">R</span><span class="op">&gt;</span>
+	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_hstack</span>(<span class="self">self</span>, <span class="ident">right</span>: <span class="ident">R</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HStack</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">R</span><span class="op">&gt;</span>
 	{
 		<span class="ident">HStack</span>::<span class="ident">unsafe_new</span>(<span class="self">self</span>, <span class="ident">right</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">hstack</span>(<span class="self">self</span>, <span class="ident">right</span>: <span class="ident">R</span>) <span class="op">-&gt;</span> <span class="ident">HStack</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">R</span><span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">hstack</span>(<span class="self">self</span>, <span class="ident">right</span>: <span class="ident">R</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HStack</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">R</span><span class="op">&gt;</span>
 	{
 		<span class="ident">HStack</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="ident">right</span>)
 	}
@@ -160,12 +160,12 @@
      <span class="ident">R</span>: <span class="ident">MatrixShape</span><span class="op">&gt;</span>
 <span class="ident">HStack</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">R</span><span class="op">&gt;</span>
 {
-	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_new</span>(<span class="ident">left</span>: <span class="ident">L</span>, <span class="ident">right</span>: <span class="ident">R</span>) <span class="op">-&gt;</span> <span class="ident">HStack</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">R</span><span class="op">&gt;</span>
+	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_new</span>(<span class="ident">left</span>: <span class="ident">L</span>, <span class="ident">right</span>: <span class="ident">R</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HStack</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">R</span><span class="op">&gt;</span>
 	{
 		<span class="ident">HStack</span>{ <span class="ident">left</span>: <span class="ident">left</span>, <span class="ident">right</span>: <span class="ident">right</span> }
 	}
 
-	<span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">left</span>: <span class="ident">L</span>, <span class="ident">right</span>: <span class="ident">R</span>) <span class="op">-&gt;</span> <span class="ident">HStack</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">R</span><span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">left</span>: <span class="ident">L</span>, <span class="ident">right</span>: <span class="ident">R</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HStack</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">R</span><span class="op">&gt;</span>
 	{
 		<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">left</span>.<span class="ident">nrow</span>(), <span class="ident">right</span>.<span class="ident">nrow</span>());
 		<span class="ident">HStack</span>{ <span class="ident">left</span>: <span class="ident">left</span>, <span class="ident">right</span>: <span class="ident">right</span> }
@@ -177,7 +177,7 @@
 <span class="ident">MatrixRawGet</span> <span class="kw">for</span>
 <span class="ident">HStack</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">R</span><span class="op">&gt;</span>
 {
-	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">raw_get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">r</span>: <span class="ident">usize</span>, <span class="ident">c</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="ident">f64</span>
+	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">raw_get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">r</span>: <span class="ident">usize</span>, <span class="ident">c</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span>
 	{
 		<span class="kw">if</span> <span class="ident">c</span> <span class="op">&lt;</span> <span class="self">self</span>.<span class="ident">left</span>.<span class="ident">ncol</span>()
 		{
@@ -213,12 +213,12 @@
 <span class="ident">MatrixShape</span> <span class="kw">for</span>
 <span class="ident">HStack</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">R</span><span class="op">&gt;</span>
 {
-	<span class="kw">fn</span> <span class="ident">nrow</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span>
+	<span class="kw">fn</span> <span class="ident">nrow</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span>
 	{
 		<span class="self">self</span>.<span class="ident">left</span>.<span class="ident">nrow</span>()
 	}
 
-	<span class="kw">fn</span> <span class="ident">ncol</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span>
+	<span class="kw">fn</span> <span class="ident">ncol</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span>
 	{
 		<span class="self">self</span>.<span class="ident">left</span>.<span class="ident">ncol</span>() <span class="op">+</span> <span class="self">self</span>.<span class="ident">right</span>.<span class="ident">ncol</span>()
 	}
@@ -229,9 +229,9 @@
 <span class="ident">SameShape</span> <span class="kw">for</span>
 <span class="ident">HStack</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">R</span><span class="op">&gt;</span>
 {
-	<span class="kw">fn</span> <span class="ident">same_shape</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">nrow</span>: <span class="ident">usize</span>, <span class="ident">ncol</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>
+	<span class="kw">fn</span> <span class="ident">same_shape</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">nrow</span>: <span class="ident">usize</span>, <span class="ident">ncol</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>
 	{
-		<span class="self">self</span>.<span class="ident">nrow</span>() <span class="op">==</span> <span class="ident">nrow</span> <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">ncol</span>() <span class="op">==</span> <span class="ident">ncol</span>
+		<span class="self">self</span>.<span class="ident">nrow</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">nrow</span> <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">ncol</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">ncol</span>
 	}
 }
 
@@ -240,7 +240,7 @@
 <span class="ident">Clone</span> <span class="kw">for</span>
 <span class="ident">HStack</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">R</span><span class="op">&gt;</span>
 {
-	<span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">HStack</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">R</span><span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HStack</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">R</span><span class="op">&gt;</span>
 	{
 		<span class="ident">HStack</span>{ <span class="ident">left</span>: <span class="self">self</span>.<span class="ident">left</span>.<span class="ident">clone</span>(), <span class="ident">right</span>: <span class="self">self</span>.<span class="ident">right</span>.<span class="ident">clone</span>() }
 	}
@@ -251,7 +251,7 @@
 <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span>
 <span class="ident">HStack</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">R</span><span class="op">&gt;</span>
 {
-	<span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span>
+	<span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span>
 	{
 		<span class="ident">write_mat</span>(<span class="ident">buf</span>, <span class="self">self</span>)
 	}

@@ -64,7 +64,7 @@
 <span class="ident">MatrixElems</span> <span class="kw">for</span>
 <span class="ident">T</span>
 {
-	<span class="kw">fn</span> <span class="ident">elems</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">MatrixElements</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">elems</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixElements</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 	{
 		<span class="ident">MatrixElements</span>::<span class="ident">new</span>(<span class="self">self</span>)
 	}
@@ -80,7 +80,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">MatrixGet</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">MatrixShape</span><span class="op">&gt;</span>
 <span class="ident">MatrixElements</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 {
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">base</span>: <span class="ident">T</span>) <span class="op">-&gt;</span> <span class="ident">MatrixElements</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">base</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixElements</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 	{
 		<span class="ident">MatrixElements</span>{ <span class="ident">base</span>: <span class="ident">base</span>, <span class="ident">idx</span>: <span class="number">0</span> }
 	}
@@ -91,7 +91,7 @@
 <span class="ident">MatrixElements</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 {
 	<span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">f64</span>;
-	<span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span>
+	<span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span>
 	{
 		<span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">idx</span> <span class="op">&lt;</span> <span class="self">self</span>.<span class="ident">base</span>.<span class="ident">len</span>()
 		{
@@ -104,7 +104,7 @@
 		{
 			<span class="prelude-val">None</span>
 		};
-		<span class="self">self</span>.<span class="ident">idx</span> <span class="op">+=</span> <span class="number">1</span>;
+		<span class="self">self</span>.<span class="ident">idx</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
 		<span class="ident">ret</span>
 	}
 }

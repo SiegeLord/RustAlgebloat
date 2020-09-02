@@ -103,13 +103,13 @@
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">Inv</span> <span class="kw">where</span> <span class="self">Self</span>: <span class="ident">Sized</span>
 {
 	<span class="attribute">#[<span class="ident">inline</span>]</span>
-	<span class="kw">fn</span> <span class="ident">inv</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="self">Self</span>;
+	<span class="kw">fn</span> <span class="ident">inv</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span>;
 }
 
 <span class="kw">impl</span> <span class="ident">Inv</span> <span class="kw">for</span> <span class="ident">f64</span>
 {
 	<span class="attribute">#[<span class="ident">inline</span>]</span>
-	<span class="kw">fn</span> <span class="ident">inv</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">f64</span>
+	<span class="kw">fn</span> <span class="ident">inv</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span>
 	{
 		<span class="number">1.0</span> <span class="op">/</span> <span class="self">self</span>
 	}
@@ -117,7 +117,7 @@
 
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">un_fun</span>
 {
-	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">struct_name</span>: <span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">trait_name</span>: <span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">func_name</span>: <span class="ident">ident</span>) <span class="op">=&gt;</span>
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">struct_name</span>: <span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">trait_name</span>: <span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">func_name</span>: <span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span>
 	{
 		<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
 		<span class="kw">pub</span> <span class="kw">struct</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">struct_name</span>;
@@ -125,7 +125,7 @@
 		<span class="kw">impl</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">struct_name</span>
 		{
 			<span class="attribute">#[<span class="ident">inline</span>]</span>
-			<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">struct_name</span>
+			<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">struct_name</span>
 			{
 				<span class="macro-nonterminal">$</span><span class="macro-nonterminal">struct_name</span>
 			}
@@ -137,7 +137,7 @@
 			<span class="kw">use</span> <span class="kw">super</span>::<span class="ident">Inv</span>;
 
 			<span class="attribute">#[<span class="ident">inline</span>]</span>
-			<span class="kw">pub</span> <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">func_name</span>(<span class="ident">a</span>: <span class="ident">f64</span>) <span class="op">-&gt;</span> <span class="ident">f64</span>
+			<span class="kw">pub</span> <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">func_name</span>(<span class="ident">a</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span>
 			{
 				<span class="ident">a</span>.<span class="macro-nonterminal">$</span><span class="macro-nonterminal">func_name</span>()
 			}
@@ -145,7 +145,7 @@
 
 		<span class="kw">impl</span> <span class="ident">UnOp</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">struct_name</span>
 		{
-			<span class="kw">fn</span> <span class="ident">op</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">a</span>: <span class="ident">f64</span>) <span class="op">-&gt;</span> <span class="ident">f64</span>
+			<span class="kw">fn</span> <span class="ident">op</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">a</span>: <span class="ident">f64</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">f64</span>
 			{
 				<span class="macro-nonterminal">$</span><span class="macro-nonterminal">func_name</span>::<span class="macro-nonterminal">$</span><span class="macro-nonterminal">func_name</span>(<span class="ident">a</span>)
 			}
@@ -153,14 +153,14 @@
 
 		<span class="kw">pub</span> <span class="kw">trait</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">trait_name</span> <span class="kw">where</span> <span class="self">Self</span>: <span class="ident">Sized</span>
 		{
-			<span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">func_name</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">struct_name</span><span class="op">&gt;</span>;
+			<span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">func_name</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">struct_name</span><span class="op">&gt;</span>;
 		}
 
 		<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">MatrixShape</span> <span class="op">+</span> <span class="ident">Clone</span><span class="op">&gt;</span>
 		<span class="macro-nonterminal">$</span><span class="macro-nonterminal">trait_name</span> <span class="kw">for</span>
 		<span class="ident">T</span>
 		{
-			<span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">func_name</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">struct_name</span><span class="op">&gt;</span>
+			<span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">func_name</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixUnOp</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">struct_name</span><span class="op">&gt;</span>
 			{
 				<span class="ident">MatrixUnOp</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">clone</span>(), <span class="macro-nonterminal">$</span><span class="macro-nonterminal">struct_name</span>::<span class="ident">new</span>())
 			}
