@@ -1,0 +1,1 @@
+window.ALL_CRATES = ["algebloat","algebloat_macros","delete_me"];
