@@ -156,7 +156,7 @@
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">lhs</span>: <span class="ident">LHS</span>, <span class="ident">rhs</span>: <span class="ident">RHS</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixMul</span><span class="op">&lt;</span><span class="ident">LHS</span>, <span class="ident">RHS</span><span class="op">&gt;</span>
 	{
-		<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">lhs</span>.<span class="ident">ncol</span>(), <span class="ident">rhs</span>.<span class="ident">nrow</span>());
+		<span class="macro">assert_eq!</span>(<span class="ident">lhs</span>.<span class="ident">ncol</span>(), <span class="ident">rhs</span>.<span class="ident">nrow</span>());
 		<span class="ident">MatrixMul</span>{ <span class="ident">lhs</span>: <span class="ident">lhs</span>, <span class="ident">rhs</span>: <span class="ident">rhs</span> }
 	}
 }

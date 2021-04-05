@@ -161,7 +161,7 @@
 <span class="kw">use</span> <span class="ident">traits</span>::{<span class="ident">MatrixRawGet</span>, <span class="ident">MatrixGet</span>, <span class="ident">MatrixSet</span>, <span class="ident">MatrixRawSet</span>, <span class="ident">MatrixShape</span>, <span class="ident">MatrixSlice</span>, <span class="ident">SameShape</span>};
 <span class="kw">use</span> <span class="ident">matrix</span>::<span class="ident">write_mat</span>;
 
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">slice_impl</span>
+<span class="macro">macro_rules!</span> <span class="ident">slice_impl</span>
 {
 	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span>: <span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span>
 	{
@@ -214,8 +214,8 @@
 	}
 }
 
-<span class="macro">slice_impl</span><span class="macro">!</span>(<span class="ident">usize</span>);
-<span class="macro">slice_impl</span><span class="macro">!</span>(<span class="ident">i32</span>);
+<span class="macro">slice_impl!</span>(<span class="ident">usize</span>);
+<span class="macro">slice_impl!</span>(<span class="ident">i32</span>);
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
@@ -235,8 +235,8 @@
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">base</span>: <span class="ident">T</span>, <span class="ident">start</span>: <span class="ident">usize</span>, <span class="ident">end</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 	{
-		<span class="macro">assert</span><span class="macro">!</span>(<span class="ident">start</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">end</span>);
-		<span class="macro">assert</span><span class="macro">!</span>(<span class="ident">end</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">base</span>.<span class="ident">len</span>());
+		<span class="macro">assert!</span>(<span class="ident">start</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">end</span>);
+		<span class="macro">assert!</span>(<span class="ident">end</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">base</span>.<span class="ident">len</span>());
 		<span class="ident">Slice</span>{ <span class="ident">base</span>: <span class="ident">base</span>, <span class="ident">start</span>: <span class="ident">start</span>, <span class="ident">end</span>: <span class="ident">end</span> }
 	}
 }

@@ -169,7 +169,7 @@
 
 	<span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">left</span>: <span class="ident">L</span>, <span class="ident">right</span>: <span class="ident">R</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HStack</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">R</span><span class="op">&gt;</span>
 	{
-		<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">left</span>.<span class="ident">nrow</span>(), <span class="ident">right</span>.<span class="ident">nrow</span>());
+		<span class="macro">assert_eq!</span>(<span class="ident">left</span>.<span class="ident">nrow</span>(), <span class="ident">right</span>.<span class="ident">nrow</span>());
 		<span class="ident">HStack</span>{ <span class="ident">left</span>: <span class="ident">left</span>, <span class="ident">right</span>: <span class="ident">right</span> }
 	}
 }

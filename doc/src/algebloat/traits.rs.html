@@ -406,8 +406,8 @@
 	
 	<span class="kw">fn</span> <span class="ident">assign</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">m</span>: <span class="ident">RHS</span>)
 	{
-		<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">nrow</span>(), <span class="ident">m</span>.<span class="ident">nrow</span>());
-		<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">ncol</span>(), <span class="ident">m</span>.<span class="ident">ncol</span>());
+		<span class="macro">assert_eq!</span>(<span class="self">self</span>.<span class="ident">nrow</span>(), <span class="ident">m</span>.<span class="ident">nrow</span>());
+		<span class="macro">assert_eq!</span>(<span class="self">self</span>.<span class="ident">ncol</span>(), <span class="ident">m</span>.<span class="ident">ncol</span>());
 		<span class="kw">unsafe</span>
 		{
 			<span class="self">self</span>.<span class="ident">unsafe_assign</span>(<span class="ident">m</span>);

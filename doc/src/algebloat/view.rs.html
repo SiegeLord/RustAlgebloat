@@ -189,7 +189,7 @@
 	<span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">end</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">usize</span>, <span class="ident">usize</span>);
 }
 
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">view_impl</span>
+<span class="macro">macro_rules!</span> <span class="ident">view_impl</span>
 {
 	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">row_range_type</span>: <span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">col_range_type</span>: <span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span>: <span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span>
 	{
@@ -242,20 +242,20 @@
 			}
 		}
 		
-		<span class="macro">view_impl</span><span class="macro">!</span>(<span class="ident">Range</span>,     <span class="ident">Range</span>,     <span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span>);
-		<span class="macro">view_impl</span><span class="macro">!</span>(<span class="ident">RangeFrom</span>, <span class="ident">Range</span>,     <span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span>);
-		<span class="macro">view_impl</span><span class="macro">!</span>(<span class="ident">RangeTo</span>,   <span class="ident">Range</span>,     <span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span>);
-		<span class="macro">view_impl</span><span class="macro">!</span>(<span class="ident">Range</span>,     <span class="ident">RangeFrom</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span>);
-		<span class="macro">view_impl</span><span class="macro">!</span>(<span class="ident">RangeFrom</span>, <span class="ident">RangeFrom</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span>);
-		<span class="macro">view_impl</span><span class="macro">!</span>(<span class="ident">RangeTo</span>,   <span class="ident">RangeFrom</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span>);
-		<span class="macro">view_impl</span><span class="macro">!</span>(<span class="ident">Range</span>,     <span class="ident">RangeTo</span>,   <span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span>);
-		<span class="macro">view_impl</span><span class="macro">!</span>(<span class="ident">RangeFrom</span>, <span class="ident">RangeTo</span>,   <span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span>);
-		<span class="macro">view_impl</span><span class="macro">!</span>(<span class="ident">RangeTo</span>,   <span class="ident">RangeTo</span>,   <span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span>);
+		<span class="macro">view_impl!</span>(<span class="ident">Range</span>,     <span class="ident">Range</span>,     <span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span>);
+		<span class="macro">view_impl!</span>(<span class="ident">RangeFrom</span>, <span class="ident">Range</span>,     <span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span>);
+		<span class="macro">view_impl!</span>(<span class="ident">RangeTo</span>,   <span class="ident">Range</span>,     <span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span>);
+		<span class="macro">view_impl!</span>(<span class="ident">Range</span>,     <span class="ident">RangeFrom</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span>);
+		<span class="macro">view_impl!</span>(<span class="ident">RangeFrom</span>, <span class="ident">RangeFrom</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span>);
+		<span class="macro">view_impl!</span>(<span class="ident">RangeTo</span>,   <span class="ident">RangeFrom</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span>);
+		<span class="macro">view_impl!</span>(<span class="ident">Range</span>,     <span class="ident">RangeTo</span>,   <span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span>);
+		<span class="macro">view_impl!</span>(<span class="ident">RangeFrom</span>, <span class="ident">RangeTo</span>,   <span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span>);
+		<span class="macro">view_impl!</span>(<span class="ident">RangeTo</span>,   <span class="ident">RangeTo</span>,   <span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span>);
 	}
 }
 
-<span class="macro">view_impl</span><span class="macro">!</span>(<span class="ident">usize</span>);
-<span class="macro">view_impl</span><span class="macro">!</span>(<span class="ident">i32</span>);
+<span class="macro">view_impl!</span>(<span class="ident">usize</span>);
+<span class="macro">view_impl!</span>(<span class="ident">i32</span>);
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">View</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
@@ -277,10 +277,10 @@
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">base</span>: <span class="ident">T</span>, <span class="ident">row_start</span>: <span class="ident">usize</span>, <span class="ident">col_start</span>: <span class="ident">usize</span>, <span class="ident">row_end</span>: <span class="ident">usize</span>, <span class="ident">col_end</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">View</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 	{
-		<span class="macro">assert</span><span class="macro">!</span>(<span class="ident">row_start</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">row_end</span>);
-		<span class="macro">assert</span><span class="macro">!</span>(<span class="ident">col_start</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">col_end</span>);
-		<span class="macro">assert</span><span class="macro">!</span>(<span class="ident">row_end</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">base</span>.<span class="ident">nrow</span>());
-		<span class="macro">assert</span><span class="macro">!</span>(<span class="ident">col_end</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">base</span>.<span class="ident">ncol</span>());
+		<span class="macro">assert!</span>(<span class="ident">row_start</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">row_end</span>);
+		<span class="macro">assert!</span>(<span class="ident">col_start</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">col_end</span>);
+		<span class="macro">assert!</span>(<span class="ident">row_end</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">base</span>.<span class="ident">nrow</span>());
+		<span class="macro">assert!</span>(<span class="ident">col_end</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">base</span>.<span class="ident">ncol</span>());
 		<span class="ident">View</span>{ <span class="ident">base</span>: <span class="ident">base</span>, <span class="ident">row_start</span>: <span class="ident">row_start</span>, <span class="ident">col_start</span>: <span class="ident">col_start</span>, <span class="ident">row_end</span>: <span class="ident">row_end</span>, <span class="ident">col_end</span>: <span class="ident">col_end</span> }
 	}
 }

@@ -71,7 +71,7 @@
 <span class="kw">use</span> <span class="ident">bin_ops</span>::{<span class="ident">BinOp</span>, <span class="ident">MatrixBinOp</span>};
 <span class="kw">use</span> <span class="ident">traits</span>::{<span class="ident">SameShape</span>, <span class="ident">MatrixShape</span>};
 
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">bin_fun</span>
+<span class="macro">macro_rules!</span> <span class="ident">bin_fun</span>
 {
 	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">struct_name</span>: <span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">trait_name</span>: <span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">func_name</span>: <span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span>
 	{
@@ -123,9 +123,9 @@
 	}
 }
 
-<span class="macro">bin_fun</span><span class="macro">!</span>(<span class="ident">PowOp</span>, <span class="ident">VectorPowOp</span>, <span class="ident">powf</span>);
-<span class="macro">bin_fun</span><span class="macro">!</span>(<span class="ident">HypotOp</span>, <span class="ident">VectorHypotOp</span>, <span class="ident">hypot</span>);
-<span class="macro">bin_fun</span><span class="macro">!</span>(<span class="ident">Atan2Op</span>, <span class="ident">VectorAtan2Op</span>, <span class="ident">atan2</span>);
+<span class="macro">bin_fun!</span>(<span class="ident">PowOp</span>, <span class="ident">VectorPowOp</span>, <span class="ident">powf</span>);
+<span class="macro">bin_fun!</span>(<span class="ident">HypotOp</span>, <span class="ident">VectorHypotOp</span>, <span class="ident">hypot</span>);
+<span class="macro">bin_fun!</span>(<span class="ident">Atan2Op</span>, <span class="ident">VectorAtan2Op</span>, <span class="ident">atan2</span>);
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="algebloat" data-search-js="../../search-index.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script></body></html>

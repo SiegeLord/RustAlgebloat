@@ -144,7 +144,7 @@
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">base</span>: <span class="ident">T</span>, <span class="ident">col</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ColumnAccessor</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 	{
-		<span class="macro">assert</span><span class="macro">!</span>(<span class="ident">col</span> <span class="op">&lt;</span> <span class="ident">base</span>.<span class="ident">ncol</span>());
+		<span class="macro">assert!</span>(<span class="ident">col</span> <span class="op">&lt;</span> <span class="ident">base</span>.<span class="ident">ncol</span>());
 		<span class="ident">ColumnAccessor</span>{ <span class="ident">base</span>: <span class="ident">base</span>, <span class="ident">col</span>: <span class="ident">col</span> }
 	}
 }
