@@ -130,10 +130,10 @@
 <span id="127">127</span>
 <span id="128">128</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="kw">use</span> <span class="ident">traits</span>::{<span class="ident">MatrixRawGet</span>, <span class="ident">MatrixRawSet</span>, <span class="ident">MatrixShape</span>, <span class="ident">MatrixHStack</span>, <span class="ident">SameShape</span>};
-<span class="kw">use</span> <span class="ident">matrix</span>::<span class="ident">write_mat</span>;
+<span class="kw">use</span> <span class="ident">matrix::write_mat</span>;
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">L</span>: <span class="ident">MatrixShape</span>,
      <span class="ident">R</span>: <span class="ident">MatrixShape</span><span class="op">&gt;</span>
@@ -142,12 +142,12 @@
 {
 	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_hstack</span>(<span class="self">self</span>, <span class="ident">right</span>: <span class="ident">R</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HStack</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">R</span><span class="op">&gt;</span>
 	{
-		<span class="ident">HStack</span>::<span class="ident">unsafe_new</span>(<span class="self">self</span>, <span class="ident">right</span>)
+		<span class="ident">HStack::unsafe_new</span>(<span class="self">self</span>, <span class="ident">right</span>)
 	}
 
 	<span class="kw">fn</span> <span class="ident">hstack</span>(<span class="self">self</span>, <span class="ident">right</span>: <span class="ident">R</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HStack</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">R</span><span class="op">&gt;</span>
 	{
-		<span class="ident">HStack</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="ident">right</span>)
+		<span class="ident">HStack::new</span>(<span class="self">self</span>, <span class="ident">right</span>)
 	}
 }
 
@@ -250,10 +250,10 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">L</span>: <span class="ident">MatrixRawGet</span> <span class="op">+</span> <span class="ident">MatrixShape</span>,
      <span class="ident">R</span>: <span class="ident">MatrixRawGet</span> <span class="op">+</span> <span class="ident">MatrixShape</span><span class="op">&gt;</span>
-<span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span>
+<span class="ident">fmt::Display</span> <span class="kw">for</span>
 <span class="ident">HStack</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">R</span><span class="op">&gt;</span>
 {
-	<span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span>
+	<span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span>
 	{
 		<span class="ident">write_mat</span>(<span class="ident">buf</span>, <span class="self">self</span>)
 	}

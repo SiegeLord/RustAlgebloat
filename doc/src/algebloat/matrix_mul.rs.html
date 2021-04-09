@@ -108,7 +108,7 @@
 <span id="105">105</span>
 <span id="106">106</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="kw">use</span> <span class="ident">traits</span>::{<span class="ident">MatrixRawGet</span>, <span class="ident">MatrixShape</span>, <span class="ident">MatrixMultiply</span>, <span class="ident">ToMatrix</span>};
 <span class="kw">use</span> <span class="ident">matrix</span>::{<span class="ident">Matrix</span>, <span class="ident">write_mat</span>};
@@ -119,22 +119,22 @@
 {
 	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_mat_mul</span>(<span class="self">self</span>, <span class="ident">rhs</span>: <span class="ident">RHS</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span>
 	{
-		<span class="ident">MatrixMul</span>::<span class="ident">unsafe_new</span>(<span class="self">self</span>, <span class="ident">rhs</span>).<span class="ident">to_mat</span>()
+		<span class="ident">MatrixMul::unsafe_new</span>(<span class="self">self</span>, <span class="ident">rhs</span>).<span class="ident">to_mat</span>()
 	}
 
 	<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_mat_mul_lazy</span>(<span class="self">self</span>, <span class="ident">rhs</span>: <span class="ident">RHS</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixMul</span><span class="op">&lt;</span><span class="ident">LHS</span>, <span class="ident">RHS</span><span class="op">&gt;</span>
 	{
-		<span class="ident">MatrixMul</span>::<span class="ident">unsafe_new</span>(<span class="self">self</span>, <span class="ident">rhs</span>)
+		<span class="ident">MatrixMul::unsafe_new</span>(<span class="self">self</span>, <span class="ident">rhs</span>)
 	}
 
 	<span class="kw">fn</span> <span class="ident">mat_mul</span>(<span class="self">self</span>, <span class="ident">rhs</span>: <span class="ident">RHS</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Matrix</span>
 	{
-		<span class="ident">MatrixMul</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="ident">rhs</span>).<span class="ident">to_mat</span>()
+		<span class="ident">MatrixMul::new</span>(<span class="self">self</span>, <span class="ident">rhs</span>).<span class="ident">to_mat</span>()
 	}
 
 	<span class="kw">fn</span> <span class="ident">mat_mul_lazy</span>(<span class="self">self</span>, <span class="ident">rhs</span>: <span class="ident">RHS</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixMul</span><span class="op">&lt;</span><span class="ident">LHS</span>, <span class="ident">RHS</span><span class="op">&gt;</span>
 	{
-		<span class="ident">MatrixMul</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="ident">rhs</span>)
+		<span class="ident">MatrixMul::new</span>(<span class="self">self</span>, <span class="ident">rhs</span>)
 	}
 }
 
@@ -206,10 +206,10 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">LHS</span>: <span class="ident">MatrixRawGet</span> <span class="op">+</span> <span class="ident">MatrixShape</span>,
      <span class="ident">RHS</span>: <span class="ident">MatrixRawGet</span> <span class="op">+</span> <span class="ident">MatrixShape</span><span class="op">&gt;</span>
-<span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span>
+<span class="ident">fmt::Display</span> <span class="kw">for</span>
 <span class="ident">MatrixMul</span><span class="op">&lt;</span><span class="ident">LHS</span>, <span class="ident">RHS</span><span class="op">&gt;</span>
 {
-	<span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span>
+	<span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span>
 	{
 		<span class="ident">write_mat</span>(<span class="ident">buf</span>, <span class="self">self</span>)
 	}

@@ -177,11 +177,11 @@
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="attribute">#![<span class="ident">allow</span>(<span class="ident">trivial_numeric_casts</span>)]</span>
 
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ops</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
+<span class="kw">use</span> <span class="ident">std::ops</span>::<span class="kw-2">*</span>;
 
 <span class="kw">use</span> <span class="ident">traits</span>::{<span class="ident">MatrixRawGet</span>, <span class="ident">MatrixRawSet</span>, <span class="ident">MatrixShape</span>, <span class="ident">MatrixView</span>, <span class="ident">SameShape</span>};
-<span class="kw">use</span> <span class="ident">matrix</span>::<span class="ident">write_mat</span>;
+<span class="kw">use</span> <span class="ident">matrix::write_mat</span>;
 
 <span class="kw">trait</span> <span class="ident">UnwrapRange</span>
 {
@@ -201,14 +201,14 @@
 			{
 				<span class="kw">let</span> (<span class="ident">row_start</span>, <span class="ident">row_end</span>) <span class="op">=</span> <span class="ident">row_range</span>.<span class="ident">get</span>(<span class="self">self</span>.<span class="ident">nrow</span>());
 				<span class="kw">let</span> (<span class="ident">col_start</span>, <span class="ident">col_end</span>) <span class="op">=</span> <span class="ident">col_range</span>.<span class="ident">get</span>(<span class="self">self</span>.<span class="ident">ncol</span>());
-				<span class="ident">View</span>::<span class="ident">unsafe_new</span>(<span class="self">self</span>, <span class="ident">row_start</span>, <span class="ident">col_start</span>, <span class="ident">row_end</span>, <span class="ident">col_end</span>)
+				<span class="ident">View::unsafe_new</span>(<span class="self">self</span>, <span class="ident">row_start</span>, <span class="ident">col_start</span>, <span class="ident">row_end</span>, <span class="ident">col_end</span>)
 			}
 
 			<span class="kw">fn</span> <span class="ident">view</span>(<span class="self">self</span>, <span class="ident">row_range</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">row_range_type</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span><span class="op">&gt;</span>, <span class="ident">col_range</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">col_range_type</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">idx_type</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">View</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 			{
 				<span class="kw">let</span> (<span class="ident">row_start</span>, <span class="ident">row_end</span>) <span class="op">=</span> <span class="ident">row_range</span>.<span class="ident">get</span>(<span class="self">self</span>.<span class="ident">nrow</span>());
 				<span class="kw">let</span> (<span class="ident">col_start</span>, <span class="ident">col_end</span>) <span class="op">=</span> <span class="ident">col_range</span>.<span class="ident">get</span>(<span class="self">self</span>.<span class="ident">ncol</span>());
-				<span class="ident">View</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="ident">row_start</span>, <span class="ident">col_start</span>, <span class="ident">row_end</span>, <span class="ident">col_end</span>)
+				<span class="ident">View::new</span>(<span class="self">self</span>, <span class="ident">row_start</span>, <span class="ident">col_start</span>, <span class="ident">row_end</span>, <span class="ident">col_end</span>)
 			}
 		}
 	};
@@ -340,10 +340,10 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">MatrixRawGet</span> <span class="op">+</span> <span class="ident">MatrixShape</span><span class="op">&gt;</span>
-<span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span>
+<span class="ident">fmt::Display</span> <span class="kw">for</span>
 <span class="ident">View</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
 {
-	<span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span>
+	<span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span>
 	{
 		<span class="ident">write_mat</span>(<span class="ident">buf</span>, <span class="self">self</span>)
 	}

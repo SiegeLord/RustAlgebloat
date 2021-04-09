@@ -117,7 +117,7 @@
 		{
 			<span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">func_name</span>(<span class="self">self</span>, <span class="ident">rhs</span>: <span class="ident">RHS</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MatrixBinOp</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">RHS</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">struct_name</span><span class="op">&gt;</span>
 			{
-				<span class="ident">MatrixBinOp</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">clone</span>(), <span class="ident">rhs</span>.<span class="ident">clone</span>(), <span class="macro-nonterminal">$</span><span class="macro-nonterminal">struct_name</span>::<span class="ident">new</span>())
+				<span class="ident">MatrixBinOp::new</span>(<span class="self">self</span>.<span class="ident">clone</span>(), <span class="ident">rhs</span>.<span class="ident">clone</span>(), <span class="macro-nonterminal">$</span><span class="macro-nonterminal">struct_name::new</span>())
 			}
 		}
 	}
